@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 import javax.swing.JOptionPane;
 
 public class MejaKursi extends BarangNonMakanan implements Interactable {
@@ -13,8 +13,8 @@ public class MejaKursi extends BarangNonMakanan implements Interactable {
     public void aksi(Sim sim) {
         BarangMakanan makanan;
         // Ambil makanan dari inventory
-        sim.getStatus().increaseKekenyangan(makanan.getKekenyangan());
-        sim.addAction(getNamaAksi());
+        // sim.getStatus().increaseKekenyangan(makanan.getKekenyangan());
+        // sim.addAction(getNamaAksi());
         // Lanjut
     }
 }

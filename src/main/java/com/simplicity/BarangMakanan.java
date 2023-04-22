@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 
 public class BarangMakanan extends Barang {
     private int kekenyangan;

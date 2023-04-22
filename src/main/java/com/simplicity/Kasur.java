@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 import javax.swing.JOptionPane;
 
 public class Kasur extends BarangNonMakanan implements Interactable {

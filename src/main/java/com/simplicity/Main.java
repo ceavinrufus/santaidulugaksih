@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 import java.io.IOException;
 import java.util.*;
 

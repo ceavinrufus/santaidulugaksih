@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 import java.util.*;
 
 public class Sim {

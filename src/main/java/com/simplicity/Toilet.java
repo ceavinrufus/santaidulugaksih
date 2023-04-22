@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 import javax.swing.JOptionPane;
 
 public class Toilet extends BarangNonMakanan implements Interactable {

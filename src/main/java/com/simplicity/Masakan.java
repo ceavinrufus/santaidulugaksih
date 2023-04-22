@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 
 public class Masakan extends BarangMakanan {
     private BahanMakanan[] bahan;

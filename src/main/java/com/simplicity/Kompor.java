@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 
 public class Kompor extends BarangNonMakanan implements Interactable {
     public Kompor(String nama, int panjang, int lebar, int harga) {

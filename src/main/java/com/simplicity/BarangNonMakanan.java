@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 
 public abstract class BarangNonMakanan extends Barang {
     private int panjang;

@@ -1,4 +1,4 @@
-package com.thesims;
+package com.simplicity;
 
 public abstract class Barang {
     private String nama;
