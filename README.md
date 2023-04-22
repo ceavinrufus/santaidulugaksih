@@ -1,4 +1,4 @@
-# Tugas Besar IF2111 (Program Sim-Plicity)
+# Tugas Besar IF2212 (Program Sim-Plicity)
 
 ```
                               @
@@ -32,7 +32,7 @@
 
 ## Deskripsi Program
 
-BNMO merupakan sebuah permainan berbasis CLI yang dibuat menggunakan bahasa pemrograman C. Beberapa kegunaan dari BNMO antara lain memainkan game, menambahkan game, menghapus game, dan mengurutkan game yang akan dimainkan.
+Program ini berisi permainan berbasis Command Line Interface (CLI) bernama Sim-Plicity menggunakan bahasa pemrograman Java
 
 ## Pre-requisite
 
