@@ -4,7 +4,6 @@ public abstract class BarangNonMakanan extends Barang {
     private int panjang;
     private int lebar;
     private int harga;
-    private Aksi aksi;
     private Point lokasi;
 
     public BarangNonMakanan(String nama, int panjang, int lebar, int harga) {
@@ -12,7 +11,6 @@ public abstract class BarangNonMakanan extends Barang {
         this.panjang = panjang;
         this.lebar = lebar;
         this.harga = harga;
-        aksi = new Aksi();  // Belom liat implementasinya gimana
         lokasi = null;
     }
 

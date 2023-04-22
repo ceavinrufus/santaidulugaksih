@@ -11,8 +11,8 @@ plugins {
 
 apply plugin: 'application'
 
-mainClassName = 'com.thesims.Main'      // CLI
-// mainClassName = 'com.thesims.TheSims'   // GUI
+// mainClassName = 'com.thesims.Main'      // CLI
+mainClassName = 'com.thesims.TheSims'   // GUI
 
 group 'com.thesims'
 // version '1.0-SNAPSHOT'

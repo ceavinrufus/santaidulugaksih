@@ -1,8 +1,5 @@
 package com.thesims;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 public class Sim {
     private String namaLengkap;
