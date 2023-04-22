@@ -24,4 +24,8 @@ public class Sim {
         // currentLocation
         currentHouse = new Rumah();
     }
+
+    public void interact(Interactable barang){
+        barang.aksi(this);
+    }
 }
