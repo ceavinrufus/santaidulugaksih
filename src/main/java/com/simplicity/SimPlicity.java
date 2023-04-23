@@ -142,13 +142,30 @@ public class SimPlicity extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        
         // displayHouse = true; // Buat ngetes doang
         // displayWorld = false; // Buat ngetes doang
+        BufferedImage pattern = null;
+        try {
+            pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
+        } catch (IOException e) {
+            System.out.println("Error loading background image");
+        }
         if (displayWorld) {
-            World.paint(g, getWidth(), getHeight());
+            if (pattern != null) {
+                int patternWidth = pattern.getWidth(null);
+                int patternHeight = pattern.getHeight(null);
+                for (int x = 0; x < getWidth(); x += patternWidth) {
+                    for (int y = 0; y < getHeight(); y += patternHeight) {
+                        g.drawImage(pattern, x, y, null);
+                    }
+                }
+            }
+            World.getInstance().paint(g, getWidth(), getHeight());
         }
         if (displayHouse) {
-            House.paint(g, getWidth(), getHeight());
+            Rumah rumahDummy = new Rumah(new Sim("", new ArrayList<Pekerjaan>()));
+            rumahDummy.paint(g, getWidth(), getHeight());
         }
     }
 
