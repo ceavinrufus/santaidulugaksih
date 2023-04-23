@@ -3,19 +3,6 @@ package com.thesims;
 import java.util.*;
 
 public class World {
-    /*
-     * World adalah dunia virtual tempat setiap Sim bisa bergerak dan berinteraksi
-     * dengan objek-objek yang telah dibuat. World berbentuk 2 dimensi, dengan
-     * ukuran total yang ditentukan dari panjang dan lebar dari World itu sendiri.
-     * Di dalam world, akan ada rumah-rumah yang bisa dikunjungi.
-     * 
-     * World memiliki panjang, lebar, serta daftar apa saja rumah yang ada di dunia
-     * tersebut.
-     * 
-     * Rumah ukurannya cuman 1x1 di koordinat world, untuk lokasi dari rumah
-     * dibebaskan mau inputan user atau otomatis
-     * 
-     */
 
     int panjang;
     int lebar;
@@ -35,6 +22,22 @@ public class World {
         daftarRumah = new HashMap<>();
     }
 
+    public int getPanjang() {
+        return panjang;
+    }
+
+    public int getLebar() {
+        return lebar;
+    }
+
+    public List<List<Boolean>> getLahanKosong() {
+        return lahanKosong;
+    }
+
+    public Map<Point, Rumah> getDaftarRumah() {
+        return daftarRumah;
+    }
+
     public void addRumah(Rumah rumah) {
         if (daftarRumah.containsKey(rumah.getLokasi())) {
             System.out.println("Rumah sudah ada di lokasi tersebut");
@@ -50,19 +53,6 @@ public class World {
             lahanKosong.get(rumah.getLokasi().getX()).set(rumah.getLokasi().getY(), true);
         } else {
             System.out.println("Rumah tidak ada di lokasi tersebut");
-        }
-    }
-
-    public void printWorld() {
-        for (int i = 0; i < panjang; i++) {
-            for (int j = 0; j < lebar; j++) {
-                if (lahanKosong.get(i).get(j)) {
-                    System.out.print("O");
-                } else {
-                    System.out.print("X");
-                }
-            }
-            System.out.println();
         }
     }
 }

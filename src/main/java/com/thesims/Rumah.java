@@ -37,40 +37,5 @@ public class Rumah {
     }
 
     public void addRuangan(Ruangan ruangan) {
-        if ((ruangan.getPosisi()).isEqual("Atas")) {
-            if (daftarRuangan.get(0).get(0).getAtas() == null) {
-                daftarRuangan.get(0).get(0).setAtas(ruangan);
-                ruangan.setBawah(daftarRuangan.get(0).get(0));
-                daftarRuangan.get(0).add(0, ruangan);
-            } else {
-                System.out.println("Ruangan atas sudah ada");
-            }
-        } else if ((ruangan.getPosisi()).isEqual("Bawah")) {
-            if (daftarRuangan.get(0).get(0).getBawah() == null) {
-                daftarRuangan.get(0).get(0).setBawah(ruangan);
-                ruangan.setAtas(daftarRuangan.get(0).get(0));
-                daftarRuangan.get(0).add(ruangan);
-            } else {
-                System.out.println("Ruangan bawah sudah ada");
-            }
-        } else if ((ruangan.getPosisi()).isEqual("Kanan")) {
-            if (daftarRuangan.get(0).get(0).getKanan() == null) {
-                daftarRuangan.get(0).get(0).setKanan(ruangan);
-                ruangan.setKiri(daftarRuangan.get(0).get(0));
-                daftarRuangan.get(0).add(ruangan);
-            } else {
-                System.out.println("Ruangan kanan sudah ada");
-            }
-        } else if ((ruangan.getPosisi()).isEqual("Kiri")) {
-            if (daftarRuangan.get(0).get(0).getKiri() == null) {
-                daftarRuangan.get(0).get(0).setKiri(ruangan);
-                ruangan.setKanan(daftarRuangan.get(0).get(0));
-                daftarRuangan.get(0).add(0, ruangan);
-            } else {
-                System.out.println("Ruangan kiri sudah ada");
-            }
-        } else {
-            System.out.println("Posisi ruangan tidak valid");
-        }
     }
 }
