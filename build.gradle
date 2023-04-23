@@ -11,10 +11,11 @@ plugins {
 
 apply plugin: 'application'
 
-// mainClassName = 'com.thesims.Main'      // CLI
-mainClassName = 'com.thesims.TheSims'   // GUI
+// Comment salah satu
+// mainClassName = 'com.simplicity.Main'      // No GUI
+mainClassName = 'com.simplicity.SimPlicity'   // GUI
 
-group 'com.thesims'
+group 'com.simplicity'
 // version '1.0-SNAPSHOT'
 
 repositories {
