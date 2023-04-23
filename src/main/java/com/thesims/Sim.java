@@ -1,4 +1,5 @@
 package com.thesims;
+
 import java.util.*;
 
 public class Sim {
@@ -23,5 +24,9 @@ public class Sim {
         isLibur = false;
         // currentLocation
         currentHouse = new Rumah();
+    }
+
+    public String getNamaLengkap() {
+        return namaLengkap;
     }
 }
