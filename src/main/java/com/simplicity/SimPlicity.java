@@ -15,7 +15,8 @@ public class SimPlicity extends JFrame {
     private KeyListener keyListener;
     private BufferedImage icon;
     private JLabel backgroundLabel;
-    private boolean displayGrid = false;
+    private boolean displayWorld = false;
+    private boolean displayHouse = false;
     private int xOffset;
     private int yOffset;
 
@@ -46,7 +47,7 @@ public class SimPlicity extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    displayGrid = true;
+                    displayWorld = true;
                     repaint();
                     removeKeyListener(this);
                     displayGameMenu();
@@ -92,7 +93,7 @@ public class SimPlicity extends JFrame {
                 case "Change Sim":
                     break;
                 case "Exit":
-                    displayGrid = false;
+                    displayWorld = false;
                     addKeyListener(keyListener);
                     repaint();
                     break;
@@ -138,97 +139,16 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    // Buat Gambar Koordinat di Map
-    private void paintGrid(Graphics g){
-        int width = getWidth() - 64;
-        int height = getHeight() - 64;
-        float aspectRatio = (float) width / height;
-        float gridSize = Math.min(width, height) / 64f;
-        float xCenter = 32f * gridSize;
-        float yCenter = 32f * gridSize;
-        float xOffset = 32f;
-        float yOffset = 32f;
-        if (aspectRatio > 1f) {
-            // wide screen, align grid to vertical center
-            gridSize = height / 64f;
-            xCenter = width / 2f;
-            yCenter = 32f * gridSize;
-            yOffset += (height - 64f * gridSize) / 2f;
-        } else if (aspectRatio < 1f) {
-            // narrow screen, align grid to horizontal center
-            gridSize = width / 64f;
-            xCenter = 32f * gridSize;
-            yCenter = height / 2f;
-            xOffset += (width - 64f * gridSize) / 2f;
-        }
-
-        // Set the color to green and fill a rectangle that covers the entire grid area
-        Color gridBg = new Color(255, 255, 255, 90);
-        for (int x = 0; x < 64; x++) {
-            for (int y = 0; y < 64; y++) {
-                float cellX = xOffset + (x - 32f) * gridSize + xCenter;
-                float cellY = yOffset + (y - 32f) * gridSize + yCenter;
-                g.setColor(gridBg);
-                g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
-            }
-        }
-        
-        for (int x = 0; x < 64; x++) {
-            for (int y = 0; y < 64; y++) {
-                float cellX = xOffset + (x - 32f) * gridSize + xCenter;
-                float cellY = yOffset + (y - 32f) * gridSize + yCenter;
-                g.setColor(Color.BLACK);
-                g.drawRect((int) cellX, (int) cellY, (int) gridSize, (int) gridSize);
-            }
-        }
-    }
-
-    private void paintGrass(Graphics g) {
-        BufferedImage pattern = null;
-        try {
-            pattern = ImageIO.read(new File("src/main/java/resources/images/grass.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        // Calculate grid position and size
-        int gridWidth = 64;
-        int gridHeight = 64;
-        int gridSize = Math.min(getWidth(), getHeight()) / gridWidth;
-        int gridX = (getWidth() - gridSize * gridWidth) / 2;
-        int gridY = (getHeight() - gridSize * gridHeight) / 2;
-
-        // Draw background image only for the region behind the grid
-        g.drawImage(pattern, gridX, gridY, gridSize * gridWidth, gridSize * gridHeight, null);
-    }
-
-    private void paintSea(Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
-        BufferedImage pattern = null;
-        try {
-            pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (pattern != null) {
-            int patternWidth = pattern.getWidth(null);
-            int patternHeight = pattern.getHeight(null);
-            for (int x = 0; x < width; x += patternWidth) {
-                for (int y = 0; y < height; y += patternHeight) {
-                    g.drawImage(pattern, x, y, null);
-                }
-            }
-        }
-    }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (displayGrid){
-            paintSea(g);
-            paintGrass(g);
-            paintGrid(g);
+        // displayHouse = true; // Buat ngetes doang
+        // displayWorld = false; // Buat ngetes doang
+        if (displayWorld) {
+            World.paint(g, getWidth(), getHeight());
+        }
+        if (displayHouse) {
+            House.paint(g, getWidth(), getHeight());
         }
     }
 
