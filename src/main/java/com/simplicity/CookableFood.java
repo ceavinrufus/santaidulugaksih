@@ -10,25 +10,26 @@ public enum CookableFood implements Eatable {
     KACANG("Kacang", 2, 2),
     SUSU("Susu", 2, 1);
     
-    private String namaMakanan;
+    private String nama;
     private int harga;
     private int kekenyangan;
 
-    private CookableFood(String namaMakanan, int harga, int kekenyangan) {
-        this.namaMakanan = namaMakanan;
+    private CookableFood(String nama, int harga, int kekenyangan) {
+        this.nama = nama;
         this.harga = harga;
         this.kekenyangan = kekenyangan;
     }
 
-    public String getNamaMakanan(){
-        return namaMakanan;
-    }
-
-    public int getKekenyangan(){
-        return kekenyangan;
+    public String getNama(){
+        return nama;
     }
 
     public int getHarga(){
         return harga;
+    }
+
+    @Override
+    public int getKekenyangan(){
+        return kekenyangan;
     }
 }

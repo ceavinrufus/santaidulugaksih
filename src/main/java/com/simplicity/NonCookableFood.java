@@ -7,24 +7,25 @@ public enum NonCookableFood implements Eatable {
     TUMIS_SAYUR("Tumis Sayur", "Wortel,Bayam", 5),
     BISTIK("Bistik", "Kentang,Sapi", 22);
     
-    private String namaMakanan;
+    private String nama;
     private String[] resep;
     private int kekenyangan;
 
-    private NonCookableFood(String namaMakanan, String resep, int kekenyangan) {
-        this.namaMakanan = namaMakanan;
+    private NonCookableFood(String nama, String resep, int kekenyangan) {
+        this.nama = nama;
         this.resep = resep.split(",");
         this.kekenyangan = kekenyangan;
     }
 
-    public String getNamaMakanan(){
-        return namaMakanan;
+    public String getNama(){
+        return nama;
     }
 
     public String[] getResep(){
         return resep;
     }
 
+    @Override
     public int getKekenyangan(){
         return kekenyangan;
     }
