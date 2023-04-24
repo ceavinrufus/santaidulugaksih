@@ -108,10 +108,18 @@ public class Sim {
 
     public void kerja(int workingTime) {
         if (changeJobTime >= 720 && workingTime % 120 == 0) {
-            // set kekenyangan
-            // set mood
+            stats.kurangKekenyangan(workingTime / 30 * 10);
+            stats.kurangMood(workingTime / 30 * 10);
             totalWorkTime += workingTime;
             uang += pekerjaan.getGaji() / 240 * workingTime;
+        }
+    }
+
+    public void olahraga(int workoutTime) {
+        if (workoutTime % 20 == 0) {
+            stats.tambahKesehatan(workoutTime / 20 * 5);
+            stats.kurangKekenyangan(workoutTime / 20 * 5);
+            stats.tambahMood(workoutTime / 20 * 10);
         }
     }
 
