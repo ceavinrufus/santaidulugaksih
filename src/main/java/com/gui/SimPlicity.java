@@ -93,9 +93,9 @@ public class SimPlicity extends JFrame {
                 case "View Sim Info":
                     String message = "Nama: " + currentSim.getNamaLengkap() + "\n" +
                             "Pekerjaan: " + currentSim.getPekerjaan() + "\n" +
-                            // "Kesehatan: " + currentSim.getStatus().getKesehatan() + "\n" +
-                            // "Kekenyangan: " + currentSim.getStatus().getKekenyangan() + "\n" +
-                            // "Mood: " + currentSim.getStatus().getMood() + "\n" +
+                            // "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
+                            // "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
+                            // "Mood: " + currentSim.getStats().getMood() + "\n" +
                             "Uang: " + currentSim.getUang();
 
                     JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
