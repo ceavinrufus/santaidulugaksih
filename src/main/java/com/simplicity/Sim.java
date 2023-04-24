@@ -34,10 +34,6 @@ public class Sim {
         return pekerjaan.getNama();
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
     public void setPekerjaan(Pekerjaan pekerjaan) {
         if (totalWorkTime >= 720) {
             this.pekerjaan = pekerjaan;
@@ -45,6 +41,10 @@ public class Sim {
             totalWorkTime = 0;
             changeJobTime = 0;
         }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public double getUang() {
@@ -59,7 +59,7 @@ public class Sim {
         return stats;
     }
 
-    public void set(Stats stats) {
+    public void setStats(Stats stats) {
         this.stats = stats;
     }
 
