@@ -13,10 +13,11 @@ public class Sim {
     private Rumah rumah;
     private SimPosition currentPosition;
 
-    public Sim(String namaLengkap, ArrayList<Pekerjaan> listPekerjaan) {
+    public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
-        // Collections.shuffle(listPekerjaan);
-        // this.pekerjaan = listPekerjaan.get(0);
+        List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());
+        Collections.shuffle(listPekerjaan);
+        this.pekerjaan = listPekerjaan.get(0);
         // currentLocation
         rumah = new Rumah(this);
         Ruangan ruang = rumah.getPeta().getElement(0, 0);
