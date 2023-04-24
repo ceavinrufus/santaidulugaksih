@@ -20,10 +20,11 @@ public class Rumah {
 
     private Sim pemilik;
     private Peta<Ruangan> petaRuangan = new Peta<Ruangan>(1, 1);
+    private int jumlahRuangan = 1;
 
     public Rumah(Sim pemilik) {
         this.pemilik = pemilik;
-        petaRuangan.setElement(0, 0, new Ruangan());
+        petaRuangan.setElement(0, 0, new Ruangan(jumlahRuangan));
     }
 
     public Sim getPemilik() {
