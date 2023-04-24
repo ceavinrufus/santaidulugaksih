@@ -4,14 +4,16 @@ import java.util.*;
 public class Sim {
     private String namaLengkap;
     private Pekerjaan pekerjaan;
-    private int uang = 100;
+    private double uang = 100;
     private Inventory inventory = new Inventory();
     private ArrayList<String> currentActions = new ArrayList<String>();
-    private Stats status = new Stats();
+    private Stats stats = new Stats();
     private boolean isLibur = false;
     private Point currentLocation;
     private Rumah rumah;
     private SimPosition currentPosition;
+    private int totalWorkTime = 0;
+    private int changeJobTime = 720;
 
     private class SimPosition {
         private Rumah rumah;
@@ -67,9 +69,16 @@ public class Sim {
         return pekerjaan.getNama();
     }
 
-    // public void setPekerjaan()
+    public void setPekerjaan(Pekerjaan pekerjaan) {
+        if (totalWorkTime >= 720) {
+            this.pekerjaan = pekerjaan;
+            uang -= pekerjaan.getGaji() * 0.5;
+            totalWorkTime = 0;
+            changeJobTime = 0;
+        }
+    }
 
-    public int getUang() {
+    public double getUang() {
         return uang;
     }
 
@@ -77,12 +86,12 @@ public class Sim {
         this.uang = uang;
     }
 
-    public Stats getStatus() {
-        return status;
+    public Stats getStats() {
+        return stats;
     }
 
-    public void setStatus(Stats status) {
-        this.status = status;
+    public void set(Stats stats) {
+        this.stats = stats;
     }
 
     public SimPosition getCurrentPosition() {
@@ -91,6 +100,15 @@ public class Sim {
 
     public void setCurrentPosition(SimPosition currentPosition) {
         this.currentPosition = currentPosition;
+    }
+
+    public void kerja(int workingTime) {
+        if (changeJobTime >= 720 && workingTime % 120 == 0) {
+            // set kekenyangan
+            // set mood
+            totalWorkTime += workingTime;
+            uang += pekerjaan.getGaji() / 240 * workingTime;
+        }
     }
 
     public void interact(Furniture Furniture){
