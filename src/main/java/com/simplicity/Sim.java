@@ -10,12 +10,16 @@ public class Sim {
     private Stats status = new Stats();
     private boolean isLibur = false;
     private Point currentLocation;
+    private SimPosition currentPosition;
 
     public Sim(String namaLengkap, ArrayList<Pekerjaan> listPekerjaan) {
         this.namaLengkap = namaLengkap;
         // Collections.shuffle(listPekerjaan);
         // this.pekerjaan = listPekerjaan.get(0);
         // currentLocation
+        Rumah rumah = new Rumah(this);
+        Ruangan ruang = rumah.getPeta().getElement(0, 0);
+        currentPosition = new SimPosition(rumah, ruang); 
     }
 
     public void interact(Interactable barang){

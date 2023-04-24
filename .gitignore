@@ -4,4 +4,5 @@
 # Ignore Gradle build output directory
 build
 
-bin/main/com/simplicity
+# bin\main\com\simplicity\*.class
+*.class
