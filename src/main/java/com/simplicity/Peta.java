@@ -22,7 +22,7 @@ public class Peta<T> {
         if (rowIndex < 0 || rowIndex >= matriks.size() || colIndex < 0 || colIndex >= matriks.get(0).size()) {
             throw new IndexOutOfBoundsException("Invalid matrix index");
         }
-        matriks.get(getRow() - rowIndex - 1).set(colIndex, element);
+        matriks.get(rowIndex).set(colIndex, element);
     }
 
     public T getElement(int colIndex, int rowIndex) {

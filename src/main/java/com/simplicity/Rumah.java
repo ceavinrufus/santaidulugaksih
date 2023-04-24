@@ -84,7 +84,7 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
-                if (petaRuangan.getElement(x / 6, y / 6) == null) { // Ini contoh kalau misal ada rumah di titik (0, 0)
+                if (petaRuangan.getElement(x / 6, (row - y - 1) / 6) == null) { // Ini contoh kalau misal ada rumah di titik (0, 0)
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
