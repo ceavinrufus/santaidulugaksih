@@ -164,7 +164,7 @@ public class SimPlicity extends JFrame {
             World.getInstance().paint(g, getWidth(), getHeight());
         }
         if (displayHouse) {
-            Rumah rumahDummy = new Rumah(new Sim("", new ArrayList<Pekerjaan>()));
+            Rumah rumahDummy = new Rumah(new Sim("Dummy"));
             rumahDummy.paint(g, getWidth(), getHeight());
         }
     }

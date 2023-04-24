@@ -1,17 +1,22 @@
 package com.simplicity;
 import javax.swing.JOptionPane;
 
-public class MejaKursi extends BarangNonMakanan implements Interactable {
-    public MejaKursi(String nama, int panjang, int lebar, int harga) {
-        super(nama, panjang, lebar, harga);
+public class MejaKursi extends Furniture {
+    public MejaKursi() {
+        super("Meja dan Kursi");
+        this.panjang = 3;
+        this.lebar = 3;
+        this.harga = 50;
     }
 
+    @Override
     public String getNamaAksi() {
         return "Makan";
     }
 
+    @Override
     public void aksi(Sim sim) {
-        BarangMakanan makanan;
+        Eatable makanan;
         // Ambil makanan dari inventory
         // sim.getStatus().increaseKekenyangan(makanan.getKekenyangan());
         // sim.addAction(getNamaAksi());

@@ -3,14 +3,14 @@ package com.simplicity;
 public class Ruangan {
     private String namaRuangan;
     private int noRuang;
-    private Peta<BarangNonMakanan> petaBarang = new Peta<BarangNonMakanan>(6, 6);
+    private Peta<Furniture> petaBarang = new Peta<Furniture>(6, 6);
 
     public Ruangan(String namaRuangan, int noRuang) {
         this.namaRuangan = namaRuangan;
         this.noRuang = noRuang;
     }
 
-    public Peta<BarangNonMakanan> getPeta() {
+    public Peta<Furniture> getPeta() {
         return petaBarang;
     }
 
@@ -22,14 +22,14 @@ public class Ruangan {
         return noRuang;
     }
 
-    public void memasangBarang(BarangNonMakanan barang, Boolean isHorizontal, int x, int y) {
+    public void memasangBarang(Furniture Furniture, Boolean isHorizontal, int x, int y) {
         // belum dihandle buat checking spacenya, soon dibuat.
-        for (int i = x; i < barang.getPanjang(); i++) {
-            for (int j = y; j < barang.getLebar(); j++) {
+        for (int i = x; i < Furniture.getPanjang(); i++) {
+            for (int j = y; j < Furniture.getLebar(); j++) {
                 if (isHorizontal) {
-                    petaBarang.setElement(i, j, barang);
+                    petaBarang.setElement(i, j, Furniture);
                 } else {
-                    petaBarang.setElement(j, i, barang);
+                    petaBarang.setElement(j, i, Furniture);
                 }
             }
         }
