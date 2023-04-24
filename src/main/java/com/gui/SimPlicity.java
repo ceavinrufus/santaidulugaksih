@@ -93,9 +93,9 @@ public class SimPlicity extends JFrame {
                 case "View Sim Info":
                     String message = "Nama: " + currentSim.getNamaLengkap() + "\n" +
                             "Pekerjaan: " + currentSim.getPekerjaan() + "\n" +
-                            // "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
-                            // "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
-                            // "Mood: " + currentSim.getStats().getMood() + "\n" +
+                            "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
+                            "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
+                            "Mood: " + currentSim.getStats().getMood() + "\n" +
                             "Uang: " + currentSim.getUang();
 
                     JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
@@ -103,7 +103,7 @@ public class SimPlicity extends JFrame {
                 case "View Current Location":
                     break;
                 case "View Inventory":
-                    currentSim.getInventory().displayInventory();
+                    currentSim.getInventory().displayInventory(Storable.class);
                     break;
                 case "House Menu":
                     displayHouseMenu();
@@ -136,7 +136,7 @@ public class SimPlicity extends JFrame {
 
         String[] options = houseList.toArray(new String[0]);
         JList<String> list = new JList<>(options);
-        JOptionPane.showMessageDialog(this, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
         String selectedOption = list.getSelectedValue();
         if (selectedOption != null) {
             switch (selectedOption) {
@@ -151,6 +151,7 @@ public class SimPlicity extends JFrame {
                 case "Go To Object":
                     break;
                 case "Action":
+                    currentSim.getInventory().displayInventory(Eatable.class);
                     break;
                 case "Back":
                     displayGameMenu();

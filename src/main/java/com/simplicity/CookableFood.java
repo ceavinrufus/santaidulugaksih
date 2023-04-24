@@ -9,7 +9,7 @@ public enum CookableFood implements Eatable {
     BAYAM("Bayam", 3, 2),
     KACANG("Kacang", 2, 2),
     SUSU("Susu", 2, 1);
-    
+
     private String nama;
     private int harga;
     private int kekenyangan;
@@ -20,16 +20,16 @@ public enum CookableFood implements Eatable {
         this.kekenyangan = kekenyangan;
     }
 
-    public String getNama(){
+    public String getNama() {
         return nama;
     }
 
-    public int getHarga(){
+    public int getHarga() {
         return harga;
     }
 
     @Override
-    public int getKekenyangan(){
+    public int getKekenyangan() {
         return kekenyangan;
     }
 }

@@ -10,6 +10,7 @@ public abstract class Furniture implements Storable {
         this.nama = nama;
     }
 
+    @Override
     public String getNama() {
         return nama;
     }
