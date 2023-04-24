@@ -1,6 +1,5 @@
 package com.simplicity;
 
-import java.io.*;
 import java.util.*;
 
 public class Peta<T> {
@@ -35,7 +34,11 @@ public class Peta<T> {
     }
 
     public void addRow() {
-        matriks.add(new ArrayList<T>());
+        ArrayList<T> newRow = new ArrayList<T>(getColumn());
+        for (int i = 0; i < getColumn(); i++) {
+            newRow.add(null);
+        }
+        matriks.add(newRow);
     }
 
     public void addColumn() {

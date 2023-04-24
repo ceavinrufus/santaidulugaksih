@@ -35,6 +35,16 @@ public enum NonCookableFood implements Eatable {
     }
 
     // GUI
+    @Override
+    public void displayInfo() {
+        String message = "Nama: " + nama + "\n" +
+                "Kekenyangan: " + kekenyangan + "\n";
+
+        Object[] options = { "Back" };
+        JOptionPane.showOptionDialog(null, message, "Food Info", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    }
+
     public static void displayResep() {
         ArrayList<NonCookableFood> resep = new ArrayList<>(Arrays.asList(NonCookableFood.values()));
 

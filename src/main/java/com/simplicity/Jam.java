@@ -1,5 +1,4 @@
 package com.simplicity;
-import javax.swing.JOptionPane;
 
 public class Jam extends Furniture {
     public Jam() {

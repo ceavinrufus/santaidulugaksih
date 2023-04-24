@@ -14,11 +14,6 @@ public class Point {
         y = 0;
     }
 
-    public Point(Point p) {
-        x = p.getX();
-        y = p.getY();
-    }
-
     public void move(int x, int y) {
         // x : new X coordinate
         // y : new Y coordinate
@@ -58,16 +53,16 @@ public class Point {
     }
 
     // public static void main(String[] args) {
-    //     Point point1 = new Point(6, 3);
-    //     System.out.println(point1.toString());
-    //     Point point2 = new Point();
-    //     System.out.println(point2.toString());
-    //     System.out.println(point1.equals(point2));
-    //     point2.move(6, 3);
-    //     System.out.println(point1.equals(point2));
-    //     point1.setX(2);
-    //     System.out.println(point1.toString());
-    //     Point point3 = new Point(point2);
-    //     System.out.println(point3.toString());
+    // Point point1 = new Point(6, 3);
+    // System.out.println(point1.toString());
+    // Point point2 = new Point();
+    // System.out.println(point2.toString());
+    // System.out.println(point1.equals(point2));
+    // point2.move(6, 3);
+    // System.out.println(point1.equals(point2));
+    // point1.setX(2);
+    // System.out.println(point1.toString());
+    // Point point3 = new Point(point2);
+    // System.out.println(point3.toString());
     // }
 }

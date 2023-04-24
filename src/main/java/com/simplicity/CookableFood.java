@@ -1,5 +1,7 @@
 package com.simplicity;
 
+import javax.swing.JOptionPane;
+
 public enum CookableFood implements Eatable {
     NASI("Nasi", 5, 5),
     KENTANG("Kentang", 3, 4),
@@ -26,6 +28,17 @@ public enum CookableFood implements Eatable {
 
     public int getHarga() {
         return harga;
+    }
+
+    @Override
+    public void displayInfo() {
+        String message = "Nama: " + nama + "\n" +
+                "Harga: " + harga + "\n" +
+                "Kekenyangan: " + kekenyangan + "\n";
+
+        Object[] options = { "Back" };
+        JOptionPane.showOptionDialog(null, message, "Food Info", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
 
     @Override

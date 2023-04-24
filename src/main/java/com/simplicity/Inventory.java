@@ -22,22 +22,24 @@ public class Inventory {
         }
     }
 
-    public void addBarang(Storable Storable, int jumlah) {
+    public void addBarang(Storable barang, int jumlah) {
         for (Pair<Storable, Integer> item : container) {
-            if (item.getKey().getNama().equals(Storable.getNama())) {
+            if (item.getKey().getNama().equals(barang.getNama())) {
                 item.setValue(item.getValue() + jumlah);
                 return;
             }
         }
-        container.add(new Pair<>(Storable, jumlah));
+        container.add(new Pair<>(barang, jumlah));
     }
 
-    public void reduceBarang(Storable Storable, int jumlah) {
+    public void reduceBarang(Storable barang, int jumlah) throws IllegalArgumentException {
         for (Pair<Storable, Integer> item : container) {
-            if (item.getKey().getNama().equals(Storable.getNama())) {
+            if (item.getKey().getNama().equals(barang.getNama())) {
                 int newJumlah = item.getValue() - jumlah;
-                if (newJumlah <= 0) {
+                if (newJumlah == 0) {
                     container.remove(item);
+                } else if (newJumlah < 0) {
+                    throw new IllegalArgumentException("Invalid jumlah!");
                 } else {
                     item.setValue(newJumlah);
                 }
@@ -81,17 +83,16 @@ public class Inventory {
         JTable table = new JTable(tableModel);
 
         // Menampilkan option pane
-        String[] options = { "Pasang", "Cancel" }; // custom buttons
+        String[] options = { "Info", "Cancel" }; // custom buttons
         int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Inventory", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-        // get item dari the tabel
         if (choice == 0) {
-            // Pasang
+            // Info
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
-                String selectedOption = (String) table.getValueAt(selectedRow, 0);
-                System.out.println("Selected option: " + selectedOption);
+                container.get(selectedRow).getKey().displayInfo();
+                displayInventory(className);
             }
         } else if (choice == 1) {
             // Cancel

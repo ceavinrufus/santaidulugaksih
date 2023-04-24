@@ -1,4 +1,5 @@
 package com.simplicity;
+
 import javax.swing.JOptionPane;
 
 public class Kasur extends Furniture {
@@ -29,9 +30,8 @@ public class Kasur extends Furniture {
     @Override
     public void aksi(Sim sim) {
         String input = JOptionPane.showInputDialog(null, "Masukkan jam kerja:");
-        int jamKerja = 0;
         try {
-            jamKerja = Integer.parseInt(input);
+            int jamKerja = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Input tidak valid, masukkan angka saja!");
             return;

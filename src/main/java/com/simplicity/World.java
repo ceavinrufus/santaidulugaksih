@@ -22,7 +22,6 @@ public class World {
         return petaRumah;
     }
 
-    // Izin komen mas biar bisa dirun
     public void tambahRumah(Rumah rumah, int x, int y) {
         if (x < 0 || x >= petaRumah.getColumn() || y < 0 || y >= petaRumah.getRow()) {
             System.out.println("Lokasi rumah tidak valid");
