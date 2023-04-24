@@ -14,19 +14,19 @@ public abstract class Furniture implements Storable {
         return nama;
     }
 
-    public int getPanjang(){
+    public int getPanjang() {
         return panjang;
     }
 
-    public int getLebar(){
+    public int getLebar() {
         return lebar;
     }
 
-    public int getHarga(){
+    public int getHarga() {
         return harga;
     }
 
     public abstract String getNamaAksi();
-    
+
     public abstract void aksi(Sim sim);
 }

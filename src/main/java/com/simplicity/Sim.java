@@ -1,4 +1,5 @@
 package com.simplicity;
+
 import java.util.*;
 
 public class Sim {
@@ -9,7 +10,6 @@ public class Sim {
     private ArrayList<String> currentActions = new ArrayList<String>();
     private Stats status = new Stats();
     private boolean isLibur = false;
-    private Point currentLocation;
     private Rumah rumah;
     private SimPosition currentPosition;
 
@@ -17,11 +17,11 @@ public class Sim {
         private Rumah rumah;
         private Ruangan ruang;
         private Point lokasi;
-        
+
         public SimPosition(Rumah rumah, Ruangan ruang) {
             setPosition(rumah, ruang);
         }
-        
+
         public Rumah getRumah() {
             return rumah;
         }
@@ -29,8 +29,8 @@ public class Sim {
         public Ruangan getRuang() {
             return ruang;
         }
-        
-        public void setPosition (Rumah rumah, Ruangan ruang) {
+
+        public void setPosition(Rumah rumah, Ruangan ruang) {
             this.rumah = rumah;
             this.ruang = ruang;
         }
@@ -67,7 +67,9 @@ public class Sim {
         return pekerjaan.getNama();
     }
 
-    // public void setPekerjaan()
+    public Inventory getInventory() {
+        return inventory;
+    }
 
     public int getUang() {
         return uang;
@@ -93,7 +95,7 @@ public class Sim {
         this.currentPosition = currentPosition;
     }
 
-    public void interact(Furniture Furniture){
+    public void interact(Furniture Furniture) {
         Furniture.aksi(this);
     }
 }

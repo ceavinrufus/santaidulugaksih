@@ -13,9 +13,9 @@ apply plugin: 'application'
 
 // Comment salah satu
 // mainClassName = 'com.simplicity.Main'      // No GUI
-mainClassName = 'com.simplicity.SimPlicity'   // GUI
+mainClassName = 'com.gui.SimPlicity'   // GUI
 
-group 'com.simplicity'
+// group 'com.simplicity'
 // version '1.0-SNAPSHOT'
 
 repositories {
