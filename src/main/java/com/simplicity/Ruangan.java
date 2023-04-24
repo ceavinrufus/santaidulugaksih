@@ -1,11 +1,21 @@
 package com.simplicity;
 
 public class Ruangan {
+    private String namaRuangan;
     private int noRuang;
     private Peta<BarangNonMakanan> petaBarang = new Peta<BarangNonMakanan>(6, 6);
 
-    public Ruangan(int noRuang){
+    public Ruangan(String namaRuangan, int noRuang) {
+        this.namaRuangan = namaRuangan;
         this.noRuang = noRuang;
+    }
+
+    public Peta<BarangNonMakanan> getPeta() {
+        return petaBarang;
+    }
+
+    public String getNamaRuangan() {
+        return namaRuangan;
     }
 
     public int getNoRuang() {

@@ -1,4 +1,5 @@
 package com.simplicity;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class Rumah {
 
     public Rumah(Sim pemilik) {
         this.pemilik = pemilik;
-        petaRuangan.setElement(0, 0, new Ruangan(jumlahRuangan));
+        petaRuangan.setElement(0, 0, new Ruangan("Main Room", jumlahRuangan));
     }
 
     public Sim getPemilik() {
@@ -35,7 +36,121 @@ public class Rumah {
         return petaRuangan;
     }
 
-    // Buat Gambar Koordinat di Peta 
+    public int getJumlahRuangan() {
+        return jumlahRuangan;
+    }
+
+    public void tambahRuangan(Ruangan ruanganBaru, String arah, Ruangan ruanganPatokan) {
+        int x;
+        int y;
+
+        for (int i = 0; i < petaRuangan.getRow(); i++) {
+            for (int j = 0; j < petaRuangan.getColumn(); j++) {
+                if (petaRuangan.getElement(i, j) == ruanganPatokan) {
+                    x = i;
+                    y = j;
+
+                    switch (arah.toLowerCase()) {
+                        case "atas":
+                            petaRuangan.addRow();
+                            if (petaRuangan.getElement(x, y + 1) != null) {
+                                System.out.println("Ruangan sudah ada");
+                                petaRuangan.removeRow(petaRuangan.getRow() - 1);
+                            } else {
+                                petaRuangan.setElement(x, y + 1, ruanganBaru);
+                                jumlahRuangan++;
+                            }
+                            break;
+                        case "bawah":
+                            petaRuangan.addRow();
+                            if (y != 0) {
+                                if (petaRuangan.getElement(x, y - 1) != null) {
+                                    System.out.println("Ruangan sudah ada");
+                                    petaRuangan.removeRow(petaRuangan.getRow() - 1);
+                                } else {
+                                    petaRuangan.setElement(x, y - 1, ruanganBaru);
+                                    jumlahRuangan++;
+                                }
+                            } else {
+                                petaRuangan.setElement(x, y + 1, ruanganPatokan);
+                                petaRuangan.setElement(x, y, ruanganBaru);
+                                jumlahRuangan++;
+                            }
+                            break;
+                        case "kanan":
+                            petaRuangan.addColumn();
+                            if (petaRuangan.getElement(x + 1, y) != null) {
+                                System.out.println("Ruangan sudah ada");
+                                petaRuangan.removeColumn(petaRuangan.getColumn() - 1);
+                            } else {
+                                petaRuangan.setElement(x + 1, y, ruanganBaru);
+                                jumlahRuangan++;
+                            }
+                            break;
+                        case "kiri":
+                            petaRuangan.addColumn();
+                            if (x != 0) {
+                                if (petaRuangan.getElement(x - 1, y) != null) {
+                                    System.out.println("Ruangan sudah ada");
+                                    petaRuangan.removeColumn(petaRuangan.getColumn() - 1);
+                                } else {
+                                    petaRuangan.setElement(x - 1, y, ruanganBaru);
+                                    jumlahRuangan++;
+                                }
+                            } else {
+                                petaRuangan.setElement(x + 1, y, ruanganPatokan);
+                                petaRuangan.setElement(x, y, ruanganBaru);
+                                jumlahRuangan++;
+                            }
+                            break;
+                        default:
+                            System.out.println("Arah tidak valid");
+                            break;
+                    }
+                } else {
+                    System.out.println("Ruangan tidak ditemukan");
+                }
+            }
+        }
+    }
+
+    public void hapusRuangan(Ruangan ruangan) {
+        int x = ruangan.getPeta().getColumn() - 1;
+        int y = ruangan.getPeta().getRow() - 1;
+
+        if (petaRuangan.getElement(x, y) != null) {
+            petaRuangan.setElement(x, y, null);
+            jumlahRuangan--;
+        } else {
+            System.out.println("Ruangan tidak ada");
+        }
+    }
+
+    public void printRumah() {
+        int x = (petaRuangan.getColumn() * 6) + 1;
+        int y = (petaRuangan.getRow() * 6) + 1;
+
+        for (int i = y - 1; i >= 0; i--) {
+            for (int j = 0; j < x; j++) {
+                if (i == 0 || i == y - 1) {
+                    System.out.print("-");
+                } else if (j == 0 || j == x - 1) {
+                    System.out.print("|");
+                } else if (i % 6 == 0 && j % 6 == 0) {
+                    System.out.print(petaRuangan.getElement(j / 6, i / 6).getNoRuang());
+                } else if (i % 6 == 0) {
+                    System.out.print("-");
+                } else if (j % 6 == 0) {
+                    System.out.print("|");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // Buat Gambar Koordinat di Peta
     public void paint(Graphics g, int windowWidth, int windowHeight) {
         int row = petaRuangan.getRow() * 6;
         int column = petaRuangan.getColumn() * 6;
@@ -61,7 +176,7 @@ public class Rumah {
 
         g.setColor(Color.GRAY);
         g.fillRect(0, 0, windowWidth, windowHeight);
-    
+
         // Gambar background grid
         BufferedImage texture = null;
         try {
@@ -84,7 +199,8 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
-                if (petaRuangan.getElement(x / 6, (row - y - 1) / 6) == null) { // Ini contoh kalau misal ada rumah di titik (0, 0)
+                if (petaRuangan.getElement(x / 6, (row - y - 1) / 6) == null) { // Ini contoh kalau misal ada rumah di
+                                                                                // titik (0, 0)
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {

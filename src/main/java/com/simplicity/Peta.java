@@ -1,4 +1,5 @@
 package com.simplicity;
+
 import java.io.*;
 import java.util.*;
 
@@ -17,6 +18,7 @@ public class Peta<T> {
             matriks.add(rowList);
         }
     }
+
     // colIndex = sumbu X, rowIndex = sumbu Y
     public void setElement(int colIndex, int rowIndex, T element) {
         if (rowIndex < 0 || rowIndex >= matriks.size() || colIndex < 0 || colIndex >= matriks.get(0).size()) {
@@ -39,6 +41,22 @@ public class Peta<T> {
     public void addColumn() {
         for (ArrayList<T> row : matriks) {
             row.add(null);
+        }
+    }
+
+    public void removeRow(int rowIndex) {
+        if (rowIndex < 0 || rowIndex >= matriks.size()) {
+            throw new IndexOutOfBoundsException("Invalid matrix index");
+        }
+        matriks.remove(rowIndex);
+    }
+
+    public void removeColumn(int colIndex) {
+        if (colIndex < 0 || colIndex >= matriks.get(0).size()) {
+            throw new IndexOutOfBoundsException("Invalid matrix index");
+        }
+        for (ArrayList<T> row : matriks) {
+            row.remove(colIndex);
         }
     }
 

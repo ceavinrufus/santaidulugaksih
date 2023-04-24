@@ -11,8 +11,9 @@ public class World {
     // Singleton
     private static World instance = new World();
     private Peta<Rumah> petaRumah = new Peta<Rumah>(64, 64);
-    
-    private World() {}
+
+    private World() {
+    }
 
     public static World getInstance() {
         return instance;
@@ -23,48 +24,43 @@ public class World {
     }
 
     // Izin komen mas biar bisa dirun
-    // public void tambahRumah(Rumah rumah) {
-    //     if (rumah.getLokasi().getX() < 0 || rumah.getLokasi().getX() >= panjang
-    //             || rumah.getLokasi().getY() < 0 || rumah.getLokasi().getY() >= lebar) {
-    //         System.out.println("Lokasi rumah tidak valid");
-    //         return;
-    //     } else {
-    //         if (lahanKosong.get(rumah.getLokasi().getX()).get(rumah.getLokasi().getY())) {
-    //             daftarRumah.add(rumah);
-    //             lahanKosong.get(rumah.getLokasi().getX()).set(rumah.getLokasi().getY(), false);
-    //         } else {
-    //             System.out.println("Lahan rumah sudah terisi");
-    //         }
-    //     }
-    // }
+    public void tambahRumah(Rumah rumah, int x, int y) {
+        if (x < 0 || x >= petaRumah.getColumn() || y < 0 || y >= petaRumah.getRow()) {
+            System.out.println("Lokasi rumah tidak valid");
+        } else {
+            if (petaRumah.getElement(x, y) == null) {
+                petaRumah.setElement(x, y, rumah);
+            } else {
+                System.out.println("Lahan rumah sudah terisi");
+            }
+        }
+    }
 
-    // public void hapusRumah(Rumah rumah) {
-    //     if (rumah.getLokasi().getX() < 0 || rumah.getLokasi().getX() >= panjang
-    //             || rumah.getLokasi().getY() < 0 || rumah.getLokasi().getY() >= lebar) {
-    //         System.out.println("Lokasi rumah tidak valid");
-    //         return;
-    //     } else {
-    //         if (lahanKosong.get(rumah.getLokasi().getX()).get(rumah.getLokasi().getY())) {
-    //             System.out.println("Lahan rumah kosong");
-    //         } else {
-    //             daftarRumah.remove(rumah);
-    //             lahanKosong.get(rumah.getLokasi().getX()).set(rumah.getLokasi().getY(), true);
-    //         }
-    //     }
-    // }
+    public void hapusRumah(int x, int y) {
+        if (x < 0 || x >= petaRumah.getColumn() || y < 0 || y >= petaRumah.getRow()) {
+            System.out.println("Lokasi rumah tidak valid");
+            return;
+        } else {
+            if (petaRumah.getElement(x, y) != null) {
+                petaRumah.setElement(x, y, null);
+            } else {
+                System.out.println("Lahan rumah kosong");
+            }
+        }
+    }
 
-    // public void printWorld() {
-    //     for (int i = 0; i < panjang; i++) {
-    //         for (int j = 0; j < lebar; j++) {
-    //             if (lahanKosong.get(i).get(j)) {
-    //                 System.out.print("Available");
-    //             } else {
-    //                 System.out.print("Occupied");
-    //             }
-    //         }
-    //         System.out.println();
-    //     }
-    // }
+    public void printWorld() {
+        for (int i = petaRumah.getRow() - 1; i >= 0; i--) {
+            for (int j = 0; j < petaRumah.getColumn(); j++) {
+                if (petaRumah.getElement(i, j) != null) {
+                    System.out.printf("Rumah %s", petaRumah.getElement(i, j).getPemilik().getNamaLengkap());
+                } else {
+                    System.out.print("Lahan kosong");
+                }
+            }
+            System.out.println();
+        }
+    }
 
     // GUI
     public void paint(Graphics g, int windowWidth, int windowHeight) {
@@ -83,7 +79,8 @@ public class World {
         float gridY = (windowHeight - gridSize * gridHeight) / 2f;
 
         // Draw background image only for the region behind the grid
-        g.drawImage(pattern, (int) gridX, (int) gridY, (int) (gridSize * gridWidth), (int) (gridSize * gridHeight), null);
+        g.drawImage(pattern, (int) gridX, (int) gridY, (int) (gridSize * gridWidth), (int) (gridSize * gridHeight),
+                null);
 
         int width = windowWidth - 64;
         int height = windowHeight - 64;
