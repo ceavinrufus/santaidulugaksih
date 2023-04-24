@@ -1,4 +1,5 @@
 package com.simplicity;
+
 import javax.swing.JOptionPane;
 
 public class MejaKursi extends Furniture {
@@ -17,6 +18,7 @@ public class MejaKursi extends Furniture {
     @Override
     public void aksi(Sim sim) {
         Eatable makanan;
+        sim.getInventory().displayInventory(Eatable.class);
         // Ambil makanan dari inventory
         // sim.getStatus().increaseKekenyangan(makanan.getKekenyangan());
         // sim.addAction(getNamaAksi());

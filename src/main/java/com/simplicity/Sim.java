@@ -10,51 +10,16 @@ public class Sim {
     private ArrayList<String> currentActions = new ArrayList<String>();
     private Stats stats = new Stats();
     private boolean isLibur = false;
-    private Rumah rumah;
     private SimPosition currentPosition;
     private int totalWorkTime = 0;
     private int changeJobTime = 720;
 
-    private class SimPosition {
-        private Rumah rumah;
-        private Ruangan ruang;
-        private Point lokasi;
-
-        public SimPosition(Rumah rumah, Ruangan ruang) {
-            setPosition(rumah, ruang);
-        }
-
-        public Rumah getRumah() {
-            return rumah;
-        }
-
-        public Ruangan getRuang() {
-            return ruang;
-        }
-
-        public void setPosition(Rumah rumah, Ruangan ruang) {
-            this.rumah = rumah;
-            this.ruang = ruang;
-        }
-
-        public void setRumah(Rumah rumah) {
-            this.rumah = rumah;
-        }
-
-        public void setRuang(Ruangan ruang) {
-            this.ruang = ruang;
-        }
-    }
-
-    public Sim(String namaLengkap) {
+    public Sim(String namaLengkap, Rumah posisiRumah, Ruangan posisiRuangan) {
         this.namaLengkap = namaLengkap;
         List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());
         Collections.shuffle(listPekerjaan);
         this.pekerjaan = listPekerjaan.get(0);
-        // currentLocation
-        rumah = new Rumah(this);
-        Ruangan ruang = rumah.getPeta().getElement(0, 0);
-        currentPosition = new SimPosition(rumah, ruang);
+        currentPosition = new SimPosition(posisiRumah, posisiRuangan);
     }
 
     public String getNamaLengkap() {

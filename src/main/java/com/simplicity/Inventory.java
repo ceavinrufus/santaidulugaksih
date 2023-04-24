@@ -1,6 +1,8 @@
 package com.simplicity;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -20,22 +22,24 @@ public class Inventory {
         }
     }
 
-    public void addBarang(Storable Storable, int jumlah) {
+    public void addBarang(Storable barang, int jumlah) {
         for (Pair<Storable, Integer> item : container) {
-            if (item.getKey().getNama().equals(Storable.getNama())) {
+            if (item.getKey().getNama().equals(barang.getNama())) {
                 item.setValue(item.getValue() + jumlah);
                 return;
             }
         }
-        container.add(new Pair<>(Storable, jumlah));
+        container.add(new Pair<>(barang, jumlah));
     }
 
-    public void reduceBarang(Storable Storable, int jumlah) {
+    public void reduceBarang(Storable barang, int jumlah) throws IllegalArgumentException {
         for (Pair<Storable, Integer> item : container) {
-            if (item.getKey().getNama().equals(Storable.getNama())) {
+            if (item.getKey().getNama().equals(barang.getNama())) {
                 int newJumlah = item.getValue() - jumlah;
-                if (newJumlah <= 0) {
+                if (newJumlah == 0) {
                     container.remove(item);
+                } else if (newJumlah < 0) {
+                    throw new IllegalArgumentException("Invalid jumlah!");
                 } else {
                     item.setValue(newJumlah);
                 }
@@ -45,36 +49,50 @@ public class Inventory {
     }
 
     // GUI
-    public void displayInventory() {
+    public void displayInventory(Class<? extends Storable> className) {
         // testing
-        // addBarang(new Kasur("Kasur Queen Size"), 5);
-        // addBarang(new Kasur("Kasur King Size"), 10);
+        addBarang(new Kasur("Kasur Queen Size"), 5);
+        addBarang(CookableFood.AYAM, 10);
+
+        int count = 0;
+        for (Pair<? extends Storable, Integer> pair : container) {
+            if (className.isAssignableFrom(pair.getKey().getClass())) {
+                count++;
+            }
+        }
 
         // matriks data inventory
-        String[][] tableData = new String[container.size()][2];
+        String[][] tableData = new String[count][2];
+        String[] columnNames = { "Item Name", "Quantity" };
+        int index = 0;
         for (int i = 0; i < container.size(); i++) {
-            tableData[i][0] = container.get(i).getKey().getNama(); // Replace getNama() with the actual method to get
-                                                                   // the name of the item
-            tableData[i][1] = String.valueOf(container.get(i).getValue()); // get the item quantity and convert it to a
-                                                                           // String
+            if (className.isAssignableFrom(container.get(i).getKey().getClass())) {
+                tableData[index][0] = container.get(i).getKey().getNama(); // Item name
+                tableData[index][1] = String.valueOf(container.get(i).getValue()); // Quantity
+                index++;
+            }
         }
 
         // table data
-        String[] columnNames = { "Item", "Quantity" };
-        JTable table = new JTable(tableData, columnNames);
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
 
         // Menampilkan option pane
-        String[] options = { "Pasang", "Cancel" }; // custom buttons
+        String[] options = { "Info", "Cancel" }; // custom buttons
         int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Inventory", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-        // get item dari the tabel
         if (choice == 0) {
-            // Pasang
+            // Info
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
-                String selectedOption = (String) table.getValueAt(selectedRow, 0);
-                System.out.println("Selected option: " + selectedOption);
+                container.get(selectedRow).getKey().displayInfo();
+                displayInventory(className);
             }
         } else if (choice == 1) {
             // Cancel

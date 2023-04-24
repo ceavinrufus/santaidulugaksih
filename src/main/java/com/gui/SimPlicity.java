@@ -16,11 +16,11 @@ public class SimPlicity extends JFrame {
     private KeyListener keyListener;
     private BufferedImage icon;
     private JLabel backgroundLabel;
-    private boolean displayWorld = false;
-    private boolean displayHouse = false;
+    private static boolean inGame = false;
+    private static boolean displayRumah = false;
 
-    ArrayList<Sim> sims = new ArrayList<Sim>();
-    public Sim currentSim;
+    private static ArrayList<Sim> sims = new ArrayList<Sim>();
+    private static Sim currentSim;
 
     private SimPlicity() {
         setTitle("Sim-Plicity");
@@ -49,7 +49,38 @@ public class SimPlicity extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    displayWorld = true;
+                    World world = World.getInstance();
+
+                    String nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
+
+                    Ruangan ruangan = new Ruangan("Main Room");
+                    // Masukin barang barang basic ke ruangan
+                    ruangan.memasangBarang(new Kasur("Kasur Single"), true, 2, 0);
+                    ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
+                    ruangan.memasangBarang(new Jam(), true, 0, 5);
+                    ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
+
+                    Rumah rumah = new Rumah(ruangan);
+                    world.tambahRumah(rumah, 0, 0);
+
+                    // tes doang
+                    // Ruangan r2 = new Ruangan("Bedroom");
+                    // rumah.tambahRuangan(r2, "kiri", ruangan);
+                    // Ruangan r3 = new Ruangan("Dining");
+                    // rumah.tambahRuangan(r3, "atas", r2);
+                    // Ruangan r4 = new Ruangan("Bath");
+                    // rumah.tambahRuangan(r4, "kiri", r3);
+                    // Ruangan r5 = new Ruangan("Kitchen");
+                    // rumah.tambahRuangan(r5, "bawah", r4);
+
+                    Sim sim = new Sim(nama, rumah, ruangan);
+                    rumah.setPemilik(sim);
+
+                    sims.add(currentSim);
+                    currentSim = sim;
+
+                    inGame = true;
+                    displayRumah = true;
                     repaint();
                     removeKeyListener(this);
                     displayGameMenu();
@@ -79,6 +110,10 @@ public class SimPlicity extends JFrame {
         return instance;
     }
 
+    public static Sim getCurrentSim() {
+        return currentSim;
+    }
+
     // Menu game
     private void displayGameMenu() {
         ArrayList<String> optionsList = new ArrayList<>(Arrays.asList("View Sim Info", "View Current Location",
@@ -93,9 +128,9 @@ public class SimPlicity extends JFrame {
                 case "View Sim Info":
                     String message = "Nama: " + currentSim.getNamaLengkap() + "\n" +
                             "Pekerjaan: " + currentSim.getPekerjaan() + "\n" +
-                            // "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
-                            // "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
-                            // "Mood: " + currentSim.getStats().getMood() + "\n" +
+                            "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
+                            "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
+                            "Mood: " + currentSim.getStats().getMood() + "\n" +
                             "Uang: " + currentSim.getUang();
 
                     JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
@@ -103,7 +138,7 @@ public class SimPlicity extends JFrame {
                 case "View Current Location":
                     break;
                 case "View Inventory":
-                    currentSim.getInventory().displayInventory();
+                    currentSim.getInventory().displayInventory(Storable.class);
                     break;
                 case "House Menu":
                     displayHouseMenu();
@@ -112,7 +147,7 @@ public class SimPlicity extends JFrame {
                 case "Change Sim":
                     break;
                 case "Exit":
-                    displayWorld = false;
+                    inGame = false;
                     addKeyListener(keyListener);
                     repaint();
                     break;
@@ -136,7 +171,7 @@ public class SimPlicity extends JFrame {
 
         String[] options = houseList.toArray(new String[0]);
         JList<String> list = new JList<>(options);
-        JOptionPane.showMessageDialog(this, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
         String selectedOption = list.getSelectedValue();
         if (selectedOption != null) {
             switch (selectedOption) {
@@ -151,6 +186,7 @@ public class SimPlicity extends JFrame {
                 case "Go To Object":
                     break;
                 case "Action":
+                    currentSim.getInventory().displayInventory(Eatable.class);
                     break;
                 case "Back":
                     displayGameMenu();
@@ -163,35 +199,31 @@ public class SimPlicity extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);
 
-        // displayHouse = true; // Buat ngetes doang
-        // displayWorld = false; // Buat ngetes doang
-        BufferedImage pattern = null;
-        try {
-            pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
-        } catch (IOException e) {
-            System.out.println("Error loading background image");
-        }
-        if (displayWorld) {
-            if (pattern != null) {
-                int patternWidth = pattern.getWidth(null);
-                int patternHeight = pattern.getHeight(null);
-                for (int x = 0; x < getWidth(); x += patternWidth) {
-                    for (int y = 0; y < getHeight(); y += patternHeight) {
-                        g.drawImage(pattern, x, y, null);
+        if (inGame) {
+            if (displayRumah) {
+                currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight());
+            } else {
+                BufferedImage pattern = null;
+                try {
+                    pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
+                } catch (IOException e) {
+                    System.out.println("Error loading background image");
+                }
+                if (pattern != null) {
+                    int patternWidth = pattern.getWidth(null);
+                    int patternHeight = pattern.getHeight(null);
+                    for (int x = 0; x < getWidth(); x += patternWidth) {
+                        for (int y = 0; y < getHeight(); y += patternHeight) {
+                            g.drawImage(pattern, x, y, null);
+                        }
                     }
                 }
+                World.getInstance().paint(g, getWidth(), getHeight());
             }
-            World.getInstance().paint(g, getWidth(), getHeight());
-        }
-        if (displayHouse) {
-            Rumah rumahDummy = new Rumah(new Sim("Dummy"));
-            rumahDummy.paint(g, getWidth(), getHeight());
         }
     }
 
     public static void main(String[] args) {
         SimPlicity game = SimPlicity.getInstance();
-
-        game.currentSim = new Sim("Cepus");
     }
 }
