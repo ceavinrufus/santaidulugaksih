@@ -115,14 +115,15 @@ public class Rumah {
     }
 
     public void hapusRuangan(Ruangan ruangan) {
-        int x = ruangan.getPeta().getColumn() - 1;
-        int y = ruangan.getPeta().getRow() - 1;
-
-        if (petaRuangan.getElement(x, y) != null) {
-            petaRuangan.setElement(x, y, null);
-            jumlahRuangan--;
-        } else {
-            System.out.println("Ruangan tidak ada");
+        for (int i = 0; i < petaRuangan.getRow(); i++) {
+            for (int j = 0; j < petaRuangan.getColumn(); j++) {
+                if (petaRuangan.getElement(i, j) == ruangan) {
+                    petaRuangan.setElement(i, j, null);
+                    jumlahRuangan--;
+                } else {
+                    System.out.println("Ruangan tidak ditemukan");
+                }
+            }
         }
     }
 

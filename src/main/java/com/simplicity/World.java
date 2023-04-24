@@ -1,6 +1,5 @@
 package com.simplicity;
 
-import java.util.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
