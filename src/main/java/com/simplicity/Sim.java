@@ -32,6 +32,35 @@ public class Sim {
         this.namaLengkap = namaLengkap;
     }
 
+    public String getPekerjaan() {
+        return pekerjaan.getNama();
+    }
+
+    // public void setPekerjaan()
+
+    public int getUang() {
+        return uang;
+    }
+
+    public void setUang(int uang) {
+        this.uang = uang;
+    }
+
+    public Stats getStatus() {
+        return status;
+    }
+
+    public void setStatus(Stats status) {
+        this.status = status;
+    }
+
+    public SimPosition getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(SimPosition currentPosition) {
+        this.currentPosition = currentPosition;
+    }
 
     public void interact(Interactable barang){
         barang.aksi(this);
