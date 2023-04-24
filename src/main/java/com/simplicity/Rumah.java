@@ -53,72 +53,55 @@ public class Rumah {
 
         for (int i = 0; i < jumlahCol; i++) {
             for (int j = 0; j < jumlahRow; j++) {
-                if ((ruanganPatokan.getNamaRuangan().equals(petaRuangan.getElement(i, j).getNamaRuangan()))) {
-                    System.out.println(i);
-                    System.out.println(j);
-                    x = i;
-                    y = j;
-                    switch (arah.toLowerCase()) {
-                        case "atas":
-                            petaRuangan.addRow();
-                            if (petaRuangan.getElement(x, y + 1) != null) {
-                                System.out.println("Ruangan sudah ada");
-                                petaRuangan.removeRow(petaRuangan.getRow() - 1);
-                            } else {
-                                petaRuangan.setElement(x, y + 1, ruanganBaru);
-                                // jumlahRuangan++;
-                            }
-                            break;
-                        case "bawah":
-                            petaRuangan.addRow();
-                            if (y != 0) {
-                                if (petaRuangan.getElement(x, y - 1) != null) {
-                                    System.out.println("Ruangan sudah ada");
-                                    petaRuangan.removeRow(petaRuangan.getRow() - 1);
-                                } else {
+                x = i;
+                y = j;
+                if (petaRuangan.getElement(x, y) != null) {
+                    if ((ruanganPatokan.getNamaRuangan().equals(petaRuangan.getElement(x, y).getNamaRuangan()))) {
+                        switch (arah.toLowerCase()) {
+                            case "bawah":
+                                if (y == 0) {
+                                    petaRuangan.addTop();
+                                    y += 1;
+                                }
+                                if (petaRuangan.getElement(x, y - 1) == null) {
                                     petaRuangan.setElement(x, y - 1, ruanganBaru);
                                     // jumlahRuangan++;
                                 }
-                            } else {
-                                petaRuangan.setElement(x, y + 1, ruanganPatokan);
-                                petaRuangan.setElement(x, y, ruanganBaru);
-                                // jumlahRuangan++;
-                            }
-                            break;
-                        case "kanan":
-                            petaRuangan.addColumn();
-                            if (petaRuangan.getElement(x + 1, y) != null) {
-                                System.out.println("Ruangan sudah ada");
-                                petaRuangan.removeColumn(petaRuangan.getColumn() - 1);
-                            } else {
-                                petaRuangan.setElement(x + 1, y, ruanganBaru);
-                                // jumlahRuangan++;
-                            }
-                            break;
-                        case "kiri":
-                            petaRuangan.addColumn();
-                            if (x != 0) {
-                                if (petaRuangan.getElement(x - 1, y) != null) {
-                                    System.out.println("Ruangan sudah ada");
-                                    petaRuangan.removeColumn(petaRuangan.getColumn() - 1);
-                                } else {
+                                break;
+                            case "atas":
+                                if (y == jumlahRow - 1) {
+                                    petaRuangan.addBottom();
+                                }
+                                if (petaRuangan.getElement(x, y + 1) == null) {
+                                    petaRuangan.setElement(x, y + 1, ruanganBaru);
+                                    // jumlahRuangan++;
+                                }
+                                break;
+                            case "kanan":
+                                if (x == jumlahCol - 1) {
+                                    petaRuangan.addRight();
+                                }
+                                if (petaRuangan.getElement(x + 1, y) == null) {
+                                    petaRuangan.setElement(x + 1, y, ruanganBaru);
+                                    // jumlahRuangan++;
+                                }
+                                break;
+                            case "kiri":
+                                if (x == 0) {
+                                    petaRuangan.addLeft();
+                                    x += 1;
+                                }
+                                if (petaRuangan.getElement(x - 1, y) == null) {
                                     petaRuangan.setElement(x - 1, y, ruanganBaru);
                                     // jumlahRuangan++;
                                 }
-                            } else {
-                                petaRuangan.setElement(x + 1, y, ruanganPatokan);
-                                petaRuangan.setElement(x, y, ruanganBaru);
-                                // jumlahRuangan++;
-                            }
-                            break;
-                        default:
-                            System.out.println("Arah tidak valid");
-                            break;
+                                break;
+                            default:
+                                System.out.println("Arah tidak valid");
+                                break;
+                        }
                     }
-                } else {
-                    System.out.println("Ruangan tidak ditemukan");
                 }
-                return;
             }
         }
     }

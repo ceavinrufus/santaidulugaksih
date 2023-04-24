@@ -65,9 +65,13 @@ public class SimPlicity extends JFrame {
 
                     // tes doang
                     // Ruangan r2 = new Ruangan("Bedroom");
-                    // rumah.tambahRuangan(r2, "atas", ruangan);
+                    // rumah.tambahRuangan(r2, "kiri", ruangan);
                     // Ruangan r3 = new Ruangan("Dining");
-                    // rumah.tambahRuangan(r3, "kanan", ruangan);
+                    // rumah.tambahRuangan(r3, "atas", r2);
+                    // Ruangan r4 = new Ruangan("Bath");
+                    // rumah.tambahRuangan(r4, "kiri", r3);
+                    // Ruangan r5 = new Ruangan("Kitchen");
+                    // rumah.tambahRuangan(r5, "bawah", r4);
 
                     Sim sim = new Sim(nama, rumah, ruangan);
                     rumah.setPemilik(sim);

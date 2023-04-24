@@ -33,7 +33,7 @@ public class Peta<T> {
         return matriks.get(rowIndex).get(colIndex);
     }
 
-    public void addRow() {
+    public void addBottom() {
         ArrayList<T> newRow = new ArrayList<T>(getColumn());
         for (int i = 0; i < getColumn(); i++) {
             newRow.add(null);
@@ -41,9 +41,23 @@ public class Peta<T> {
         matriks.add(newRow);
     }
 
-    public void addColumn() {
+    public void addTop() {
+        ArrayList<T> newRow = new ArrayList<T>(getColumn());
+        for (int i = 0; i < getColumn(); i++) {
+            newRow.add(null);
+        }
+        matriks.add(0, newRow);
+    }
+
+    public void addRight() {
         for (ArrayList<T> row : matriks) {
             row.add(null);
+        }
+    }
+
+    public void addLeft() {
+        for (ArrayList<T> row : matriks) {
+            row.add(0, null);
         }
     }
 
