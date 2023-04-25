@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import com.simplicity.ExceptionHandling.*;
 
 public class SimPlicity extends JFrame {
     private static SimPlicity instance = new SimPlicity();
@@ -90,6 +91,7 @@ public class SimPlicity extends JFrame {
                         break;
                     case "Add Sim":
                         // handle Add Sim option
+                        makeNewSim();
                         break;
                     case "Change Sim":
                         // handle Change Sim option
@@ -254,7 +256,7 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    public void runGame() {
+    private void makeNewSim() {
         World world = World.getInstance();
 
         String nama = "";
@@ -267,9 +269,9 @@ public class SimPlicity extends JFrame {
                 }
                 if (nama.length() < 4 || nama.length() > 16) {
                     // Nanti ganti exception yang dibikin sama manu
-                    throw new IllegalArgumentException("Nama harus terdiri dari 4-16 karakter.");
+                    throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
                 }
-            } catch (IllegalArgumentException error) {
+            } catch (IllegalNameException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -284,21 +286,16 @@ public class SimPlicity extends JFrame {
         Rumah rumah = new Rumah(ruangan);
         world.tambahRumah(rumah, 0, 0);
 
-        // tes doang
-        // Ruangan r2 = new Ruangan("Bedroom");
-        // rumah.tambahRuangan(r2, "kiri", ruangan);
-        // Ruangan r3 = new Ruangan("Dining");
-        // rumah.tambahRuangan(r3, "atas", r2);
-        // Ruangan r4 = new Ruangan("Bath");
-        // rumah.tambahRuangan(r4, "kiri", r3);
-        // Ruangan r5 = new Ruangan("Kitchen");
-        // rumah.tambahRuangan(r5, "bawah", r4);
-
         Sim sim = new Sim(nama, rumah, ruangan);
         rumah.setPemilik(sim);
 
-        sims.add(currentSim);
+        sims.add(sim);
         currentSim = sim;
+    }
+
+    public void runGame() {
+        makeNewSim();
+
         inGame = true;
         displayRumah = true;
         repaint();
