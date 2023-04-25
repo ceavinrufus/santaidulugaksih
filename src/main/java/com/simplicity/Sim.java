@@ -14,6 +14,9 @@ public class Sim {
     private int totalWorkTime = 0;
     private int changeJobTime = 720;
 
+    // Waktu Terpusat
+    public Waktu totalWaktu = Waktu.waktu();
+
     public Sim(String namaLengkap, Rumah posisiRumah, Ruangan posisiRuangan) {
         this.namaLengkap = namaLengkap;
         List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());
@@ -40,6 +43,7 @@ public class Sim {
             uang -= pekerjaan.getGaji() * 0.5;
             totalWorkTime = 0;
             changeJobTime = 0;
+
         }
     }
 
@@ -77,6 +81,7 @@ public class Sim {
             stats.kurangMood(workingTime / 30 * 10);
             totalWorkTime += workingTime;
             uang += pekerjaan.getGaji() / 240 * workingTime;
+            totalWaktu.addWaktu(workingTime);
         }
     }
 
@@ -85,6 +90,7 @@ public class Sim {
             stats.tambahKesehatan(workoutTime / 20 * 5);
             stats.kurangKekenyangan(workoutTime / 20 * 5);
             stats.tambahMood(workoutTime / 20 * 10);
+            totalWaktu.addWaktu(workoutTime);
         }
     }
 
