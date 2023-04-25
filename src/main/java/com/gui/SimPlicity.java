@@ -115,7 +115,7 @@ public class SimPlicity extends JFrame {
     }
 
     // Menu game
-    private void displayGameMenu() {
+    public void displayGameMenu() {
         ArrayList<String> optionsList = new ArrayList<>(Arrays.asList("View Sim Info", "View Current Location",
                 "View Inventory", "House Menu", "Add Sim", "Change Sim", "Exit"));
 

@@ -3,6 +3,8 @@ package com.simplicity;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import com.gui.SimPlicity;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -83,7 +85,7 @@ public class Inventory {
         JTable table = new JTable(tableModel);
 
         // Menampilkan option pane
-        String[] options = { "Info", "Cancel" }; // custom buttons
+        String[] options = { "Info", "Cancel", "Back" }; // custom buttons
         int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Inventory", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
@@ -96,6 +98,8 @@ public class Inventory {
             }
         } else if (choice == 1) {
             // Cancel
+        } else if (choice == 2) {
+            SimPlicity.getInstance().displayGameMenu();
         }
     }
 }
