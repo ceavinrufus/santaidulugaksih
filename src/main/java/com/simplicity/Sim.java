@@ -13,6 +13,8 @@ public class Sim {
     private SimPosition currentPosition;
     private int totalWorkTime = 0;
     private int changeJobTime = 720;
+    private int waktuKerjaBelumDibayar = 0;
+    private int waktuTidakTidur = 0;
 
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
@@ -75,12 +77,34 @@ public class Sim {
         this.currentPosition = currentPosition;
     }
 
+    public void addWaktuTidakTidur(int waktu) {
+        waktuTidakTidur += waktu;
+    }
+
+    public void checkTidakTidur() {
+        if (waktuTidakTidur >= 600) {
+            stats.kurangKesehatan(5);
+            stats.kurangMood(5);
+        }
+    }
+
+    public void trackTidur(int waktu) {
+        addWaktuTidakTidur(waktu);
+        checkTidakTidur();
+    }
+
     public void kerja(int workingTime) {
         if (changeJobTime >= 720 && workingTime % 120 == 0) {
+            totalWorkTime += workingTime;
+            trackTidur(workingTime);
+            if (waktuKerjaBelumDibayar > 0) {
+                workingTime += waktuKerjaBelumDibayar;
+                waktuKerjaBelumDibayar = 0;
+            }
             stats.kurangKekenyangan(workingTime / 30 * 10);
             stats.kurangMood(workingTime / 30 * 10);
-            totalWorkTime += workingTime;
-            uang += pekerjaan.getGaji() / 240 * workingTime;
+            uang += pekerjaan.getGaji() * (workingTime % 240);
+            waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
             totalWaktu.addWaktu(workingTime);
         }
     }
@@ -92,6 +116,29 @@ public class Sim {
             stats.tambahMood(workoutTime / 20 * 10);
             totalWaktu.addWaktu(workoutTime);
         }
+    }
+
+    public void tidur(int sleepTime) {
+        if (sleepTime >= 240) {
+            stats.tambahMood(sleepTime / 240 * 30);
+            stats.tambahKesehatan(sleepTime / 240 * 20);
+        }
+    }
+
+    public void makan() {
+
+    }
+
+    public void memasak() {
+
+    }
+
+    public void berkunjung() {
+
+    }
+
+    public void buangAir() {
+
     }
 
     public void interact(Furniture Furniture) {
