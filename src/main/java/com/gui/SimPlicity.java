@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class SimPlicity extends JFrame {
     private static SimPlicity instance = new SimPlicity();
 
-    private KeyListener keyListener;
+    private static KeyAdapter keyListener;
     private BufferedImage icon;
     private JLabel backgroundLabel;
     private static boolean inGame = false;
@@ -44,64 +44,6 @@ public class SimPlicity extends JFrame {
             System.out.println("Error loading background image");
         }
 
-        keyListener = new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_ENTER) {
-                    World world = World.getInstance();
-
-                    String nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
-
-                    Ruangan ruangan = new Ruangan("Main Room");
-                    // Masukin barang barang basic ke ruangan
-                    ruangan.memasangBarang(new Kasur("Kasur Single"), true, 2, 0);
-                    ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
-                    ruangan.memasangBarang(new Jam(), true, 0, 5);
-                    ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
-
-                    Rumah rumah = new Rumah(ruangan);
-                    world.tambahRumah(rumah, 0, 0);
-
-                    // tes doang
-                    // Ruangan r2 = new Ruangan("Bedroom");
-                    // rumah.tambahRuangan(r2, "kiri", ruangan);
-                    // Ruangan r3 = new Ruangan("Dining");
-                    // rumah.tambahRuangan(r3, "atas", r2);
-                    // Ruangan r4 = new Ruangan("Bath");
-                    // rumah.tambahRuangan(r4, "kiri", r3);
-                    // Ruangan r5 = new Ruangan("Kitchen");
-                    // rumah.tambahRuangan(r5, "bawah", r4);
-
-                    Sim sim = new Sim(nama, rumah, ruangan);
-                    rumah.setPemilik(sim);
-
-                    sims.add(currentSim);
-                    currentSim = sim;
-
-                    inGame = true;
-                    displayRumah = true;
-                    repaint();
-                    removeKeyListener(this);
-                    displayGameMenu();
-                } else if (keyCode == KeyEvent.VK_SPACE) {
-                    JOptionPane.showMessageDialog(SimPlicity.this, "Gatau mainin aja udah pokoknya", "Help",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else if (keyCode == KeyEvent.VK_ESCAPE) {
-                    System.exit(0);
-                }
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        };
-
-        addKeyListener(keyListener);
         setFocusable(true);
         setVisible(true);
     }
@@ -120,39 +62,69 @@ public class SimPlicity extends JFrame {
                 "View Inventory", "House Menu", "Add Sim", "Change Sim", "Exit"));
 
         String[] options = optionsList.toArray(new String[0]);
-        JList<String> list = new JList<>(options);
-        JOptionPane.showMessageDialog(null, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
-        String selectedOption = list.getSelectedValue();
-        if (selectedOption != null) {
-            switch (selectedOption) {
-                case "View Sim Info":
-                    String message = "Nama: " + currentSim.getNamaLengkap() + "\n" +
-                            "Pekerjaan: " + currentSim.getPekerjaan() + "\n" +
-                            "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
-                            "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
-                            "Mood: " + currentSim.getStats().getMood() + "\n" +
-                            "Uang: " + currentSim.getUang();
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
 
-                    JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                case "View Current Location":
-                    break;
-                case "View Inventory":
-                    currentSim.getInventory().displayInventory(Storable.class);
-                    break;
-                case "House Menu":
-                    displayHouseMenu();
-                case "Add Sim":
-                    break;
-                case "Change Sim":
-                    break;
-                case "Exit":
-                    inGame = false;
-                    addKeyListener(keyListener);
-                    repaint();
-                    break;
-            }
+        for (String option : options) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                switch (option) {
+                    case "View Sim Info":
+                        String message = "Nama: " + currentSim.getNamaLengkap() + "\n" +
+                                "Pekerjaan: " + currentSim.getPekerjaan() + "\n" +
+                                "Kesehatan: " + currentSim.getStats().getKesehatan() + "\n" +
+                                "Kekenyangan: " + currentSim.getStats().getKekenyangan() + "\n" +
+                                "Mood: " + currentSim.getStats().getMood() + "\n" +
+                                "Uang: " + currentSim.getUang();
+                        JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    case "View Current Location":
+                        // handle View Current Location option
+                        break;
+                    case "View Inventory":
+                        currentSim.getInventory().displayInventory(Storable.class);
+                        break;
+                    case "House Menu":
+                        JOptionPane.getRootFrame().dispose();
+                        displayHouseMenu();
+                        break;
+                    case "Add Sim":
+                        // handle Add Sim option
+                        break;
+                    case "Change Sim":
+                        // handle Change Sim option
+                        break;
+                    case "Exit":
+                        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the game?",
+                                "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            inGame = false;
+                            addKeyListener(keyListener);
+                            JOptionPane.getRootFrame().dispose();
+                            repaint();
+                        } else if (confirm == JOptionPane.NO_OPTION) {
+
+                        }
+                        break;
+                }
+            });
+            panel.add(button);
         }
+
+        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
+
+        if (dialogResult == JOptionPane.CLOSED_OPTION) {
+        }
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+                    displayGameMenu();
+                    removeKeyListener(this);
+                }
+            }
+        });
     }
 
     // House Menu
@@ -170,29 +142,41 @@ public class SimPlicity extends JFrame {
         houseList.add("Back");
 
         String[] options = houseList.toArray(new String[0]);
-        JList<String> list = new JList<>(options);
-        JOptionPane.showMessageDialog(null, new JScrollPane(list), "Menu", JOptionPane.PLAIN_MESSAGE);
-        String selectedOption = list.getSelectedValue();
-        if (selectedOption != null) {
-            switch (selectedOption) {
-                case "Upgrade House":
-                    break;
-                case "Move Room":
-                    break;
-                case "Edit Room":
-                    break;
-                case "List Object":
-                    displayListObject();
-                    break;
-                case "Go To Object":
-                    break;
-                case "Action":
-                    currentSim.getInventory().displayInventory(Eatable.class);
-                    break;
-                case "Back":
-                    displayGameMenu();
-                    break;
-            }
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
+
+        for (String option : options) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                switch (option) {
+                    case "Upgrade House":
+                        break;
+                    case "Move Room":
+                        break;
+                    case "Edit Room":
+                        break;
+                    case "List Object":
+                        displayListObject();
+                        break;
+                    case "Go To Object":
+                        break;
+                    case "Action":
+                        break;
+                    case "Back":
+                        JOptionPane.getRootFrame().dispose();
+                        displayGameMenu();
+                        break;
+                }
+            });
+            panel.add(button);
+        }
+
+        int dialogResult = JOptionPane.showOptionDialog(null, panel, "House Menu", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
+
+        if (dialogResult == JOptionPane.CLOSED_OPTION) {
+            JOptionPane.getRootFrame().dispose();
+            displayGameMenu();
         }
     }
 
@@ -200,7 +184,7 @@ public class SimPlicity extends JFrame {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
         // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
         TreeSet<String> setOfRoomName = new TreeSet<String>();
-        
+
         Peta<Ruangan> petaRuangan = currentHouse.getPeta();
         for (int i = 0; i < petaRuangan.getColumn(); i++) {
             for (int j = 0; j < petaRuangan.getRow(); j++) {
@@ -230,7 +214,7 @@ public class SimPlicity extends JFrame {
                     }
                 }
             }
-            
+
             StringBuilder message = new StringBuilder("");
             int idx = 1;
             for (Furniture barang : listBarang) {
@@ -270,7 +254,71 @@ public class SimPlicity extends JFrame {
         }
     }
 
+    public void runGame() {
+        World world = World.getInstance();
+
+        String nama = "";
+
+        while (nama.length() < 4 || nama.length() > 16) {
+            try {
+                nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
+                if (nama == null) {
+                    nama = "";
+                }
+                if (nama.length() < 4 || nama.length() > 16) {
+                    // Nanti ganti exception yang dibikin sama manu
+                    throw new IllegalArgumentException("Nama harus terdiri dari 4-16 karakter.");
+                }
+            } catch (IllegalArgumentException error) {
+                JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        Ruangan ruangan = new Ruangan("Main Room");
+        // Masukin barang barang basic ke ruangan
+        ruangan.memasangBarang(new Kasur("Kasur Single"), true, 2, 0);
+        ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
+        ruangan.memasangBarang(new Jam(), true, 0, 5);
+        ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
+
+        Rumah rumah = new Rumah(ruangan);
+        world.tambahRumah(rumah, 0, 0);
+
+        // tes doang
+        // Ruangan r2 = new Ruangan("Bedroom");
+        // rumah.tambahRuangan(r2, "kiri", ruangan);
+        // Ruangan r3 = new Ruangan("Dining");
+        // rumah.tambahRuangan(r3, "atas", r2);
+        // Ruangan r4 = new Ruangan("Bath");
+        // rumah.tambahRuangan(r4, "kiri", r3);
+        // Ruangan r5 = new Ruangan("Kitchen");
+        // rumah.tambahRuangan(r5, "bawah", r4);
+
+        Sim sim = new Sim(nama, rumah, ruangan);
+        rumah.setPemilik(sim);
+
+        sims.add(currentSim);
+        currentSim = sim;
+        inGame = true;
+        displayRumah = true;
+        repaint();
+        displayGameMenu();
+    }
+
     public static void main(String[] args) {
         SimPlicity game = SimPlicity.getInstance();
+        keyListener = new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                    game.runGame();
+                    game.removeKeyListener(this);
+                } else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+                    JOptionPane.showMessageDialog(null, "Gatau mainin aja udah pokoknya", "Help",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        };
+        game.addKeyListener(keyListener);
     }
 }

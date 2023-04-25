@@ -85,7 +85,7 @@ public class Inventory {
         JTable table = new JTable(tableModel);
 
         // Menampilkan option pane
-        String[] options = { "Info", "Cancel", "Back" }; // custom buttons
+        String[] options = { "Info", "Back" }; // custom buttons
         int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Inventory", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
@@ -97,9 +97,6 @@ public class Inventory {
                 displayInventory(className);
             }
         } else if (choice == 1) {
-            // Cancel
-        } else if (choice == 2) {
-            SimPlicity.getInstance().displayGameMenu();
         }
     }
 }
