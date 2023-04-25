@@ -119,6 +119,19 @@ public class Rumah {
         }
     }
 
+    public Ruangan findRuangan(String name) {
+        Ruangan ruang = null;
+        for (int i = 0; i < petaRuangan.getColumn(); i++) {
+            for (int j = 0; j < petaRuangan.getRow(); j++) {
+                Ruangan tempRuang = petaRuangan.getElement(i, j);
+                if (tempRuang != null && tempRuang.getNamaRuangan().equals(name)) {
+                    ruang = tempRuang;
+                }
+            }
+        }
+        return ruang;
+    }
+
     // public void printRumah() {
     // int x = (petaRuangan.getColumn() * 6) + 1;
     // int y = (petaRuangan.getRow() * 6) + 1;

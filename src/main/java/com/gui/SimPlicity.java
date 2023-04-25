@@ -182,6 +182,7 @@ public class SimPlicity extends JFrame {
                 case "Edit Room":
                     break;
                 case "List Object":
+                    displayListObject();
                     break;
                 case "Go To Object":
                     break;
@@ -193,6 +194,52 @@ public class SimPlicity extends JFrame {
                     break;
             }
         }
+    }
+
+    private void displayListObject() {
+        Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
+        // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
+        TreeSet<String> setOfRoomName = new TreeSet<String>();
+        
+        Peta<Ruangan> petaRuangan = currentHouse.getPeta();
+        for (int i = 0; i < petaRuangan.getColumn(); i++) {
+            for (int j = 0; j < petaRuangan.getRow(); j++) {
+                Ruangan ruang = petaRuangan.getElement(i, j);
+                if (ruang != null) {
+                    setOfRoomName.add(ruang.getNamaRuangan());
+                }
+            }
+        }
+        ArrayList<String> listRoomName = new ArrayList<>(setOfRoomName);
+
+        String[] roomOptions = listRoomName.toArray(new String[0]);
+        JList<String> list = new JList<>(roomOptions);
+        String header = "Pilihan Ruangan";
+        JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
+        String selectedOption = list.getSelectedValue();
+        Ruangan selectedRuang = currentHouse.findRuangan(selectedOption);
+
+        if (selectedOption != null) {
+            HashSet<Furniture> listBarang = new HashSet<Furniture>();
+            Peta<Furniture> petaBarang = selectedRuang.getPeta();
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
+                    Furniture barang = (Furniture) petaBarang.getElement(i, j);
+                    if (barang != null) {
+                        listBarang.add(barang);
+                    }
+                }
+            }
+            
+            StringBuilder message = new StringBuilder("");
+            int idx = 1;
+            for (Furniture barang : listBarang) {
+                message.append(String.format("%d. %s\n", idx, barang.getNama()));
+                idx++;
+            }
+            JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }
 
     @Override
