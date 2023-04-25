@@ -14,7 +14,9 @@ import com.simplicity.ExceptionHandling.*;
 public class SimPlicity extends JFrame {
     private static SimPlicity instance = new SimPlicity();
 
-    private static KeyAdapter keyListener;
+    private boolean keyListener = true;
+    private boolean keyListener2 = false;
+
     private BufferedImage icon;
     private JLabel backgroundLabel;
     private static boolean inGame = false;
@@ -45,6 +47,38 @@ public class SimPlicity extends JFrame {
             System.out.println("Error loading background image");
         }
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (keyListener && e.getKeyChar() == KeyEvent.VK_ENTER) {
+                    // Start
+                    keyListener = false;
+                    instance.runGame();
+                } else if (keyListener && e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+                    // Help
+                    Object[] options = { "Aku mengerti!" };
+                    JOptionPane.showOptionDialog(null,
+                            "Gatau mainin aja udah pokoknya",
+                            "Help",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+
+                }
+            }
+        });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (keyListener2 && e.getKeyChar() == KeyEvent.VK_COMMA) {
+                    keyListener2 = false;
+                    instance.displayGameMenu();
+                }
+            }
+        });
+
         setFocusable(true);
         setVisible(true);
     }
@@ -55,6 +89,15 @@ public class SimPlicity extends JFrame {
 
     public static Sim getCurrentSim() {
         return currentSim;
+    }
+
+    // Buat debug aja
+    private void printListeners(KeyListener keyListener) {
+        System.out.println("listener: " + keyListener);
+        System.out.println("listeners: ");
+        for (KeyListener listener : instance.getKeyListeners()) {
+            System.out.println(listener);
+        }
     }
 
     // Menu game
@@ -97,11 +140,12 @@ public class SimPlicity extends JFrame {
                         // handle Change Sim option
                         break;
                     case "Exit":
-                        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the game?",
+                        int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
                                 "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confirm == JOptionPane.YES_OPTION) {
                             inGame = false;
-                            addKeyListener(keyListener);
+                            keyListener = true;
+                            keyListener2 = false;
                             JOptionPane.getRootFrame().dispose();
                             repaint();
                         } else if (confirm == JOptionPane.NO_OPTION) {
@@ -116,17 +160,9 @@ public class SimPlicity extends JFrame {
         int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
+        if (inGame && dialogResult == JOptionPane.CLOSED_OPTION) {
+            keyListener2 = true;
         }
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                    displayGameMenu();
-                    removeKeyListener(this);
-                }
-            }
-        });
     }
 
     // House Menu
@@ -256,7 +292,7 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    private void makeNewSim() {
+    private Sim makeNewSim() {
         World world = World.getInstance();
 
         String nama = "";
@@ -265,11 +301,12 @@ public class SimPlicity extends JFrame {
             try {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
                 if (nama == null) {
-                    nama = "";
-                }
-                if (nama.length() < 4 || nama.length() > 16) {
-                    // Nanti ganti exception yang dibikin sama manu
-                    throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
+                    JOptionPane.getRootFrame().dispose();
+                    return null;
+                } else {
+                    if (nama.length() < 4 || nama.length() > 16) {
+                        throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
+                    }
                 }
             } catch (IllegalNameException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -289,33 +326,25 @@ public class SimPlicity extends JFrame {
         Sim sim = new Sim(nama, rumah, ruangan);
         rumah.setPemilik(sim);
 
-        sims.add(sim);
-        currentSim = sim;
+        return sim;
     }
 
     public void runGame() {
-        makeNewSim();
+        Sim sim = makeNewSim();
+        if (sim != null) {
+            sims.add(sim);
+            currentSim = sim;
 
-        inGame = true;
-        displayRumah = true;
-        repaint();
-        displayGameMenu();
+            inGame = true;
+            displayRumah = true;
+            repaint();
+            displayGameMenu();
+        } else {
+            keyListener = true;
+        }
     }
 
     public static void main(String[] args) {
         SimPlicity game = SimPlicity.getInstance();
-        keyListener = new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    game.runGame();
-                    game.removeKeyListener(this);
-                } else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                    JOptionPane.showMessageDialog(null, "Gatau mainin aja udah pokoknya", "Help",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        };
-        game.addKeyListener(keyListener);
     }
 }
