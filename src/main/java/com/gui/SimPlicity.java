@@ -14,8 +14,37 @@ import com.simplicity.ExceptionHandling.*;
 public class SimPlicity extends JFrame {
     private static SimPlicity instance = new SimPlicity();
 
-    private boolean keyListener = true;
-    private boolean keyListener2 = false;
+    private KeyAdapter keyListener = new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                // Start
+                removeKeyListener(keyListener);
+                instance.runGame();
+            } else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+                // Help
+                Object[] options = { "Aku mengerti!" };
+                JOptionPane.showOptionDialog(null,
+                        "Gatau mainin aja udah pokoknya",
+                        "Help",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+            }
+        }
+    };
+    private KeyAdapter keyListener2 = new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+                removeKeyListener(keyListener2);
+                instance.displayGameMenu();
+            }
+        }
+    };
 
     private BufferedImage icon;
     private JLabel backgroundLabel;
@@ -47,37 +76,7 @@ public class SimPlicity extends JFrame {
             System.out.println("Error loading background image");
         }
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (keyListener && e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    // Start
-                    keyListener = false;
-                    instance.runGame();
-                } else if (keyListener && e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-                    // Help
-                    Object[] options = { "Aku mengerti!" };
-                    JOptionPane.showOptionDialog(null,
-                            "Gatau mainin aja udah pokoknya",
-                            "Help",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null,
-                            options,
-                            options[0]);
-
-                }
-            }
-        });
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (keyListener2 && e.getKeyChar() == KeyEvent.VK_COMMA) {
-                    keyListener2 = false;
-                    instance.displayGameMenu();
-                }
-            }
-        });
+        addKeyListener(keyListener);
 
         setFocusable(true);
         setVisible(true);
@@ -144,8 +143,8 @@ public class SimPlicity extends JFrame {
                                 "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confirm == JOptionPane.YES_OPTION) {
                             inGame = false;
-                            keyListener = true;
-                            keyListener2 = false;
+                            addKeyListener(keyListener);
+                            removeKeyListener(keyListener2);
                             JOptionPane.getRootFrame().dispose();
                             repaint();
                         } else if (confirm == JOptionPane.NO_OPTION) {
@@ -161,7 +160,7 @@ public class SimPlicity extends JFrame {
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
         if (inGame && dialogResult == JOptionPane.CLOSED_OPTION) {
-            keyListener2 = true;
+            addKeyListener(keyListener2);
         }
     }
 
@@ -340,7 +339,7 @@ public class SimPlicity extends JFrame {
             repaint();
             displayGameMenu();
         } else {
-            keyListener = true;
+            addKeyListener(keyListener);
         }
     }
 
