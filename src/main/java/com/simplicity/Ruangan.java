@@ -1,8 +1,9 @@
 package com.simplicity;
 
+import java.util.*;
+
 public class Ruangan {
     private String namaRuangan;
-    // private int noRuang;
     private Peta<Furniture> petaBarang = new Peta<Furniture>(6, 6);
 
     public Ruangan(String namaRuangan) {
@@ -11,7 +12,6 @@ public class Ruangan {
 
     public Ruangan(String namaRuangan, int noRuang) {
         this.namaRuangan = namaRuangan;
-        // this.noRuang = noRuang;
     }
 
     public Peta<Furniture> getPeta() {
@@ -22,24 +22,60 @@ public class Ruangan {
         return namaRuangan;
     }
 
-    // public int getNoRuang() {
-    // return noRuang;
-    // }
+    public void displayBarang() {
+        TreeSet<Furniture> listBarang = new TreeSet<Furniture>();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Furniture barang = petaBarang.getElement(i, j);
+                if (barang != null) {
+                    listBarang.add(barang);
+                }
+            }
+        }
+        
+        int idx = 1;
+        for (Furniture barang : listBarang) {
+            System.out.printf("%d. %s\n", idx, barang.getNama());
+            idx++;
+        }
+    }
 
     public void memasangBarang(Furniture barang, Boolean isHorizontal, int x, int y) {
-        // belum dihandle buat checking spacenya, soon dibuat.
+        if (isSpaceAvailable(barang, isHorizontal, x, y)) {
+            if (isHorizontal) {
+                for (int i = x; i < x + barang.getPanjang(); i++) {
+                    for (int j = y; j < y + barang.getLebar(); j++) {
+                        petaBarang.setElement(i, j, barang);
+                    }
+                }
+            } else {
+                for (int i = x; i < x + barang.getLebar(); i++) {
+                    for (int j = y; j < y + barang.getPanjang(); j++) {
+                        petaBarang.setElement(i, j, barang);
+                    }
+                }
+            }
+        } else {
+            System.out.println("Barang tidak dapat dipasang karena lahan sudah digunakan.");
+        }
+    }
+
+    public Boolean isSpaceAvailable(Furniture barang, Boolean isHorizontal, int x, int y) {
+        Boolean isAvailable = true;
         if (isHorizontal) {
             for (int i = x; i < x + barang.getPanjang(); i++) {
                 for (int j = y; j < y + barang.getLebar(); j++) {
-                    petaBarang.setElement(i, j, barang);
+                    if (petaBarang.getElement(i, j) != null) isAvailable = false;
                 }
             }
         } else {
             for (int i = x; i < x + barang.getLebar(); i++) {
                 for (int j = y; j < y + barang.getPanjang(); j++) {
-                    petaBarang.setElement(i, j, barang);
+                    if (petaBarang.getElement(i, j) != null) isAvailable = false;
                 }
             }
         }
+
+        return isAvailable;
     }
 }
