@@ -19,6 +19,13 @@ public class Sim {
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
 
+    public Sim(String namaLengkap) {
+        this.namaLengkap = namaLengkap;
+        List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());
+        Collections.shuffle(listPekerjaan);
+        this.pekerjaan = listPekerjaan.get(0);
+    }
+
     public Sim(String namaLengkap, Rumah posisiRumah, Ruangan posisiRuangan) {
         this.namaLengkap = namaLengkap;
         List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());

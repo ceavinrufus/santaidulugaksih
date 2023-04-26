@@ -51,7 +51,7 @@ public class SimPlicity extends JFrame {
     private static boolean inGame = false;
     private static boolean displayRumah = false;
 
-    private static ArrayList<Sim> sims = new ArrayList<Sim>();
+    private static HashMap<String, Sim> sims = new HashMap<String, Sim>();
     private static Sim currentSim;
 
     private SimPlicity() {
@@ -133,7 +133,12 @@ public class SimPlicity extends JFrame {
                         break;
                     case "Add Sim":
                         // handle Add Sim option
-                        makeNewSim();
+                        try {
+                            makeNewSim();
+                        } catch (SimNotCreatedException exception) {
+                            JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                         break;
                     case "Change Sim":
                         // handle Change Sim option
@@ -291,24 +296,36 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    private Sim makeNewSim() {
+    private Sim makeNewSim() throws SimNotCreatedException {
         World world = World.getInstance();
 
         String nama = "";
+        Sim sim = null;
 
         while (nama.length() < 4 || nama.length() > 16) {
             try {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
                 if (nama == null) {
+                    // Kalo pencet tombol close
                     JOptionPane.getRootFrame().dispose();
                     return null;
                 } else {
+                    // Validasi nama
                     if (nama.length() < 4 || nama.length() > 16) {
                         throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
+                    } else {
+                        sim = new Sim(nama);
+                        // Cek udah ada Sim dengan nama yang sama belom
+                        if (sims.putIfAbsent(sim.getNamaLengkap(), sim) != null) {
+                            throw new IllegalNameException(
+                                    String.format("Sim dengan nama '%s' sudah ada",
+                                            sim.getNamaLengkap()));
+                        }
                     }
                 }
             } catch (IllegalNameException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                throw new SimNotCreatedException();
             }
         }
 
@@ -319,21 +336,30 @@ public class SimPlicity extends JFrame {
         ruangan.memasangBarang(new Jam(), true, 0, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
 
-        Rumah rumah = new Rumah(ruangan);
-        world.tambahRumah(rumah, 0, 0);
-
-        Sim sim = new Sim(nama, rumah, ruangan);
-        rumah.setPemilik(sim);
+        try {
+            Rumah rumah = new Rumah(ruangan);
+            world.tambahRumah(rumah, 0, 0);
+            rumah.setPemilik(sim);
+            sim.setCurrentPosition(new SimPosition(rumah, ruangan));
+        } catch (IllegalLocationException e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new SimNotCreatedException();
+        }
 
         return sim;
     }
 
     public void runGame() {
-        Sim sim = makeNewSim();
+        Sim sim = null;
+        try {
+            sim = makeNewSim();
+        } catch (SimNotCreatedException e) {
+            sim = null;
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
         if (sim != null) {
-            sims.add(sim);
             currentSim = sim;
-
             inGame = true;
             displayRumah = true;
             repaint();

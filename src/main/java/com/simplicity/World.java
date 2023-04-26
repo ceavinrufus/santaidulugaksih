@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import com.simplicity.ExceptionHandling.IllegalLocationException;
+
 public class World {
     // Singleton
     private static World instance = new World();
@@ -22,27 +24,26 @@ public class World {
         return petaRumah;
     }
 
-    public void tambahRumah(Rumah rumah, int x, int y) {
+    public void tambahRumah(Rumah rumah, int x, int y) throws IllegalLocationException {
         if (x < 0 || x >= petaRumah.getColumn() || y < 0 || y >= petaRumah.getRow()) {
-            System.out.println("Lokasi rumah tidak valid");
+            throw new IllegalLocationException("Lokasi rumah tidak valid");
         } else {
             if (petaRumah.getElement(x, y) == null) {
                 petaRumah.setElement(x, y, rumah);
             } else {
-                System.out.println("Lahan rumah sudah terisi");
+                throw new IllegalLocationException("Lahan rumah sudah terisi");
             }
         }
     }
 
-    public void hapusRumah(int x, int y) {
+    public void hapusRumah(int x, int y) throws IllegalLocationException {
         if (x < 0 || x >= petaRumah.getColumn() || y < 0 || y >= petaRumah.getRow()) {
-            System.out.println("Lokasi rumah tidak valid");
-            return;
+            throw new IllegalLocationException("Lokasi rumah tidak valid");
         } else {
             if (petaRumah.getElement(x, y) != null) {
                 petaRumah.setElement(x, y, null);
             } else {
-                System.out.println("Lahan rumah kosong");
+                throw new IllegalLocationException("Lahan rumah kosong");
             }
         }
     }
