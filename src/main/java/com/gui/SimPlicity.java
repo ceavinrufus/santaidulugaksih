@@ -193,10 +193,21 @@ public class SimPlicity extends JFrame {
             button.addActionListener(e -> {
                 switch (option) {
                     case "Upgrade House":
+                        if (locationValid()){
+                            //
+                        }
                         break;
                     case "Move Room":
+                        // Belom dicek karena belom bisa upgrade house
+                        String selectedOption = pilihanRuangan();
+                        if (selectedOption != null){
+                            currentSim.getCurrentPosition().setRuang(currentSim.getCurrentPosition().getRumah().findRuangan(selectedOption));
+                        }
                         break;
                     case "Edit Room":
+                        if (locationValid()){
+                            //
+                        }
                         break;
                     case "List Object":
                         displayListObject();
@@ -223,9 +234,9 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    private void displayListObject() {
+    private String pilihanRuangan(){
+        //Aku pisah karena mau dipake untuk move room juga -Tina
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
         TreeSet<String> setOfRoomName = new TreeSet<String>();
 
         Peta<Ruangan> petaRuangan = currentHouse.getPeta();
@@ -244,6 +255,14 @@ public class SimPlicity extends JFrame {
         String header = "Pilihan Ruangan";
         JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
         String selectedOption = list.getSelectedValue();
+        return selectedOption;
+    }
+
+    private void displayListObject() {
+        Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
+        // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
+        String selectedOption = pilihanRuangan();
+        //Aku pisah karena mau dipake untuk move room juga -Tina
         Ruangan selectedRuang = currentHouse.findRuangan(selectedOption);
 
         if (selectedOption != null) {
@@ -267,6 +286,21 @@ public class SimPlicity extends JFrame {
             JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+
+    private boolean locationValid(){
+        boolean inHome = false;
+        try{
+            if (currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap().equals(currentSim.getNamaLengkap())){
+                inHome = true;
+            } else{
+                inHome = false;
+                throw new IllegalLocationException("Anda harus berada di rumah sendiri untuk melakukan hal tersebut!");
+            }
+        } catch (IllegalLocationException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return inHome;
     }
 
     @Override
