@@ -1,9 +1,9 @@
 package com;
-import com.simplicity.*;
-import java.io.IOException;
-import java.util.*;
+
+import com.gui.*;
 
 public class Main {
     public static void main(String[] args) {
+        SimPlicity game = SimPlicity.getInstance();
     }
 }

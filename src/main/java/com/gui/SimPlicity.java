@@ -122,9 +122,11 @@ public class SimPlicity extends JFrame {
                         JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Current Location":
-                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap() + "\n" +
-                                  "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
-                        JOptionPane.showMessageDialog(null, message, "Current Location", JOptionPane.INFORMATION_MESSAGE);
+                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+                                + "\n" +
+                                "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
+                        JOptionPane.showMessageDialog(null, message, "Current Location",
+                                JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Inventory":
                         currentSim.getInventory().displayInventory(Storable.class);
@@ -172,42 +174,41 @@ public class SimPlicity extends JFrame {
 
     // House Menu
     private void displayHouseMenu() {
-        boolean inHouse = true;
-        boolean inRoom = true;
+        String[] anyHouseMenu = { "Move Room", "List Object", "Go To Object", "Action" }; // Di manapun bisa diakses
+        String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
+        String[] options;
 
-        ArrayList<String> houseList = new ArrayList<>(Arrays.asList("Upgrade House", "Move Room"));
-        ArrayList<String> roomList = new ArrayList<>(
-                Arrays.asList("Edit Room", "List Object", "Go To Object", "Action"));
-
-        if (inRoom) {
-            houseList.addAll(roomList);
+        // Conditional buat nentuin menu apa aja yang bakal ditampilin
+        if (currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+                .equals(currentSim.getNamaLengkap())) {
+            options = new String[anyHouseMenu.length + simHouseMenu.length + 1];
+            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
+            System.arraycopy(simHouseMenu, 0, options, anyHouseMenu.length, simHouseMenu.length);
+        } else {
+            options = new String[anyHouseMenu.length + 1];
+            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
         }
-        houseList.add("Back");
+        options[options.length - 1] = "Back";
 
-        String[] options = houseList.toArray(new String[0]);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
 
+        // Add button listener
         for (String option : options) {
             JButton button = new JButton(option);
             button.addActionListener(e -> {
                 switch (option) {
                     case "Upgrade House":
-                        if (locationValid()){
-                            //
-                        }
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
                         String selectedOption = pilihanRuangan();
-                        if (selectedOption != null){
-                            currentSim.getCurrentPosition().setRuang(currentSim.getCurrentPosition().getRumah().findRuangan(selectedOption));
+                        if (selectedOption != null) {
+                            currentSim.getCurrentPosition()
+                                    .setRuang(currentSim.getCurrentPosition().getRumah().findRuangan(selectedOption));
                         }
                         break;
                     case "Edit Room":
-                        if (locationValid()){
-                            //
-                        }
                         break;
                     case "List Object":
                         displayListObject();
@@ -234,8 +235,8 @@ public class SimPlicity extends JFrame {
         }
     }
 
-    private String pilihanRuangan(){
-        //Aku pisah karena mau dipake untuk move room juga -Tina
+    private String pilihanRuangan() {
+        // Aku pisah karena mau dipake untuk move room juga -Tina
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
         TreeSet<String> setOfRoomName = new TreeSet<String>();
 
@@ -262,7 +263,7 @@ public class SimPlicity extends JFrame {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
         // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
         String selectedOption = pilihanRuangan();
-        //Aku pisah karena mau dipake untuk move room juga -Tina
+        // Aku pisah karena mau dipake untuk move room juga -Tina
         Ruangan selectedRuang = currentHouse.findRuangan(selectedOption);
 
         if (selectedOption != null) {
@@ -286,21 +287,6 @@ public class SimPlicity extends JFrame {
             JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
         }
 
-    }
-
-    private boolean locationValid(){
-        boolean inHome = false;
-        try{
-            if (currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap().equals(currentSim.getNamaLengkap())){
-                inHome = true;
-            } else{
-                inHome = false;
-                throw new IllegalLocationException("Anda harus berada di rumah sendiri untuk melakukan hal tersebut!");
-            }
-        } catch (IllegalLocationException e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return inHome;
     }
 
     @Override
@@ -379,7 +365,7 @@ public class SimPlicity extends JFrame {
             do {
                 randX = rand.nextInt(64);
                 randY = rand.nextInt(64);
-            } while(world.getPeta().getElement(randX, randY) != null);
+            } while (world.getPeta().getElement(randX, randY) != null);
             world.tambahRumah(rumah, randX, randY);
             rumah.setPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
@@ -390,32 +376,37 @@ public class SimPlicity extends JFrame {
         }
 
         // Mengecek apakah Add Sim atau tidak
-        if (sims.size() > 1){
-            JOptionPane.showMessageDialog(null, "Sim berhasil ditambahkan!\nUntuk mengubah Sim, silakan akses opsi Change Sim.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        if (sims.size() > 1) {
+            JOptionPane.showMessageDialog(null,
+                    "Sim berhasil ditambahkan!\nUntuk mengubah Sim, silakan akses opsi Change Sim.", "Notification",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
 
         return sim;
     }
 
-    private void displaySims(){
+    private void displaySims() {
         String[] simOptions = {};
         ArrayList<String> listSims = new ArrayList<String>(Arrays.asList(simOptions));
-        for (String x: sims.keySet()){
-            if (!(currentSim.getNamaLengkap().equals(x))){
+        for (String x : sims.keySet()) {
+            if (!(currentSim.getNamaLengkap().equals(x))) {
                 listSims.add(x);
             }
         }
         simOptions = listSims.toArray(simOptions);
-        if (simOptions.length == 0){
-            JOptionPane.showMessageDialog(null, "Daftar Sim kosong.\nSilakan menambahkan Sim terlebih dahulu dengan mengakses opsi Add Sim.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        if (simOptions.length == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Daftar Sim kosong.\nSilakan menambahkan Sim terlebih dahulu dengan mengakses opsi Add Sim.",
+                    "Notification", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JList<String> list = new JList<>(simOptions);
             String header = "Daftar Sim";
             JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
             String selectedOption = list.getSelectedValue();
-            if (selectedOption != null){
+            if (selectedOption != null) {
                 currentSim = sims.get(selectedOption);
-                JOptionPane.showMessageDialog(null, "Sim berhasil diubah!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sim berhasil diubah!", "Notification",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
@@ -437,9 +428,5 @@ public class SimPlicity extends JFrame {
         } else {
             addKeyListener(keyListener);
         }
-    }
-
-    public static void main(String[] args) {
-        SimPlicity game = SimPlicity.getInstance();
     }
 }
