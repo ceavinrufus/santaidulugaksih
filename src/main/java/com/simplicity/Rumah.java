@@ -132,30 +132,6 @@ public class Rumah {
         return ruang;
     }
 
-    // public void printRumah() {
-    // int x = (petaRuangan.getColumn() * 6) + 1;
-    // int y = (petaRuangan.getRow() * 6) + 1;
-
-    // for (int i = y - 1; i >= 0; i--) {
-    // for (int j = 0; j < x; j++) {
-    // if (i == 0 || i == y - 1) {
-    // System.out.print("-");
-    // } else if (j == 0 || j == x - 1) {
-    // System.out.print("|");
-    // } else if (i % 6 == 0 && j % 6 == 0) {
-    // System.out.print(petaRuangan.getElement(j / 6, i / 6).getNoRuang());
-    // } else if (i % 6 == 0) {
-    // System.out.print("-");
-    // } else if (j % 6 == 0) {
-    // System.out.print("|");
-    // } else {
-    // System.out.print(" ");
-    // }
-    // }
-    // System.out.println();
-    // }
-    // }
-
     // GUI
     public void paint(Graphics g, int windowWidth, int windowHeight) {
         int row = petaRuangan.getRow() * 6;
@@ -201,8 +177,9 @@ public class Rumah {
         }
 
         Color gridBg = new Color(255, 255, 255, 90);
-        SimPosition currentSimPosition = SimPlicity.getCurrentSim().getCurrentPosition();
-        String currentNamaRuangan = SimPlicity.getCurrentSim().getCurrentPosition().getRuang().getNamaRuangan();
+        SimPosition currentSimPosition = SimPlicity.getInstance().getCurrentSim().getCurrentPosition();
+        String currentNamaRuangan = SimPlicity.getInstance().getCurrentSim().getCurrentPosition().getRuang()
+                .getNamaRuangan();
         for (int x = 0; x < column; x++) {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;

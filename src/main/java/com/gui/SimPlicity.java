@@ -48,11 +48,11 @@ public class SimPlicity extends JFrame {
 
     private BufferedImage icon;
     private JLabel backgroundLabel;
-    private static boolean inGame = false;
-    private static boolean displayRumah = false;
 
-    private static HashMap<String, Sim> sims = new HashMap<String, Sim>();
-    private static Sim currentSim;
+    private boolean inGame = false;
+    private boolean displayRumah = false;
+    private HashMap<String, Sim> sims = new HashMap<String, Sim>();
+    private Sim currentSim;
 
     private SimPlicity() {
         setTitle("Sim-Plicity");
@@ -86,7 +86,7 @@ public class SimPlicity extends JFrame {
         return instance;
     }
 
-    public static Sim getCurrentSim() {
+    public Sim getCurrentSim() {
         return currentSim;
     }
 
@@ -144,19 +144,19 @@ public class SimPlicity extends JFrame {
                         }
                         break;
                     case "Change Sim":
-                        displaySims();
+                        changeSim();
                         break;
                     case "Exit":
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
                                 "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confirm == JOptionPane.YES_OPTION) {
                             inGame = false;
+                            sims.clear();
+                            currentSim = null;
                             addKeyListener(keyListener);
                             removeKeyListener(keyListener2);
                             JOptionPane.getRootFrame().dispose();
                             repaint();
-                        } else if (confirm == JOptionPane.NO_OPTION) {
-
                         }
                         break;
                 }
@@ -385,7 +385,7 @@ public class SimPlicity extends JFrame {
         return sim;
     }
 
-    private void displaySims() {
+    private void changeSim() {
         String[] simOptions = {};
         ArrayList<String> listSims = new ArrayList<String>(Arrays.asList(simOptions));
         for (String x : sims.keySet()) {
@@ -396,17 +396,17 @@ public class SimPlicity extends JFrame {
         simOptions = listSims.toArray(simOptions);
         if (simOptions.length == 0) {
             JOptionPane.showMessageDialog(null,
-                    "Daftar Sim kosong.\nSilakan menambahkan Sim terlebih dahulu dengan mengakses opsi Add Sim.",
+                    "Sejauh ini kamu baru punya satu Sim, nih!\nCoba bikin Sim baru dulu dengan memilih menu 'Add Sim'",
                     "Notification", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JList<String> list = new JList<>(simOptions);
-            String header = "Daftar Sim";
-            JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Ganti Sim", JOptionPane.PLAIN_MESSAGE);
             String selectedOption = list.getSelectedValue();
             if (selectedOption != null) {
                 currentSim = sims.get(selectedOption);
-                JOptionPane.showMessageDialog(null, "Sim berhasil diubah!", "Notification",
+                JOptionPane.showMessageDialog(null, "Berhasil mengganti Sim!", "Notification",
                         JOptionPane.INFORMATION_MESSAGE);
+                repaint();
             }
         }
     }

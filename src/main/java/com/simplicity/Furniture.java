@@ -43,8 +43,8 @@ public abstract class Furniture implements Storable {
 
         if (choice == 0) {
             // Pasang
-            if (SimPlicity.getCurrentSim()
-                    .equals(SimPlicity.getCurrentSim().getCurrentPosition().getRumah().getPemilik())) {
+            if (SimPlicity.getInstance().getCurrentSim()
+                    .equals(SimPlicity.getInstance().getCurrentSim().getCurrentPosition().getRumah().getPemilik())) {
                 // Cari posisi
                 // Pasang
             } else {
