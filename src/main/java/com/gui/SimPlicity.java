@@ -123,6 +123,9 @@ public class SimPlicity extends JFrame {
                         break;
                     case "View Current Location":
                         // handle View Current Location option
+                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap() + "\n" +
+                                  "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
+                        JOptionPane.showMessageDialog(null, message, "Current Location", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Inventory":
                         currentSim.getInventory().displayInventory(Storable.class);
@@ -338,7 +341,14 @@ public class SimPlicity extends JFrame {
 
         try {
             Rumah rumah = new Rumah(ruangan);
-            world.tambahRumah(rumah, 0, 0);
+            Random rand = new Random();
+            int randX;
+            int randY;
+            do {
+                randX = rand.nextInt(64);
+                randY = rand.nextInt(64);
+            } while(world.getPeta().getElement(randX, randY) != null);
+            world.tambahRumah(rumah, randX, randY);
             rumah.setPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
         } catch (IllegalLocationException e) {

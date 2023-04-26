@@ -38,7 +38,20 @@ public class MenuGame {
         currentSim.setStats(new Stats());
         currentSim.setUang(100);
         Inventory inventory = new Inventory();
-
+        Kasur kasur = new Kasur("Kasur Single");
+        Toilet toilet = new Toilet();
+        Kompor kompor = new Kompor("Kompor Gas");
+        MejaKursi mejaKursi = new MejaKursi();
+        Jam jam = new Jam();
+        Ruangan ruangan = new Ruangan("Ruangan Utama");
+        ruangan.memasangBarang(kasur, false, 5, 2);
+        ruangan.memasangBarang(toilet, true, 0, 5);
+        ruangan.memasangBarang(jam, true, 0, 0);
+        ruangan.memasangBarang(kompor, true, 2, 5);
+        ruangan.memasangBarang(mejaKursi, true, 1, 1);
+        Rumah rumah = new Rumah(ruangan);
+        rumah.setPemilik(currentSim);
+        World world = World.getInstance();
     }
 
     public void help(){
