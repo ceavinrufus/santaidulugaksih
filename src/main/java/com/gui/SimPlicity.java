@@ -122,7 +122,6 @@ public class SimPlicity extends JFrame {
                         JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Current Location":
-                        // handle View Current Location option
                         message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap() + "\n" +
                                   "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
                         JOptionPane.showMessageDialog(null, message, "Current Location", JOptionPane.INFORMATION_MESSAGE);
@@ -135,7 +134,6 @@ public class SimPlicity extends JFrame {
                         displayHouseMenu();
                         break;
                     case "Add Sim":
-                        // handle Add Sim option
                         try {
                             makeNewSim();
                         } catch (SimNotCreatedException exception) {
@@ -144,7 +142,7 @@ public class SimPlicity extends JFrame {
                         }
                         break;
                     case "Change Sim":
-                        // handle Change Sim option
+                        displaySims();
                         break;
                     case "Exit":
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
@@ -357,7 +355,35 @@ public class SimPlicity extends JFrame {
             throw new SimNotCreatedException();
         }
 
+        // Mengecek apakah Add Sim atau tidak
+        if (sims.size() > 1){
+            JOptionPane.showMessageDialog(null, "Sim berhasil ditambahkan!\nUntuk mengubah Sim, silakan akses opsi Change Sim.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        }
+
         return sim;
+    }
+
+    private void displaySims(){
+        String[] simOptions = {};
+        ArrayList<String> listSims = new ArrayList<String>(Arrays.asList(simOptions));
+        for (String x: sims.keySet()){
+            if (!(currentSim.getNamaLengkap().equals(x))){
+                listSims.add(x);
+            }
+        }
+        simOptions = listSims.toArray(simOptions);
+        if (simOptions.length == 0){
+            JOptionPane.showMessageDialog(null, "Daftar Sim kosong.\nSilakan menambahkan Sim terlebih dahulu dengan mengakses opsi Add Sim.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JList<String> list = new JList<>(simOptions);
+            String header = "Daftar Sim";
+            JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
+            String selectedOption = list.getSelectedValue();
+            if (selectedOption != null){
+                currentSim = sims.get(selectedOption);
+                JOptionPane.showMessageDialog(null, "Sim berhasil diubah!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     public void runGame() {
