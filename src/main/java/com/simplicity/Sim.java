@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Sim {
     private String namaLengkap;
@@ -118,17 +119,30 @@ public class Sim {
 
     public void olahraga(int workoutTime) {
         if (workoutTime % 20 == 0) {
-            stats.tambahKesehatan(workoutTime / 20 * 5);
-            stats.kurangKekenyangan(workoutTime / 20 * 5);
-            stats.tambahMood(workoutTime / 20 * 10);
+            try {
+                TimeUnit.SECONDS.sleep(workoutTime);
+                stats.tambahKesehatan(workoutTime / 20 * 5);
+                stats.kurangKekenyangan(workoutTime / 20 * 5);
+                stats.tambahMood(workoutTime / 20 * 10);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }            
             totalWaktu.addWaktu(workoutTime);
+            trackTidur(workoutTime);
         }
     }
 
     public void tidur(int sleepTime) {
         if (sleepTime >= 240) {
-            stats.tambahMood(sleepTime / 240 * 30);
-            stats.tambahKesehatan(sleepTime / 240 * 20);
+            try {
+                TimeUnit.SECONDS.sleep(sleepTime);
+                stats.tambahMood(sleepTime / 240 * 30);
+                stats.tambahKesehatan(sleepTime / 240 * 20);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            totalWaktu.addWaktu(sleepTime);
+            waktuTidakTidur = 0;
         }
     }
 
