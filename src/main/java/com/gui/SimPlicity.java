@@ -219,7 +219,6 @@ public class SimPlicity extends JFrame {
                         break;
                     case "Back":
                         JOptionPane.getRootFrame().dispose();
-                        displayGameMenu();
                         break;
                 }
             });
