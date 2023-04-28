@@ -103,17 +103,20 @@ public class Sim {
 
     public void kerja(int workingTime) {
         if (changeJobTime >= 720 && workingTime % 120 == 0) {
-            totalWorkTime += workingTime;
-            trackTidur(workingTime);
-            if (waktuKerjaBelumDibayar > 0) {
-                workingTime += waktuKerjaBelumDibayar;
-                waktuKerjaBelumDibayar = 0;
+            try {
+                TimeUnit.SECONDS.sleep(workingTime);
+                totalWorkTime += workingTime;
+                if (waktuKerjaBelumDibayar > 0) {
+                    workingTime += waktuKerjaBelumDibayar;
+                    waktuKerjaBelumDibayar = 0;
+                    stats.kurangKekenyangan(workingTime / 30 * 10);
+                    stats.kurangMood(workingTime / 30 * 10);
+                    uang += pekerjaan.getGaji() * (workingTime % 240);
+                    waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
+                }
+            } catch (InterruptedException e) {
+                // do something
             }
-            stats.kurangKekenyangan(workingTime / 30 * 10);
-            stats.kurangMood(workingTime / 30 * 10);
-            uang += pekerjaan.getGaji() * (workingTime % 240);
-            waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
-            totalWaktu.addWaktu(workingTime);
         }
     }
 
@@ -160,6 +163,28 @@ public class Sim {
 
     public void buangAir() {
 
+    }
+
+    public void upgradeRumah() {
+        int cost = 1500;
+        if (uang > cost) {
+            try {
+                TimeUnit.SECONDS.sleep(18*60);
+                // tambah ruangan
+                if (currentPosition.getRumah().getPemilik().equals(this)) {
+                    Scanner scanner = new Scanner(System.in);
+                    String namaRuangan = scanner.nextLine();
+                    Ruangan baru = new Ruangan(namaRuangan);
+                    String arah = scanner.nextLine();
+                    String ruanganPatokan = scanner.nextLine();
+                    // currentPosition.getRumah().tambahRuangan(baru, arah, ruanganPatokan);
+                }
+                uang -= cost;
+            } catch (InterruptedException e) {
+                // do something
+            }
+            totalWaktu.addWaktu(18*60);
+        }
     }
 
     public void interact(Furniture Furniture) {

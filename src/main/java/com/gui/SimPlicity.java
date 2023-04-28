@@ -227,6 +227,7 @@ public class SimPlicity extends JFrame {
             button.addActionListener(e -> {
                 switch (option) {
                     case "Upgrade House":
+                    currentSim.upgradeRumah();
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
