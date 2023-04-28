@@ -245,6 +245,7 @@ public class SimPlicity extends JFrame {
                         pilihanObject();
                         break;
                     case "Action":
+                        action();
                         break;
                     case "Back":
                         JOptionPane.getRootFrame().dispose();
@@ -319,6 +320,48 @@ public class SimPlicity extends JFrame {
                 currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
                 repaint();
             }
+        }
+    }
+
+    private void action(){
+        String[] listAksi= {"Kerja", "Olahraga", "Berkunjung", "Beli Barang"};
+        ArrayList<String> listAksiBarang = new ArrayList<String>(Arrays.asList(listAksi));
+        SimPosition simCurrentPosition = currentSim.getCurrentPosition();
+        Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(), simCurrentPosition.getLokasi().getY());
+        listAksiBarang.add(barang.getNamaAksi());
+        listAksiBarang.add("Back");
+        listAksi = listAksiBarang.toArray(listAksi);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0,1));
+
+        for (String aksi: listAksi){
+            JButton button = new JButton(aksi);
+            button.addActionListener(e ->{
+                if (aksi.equals("Kerja")){
+                    currentSim.kerja(3); //Set 3 menit dulu, nanti diatur lg inputan waktunya.
+                } else if (aksi.equals("Olahraga")){
+                    currentSim.olahraga(3);
+                } else if (aksi.equals("Berkunjung")){
+                    currentSim.berkunjung();
+                } else if (aksi.equals("Beli Barang")){
+                    currentSim.beliBarang();
+                } else if (aksi.equals("Back")){
+                    JOptionPane.getRootFrame().dispose();
+                }else {
+                    if (barang != null){
+                        barang.aksi(currentSim);
+                    }
+                }
+            });
+            panel.add(button);
+        }
+
+        int dialogResult = JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
+
+        if (dialogResult == JOptionPane.CLOSED_OPTION) {
+            JOptionPane.getRootFrame().dispose();
+            displayHouseMenu();
         }
     }
 

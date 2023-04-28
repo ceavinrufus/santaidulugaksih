@@ -162,6 +162,10 @@ public class Sim {
 
     }
 
+    public void beliBarang(){
+        
+    }
+
     public void interact(Furniture Furniture) {
         Furniture.aksi(this);
     }
