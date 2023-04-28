@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Ruangan {
     private String namaRuangan;
-    private Peta<Furniture> petaBarang = new Peta<Furniture>(8, 8);
+    private Peta<Furniture> petaBarang = new Peta<Furniture>(6, 6);
 
     public Ruangan(String namaRuangan) {
         this.namaRuangan = namaRuangan;

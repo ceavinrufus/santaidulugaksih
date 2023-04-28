@@ -1,6 +1,7 @@
 package com.gui;
 
 import com.simplicity.*;
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +26,11 @@ public class SimPlicity extends JFrame {
                 // Help
                 Object[] options = { "Aku mengerti!" };
                 JOptionPane.showOptionDialog(null,
-                        "Gatau mainin aja udah pokoknya",
+                        "Hai! Selamat datang di Simplycity!\n" + 
+                        "Klik Enter untuk memulai game\n" +
+                        "Klik Spasi untuk melihat help\n" +
+                        "Klik w, a, s, d atau tombol panah untuk menggerakan Sim dalam permainan\n"+
+                        "Selamat bermain!",
                         "Help",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,
@@ -237,6 +242,7 @@ public class SimPlicity extends JFrame {
                         displayListObject();
                         break;
                     case "Go To Object":
+                        pilihanObject();
                         break;
                     case "Action":
                         break;
@@ -279,6 +285,41 @@ public class SimPlicity extends JFrame {
         JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
         String selectedOption = list.getSelectedValue();
         return selectedOption;
+    }
+
+    private void pilihanObject(){
+        HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
+        Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Furniture barang = (Furniture) petaBarang.getElement(i, j);
+                if (barang != null) {
+                    listBarang.putIfAbsent(barang.getNama(), new com.simplicity.Point(i, j));
+                }
+            }
+        }
+        
+        String[] objectOptions = {};
+        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
+        
+        for (String x : listBarang.keySet()) {
+            listObjects.add(x);
+        }
+        
+        objectOptions = listObjects.toArray(objectOptions);
+        if (objectOptions.length == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
+                    "Notification", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JList<String> list = new JList<>(objectOptions);
+            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Go To Object", JOptionPane.PLAIN_MESSAGE);
+            String selectedOption = list.getSelectedValue();
+            if (selectedOption != null) {
+                currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
+                repaint();
+            }
+        }
     }
 
     private void displayListObject() {
@@ -418,7 +459,7 @@ public class SimPlicity extends JFrame {
         simOptions = listSims.toArray(simOptions);
         if (simOptions.length == 0) {
             JOptionPane.showMessageDialog(null,
-                    "Sejauh ini kamu baru punya satu Sim, nih!\nCoba bikin Sim baru dulu dengan memilih menu 'Add Sim'",
+                    "Sejauh ini kamu baru punya satu Sim, nih!\nCoba buat Sim baru dulu dengan memilih menu 'Add Sim'",
                     "Notification", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JList<String> list = new JList<>(simOptions);
