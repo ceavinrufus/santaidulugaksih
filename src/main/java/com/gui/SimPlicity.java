@@ -39,9 +39,31 @@ public class SimPlicity extends JFrame {
     private KeyAdapter keyListener2 = new KeyAdapter() {
         @Override
         public void keyTyped(KeyEvent e) {
-            if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+            SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
+            int keyChar = e.getKeyChar();
+            if (keyChar == KeyEvent.VK_SPACE) {
                 removeKeyListener(keyListener2);
                 instance.displayGameMenu();
+            } else if (keyChar == 'w'){
+                if (currentSimPosition.getLokasi().getY() < 5){
+                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY()+1);
+                    repaint();
+                }
+            } else if (keyChar == 's'){
+                if (currentSimPosition.getLokasi().getY() > 0){
+                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY()-1);
+                    repaint();
+                }
+            } else if (keyChar == 'a'){
+                if (currentSimPosition.getLokasi().getX() > 0){
+                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX()-1);
+                    repaint();
+                }
+            } else if (keyChar == 'd'){
+                if (currentSimPosition.getLokasi().getX() < 5){
+                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX()+1);
+                    repaint();
+                }
             }
         }
     };
@@ -122,6 +144,7 @@ public class SimPlicity extends JFrame {
                         JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Current Location":
+                        SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
                         message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
                                 + "\n" +
                                 "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
