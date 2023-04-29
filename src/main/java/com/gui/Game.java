@@ -17,39 +17,7 @@ public class Game extends JFrame {
     private static Game instance = new Game();
     private static MainMenu mainMenu = MainMenu.getInstance();
 
-    private KeyAdapter keyListener = new KeyAdapter() {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
-            int keyChar = e.getKeyChar();
-            if (keyChar == KeyEvent.VK_SPACE) {
-                instance.displayGameMenu();
-            } else if (keyChar == 'w') {
-                if (currentSimPosition.getLokasi().getY() < 5) {
-                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() + 1);
-                    repaint();
-                }
-            } else if (keyChar == 's') {
-                if (currentSimPosition.getLokasi().getY() > 0) {
-                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() - 1);
-                    repaint();
-                }
-            } else if (keyChar == 'a') {
-                if (currentSimPosition.getLokasi().getX() > 0) {
-                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() - 1);
-                    repaint();
-                }
-            } else if (keyChar == 'd') {
-                if (currentSimPosition.getLokasi().getX() < 5) {
-                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() + 1);
-                    repaint();
-                }
-            }
-        }
-    };
-
-    private boolean inGame = false;
-    private boolean displayRumah = false;
+    // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
     private Sim currentSim;
 
@@ -67,8 +35,6 @@ public class Game extends JFrame {
         } catch (IOException e) {
             System.out.println("Error loading background image");
         }
-
-        addKeyListener(keyListener);
     }
 
     public static Game getInstance() {
@@ -81,15 +47,6 @@ public class Game extends JFrame {
 
     public void setCurrentSim(Sim currentSim) {
         this.currentSim = currentSim;
-    }
-
-    // Buat debug aja
-    private void printListeners(KeyListener keyListener) {
-        System.out.println("listener: " + keyListener);
-        System.out.println("listeners: ");
-        for (KeyListener listener : instance.getKeyListeners()) {
-            System.out.println(listener);
-        }
     }
 
     // Menu game
@@ -144,7 +101,6 @@ public class Game extends JFrame {
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
                                 "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confirm == JOptionPane.YES_OPTION) {
-                            inGame = false;
                             sims.clear();
                             currentSim = null;
                             setVisible(false);
@@ -160,9 +116,6 @@ public class Game extends JFrame {
         int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-        // if (inGame && dialogResult == JOptionPane.CLOSED_OPTION) {
-        // addKeyListener(keyListener);
-        // }
     }
 
     // House Menu
@@ -503,32 +456,6 @@ public class Game extends JFrame {
 
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-
-        if (displayRumah) {
-            currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight());
-        } else {
-            BufferedImage pattern = null;
-            try {
-                pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
-            } catch (IOException e) {
-                System.out.println("Error loading background image");
-            }
-            if (pattern != null) {
-                int patternWidth = pattern.getWidth(null);
-                int patternHeight = pattern.getHeight(null);
-                for (int x = 0; x < getWidth(); x += patternWidth) {
-                    for (int y = 0; y < getHeight(); y += patternHeight) {
-                        g.drawImage(pattern, x, y, null);
-                    }
-                }
-            }
-            World.getInstance().paint(g, getWidth(), getHeight());
-        }
-    }
-
     public Sim makeNewSim() throws SimNotCreatedException {
         World world = World.getInstance();
 
@@ -627,7 +554,9 @@ public class Game extends JFrame {
         setVisible(true);
         setFocusable(true);
         mainMenu.setVisible(false);
-        inGame = true;
-        displayRumah = true;
+        GamePanel gamePanel = new GamePanel(currentSim);
+        add(gamePanel);
+        gamePanel.requestFocusInWindow();
+        // displayRumah = true;
     }
 }
