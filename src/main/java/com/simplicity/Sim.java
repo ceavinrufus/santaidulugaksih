@@ -237,8 +237,11 @@ public class Sim {
         }
     }
 
-    public void beliBarang() {
-
+    public void beliBarang(Purchasable barang) {
+        if (uang >= barang.getHarga()) {
+            inventory.addBarang(barang, 1);
+            uang -= barang.getHarga();
+        }
     }
 
     public void interact(Furniture barang) {
