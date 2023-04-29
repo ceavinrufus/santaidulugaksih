@@ -65,7 +65,7 @@ public class Sim {
         return uang;
     }
 
-    public void setUang(int uang) {
+    public void setUang(double uang) {
         this.uang = uang;
     }
 

@@ -2,7 +2,7 @@ package com.simplicity;
 
 import javax.swing.JOptionPane;
 
-public enum CookableFood implements Eatable {
+public enum CookableFood implements Eatable, Purchasable {
     NASI("Nasi", 5, 5),
     KENTANG("Kentang", 3, 4),
     AYAM("Ayam", 10, 8),

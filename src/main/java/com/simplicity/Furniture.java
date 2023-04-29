@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 import com.gui.SimPlicity;
 
-public abstract class Furniture implements Storable {
+public abstract class Furniture implements Storable, Purchasable {
     private String nama;
     protected int panjang;
     protected int lebar;

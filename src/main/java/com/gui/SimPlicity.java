@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.table.DefaultTableModel;
 import com.simplicity.ExceptionHandling.*;
 
 public class SimPlicity extends JFrame {
@@ -238,6 +239,7 @@ public class SimPlicity extends JFrame {
                         }
                         break;
                     case "Edit Room":
+                        editRoom();
                         break;
                     case "List Object":
                         displayListObject();
@@ -322,6 +324,100 @@ public class SimPlicity extends JFrame {
                 repaint();
             }
         }
+    }
+
+    private void editRoom() {
+        String[] options = { "Buy Object", "Take Object", "Put Object", "Back" };
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
+
+        for (String option : options) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                switch (option) {
+                    case "Buy Object":
+                        buyFurniture();
+                        break;
+                    case "Take Object":
+                        break;
+                    case "Put Object":
+                        break;
+                    case "Back":
+                        JOptionPane.getRootFrame().dispose();
+                        break;
+                }
+            });
+            panel.add(button);
+        }
+
+        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
+
+        if (dialogResult == JOptionPane.CLOSED_OPTION) {
+            JOptionPane.getRootFrame().dispose();
+            displayHouseMenu();
+        }
+    }
+
+    private void buyFurniture() {
+        ArrayList<Furniture> listFurniture = new ArrayList<Furniture>();
+        listFurniture.add(new Kasur("Kasur Single"));
+        listFurniture.add(new Kasur("Kasur Queen Size"));
+        listFurniture.add(new Kasur("Kasur King Size"));
+        listFurniture.add(new Toilet());
+        listFurniture.add(new Kompor("Kompor Gas"));
+        listFurniture.add(new MejaKursi());
+        listFurniture.add(new Jam());
+
+        String[][] tableData = new String[listFurniture.size()][2];
+        String[] columnNames = { "Furniture Name", "Price" };
+
+        for (int i = 0; i < listFurniture.size(); i++) {
+            tableData[i][0] = listFurniture.get(i).getNama();  // Furniture Name
+            tableData[i][1] = String.valueOf(listFurniture.get(i).getHarga()); // Price
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
+
+
+        // Menampilkan option pane
+        String[] options = { "Buy", "Back" };
+        int choice = JOptionPane.showOptionDialog(
+            null, 
+            new JScrollPane(table), 
+            "Edit Room Menu", 
+            JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            options, 
+            options[0]);
+        
+        if (choice == 0) {
+            int selectedRow = table.getSelectedRow();
+            double uangSim = currentSim.getUang();
+            double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
+
+            String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah barang yang diinginkan: ");
+            int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+
+            if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
+                JOptionPane.showMessageDialog(null,
+                    "Maaf, uang kamu tidak cukup!",
+                    "Notification", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
+                Furniture barangTerpilih = listFurniture.get(selectedRow);
+                currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
+                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih, barangTerpilih.getNama());
+                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {}
     }
 
     private void action(){
