@@ -149,8 +149,19 @@ public class Sim {
         }
     }
 
-    public void makan() {
-
+    public void makan(Eatable food) {
+        for (Pair<Storable, Integer> item : inventory.getItems()) {
+            if (item.getKey().getNama().equals(food.getNama())) {
+                try {
+                    TimeUnit.SECONDS.sleep(30);
+                    inventory.reduceBarang(food, 1);
+                    stats.tambahKekenyangan(food.getKekenyangan());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                totalWaktu.addWaktu(30);
+            }
+        }
     }
 
     public void memasak() {
