@@ -23,6 +23,6 @@ public class Kompor extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        NonCookableFood.displayResep();
+        CookableFood.displayResep();
     }
 }
