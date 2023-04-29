@@ -129,7 +129,7 @@ public class Sim {
                 stats.tambahMood(workoutTime / 20 * 10);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-            }            
+            }
             totalWaktu.addWaktu(workoutTime);
             trackTidur(workoutTime);
         }
@@ -203,9 +203,9 @@ public class Sim {
         int cost = 1500;
         if (uang > cost) {
             try {
-                TimeUnit.SECONDS.sleep(18*60);
+                TimeUnit.SECONDS.sleep(18 * 60);
                 // tambah ruangan
-                if (currentPosition.getRumah().getPemilik().equals(this)) {
+                if (currentPosition.getRumah().getNamaPemilik().equals(this.namaLengkap)) {
                     Scanner scanner = new Scanner(System.in);
                     String namaRuangan = scanner.nextLine();
                     Ruangan baru = new Ruangan(namaRuangan);
@@ -217,12 +217,12 @@ public class Sim {
             } catch (InterruptedException e) {
                 // do something
             }
-            totalWaktu.addWaktu(18*60);
+            totalWaktu.addWaktu(18 * 60);
         }
     }
 
-    public void beliBarang(){
-        
+    public void beliBarang() {
+
     }
 
     public void interact(Furniture Furniture) {

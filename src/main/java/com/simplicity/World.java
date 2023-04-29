@@ -1,7 +1,10 @@
 package com.simplicity;
 
+// import java.io.*;
+// import com.google.gson.Gson;
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -52,7 +55,7 @@ public class World {
         for (int i = petaRumah.getRow() - 1; i >= 0; i--) {
             for (int j = 0; j < petaRumah.getColumn(); j++) {
                 if (petaRumah.getElement(i, j) != null) {
-                    System.out.printf("Rumah %s", petaRumah.getElement(i, j).getPemilik().getNamaLengkap());
+                    System.out.printf("Rumah %s", petaRumah.getElement(i, j).getNamaPemilik());
                 } else {
                     System.out.print("Lahan kosong");
                 }

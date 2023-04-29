@@ -22,7 +22,7 @@ public class Rumah {
      * 
      */
 
-    private Sim pemilik;
+    private String namaPemilik;
     private Peta<Ruangan> petaRuangan = new Peta<Ruangan>(1, 1);
     // private int jumlahRuangan = 1;
 
@@ -30,12 +30,12 @@ public class Rumah {
         petaRuangan.setElement(0, 0, ruangan);
     }
 
-    public Sim getPemilik() {
-        return pemilik;
+    public String getNamaPemilik() {
+        return namaPemilik;
     }
 
-    public void setPemilik(Sim pemilik) {
-        this.pemilik = pemilik;
+    public void setNamaPemilik(Sim pemilik) {
+        namaPemilik = pemilik.getNamaLengkap();
     }
 
     public Peta<Ruangan> getPeta() {
