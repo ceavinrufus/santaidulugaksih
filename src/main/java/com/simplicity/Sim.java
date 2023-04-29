@@ -16,9 +16,12 @@ public class Sim {
     private int changeJobTime = 720;
     private int waktuKerjaBelumDibayar = 0;
     private int waktuTidakTidur = 0;
+    private int waktuTidakBuangAir = 0;
 
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
+
+    public World world = World.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -191,12 +194,20 @@ public class Sim {
         }
     }
 
-    public void berkunjung() {
+    public void berkunjung(Sim tujuan) {
 
     }
 
     public void buangAir() {
-
+        try {
+            TimeUnit.SECONDS.sleep(10);
+            stats.kurangKekenyangan(20);
+            stats.tambahMood(10);
+            waktuTidakBuangAir = 0;
+        } catch (InterruptedException e) {
+            // do something
+        }
+        totalWaktu.addWaktu(10);
     }
 
     public void upgradeRumah() {
