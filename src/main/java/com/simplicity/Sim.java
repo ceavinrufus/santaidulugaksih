@@ -164,8 +164,31 @@ public class Sim {
         }
     }
 
-    public void memasak() {
+    public void memasak(CookableFood food) {
+        boolean isBahanAda = true;
+        for (String bahan : food.getResep()) {
+            if (!inventory.isContains(bahan)) {
+                isBahanAda = false;
+            }
+        }
 
+        if (isBahanAda) {
+            try {
+                TimeUnit.SECONDS.sleep((int) 1.5 * food.getKekenyangan());
+                for (String bahan : food.getResep()) {
+                    for (Pair<Storable, Integer> item : inventory.getItems()) {
+                        if (item.getKey().getNama().equals(bahan)) {
+                            inventory.reduceBarang(item.getKey(), 1);
+                            inventory.addBarang(food, 1);
+                            stats.setMood(10);
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                // do something
+            }
+            totalWaktu.addWaktu((int) 1.5 * food.getKekenyangan());
+        }
     }
 
     public void berkunjung() {
