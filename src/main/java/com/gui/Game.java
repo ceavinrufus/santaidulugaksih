@@ -21,9 +21,15 @@ public class Game extends JFrame {
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
     private Sim currentSim;
 
+    JTabbedPane tabbedPane;
+
     private Game() {
         setTitle("Sim-Plicity");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        tabbedPane = new JTabbedPane();
+        tabbedPane.setFocusable(false);
+        add(tabbedPane);
 
         setMinimumSize(new Dimension(800, 1000)); // Set minimum size JFrame
         setPreferredSize(new Dimension(800, 1000)); // Set preferred size JFrame
@@ -544,7 +550,7 @@ public class Game extends JFrame {
             String selectedOption = list.getSelectedValue();
             if (selectedOption != null) {
                 currentSim = sims.get(selectedOption);
-                GamePanel.getInstance().setCurrentSim(currentSim);
+                HomePanel.getInstance().setCurrentSim(currentSim);
                 JOptionPane.showMessageDialog(null, "Berhasil mengganti Sim!", "Notification",
                         JOptionPane.INFORMATION_MESSAGE);
                 repaint();
@@ -556,10 +562,13 @@ public class Game extends JFrame {
         setVisible(true);
         setFocusable(true);
         mainMenu.setVisible(false);
-        GamePanel gamePanel = GamePanel.getInstance();
-        gamePanel.setCurrentSim(currentSim);
-        add(gamePanel);
-        gamePanel.requestFocusInWindow();
+        HomePanel homePanel = HomePanel.getInstance();
+        WorldPanel worldPanel = WorldPanel.getInstance();
+        homePanel.setCurrentSim(currentSim);
+        tabbedPane.addTab("House Map", homePanel);
+        tabbedPane.addTab("World Map", worldPanel);
+        // add(homePanel);
+        homePanel.requestFocusInWindow();
         // displayRumah = true;
     }
 }

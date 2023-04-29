@@ -221,7 +221,7 @@ public class Rumah {
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
                         Image player = null;
-                        int key = GamePanel.getInstance().getKeyChar();
+                        int key = HomePanel.getInstance().getKeyChar();
                         if ((key == KeyEvent.VK_W) || (key == KeyEvent.VK_UP)) {
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));

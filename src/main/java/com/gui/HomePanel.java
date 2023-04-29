@@ -10,15 +10,15 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class GamePanel extends JPanel {
-    private static GamePanel instance = new GamePanel(null);
+public class HomePanel extends JPanel {
+    private static HomePanel instance = new HomePanel(null);
     int keyChar;
 
     public int getKeyChar() {
         return keyChar;
     }
 
-    public static GamePanel getInstance() {
+    public static HomePanel getInstance() {
         return instance;
     }
 
@@ -57,14 +57,12 @@ public class GamePanel extends JPanel {
         }
     };
 
-    private boolean displayRumah = true;
     private Sim currentSim;
 
-    public GamePanel(Sim currentSim) {
+    public HomePanel(Sim currentSim) {
         this.currentSim = currentSim;
         setFocusable(true);
         addKeyListener(keyListener);
-        setPreferredSize(new Dimension(600, 600)); // Set the preferred size of the panel
         requestFocusInWindow(); // Request focus for the panel after it has been added to the JFrame
     }
 
@@ -72,25 +70,6 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (displayRumah) {
-            currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight());
-        } else {
-            BufferedImage pattern = null;
-            try {
-                pattern = ImageIO.read(new File("src/main/java/resources/images/sea.jpg"));
-            } catch (IOException e) {
-                System.out.println("Error loading background image");
-            }
-            if (pattern != null) {
-                int patternWidth = pattern.getWidth(null);
-                int patternHeight = pattern.getHeight(null);
-                for (int x = 0; x < getWidth(); x += patternWidth) {
-                    for (int y = 0; y < getHeight(); y += patternHeight) {
-                        g.drawImage(pattern, x, y, null);
-                    }
-                }
-            }
-            World.getInstance().paint(g, getWidth(), getHeight());
-        }
+        currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight());
     }
 }
