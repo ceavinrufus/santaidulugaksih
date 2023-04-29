@@ -78,4 +78,28 @@ public class Ruangan {
 
         return isAvailable;
     }
+
+    public void mengambilBarang(Furniture takenObject) {
+        // So far, asumsi barang unik.
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Furniture placedObject = petaBarang.getElement(i, j);
+                if (placedObject.getNama().equals(takenObject.getNama())) {
+                    petaBarang.setElement(i, j, null);
+                }
+            }
+        }
+    }
+
+    public Furniture findBarang(String name) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Furniture placedObject = petaBarang.getElement(i, j);
+                if (placedObject.getNama().equals(name)) {
+                    return placedObject;
+                }
+            }
+        }
+        return null;
+    }
 }

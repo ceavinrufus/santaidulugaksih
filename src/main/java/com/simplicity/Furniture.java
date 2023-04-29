@@ -1,6 +1,6 @@
 package com.simplicity;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import com.gui.Game;
 
@@ -43,10 +43,38 @@ public abstract class Furniture implements Storable, Purchasable {
 
         if (choice == 0) {
             // Pasang
-            if (Game.getInstance().getCurrentSim()
-                    .equals(Game.getInstance().getCurrentSim().getCurrentPosition().getRumah().getPemilik())) {
+            Sim currentSim = Game.getInstance().getCurrentSim();
+            Rumah currentHouse = Game.getInstance().getCurrentSim().getCurrentPosition().getRumah();
+            if (currentSim.equals(currentHouse.getPemilik())) {
                 // Cari posisi
                 // Pasang
+                String[] orientationOptions = { "Horizontal", "Vertikal" };
+
+                int inputOrientation = JOptionPane.showOptionDialog(
+                        null, "Pilih Orientasi", "Pasang Barang",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                        null, orientationOptions, orientationOptions[0]);
+
+                Boolean isHorizontal = (inputOrientation == 1) ? false : true;
+
+                String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
+                int koordinatX = Integer.parseInt(inputX);
+
+                String inputY = JOptionPane.showInputDialog("Masukkan koordinat Y: ");
+                int koordinatY = Integer.parseInt(inputY);
+
+                Ruangan currentRuang = currentSim.getCurrentPosition().getRuang();
+                Boolean isAvailable = currentRuang.isSpaceAvailable(this, isHorizontal, koordinatX, koordinatY);
+                if (isAvailable) {
+                    currentRuang.memasangBarang(this, isHorizontal, koordinatX, koordinatY);
+                    currentSim.getInventory().reduceBarang(this, 1);
+                    Game.getInstance().repaint();
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
+                            "Notification", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             } else {
                 JOptionPane.showOptionDialog(null, "Anda harus ke rumah anda dulu!", "Food Info",
                         JOptionPane.DEFAULT_OPTION,

@@ -19,7 +19,7 @@ public class MainMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Ngambil image buat dijadiin background
-        ImageIcon backgroundImage = new ImageIcon("src/main/java/resources/images/background.png");
+        ImageIcon backgroundImage = new ImageIcon("src/main/java/resources/images/simplicity.png");
         JLabel backgroundLabel = new JLabel(backgroundImage);
 
         setMinimumSize(new Dimension(800, 1000)); // Set minimum size JFrame
