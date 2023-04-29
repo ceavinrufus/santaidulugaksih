@@ -376,7 +376,7 @@ public class Game extends JFrame {
                     currentSim.berkunjung();
                     repaint();
                 } else if (aksi.equals("Beli Barang")) {
-                    currentSim.beliBarang();
+                    // currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
                 } else {
