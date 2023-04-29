@@ -24,20 +24,6 @@ public class SimPlicity extends JFrame {
                 removeKeyListener(keyListener);
                 instance.runGame();
             } else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                // Help
-                Object[] options = { "Aku mengerti!" };
-                JOptionPane.showOptionDialog(null,
-                        "Hai! Selamat datang di Simplycity!\n" + 
-                        "Klik Enter untuk memulai game\n" +
-                        "Klik Spasi untuk melihat help\n" +
-                        "Klik w, a, s, d atau tombol panah untuk menggerakan Sim dalam permainan\n"+
-                        "Selamat bermain!",
-                        "Help",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
 
             }
         }
@@ -50,24 +36,24 @@ public class SimPlicity extends JFrame {
             if (keyChar == KeyEvent.VK_SPACE) {
                 removeKeyListener(keyListener2);
                 instance.displayGameMenu();
-            } else if (keyChar == 'w'){
-                if (currentSimPosition.getLokasi().getY() < 5){
-                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY()+1);
+            } else if (keyChar == 'w') {
+                if (currentSimPosition.getLokasi().getY() < 5) {
+                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() + 1);
                     repaint();
                 }
-            } else if (keyChar == 's'){
-                if (currentSimPosition.getLokasi().getY() > 0){
-                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY()-1);
+            } else if (keyChar == 's') {
+                if (currentSimPosition.getLokasi().getY() > 0) {
+                    currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() - 1);
                     repaint();
                 }
-            } else if (keyChar == 'a'){
-                if (currentSimPosition.getLokasi().getX() > 0){
-                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX()-1);
+            } else if (keyChar == 'a') {
+                if (currentSimPosition.getLokasi().getX() > 0) {
+                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() - 1);
                     repaint();
                 }
-            } else if (keyChar == 'd'){
-                if (currentSimPosition.getLokasi().getX() < 5){
-                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX()+1);
+            } else if (keyChar == 'd') {
+                if (currentSimPosition.getLokasi().getX() < 5) {
+                    currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() + 1);
                     repaint();
                 }
             }
@@ -228,7 +214,7 @@ public class SimPlicity extends JFrame {
             button.addActionListener(e -> {
                 switch (option) {
                     case "Upgrade House":
-                    currentSim.upgradeRumah();
+                        currentSim.upgradeRumah();
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
@@ -291,7 +277,7 @@ public class SimPlicity extends JFrame {
         return selectedOption;
     }
 
-    private void pilihanObject(){
+    private void pilihanObject() {
         HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
         Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
         for (int i = 0; i < 6; i++) {
@@ -302,14 +288,14 @@ public class SimPlicity extends JFrame {
                 }
             }
         }
-        
+
         String[] objectOptions = {};
         ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
-        
+
         for (String x : listBarang.keySet()) {
             listObjects.add(x);
         }
-        
+
         objectOptions = listObjects.toArray(objectOptions);
         if (objectOptions.length == 0) {
             JOptionPane.showMessageDialog(null,
@@ -320,7 +306,8 @@ public class SimPlicity extends JFrame {
             JOptionPane.showMessageDialog(null, new JScrollPane(list), "Go To Object", JOptionPane.PLAIN_MESSAGE);
             String selectedOption = list.getSelectedValue();
             if (selectedOption != null) {
-                currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
+                currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(),
+                        listBarang.get(selectedOption).getY());
                 repaint();
             }
         }
@@ -373,7 +360,7 @@ public class SimPlicity extends JFrame {
         String[] columnNames = { "Furniture Name", "Price" };
 
         for (int i = 0; i < listFurniture.size(); i++) {
-            tableData[i][0] = listFurniture.get(i).getNama();  // Furniture Name
+            tableData[i][0] = listFurniture.get(i).getNama(); // Furniture Name
             tableData[i][1] = String.valueOf(listFurniture.get(i).getHarga()); // Price
         }
 
@@ -385,19 +372,18 @@ public class SimPlicity extends JFrame {
         };
         JTable table = new JTable(tableModel);
 
-
         // Menampilkan option pane
         String[] options = { "Buy", "Back" };
         int choice = JOptionPane.showOptionDialog(
-            null, 
-            new JScrollPane(table), 
-            "Edit Room Menu", 
-            JOptionPane.DEFAULT_OPTION, 
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            options, 
-            options[0]);
-        
+                null,
+                new JScrollPane(table),
+                "Edit Room Menu",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+
         if (choice == 0) {
             int selectedRow = table.getSelectedRow();
             double uangSim = currentSim.getUang();
@@ -408,44 +394,47 @@ public class SimPlicity extends JFrame {
 
             if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
                 JOptionPane.showMessageDialog(null,
-                    "Maaf, uang kamu tidak cukup!",
-                    "Notification", JOptionPane.INFORMATION_MESSAGE);
+                        "Maaf, uang kamu tidak cukup!",
+                        "Notification", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
                 Furniture barangTerpilih = listFurniture.get(selectedRow);
                 currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
-                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih, barangTerpilih.getNama());
+                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih,
+                        barangTerpilih.getNama());
                 JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {}
+        } else {
+        }
     }
 
-    private void action(){
-        String[] listAksi= {"Kerja", "Olahraga", "Berkunjung", "Beli Barang"};
+    private void action() {
+        String[] listAksi = { "Kerja", "Olahraga", "Berkunjung", "Beli Barang" };
         ArrayList<String> listAksiBarang = new ArrayList<String>(Arrays.asList(listAksi));
         SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-        Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(), simCurrentPosition.getLokasi().getY());
+        Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(),
+                simCurrentPosition.getLokasi().getY());
         listAksiBarang.add(barang.getNamaAksi());
         listAksiBarang.add("Back");
         listAksi = listAksiBarang.toArray(listAksi);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0,1));
+        panel.setLayout(new GridLayout(0, 1));
 
-        for (String aksi: listAksi){
+        for (String aksi : listAksi) {
             JButton button = new JButton(aksi);
-            button.addActionListener(e ->{
-                if (aksi.equals("Kerja")){
-                    currentSim.kerja(3); //Set 3 menit dulu, nanti diatur lg inputan waktunya.
-                } else if (aksi.equals("Olahraga")){
+            button.addActionListener(e -> {
+                if (aksi.equals("Kerja")) {
+                    currentSim.kerja(3); // Set 3 menit dulu, nanti diatur lg inputan waktunya.
+                } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga(3);
-                } else if (aksi.equals("Berkunjung")){
+                } else if (aksi.equals("Berkunjung")) {
                     currentSim.berkunjung();
-                } else if (aksi.equals("Beli Barang")){
+                } else if (aksi.equals("Beli Barang")) {
                     currentSim.beliBarang();
-                } else if (aksi.equals("Back")){
+                } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
-                }else {
-                    if (barang != null){
+                } else {
+                    if (barang != null) {
                         barang.aksi(currentSim);
                     }
                 }
