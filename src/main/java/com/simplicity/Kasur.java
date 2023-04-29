@@ -1,5 +1,7 @@
 package com.simplicity;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JOptionPane;
 
 public class Kasur extends Furniture {
@@ -29,12 +31,36 @@ public class Kasur extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        String input = JOptionPane.showInputDialog(null, "Masukkan jam kerja:");
-        try {
-            int jamKerja = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Input tidak valid, masukkan angka saja!");
-            return;
+        Integer sleepTime = 0;
+        while (sleepTime < 240) {
+            try {
+                String input = JOptionPane.showInputDialog(null, "Masukkan sleepTime:");
+                if (input == null) {
+                    // Kalo pencet tombol close
+                    JOptionPane.getRootFrame().dispose();
+                } else {
+                    sleepTime = Integer.parseInt(input);
+                    // Validasi sleepTime
+                    if (sleepTime < 240) {
+                    } else {
+                    }
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Masukkan angka yang valid", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        Stats stats = sim.getStats();
+        Waktu totalWaktu = Waktu.waktu();
+        if (sleepTime >= 240) {
+            try {
+                TimeUnit.SECONDS.sleep(sleepTime);
+                stats.tambahMood(sleepTime / 240 * 30);
+                stats.tambahKesehatan(sleepTime / 240 * 20);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            totalWaktu.addWaktu(sleepTime);
+            sim.setWaktuTidakTidur(0);
         }
     }
 }
