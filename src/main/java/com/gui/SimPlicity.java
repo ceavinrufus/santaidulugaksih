@@ -339,8 +339,10 @@ public class SimPlicity extends JFrame {
                         buyFurniture();
                         break;
                     case "Take Object":
+                        takeObject();
                         break;
                     case "Put Object":
+                        putObject();
                         break;
                     case "Back":
                         JOptionPane.getRootFrame().dispose();
@@ -418,6 +420,48 @@ public class SimPlicity extends JFrame {
                 JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {}
+    }
+
+    private void takeObject() {
+        HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
+        Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                Furniture barang = (Furniture) petaBarang.getElement(i, j);
+                if (barang != null) {
+                    listBarang.putIfAbsent(barang.getNama(), new com.simplicity.Point(i, j));
+                }
+            }
+        }
+        
+        String[] objectOptions = {};
+        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
+        
+        for (String x : listBarang.keySet()) {
+            listObjects.add(x);
+        }
+        
+        objectOptions = listObjects.toArray(objectOptions);
+        if (objectOptions.length == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
+                    "Notification", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JList<String> list = new JList<>(objectOptions);
+            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Take Object", JOptionPane.PLAIN_MESSAGE);
+            String selectedOption = list.getSelectedValue();
+            if (selectedOption != null) {
+                Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
+                Furniture takenObject = currentRoom.findBarang(selectedOption);
+                currentRoom.mengambilBarang(takenObject);
+                repaint();
+                currentSim.getInventory().addBarang(takenObject, 1);
+            }
+        }
+    }
+
+    private void putObject() {
+        currentSim.getInventory().displayInventory(Storable.class);
     }
 
     private void action(){
