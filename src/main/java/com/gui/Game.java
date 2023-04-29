@@ -20,27 +20,27 @@ public class Game extends JFrame {
 
     private KeyAdapter keyListener = new KeyAdapter() {
         @Override
-        public void keyTyped(KeyEvent e) {
+        public void keyPressed(KeyEvent e) {
             SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
-            keyChar = e.getKeyChar();
+            keyChar = e.getKeyCode();
             if (keyChar == KeyEvent.VK_SPACE) {
                 instance.displayGameMenu();
-            } else if (keyChar == 'w') {
+            } else if ((keyChar == KeyEvent.VK_W) || (keyChar == KeyEvent.VK_UP)) {
                 if (currentSimPosition.getLokasi().getY() < 5) {
                     currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() + 1);
                     repaint();
                 }
-            } else if (keyChar == 's') {
+            } else if ((keyChar == KeyEvent.VK_S) || (keyChar == KeyEvent.VK_DOWN)) {
                 if (currentSimPosition.getLokasi().getY() > 0) {
                     currentSimPosition.getLokasi().setY(currentSimPosition.getLokasi().getY() - 1);
                     repaint();
                 }
-            } else if (keyChar == 'a') {
+            } else if ((keyChar == KeyEvent.VK_A) || (keyChar == KeyEvent.VK_LEFT)) {
                 if (currentSimPosition.getLokasi().getX() > 0) {
                     currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() - 1);
                     repaint();
                 }
-            } else if (keyChar == 'd') {
+            } else if ((keyChar == KeyEvent.VK_D) || (keyChar == KeyEvent.VK_RIGHT)) {
                 if (currentSimPosition.getLokasi().getX() < 5) {
                     currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() + 1);
                     repaint();

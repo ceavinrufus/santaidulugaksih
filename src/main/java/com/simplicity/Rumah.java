@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -220,21 +221,22 @@ public class Rumah {
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
                         Image player = null;
-                        if (Game.getInstance().getKeyChar() == 'w'){
+                        int key = Game.getInstance().getKeyChar();
+                        if ((key == KeyEvent.VK_W) || (key == KeyEvent.VK_UP)){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if (Game.getInstance().getKeyChar() == 'd'){
+                        } else if ((key == KeyEvent.VK_D) || (key == KeyEvent.VK_RIGHT)){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_right.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if (Game.getInstance().getKeyChar() == 'a'){
+                        } else if ((key == KeyEvent.VK_A) || (key == KeyEvent.VK_LEFT)){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_left.png"));
                             } catch (IOException e) {
