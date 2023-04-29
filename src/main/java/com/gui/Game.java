@@ -359,8 +359,12 @@ public class Game extends JFrame {
         SimPosition simCurrentPosition = currentSim.getCurrentPosition();
         Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(),
                 simCurrentPosition.getLokasi().getY());
-        listAksiBarang.add(barang.getNamaAksi());
+
+        if (barang != null) {
+            listAksiBarang.add(barang.getNamaAksi());
+        }
         listAksiBarang.add("Back");
+
         listAksi = listAksiBarang.toArray(listAksi);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
@@ -381,7 +385,7 @@ public class Game extends JFrame {
                     JOptionPane.getRootFrame().dispose();
                 } else {
                     if (barang != null) {
-                        barang.aksi(currentSim);
+                        currentSim.interact(barang);
                     }
                 }
             });

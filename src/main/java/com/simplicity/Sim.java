@@ -92,6 +92,10 @@ public class Sim {
         waktuTidakTidur += waktu;
     }
 
+    public void setWaktuTidakTidur(int waktu) {
+        waktuTidakTidur = waktu;
+    }
+
     public void checkTidakTidur() {
         if (waktuTidakTidur >= 600) {
             stats.kurangKesehatan(5);
@@ -135,20 +139,6 @@ public class Sim {
             }
             totalWaktu.addWaktu(workoutTime);
             trackTidur(workoutTime);
-        }
-    }
-
-    public void tidur(int sleepTime) {
-        if (sleepTime >= 240) {
-            try {
-                TimeUnit.SECONDS.sleep(sleepTime);
-                stats.tambahMood(sleepTime / 240 * 30);
-                stats.tambahKesehatan(sleepTime / 240 * 20);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            totalWaktu.addWaktu(sleepTime);
-            waktuTidakTidur = 0;
         }
     }
 
