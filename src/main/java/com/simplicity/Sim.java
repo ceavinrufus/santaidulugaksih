@@ -21,8 +21,6 @@ public class Sim {
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
 
-    public World world = World.getInstance();
-
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
         List<Pekerjaan> listPekerjaan = Arrays.asList(Pekerjaan.values());
