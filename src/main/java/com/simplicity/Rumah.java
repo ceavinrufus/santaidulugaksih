@@ -188,18 +188,69 @@ public class Rumah {
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
-                    // Sementara logicnya kalo ada barang warnain merah
-                    if (petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
-                            (row - y - 1) % 6) != null) {
-                        g.setColor(Color.RED);
-                        g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                    // Sementara logicnya kalo ada barang warnain merah - Aku ubah ya hehe (Tina)
+                    Furniture barang = petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
+                    (row - y - 1) % 6);
+                    if (barang != null) {
+                        // g.setColor(Color.RED);
+                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        if (barang.getNama().equals("Toilet")){
+                            Image toilet = null;
+                            try {
+                                toilet = ImageIO.read(new File("src/main/java/resources/images/toilet.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(toilet, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Jam")){
+                            Image jam = null;
+                            try {
+                                jam = ImageIO.read(new File("src/main/java/resources/images/jam.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(jam, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else {
+                            g.setColor(Color.RED);
+                            g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        }
                     }
-                    // Sementara logicnya kalo ada sim warnain ijo
+                    // Sementara logicnya kalo ada sim warnain ijo - Aku ubah ya hehe (Tina)
                     if (currentNamaRuangan.equals(petaRuangan.getElement(x / 6, (row - y - 1) / 6).getNamaRuangan())
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
-                        g.setColor(Color.GREEN);
-                        g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        Image player = null;
+                        if (SimPlicity.getInstance().getKeyChar() == 'w'){
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (SimPlicity.getInstance().getKeyChar() == 'd'){
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_right.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (SimPlicity.getInstance().getKeyChar() == 'a'){
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_left.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else {
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_front.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        }
+                        // g.setColor(Color.GREEN);
+                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                     }
                     g.setColor(gridBg);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));

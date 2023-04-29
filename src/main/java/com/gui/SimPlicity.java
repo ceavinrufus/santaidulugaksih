@@ -15,6 +15,11 @@ import com.simplicity.ExceptionHandling.*;
 
 public class SimPlicity extends JFrame {
     private static SimPlicity instance = new SimPlicity();
+    private int keyChar;
+    
+    public int getKeyChar(){
+        return keyChar;
+    }
 
     private KeyAdapter keyListener = new KeyAdapter() {
         @Override
@@ -46,7 +51,7 @@ public class SimPlicity extends JFrame {
         @Override
         public void keyTyped(KeyEvent e) {
             SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
-            int keyChar = e.getKeyChar();
+            keyChar = e.getKeyChar();
             if (keyChar == KeyEvent.VK_SPACE) {
                 removeKeyListener(keyListener2);
                 instance.displayGameMenu();
@@ -601,8 +606,9 @@ public class SimPlicity extends JFrame {
         // Masukin barang barang basic ke ruangan
         ruangan.memasangBarang(new Kasur("Kasur Single"), true, 2, 0);
         ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
-        ruangan.memasangBarang(new Jam(), true, 0, 5);
+        ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
+        ruangan.memasangBarang(new Toilet(), true, 0, 5);
 
         try {
             Rumah rumah = new Rumah(ruangan);
