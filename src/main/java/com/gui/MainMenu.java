@@ -30,7 +30,7 @@ public class MainMenu extends JFrame {
         add(backgroundLabel);
 
         // Pixelated font
-        Font font = new Font("Arial", Font.BOLD, 18);
+        Font font = new Font("Minecraft", Font.BOLD, 18);
 
         // Start button
         startButton = new PixelatedButton("Start", font);
@@ -96,9 +96,9 @@ public class MainMenu extends JFrame {
     private void updateButtonPosition() {
         int buttonWidth = 200;
         int buttonHeight = 50;
-        startButton.setBounds(getWidth() / 2 - buttonWidth / 2, 7 * getHeight() / 10, buttonWidth,
+        startButton.setBounds(getWidth() / 2 - buttonWidth - 10, 27 * getHeight() / 40, buttonWidth,
                 buttonHeight);
-        helpButton.setBounds(getWidth() / 2 - buttonWidth / 2, 7 * getHeight() / 10 + buttonHeight + 10, buttonWidth,
+        helpButton.setBounds(getWidth() / 2 + 10, 27 * getHeight() / 40, buttonWidth,
                 buttonHeight);
     }
 }
