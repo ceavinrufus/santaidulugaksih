@@ -34,4 +34,8 @@ public class SimPosition {
     public void setRuang(Ruangan ruang) {
         this.ruang = ruang;
     }
+
+    public void setLokasi(Point lokasi) {
+        this.lokasi = lokasi;
+    }
 }

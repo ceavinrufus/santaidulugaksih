@@ -32,7 +32,7 @@ public class Ruangan {
                 }
             }
         }
-        
+
         int idx = 1;
         for (Furniture barang : listBarang) {
             System.out.printf("%d. %s\n", idx, barang.getNama());
@@ -65,13 +65,15 @@ public class Ruangan {
         if (isHorizontal) {
             for (int i = x; i < x + barang.getPanjang(); i++) {
                 for (int j = y; j < y + barang.getLebar(); j++) {
-                    if (petaBarang.getElement(i, j) != null) isAvailable = false;
+                    if (petaBarang.getElement(i, j) != null)
+                        isAvailable = false;
                 }
             }
         } else {
             for (int i = x; i < x + barang.getLebar(); i++) {
                 for (int j = y; j < y + barang.getPanjang(); j++) {
-                    if (petaBarang.getElement(i, j) != null) isAvailable = false;
+                    if (petaBarang.getElement(i, j) != null)
+                        isAvailable = false;
                 }
             }
         }
@@ -101,5 +103,10 @@ public class Ruangan {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return namaRuangan;
     }
 }

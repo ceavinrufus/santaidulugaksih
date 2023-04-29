@@ -52,6 +52,11 @@ public class Point {
         return String.format("(%d, %d)", getX(), getY());
     }
 
+    public float distance(Point other) {
+        float distance = (float) Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+        return distance;
+    }
+
     // public static void main(String[] args) {
     // Point point1 = new Point(6, 3);
     // System.out.println(point1.toString());

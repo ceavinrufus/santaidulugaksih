@@ -112,25 +112,11 @@ public class Rumah {
             for (int j = 0; j < petaRuangan.getColumn(); j++) {
                 if (petaRuangan.getElement(i, j) == ruangan) {
                     petaRuangan.setElement(i, j, null);
-                    // jumlahRuangan--;
                 } else {
                     System.out.println("Ruangan tidak ditemukan");
                 }
             }
         }
-    }
-
-    public Ruangan findRuangan(String name) {
-        Ruangan ruang = null;
-        for (int i = 0; i < petaRuangan.getColumn(); i++) {
-            for (int j = 0; j < petaRuangan.getRow(); j++) {
-                Ruangan tempRuang = petaRuangan.getElement(i, j);
-                if (tempRuang != null && tempRuang.getNamaRuangan().equals(name)) {
-                    ruang = tempRuang;
-                }
-            }
-        }
-        return ruang;
     }
 
     // GUI
@@ -189,12 +175,10 @@ public class Rumah {
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
-                    // Sementara logicnya kalo ada barang warnain merah - Aku ubah ya hehe (Tina)
+                    // Barang
                     Furniture barang = petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
                             (row - y - 1) % 6);
                     if (barang != null) {
-                        // g.setColor(Color.RED);
-                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
                             try {
@@ -216,7 +200,7 @@ public class Rumah {
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                         }
                     }
-                    // Sementara logicnya kalo ada sim warnain ijo - Aku ubah ya hehe (Tina)
+                    // Player
                     if (currentNamaRuangan.equals(petaRuangan.getElement(x / 6, (row - y - 1) / 6).getNamaRuangan())
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
@@ -251,8 +235,6 @@ public class Rumah {
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         }
-                        // g.setColor(Color.GREEN);
-                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                     }
                     g.setColor(gridBg);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
@@ -265,7 +247,7 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
-                g.setColor(Color.BLACK);
+                g.setColor(new Color(156, 134, 112));
                 g.drawRect((int) cellX, (int) cellY, (int) gridSize, (int) gridSize);
             }
         }

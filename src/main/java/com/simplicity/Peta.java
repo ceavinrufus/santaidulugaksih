@@ -2,6 +2,8 @@ package com.simplicity;
 
 import java.util.*;
 
+import javax.swing.*;
+
 public class Peta<T> {
     // Kalo col maksudnya sumbu X (karena col arahnya horizontal)
     // Kalo row maksudnya sumbu Y (karena row arahnya vertikal)
@@ -83,5 +85,83 @@ public class Peta<T> {
 
     public int getColumn() {
         return matriks.isEmpty() ? 0 : matriks.get(0).size();
+    }
+
+    public void displayList() {
+        HashSet<T> listElement = new HashSet<T>();
+        for (int i = 0; i < getRow(); i++) {
+            for (int j = 0; j < getColumn(); j++) {
+                T el = getElement(i, j);
+                if (el != null) {
+                    listElement.add(el);
+                }
+            }
+        }
+
+        StringBuilder message = new StringBuilder("");
+        int idx = 1;
+        for (T el : listElement) {
+            message.append(String.format("%d. %s\n", idx, el.toString()));
+            idx++;
+        }
+        JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public Point getClosestElementCoordinate(Point initialPoint, T element) {
+        int closestRowIndex = -1;
+        int closestColIndex = -1;
+        double closestDistance = Double.MAX_VALUE;
+
+        for (int rowIndex = 0; rowIndex < getRow(); rowIndex++) {
+            for (int colIndex = 0; colIndex < getColumn(); colIndex++) {
+                T currentElement = getElement(colIndex, rowIndex);
+                if (currentElement != null && currentElement.equals(element)) {
+                    float distance = initialPoint.distance(new Point(colIndex, rowIndex));
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestRowIndex = rowIndex;
+                        closestColIndex = colIndex;
+                    }
+                }
+            }
+        }
+
+        if (closestRowIndex != -1 && closestColIndex != -1) {
+            return new Point(closestColIndex, closestRowIndex);
+        } else {
+            return null;
+        }
+    }
+
+    public T selectElement() {
+        TreeSet<String> setOfElement = new TreeSet<String>();
+
+        for (int i = 0; i < getColumn(); i++) {
+            for (int j = 0; j < getRow(); j++) {
+                T el = getElement(i, j);
+                if (el != null) {
+                    setOfElement.add(el.toString());
+                }
+            }
+        }
+        ArrayList<String> listElement = new ArrayList<>(setOfElement);
+
+        String[] roomOptions = listElement.toArray(new String[0]);
+
+        JList<String> list = new JList<>(roomOptions);
+        String header = "Select";
+        JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
+        String selectedOption = list.getSelectedValue();
+
+        T element = null;
+        for (int i = 0; i < getColumn(); i++) {
+            for (int j = 0; j < getRow(); j++) {
+                T tempEl = getElement(i, j);
+                if (tempEl != null && tempEl.toString().equals(selectedOption)) {
+                    element = tempEl;
+                }
+            }
+        }
+        return element;
     }
 }

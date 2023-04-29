@@ -1,5 +1,7 @@
 package com.simplicity;
 
+import java.util.Objects;
+
 import javax.swing.*;
 
 import com.gui.Game;
@@ -29,6 +31,26 @@ public abstract class Furniture implements Storable, Purchasable {
 
     public int getHarga() {
         return harga;
+    }
+
+    @Override
+    public String toString() {
+        return nama;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Furniture)) {
+            return false;
+        }
+        Furniture furniture = (Furniture) o;
+        return Objects.equals(nama, furniture.nama) &&
+                panjang == furniture.panjang &&
+                lebar == furniture.lebar &&
+                harga == furniture.harga;
     }
 
     @Override

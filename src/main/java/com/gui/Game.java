@@ -1,6 +1,7 @@
 package com.gui;
 
 import com.simplicity.*;
+import com.simplicity.Point;
 
 import java.util.*;
 import javax.swing.*;
@@ -155,10 +156,10 @@ public class Game extends JFrame {
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
-                        String selectedOption = pilihanRuangan();
-                        if (selectedOption != null) {
-                            currentSim.getCurrentPosition()
-                                    .setRuang(currentSim.getCurrentPosition().getRumah().findRuangan(selectedOption));
+                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
+                                .selectElement();
+                        if (selectedRuangan != null) {
+                            currentSim.getCurrentPosition().setRuang(selectedRuangan);
                         }
                         break;
                     case "Edit Room":
@@ -168,7 +169,7 @@ public class Game extends JFrame {
                         displayListObject();
                         break;
                     case "Go To Object":
-                        pilihanObject();
+                        goToObject();
                         break;
                     case "Action":
                         action();
@@ -190,63 +191,15 @@ public class Game extends JFrame {
         }
     }
 
-    private String pilihanRuangan() {
-        // Aku pisah karena mau dipake untuk move room juga -Tina
-        Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        TreeSet<String> setOfRoomName = new TreeSet<String>();
+    private void goToObject() {
+        SimPosition currentPosition = currentSim.getCurrentPosition();
+        Peta<Furniture> petaRuangan = currentPosition.getRuang().getPeta();
+        Furniture selectedBarang = petaRuangan.selectElement();
 
-        Peta<Ruangan> petaRuangan = currentHouse.getPeta();
-        for (int i = 0; i < petaRuangan.getColumn(); i++) {
-            for (int j = 0; j < petaRuangan.getRow(); j++) {
-                Ruangan ruang = petaRuangan.getElement(i, j);
-                if (ruang != null) {
-                    setOfRoomName.add(ruang.getNamaRuangan());
-                }
-            }
-        }
-        ArrayList<String> listRoomName = new ArrayList<>(setOfRoomName);
-
-        String[] roomOptions = listRoomName.toArray(new String[0]);
-        JList<String> list = new JList<>(roomOptions);
-        String header = "Pilihan Ruangan";
-        JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
-        String selectedOption = list.getSelectedValue();
-        return selectedOption;
-    }
-
-    private void pilihanObject() {
-        HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
-        Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                Furniture barang = (Furniture) petaBarang.getElement(i, j);
-                if (barang != null) {
-                    listBarang.putIfAbsent(barang.getNama(), new com.simplicity.Point(i, j));
-                }
-            }
-        }
-
-        String[] objectOptions = {};
-        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
-
-        for (String x : listBarang.keySet()) {
-            listObjects.add(x);
-        }
-
-        objectOptions = listObjects.toArray(objectOptions);
-        if (objectOptions.length == 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
-                    "Notification", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JList<String> list = new JList<>(objectOptions);
-            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Go To Object", JOptionPane.PLAIN_MESSAGE);
-            String selectedOption = list.getSelectedValue();
-            if (selectedOption != null) {
-                currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(),
-                        listBarang.get(selectedOption).getY());
-                repaint();
-            }
+        if (selectedBarang != null) {
+            Point newPoint = petaRuangan.getClosestElementCoordinate(currentPosition.getLokasi(), selectedBarang);
+            currentSim.getCurrentPosition().setLokasi(newPoint);
+            repaint();
         }
     }
 
@@ -434,32 +387,11 @@ public class Game extends JFrame {
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
-        String selectedOption = pilihanRuangan();
-        // Aku pisah karena mau dipake untuk move room juga -Tina
-        Ruangan selectedRuang = currentHouse.findRuangan(selectedOption);
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement();
 
-        if (selectedOption != null) {
-            HashSet<Furniture> listBarang = new HashSet<Furniture>();
-            Peta<Furniture> petaBarang = selectedRuang.getPeta();
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
-                    Furniture barang = (Furniture) petaBarang.getElement(i, j);
-                    if (barang != null) {
-                        listBarang.add(barang);
-                    }
-                }
-            }
-
-            StringBuilder message = new StringBuilder("");
-            int idx = 1;
-            for (Furniture barang : listBarang) {
-                message.append(String.format("%d. %s\n", idx, barang.getNama()));
-                idx++;
-            }
-            JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
+        if (selectedRuangan != null) {
+            selectedRuangan.getPeta().displayList();
         }
-
     }
 
     public Sim makeNewSim() throws SimNotCreatedException {
