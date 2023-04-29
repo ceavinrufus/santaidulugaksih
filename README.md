@@ -51,5 +51,5 @@ Program ini berisi permainan berbasis Command Line Interface (CLI) bernama Sim-P
 
 ## Notes:
 
-- Kalau mau pake GUI, buka file `build.gradle` terus ganti nilai variabel `mainClassName` jadi `'com.simplicity.SimPlicity'`
+- Kalau mau pake GUI, buka file `build.gradle` terus ganti nilai variabel `mainClassName` jadi `'com.simplicity.Game'`
 - Kalau nggak mau, ganti nilai variabel `mainClassName` jadi `'com.simplicity.Main'`

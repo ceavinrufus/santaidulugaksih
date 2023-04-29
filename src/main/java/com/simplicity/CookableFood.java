@@ -1,24 +1,23 @@
 package com.simplicity;
 
-import javax.swing.JOptionPane;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public enum CookableFood implements Eatable, Purchasable {
-    NASI("Nasi", 5, 5),
-    KENTANG("Kentang", 3, 4),
-    AYAM("Ayam", 10, 8),
-    SAPI("Sapi", 12, 15),
-    WORTEL("Wortel", 3, 2),
-    BAYAM("Bayam", 3, 2),
-    KACANG("Kacang", 2, 2),
-    SUSU("Susu", 2, 1);
+public enum CookableFood implements Eatable {
+    NASI_AYAM("Nasi Ayam", "Nasi,Ayam", 16),
+    NASI_KARI("Nasi Kari", "Nasi,Kentang,Wortel,Sapi", 30),
+    SUSU_KACANG("Susu Kacang", "Susu,Kacang", 5),
+    TUMIS_SAYUR("Tumis Sayur", "Wortel,Bayam", 5),
+    BISTIK("Bistik", "Kentang,Sapi", 22);
 
     private String nama;
-    private int harga;
+    private String[] resep;
     private int kekenyangan;
 
-    private CookableFood(String nama, int harga, int kekenyangan) {
+    private CookableFood(String nama, String resep, int kekenyangan) {
         this.nama = nama;
-        this.harga = harga;
+        this.resep = resep.split(",");
         this.kekenyangan = kekenyangan;
     }
 
@@ -26,14 +25,19 @@ public enum CookableFood implements Eatable, Purchasable {
         return nama;
     }
 
-    public int getHarga() {
-        return harga;
+    public String[] getResep() {
+        return resep;
     }
 
     @Override
+    public int getKekenyangan() {
+        return kekenyangan;
+    }
+
+    // GUI
+    @Override
     public void displayInfo() {
         String message = "Nama: " + nama + "\n" +
-                "Harga: " + harga + "\n" +
                 "Kekenyangan: " + kekenyangan + "\n";
 
         Object[] options = { "Back" };
@@ -41,8 +45,46 @@ public enum CookableFood implements Eatable, Purchasable {
                 JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
 
-    @Override
-    public int getKekenyangan() {
-        return kekenyangan;
+    public static void displayResep() {
+        ArrayList<CookableFood> resep = new ArrayList<>(Arrays.asList(CookableFood.values()));
+
+        String[][] tableData = new String[resep.size()][3];
+        String[] columnNames = { "Masakan", "Resep", "Kekenyangan" };
+        for (int i = 0; i < resep.size(); i++) {
+            tableData[i][0] = resep.get(i).getNama(); // Item name
+            tableData[i][1] = String.join(" + ", resep.get(i).getResep()); // Resep
+            tableData[i][2] = String.valueOf(resep.get(i).getKekenyangan()); // Kekenyangan
+        }
+
+        // table data
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
+
+        // Panjang kolom
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(150);
+
+        // Menampilkan option pane
+        String[] options = { "Masak", "Cancel" }; // custom buttons
+        int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Buku Resep",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        // get item dari the tabel
+        if (choice == 0) {
+            // Pasang
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                String selectedOption = (String) table.getValueAt(selectedRow, 0);
+                System.out.println("Selected option: " + selectedOption);
+            }
+        } else if (choice == 1) {
+            // Cancel
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.simplicity;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import com.gui.SimPlicity;
+import com.gui.Game;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class Inventory {
     public void displayInventory(Class<? extends Storable> className) {
         // testing
         addBarang(new Kasur("Kasur Queen Size"), 5);
-        addBarang(CookableFood.AYAM, 10);
+        addBarang(NonCookableFood.AYAM, 10);
 
         int count = 0;
         for (Pair<? extends Storable, Integer> pair : container) {

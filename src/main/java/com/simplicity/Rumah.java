@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import com.gui.SimPlicity;
+import com.gui.Game;
 
 public class Rumah {
     /*
@@ -177,8 +177,8 @@ public class Rumah {
         }
 
         Color gridBg = new Color(255, 255, 255, 90);
-        SimPosition currentSimPosition = SimPlicity.getInstance().getCurrentSim().getCurrentPosition();
-        String currentNamaRuangan = SimPlicity.getInstance().getCurrentSim().getCurrentPosition().getRuang()
+        SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
+        String currentNamaRuangan = Game.getInstance().getCurrentSim().getCurrentPosition().getRuang()
                 .getNamaRuangan();
         for (int x = 0; x < column; x++) {
             for (int y = 0; y < row; y++) {
@@ -220,21 +220,21 @@ public class Rumah {
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
                         Image player = null;
-                        if (SimPlicity.getInstance().getKeyChar() == 'w'){
+                        if (Game.getInstance().getKeyChar() == 'w'){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if (SimPlicity.getInstance().getKeyChar() == 'd'){
+                        } else if (Game.getInstance().getKeyChar() == 'd'){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_right.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if (SimPlicity.getInstance().getKeyChar() == 'a'){
+                        } else if (Game.getInstance().getKeyChar() == 'a'){
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_left.png"));
                             } catch (IOException e) {
