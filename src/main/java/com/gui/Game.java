@@ -373,7 +373,8 @@ public class Game extends JFrame {
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga(3);
                 } else if (aksi.equals("Berkunjung")) {
-                    // currentSim.berkunjung();
+                    currentSim.berkunjung();
+                    repaint();
                 } else if (aksi.equals("Beli Barang")) {
                     currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {

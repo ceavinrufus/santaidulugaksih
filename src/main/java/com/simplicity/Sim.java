@@ -194,8 +194,13 @@ public class Sim {
         }
     }
 
-    public void berkunjung(Sim tujuan) {
+    public void berkunjung() {
+        Peta<Rumah> petaRumah = World.getInstance().getPeta();
+        Rumah selectedRumah = petaRumah.selectElement();
 
+        if (selectedRumah != null) {
+            getCurrentPosition().setRumah(selectedRumah);
+        }
     }
 
     public void buangAir() {

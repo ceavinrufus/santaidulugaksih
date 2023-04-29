@@ -66,7 +66,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x, y - 1) == null) {
                                     petaRuangan.setElement(x, y - 1, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "atas":
@@ -75,7 +74,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x, y + 1) == null) {
                                     petaRuangan.setElement(x, y + 1, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "kanan":
@@ -84,7 +82,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x + 1, y) == null) {
                                     petaRuangan.setElement(x + 1, y, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "kiri":
@@ -94,7 +91,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x - 1, y) == null) {
                                     petaRuangan.setElement(x - 1, y, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             default:
@@ -117,6 +113,11 @@ public class Rumah {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Rumah " + namaPemilik;
     }
 
     // GUI
