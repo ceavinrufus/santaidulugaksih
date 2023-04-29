@@ -1,10 +1,16 @@
 package com.gui;
 
 import javax.swing.*;
+
+import com.simplicity.Sim;
+import com.simplicity.ExceptionHandling.SimNotCreatedException;
+
 import java.awt.*;
 import java.awt.event.*;;
 
 public class MainMenu extends JFrame {
+    private static MainMenu instance = new MainMenu();
+
     PixelatedButton startButton;
     PixelatedButton helpButton;
 
@@ -30,8 +36,19 @@ public class MainMenu extends JFrame {
         startButton = new PixelatedButton("Start", font);
         startButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                SimPlicity.getInstance();
+            public void mouseClicked(MouseEvent ev) {
+                Game game = Game.getInstance();
+                Sim sim;
+                try {
+                    sim = game.makeNewSim();
+                    if (sim != null) {
+                        game.setCurrentSim(sim);
+                        game.runGame();
+                    }
+                } catch (SimNotCreatedException e) {
+                    sim = null;
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -68,32 +85,12 @@ public class MainMenu extends JFrame {
 
         backgroundLabel.add(startButton);
         backgroundLabel.add(helpButton);
-
-        KeyAdapter keyListener = new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    // Start
-                    removeKeyListener(this);
-                    new Game();
-                } else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-                    // Help
-                    Object[] options = { "Aku mengerti!" };
-                    JOptionPane.showOptionDialog(null,
-                            "Gatau mainin aja udah pokoknya",
-                            "Help",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null,
-                            options,
-                            options[0]);
-
-                }
-            }
-        };
-        addKeyListener(keyListener);
         setVisible(true);
         setFocusable(true);
+    }
+
+    public static MainMenu getInstance() {
+        return instance;
     }
 
     private void updateButtonPosition() {

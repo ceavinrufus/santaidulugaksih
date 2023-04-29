@@ -2,7 +2,7 @@ package com.simplicity;
 
 import javax.swing.JOptionPane;
 
-import com.gui.SimPlicity;
+import com.gui.Game;
 
 public abstract class Furniture implements Storable, Purchasable {
     private String nama;
@@ -43,8 +43,8 @@ public abstract class Furniture implements Storable, Purchasable {
 
         if (choice == 0) {
             // Pasang
-            if (SimPlicity.getInstance().getCurrentSim()
-                    .equals(SimPlicity.getInstance().getCurrentSim().getCurrentPosition().getRumah().getPemilik())) {
+            if (Game.getInstance().getCurrentSim()
+                    .equals(Game.getInstance().getCurrentSim().getCurrentPosition().getRumah().getPemilik())) {
                 // Cari posisi
                 // Pasang
             } else {

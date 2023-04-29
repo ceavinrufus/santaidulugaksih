@@ -3,7 +3,7 @@ package com.simplicity;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import com.gui.SimPlicity;
+import com.gui.Game;
 
 import java.util.ArrayList;
 

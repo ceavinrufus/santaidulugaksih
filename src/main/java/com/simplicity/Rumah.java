@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import com.gui.SimPlicity;
+import com.gui.Game;
 
 public class Rumah {
     /*
@@ -177,8 +177,8 @@ public class Rumah {
         }
 
         Color gridBg = new Color(255, 255, 255, 90);
-        SimPosition currentSimPosition = SimPlicity.getInstance().getCurrentSim().getCurrentPosition();
-        String currentNamaRuangan = SimPlicity.getInstance().getCurrentSim().getCurrentPosition().getRuang()
+        SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
+        String currentNamaRuangan = Game.getInstance().getCurrentSim().getCurrentPosition().getRuang()
                 .getNamaRuangan();
         for (int x = 0; x < column; x++) {
             for (int y = 0; y < row; y++) {
