@@ -51,7 +51,7 @@ public class Inventory {
     }
 
     public boolean isContains(Storable barang) {
-        boolean contains = true;
+        boolean contains = false;
         int i = 0;
         while (contains && i < container.size()) {
             if (container.get(i).getKey().getNama().equals(barang.getNama())) {
