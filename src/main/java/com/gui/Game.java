@@ -1,7 +1,11 @@
 package com.gui;
 
 import com.simplicity.*;
+import com.simplicity.Point;
 
+// import com.google.gson.*;
+// import org.json.*;
+import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +62,7 @@ public class Game extends JFrame {
     // Menu game
     public void displayGameMenu() {
         ArrayList<String> optionsList = new ArrayList<>(Arrays.asList("View Sim Info", "View Current Location",
-                "View Inventory", "House Menu", "Add Sim", "Change Sim", "Exit"));
+                "View Inventory", "House Menu", "Add Sim", "Change Sim", "Save", "Exit"));
 
         String[] options = optionsList.toArray(new String[0]);
         JPanel panel = new JPanel();
@@ -79,7 +83,7 @@ public class Game extends JFrame {
                         break;
                     case "View Current Location":
                         SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
-                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                                 + "\n" +
                                 "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
                         JOptionPane.showMessageDialog(null, message, "Current Location",
@@ -102,6 +106,14 @@ public class Game extends JFrame {
                         break;
                     case "Change Sim":
                         changeSim();
+                        break;
+                    case "Save":
+                        // try {
+                        // save("save");
+                        // } catch (IOException exception) {
+                        // JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
+                        // JOptionPane.ERROR_MESSAGE);
+                        // }
                         break;
                     case "Exit":
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
@@ -131,7 +143,7 @@ public class Game extends JFrame {
         String[] options;
 
         // Conditional buat nentuin menu apa aja yang bakal ditampilin
-        if (currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+        if (currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                 .equals(currentSim.getNamaLengkap())) {
             options = new String[anyHouseMenu.length + simHouseMenu.length + 1];
             System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
@@ -155,10 +167,10 @@ public class Game extends JFrame {
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
-                        String selectedOption = pilihanRuangan();
-                        if (selectedOption != null) {
-                            currentSim.getCurrentPosition()
-                                    .setRuang(currentSim.getCurrentPosition().getRumah().findRuangan(selectedOption));
+                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
+                                .selectElement();
+                        if (selectedRuangan != null) {
+                            currentSim.getCurrentPosition().setRuang(selectedRuangan);
                         }
                         break;
                     case "Edit Room":
@@ -168,7 +180,7 @@ public class Game extends JFrame {
                         displayListObject();
                         break;
                     case "Go To Object":
-                        pilihanObject();
+                        goToObject();
                         break;
                     case "Action":
                         action();
@@ -190,63 +202,15 @@ public class Game extends JFrame {
         }
     }
 
-    private String pilihanRuangan() {
-        // Aku pisah karena mau dipake untuk move room juga -Tina
-        Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        TreeSet<String> setOfRoomName = new TreeSet<String>();
+    private void goToObject() {
+        SimPosition currentPosition = currentSim.getCurrentPosition();
+        Peta<Furniture> petaRuangan = currentPosition.getRuang().getPeta();
+        Furniture selectedBarang = petaRuangan.selectElement();
 
-        Peta<Ruangan> petaRuangan = currentHouse.getPeta();
-        for (int i = 0; i < petaRuangan.getColumn(); i++) {
-            for (int j = 0; j < petaRuangan.getRow(); j++) {
-                Ruangan ruang = petaRuangan.getElement(i, j);
-                if (ruang != null) {
-                    setOfRoomName.add(ruang.getNamaRuangan());
-                }
-            }
-        }
-        ArrayList<String> listRoomName = new ArrayList<>(setOfRoomName);
-
-        String[] roomOptions = listRoomName.toArray(new String[0]);
-        JList<String> list = new JList<>(roomOptions);
-        String header = "Pilihan Ruangan";
-        JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
-        String selectedOption = list.getSelectedValue();
-        return selectedOption;
-    }
-
-    private void pilihanObject() {
-        HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
-        Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                Furniture barang = (Furniture) petaBarang.getElement(i, j);
-                if (barang != null) {
-                    listBarang.putIfAbsent(barang.getNama(), new com.simplicity.Point(i, j));
-                }
-            }
-        }
-
-        String[] objectOptions = {};
-        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
-
-        for (String x : listBarang.keySet()) {
-            listObjects.add(x);
-        }
-
-        objectOptions = listObjects.toArray(objectOptions);
-        if (objectOptions.length == 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
-                    "Notification", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JList<String> list = new JList<>(objectOptions);
-            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Go To Object", JOptionPane.PLAIN_MESSAGE);
-            String selectedOption = list.getSelectedValue();
-            if (selectedOption != null) {
-                currentSim.getCurrentPosition().getLokasi().move(listBarang.get(selectedOption).getX(),
-                        listBarang.get(selectedOption).getY());
-                repaint();
-            }
+        if (selectedBarang != null) {
+            Point newPoint = petaRuangan.getClosestElementCoordinate(currentPosition.getLokasi(), selectedBarang);
+            currentSim.getCurrentPosition().setLokasi(newPoint);
+            repaint();
         }
     }
 
@@ -410,6 +374,7 @@ public class Game extends JFrame {
                     currentSim.olahraga(3);
                 } else if (aksi.equals("Berkunjung")) {
                     currentSim.berkunjung();
+                    repaint();
                 } else if (aksi.equals("Beli Barang")) {
                     currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
@@ -434,32 +399,11 @@ public class Game extends JFrame {
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        // Untuk saat ini masih dengan asumsi tidak ada barang yang persis sama.
-        String selectedOption = pilihanRuangan();
-        // Aku pisah karena mau dipake untuk move room juga -Tina
-        Ruangan selectedRuang = currentHouse.findRuangan(selectedOption);
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement();
 
-        if (selectedOption != null) {
-            HashSet<Furniture> listBarang = new HashSet<Furniture>();
-            Peta<Furniture> petaBarang = selectedRuang.getPeta();
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 6; j++) {
-                    Furniture barang = (Furniture) petaBarang.getElement(i, j);
-                    if (barang != null) {
-                        listBarang.add(barang);
-                    }
-                }
-            }
-
-            StringBuilder message = new StringBuilder("");
-            int idx = 1;
-            for (Furniture barang : listBarang) {
-                message.append(String.format("%d. %s\n", idx, barang.getNama()));
-                idx++;
-            }
-            JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
+        if (selectedRuangan != null) {
+            selectedRuangan.getPeta().displayList();
         }
-
     }
 
     public Sim makeNewSim() throws SimNotCreatedException {
@@ -513,7 +457,7 @@ public class Game extends JFrame {
                 randY = rand.nextInt(64);
             } while (world.getPeta().getElement(randX, randY) != null);
             world.tambahRumah(rumah, randX, randY);
-            rumah.setPemilik(sim);
+            rumah.setNamaPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
         } catch (IllegalLocationException e) {
             // TODO: handle exception
@@ -557,6 +501,45 @@ public class Game extends JFrame {
             }
         }
     }
+
+    // private void save(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // try {
+    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+    // ".json");
+    // fileWriter.write("[");
+    // gson.toJson(World.getInstance(), fileWriter);
+    // fileWriter.write(",");
+    // gson.toJson(sims, fileWriter);
+    // fileWriter.write("]");
+    // fileWriter.close();
+    // JOptionPane.showMessageDialog(null, "Berhasil menyimpan data!",
+    // "Notification",
+    // JOptionPane.INFORMATION_MESSAGE);
+    // } catch (IOException e) {
+    // JOptionPane.showMessageDialog(null, "Gagal menyimpan data!", "Error",
+    // JOptionPane.ERROR_MESSAGE);
+    // }
+    // }
+
+    // private World loadWorld(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // World world = null;
+    // try {
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // ".json");
+    // JsonReader jsonReader = new JsonReader(fileReader);
+    // jsonReader.beginArray();
+    // world = gson.fromJson(jsonReader, World.class);
+    // jsonReader.endArray();
+    // jsonReader.close();
+    // fileReader.close();
+    // } catch (IOException e) {
+    // JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
+    // JOptionPane.ERROR_MESSAGE);
+    // }
+    // return world;
+    // }
 
     public void runGame() {
         setVisible(true);

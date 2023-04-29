@@ -1,5 +1,7 @@
 package com.simplicity;
 
+import java.util.Objects;
+
 import javax.swing.*;
 
 import com.gui.Game;
@@ -32,6 +34,26 @@ public abstract class Furniture implements Storable, Purchasable {
     }
 
     @Override
+    public String toString() {
+        return nama;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Furniture)) {
+            return false;
+        }
+        Furniture furniture = (Furniture) o;
+        return Objects.equals(nama, furniture.nama) &&
+                panjang == furniture.panjang &&
+                lebar == furniture.lebar &&
+                harga == furniture.harga;
+    }
+
+    @Override
     public void displayInfo() {
         String message = "Nama: " + nama + "\n" +
                 "Dimensi: " + panjang + "x" + lebar + "\n" +
@@ -45,7 +67,7 @@ public abstract class Furniture implements Storable, Purchasable {
             // Pasang
             Sim currentSim = Game.getInstance().getCurrentSim();
             Rumah currentHouse = Game.getInstance().getCurrentSim().getCurrentPosition().getRumah();
-            if (currentSim.equals(currentHouse.getPemilik())) {
+            if (currentSim.getNamaLengkap().equals(currentHouse.getNamaPemilik())) {
                 // Cari posisi
                 // Pasang
                 String[] orientationOptions = { "Horizontal", "Vertikal" };

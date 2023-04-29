@@ -22,7 +22,7 @@ public class Rumah {
      * 
      */
 
-    private Sim pemilik;
+    private String namaPemilik;
     private Peta<Ruangan> petaRuangan = new Peta<Ruangan>(1, 1);
     // private int jumlahRuangan = 1;
 
@@ -30,12 +30,12 @@ public class Rumah {
         petaRuangan.setElement(0, 0, ruangan);
     }
 
-    public Sim getPemilik() {
-        return pemilik;
+    public String getNamaPemilik() {
+        return namaPemilik;
     }
 
-    public void setPemilik(Sim pemilik) {
-        this.pemilik = pemilik;
+    public void setNamaPemilik(Sim pemilik) {
+        namaPemilik = pemilik.getNamaLengkap();
     }
 
     public Peta<Ruangan> getPeta() {
@@ -66,7 +66,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x, y - 1) == null) {
                                     petaRuangan.setElement(x, y - 1, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "atas":
@@ -75,7 +74,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x, y + 1) == null) {
                                     petaRuangan.setElement(x, y + 1, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "kanan":
@@ -84,7 +82,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x + 1, y) == null) {
                                     petaRuangan.setElement(x + 1, y, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             case "kiri":
@@ -94,7 +91,6 @@ public class Rumah {
                                 }
                                 if (petaRuangan.getElement(x - 1, y) == null) {
                                     petaRuangan.setElement(x - 1, y, ruanganBaru);
-                                    // jumlahRuangan++;
                                 }
                                 break;
                             default:
@@ -112,7 +108,6 @@ public class Rumah {
             for (int j = 0; j < petaRuangan.getColumn(); j++) {
                 if (petaRuangan.getElement(i, j) == ruangan) {
                     petaRuangan.setElement(i, j, null);
-                    // jumlahRuangan--;
                 } else {
                     System.out.println("Ruangan tidak ditemukan");
                 }
@@ -120,17 +115,9 @@ public class Rumah {
         }
     }
 
-    public Ruangan findRuangan(String name) {
-        Ruangan ruang = null;
-        for (int i = 0; i < petaRuangan.getColumn(); i++) {
-            for (int j = 0; j < petaRuangan.getRow(); j++) {
-                Ruangan tempRuang = petaRuangan.getElement(i, j);
-                if (tempRuang != null && tempRuang.getNamaRuangan().equals(name)) {
-                    ruang = tempRuang;
-                }
-            }
-        }
-        return ruang;
+    @Override
+    public String toString() {
+        return "Rumah " + namaPemilik;
     }
 
     // GUI
@@ -189,12 +176,10 @@ public class Rumah {
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
-                    // Sementara logicnya kalo ada barang warnain merah - Aku ubah ya hehe (Tina)
+                    // Barang
                     Furniture barang = petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
                             (row - y - 1) % 6);
                     if (barang != null) {
-                        // g.setColor(Color.RED);
-                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
                             try {
@@ -216,7 +201,7 @@ public class Rumah {
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                         }
                     }
-                    // Sementara logicnya kalo ada sim warnain ijo - Aku ubah ya hehe (Tina)
+                    // Player
                     if (currentNamaRuangan.equals(petaRuangan.getElement(x / 6, (row - y - 1) / 6).getNamaRuangan())
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
@@ -251,8 +236,6 @@ public class Rumah {
                             }
                             g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         }
-                        // g.setColor(Color.GREEN);
-                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                     }
                     g.setColor(gridBg);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
@@ -265,7 +248,7 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
-                g.setColor(Color.BLACK);
+                g.setColor(new Color(156, 134, 112));
                 g.drawRect((int) cellX, (int) cellY, (int) gridSize, (int) gridSize);
             }
         }

@@ -1,11 +1,15 @@
 package com.simplicity;
 
+// import java.io.*;
+// import com.google.gson.Gson;
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import com.gui.Game;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 
 public class World {
@@ -52,7 +56,7 @@ public class World {
         for (int i = petaRumah.getRow() - 1; i >= 0; i--) {
             for (int j = 0; j < petaRumah.getColumn(); j++) {
                 if (petaRumah.getElement(i, j) != null) {
-                    System.out.printf("Rumah %s", petaRumah.getElement(i, j).getPemilik().getNamaLengkap());
+                    System.out.printf("Rumah %s", petaRumah.getElement(i, j).getNamaPemilik());
                 } else {
                     System.out.print("Lahan kosong");
                 }
@@ -125,8 +129,21 @@ public class World {
             for (int y = 0; y < 64; y++) {
                 float cellX = xOffset + (x - 32f) * gridSize + xCenter;
                 float cellY = yOffset + (y - 32f) * gridSize + yCenter;
-                if (x == 0 && 63 - y == 0) { // Ini contoh kalau misal ada rumah di titik (0, 0)
-                    g.setColor(Color.BLACK);
+                Rumah rumah = petaRumah.getElement(x, 63 - y);
+                if (rumah != null) {
+                    Sim currentSim = Game.getInstance().getCurrentSim();
+                    // Di mana player berada
+                    if (currentSim.getCurrentPosition().getRumah().equals(rumah)) {
+                        g.setColor(Color.BLUE);
+                    } else {
+                        if (rumah.getNamaPemilik().equals(currentSim.getNamaLengkap())) {
+                            // Rumahnya player
+                            g.setColor(Color.RED);
+                        } else {
+                            // Rumahnya orang
+                            g.setColor(Color.BLACK);
+                        }
+                    }
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
                     g.setColor(gridBg);

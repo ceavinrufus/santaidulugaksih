@@ -16,9 +16,12 @@ public class Sim {
     private int changeJobTime = 720;
     private int waktuKerjaBelumDibayar = 0;
     private int waktuTidakTidur = 0;
+    private int waktuTidakBuangAir = 0;
 
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
+
+    public World world = World.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -129,7 +132,7 @@ public class Sim {
                 stats.tambahMood(workoutTime / 20 * 10);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-            }            
+            }
             totalWaktu.addWaktu(workoutTime);
             trackTidur(workoutTime);
         }
@@ -192,20 +195,33 @@ public class Sim {
     }
 
     public void berkunjung() {
+        Peta<Rumah> petaRumah = World.getInstance().getPeta();
+        Rumah selectedRumah = petaRumah.selectElement();
 
+        if (selectedRumah != null) {
+            getCurrentPosition().setRumah(selectedRumah);
+        }
     }
 
     public void buangAir() {
-
+        try {
+            TimeUnit.SECONDS.sleep(10);
+            stats.kurangKekenyangan(20);
+            stats.tambahMood(10);
+            waktuTidakBuangAir = 0;
+        } catch (InterruptedException e) {
+            // do something
+        }
+        totalWaktu.addWaktu(10);
     }
 
     public void upgradeRumah() {
         int cost = 1500;
         if (uang > cost) {
             try {
-                TimeUnit.SECONDS.sleep(18*60);
+                TimeUnit.SECONDS.sleep(18 * 60);
                 // tambah ruangan
-                if (currentPosition.getRumah().getPemilik().equals(this)) {
+                if (currentPosition.getRumah().getNamaPemilik().equals(this.namaLengkap)) {
                     Scanner scanner = new Scanner(System.in);
                     String namaRuangan = scanner.nextLine();
                     Ruangan baru = new Ruangan(namaRuangan);
@@ -217,15 +233,18 @@ public class Sim {
             } catch (InterruptedException e) {
                 // do something
             }
-            totalWaktu.addWaktu(18*60);
+            totalWaktu.addWaktu(18 * 60);
         }
     }
 
-    public void beliBarang(){
-        
+    public void beliBarang(Purchasable barang) {
+        if (uang >= barang.getHarga()) {
+            inventory.addBarang(barang, 1);
+            uang -= barang.getHarga();
+        }
     }
 
-    public void interact(Furniture Furniture) {
-        Furniture.aksi(this);
+    public void interact(Furniture barang) {
+        barang.aksi(this);
     }
 }
