@@ -1,12 +1,13 @@
 package com.simplicity;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import com.gui.Game;
+import com.gui.*;
 
 public class Rumah {
     /*
@@ -188,18 +189,70 @@ public class Rumah {
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
-                    // Sementara logicnya kalo ada barang warnain merah
-                    if (petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
-                            (row - y - 1) % 6) != null) {
-                        g.setColor(Color.RED);
-                        g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                    // Sementara logicnya kalo ada barang warnain merah - Aku ubah ya hehe (Tina)
+                    Furniture barang = petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
+                            (row - y - 1) % 6);
+                    if (barang != null) {
+                        // g.setColor(Color.RED);
+                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        if (barang.getNama().equals("Toilet")) {
+                            Image toilet = null;
+                            try {
+                                toilet = ImageIO.read(new File("src/main/java/resources/images/toilet.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(toilet, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Jam")) {
+                            Image jam = null;
+                            try {
+                                jam = ImageIO.read(new File("src/main/java/resources/images/jam.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(jam, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else {
+                            g.setColor(Color.RED);
+                            g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        }
                     }
-                    // Sementara logicnya kalo ada sim warnain ijo
+                    // Sementara logicnya kalo ada sim warnain ijo - Aku ubah ya hehe (Tina)
                     if (currentNamaRuangan.equals(petaRuangan.getElement(x / 6, (row - y - 1) / 6).getNamaRuangan())
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
-                        g.setColor(Color.GREEN);
-                        g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                        Image player = null;
+                        int key = GamePanel.getInstance().getKeyChar();
+                        if ((key == KeyEvent.VK_W) || (key == KeyEvent.VK_UP)) {
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if ((key == KeyEvent.VK_D) || (key == KeyEvent.VK_RIGHT)) {
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_right.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if ((key == KeyEvent.VK_A) || (key == KeyEvent.VK_LEFT)) {
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_left.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else {
+                            try {
+                                player = ImageIO.read(new File("src/main/java/resources/images/player_front.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(player, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        }
+                        // g.setColor(Color.GREEN);
+                        // g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                     }
                     g.setColor(gridBg);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));

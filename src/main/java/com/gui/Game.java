@@ -493,8 +493,9 @@ public class Game extends JFrame {
         // Masukin barang barang basic ke ruangan
         ruangan.memasangBarang(new Kasur("Kasur Single"), true, 2, 0);
         ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
-        ruangan.memasangBarang(new Jam(), true, 0, 5);
+        ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
+        ruangan.memasangBarang(new Toilet(), true, 0, 5);
 
         try {
             Rumah rumah = new Rumah(ruangan);
@@ -543,6 +544,7 @@ public class Game extends JFrame {
             String selectedOption = list.getSelectedValue();
             if (selectedOption != null) {
                 currentSim = sims.get(selectedOption);
+                GamePanel.getInstance().setCurrentSim(currentSim);
                 JOptionPane.showMessageDialog(null, "Berhasil mengganti Sim!", "Notification",
                         JOptionPane.INFORMATION_MESSAGE);
                 repaint();
@@ -554,7 +556,8 @@ public class Game extends JFrame {
         setVisible(true);
         setFocusable(true);
         mainMenu.setVisible(false);
-        GamePanel gamePanel = new GamePanel(currentSim);
+        GamePanel gamePanel = GamePanel.getInstance();
+        gamePanel.setCurrentSim(currentSim);
         add(gamePanel);
         gamePanel.requestFocusInWindow();
         // displayRumah = true;
