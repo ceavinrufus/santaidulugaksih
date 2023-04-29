@@ -3,6 +3,9 @@ package com.gui;
 import com.simplicity.*;
 import com.simplicity.Point;
 
+// import com.google.gson.*;
+// import org.json.*;
+import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +62,7 @@ public class Game extends JFrame {
     // Menu game
     public void displayGameMenu() {
         ArrayList<String> optionsList = new ArrayList<>(Arrays.asList("View Sim Info", "View Current Location",
-                "View Inventory", "House Menu", "Add Sim", "Change Sim", "Exit"));
+                "View Inventory", "House Menu", "Add Sim", "Change Sim", "Save", "Exit"));
 
         String[] options = optionsList.toArray(new String[0]);
         JPanel panel = new JPanel();
@@ -80,7 +83,7 @@ public class Game extends JFrame {
                         break;
                     case "View Current Location":
                         SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
-                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+                        message = "Rumah " + currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                                 + "\n" +
                                 "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
                         JOptionPane.showMessageDialog(null, message, "Current Location",
@@ -103,6 +106,14 @@ public class Game extends JFrame {
                         break;
                     case "Change Sim":
                         changeSim();
+                        break;
+                    case "Save":
+                        // try {
+                        // save("save");
+                        // } catch (IOException exception) {
+                        // JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
+                        // JOptionPane.ERROR_MESSAGE);
+                        // }
                         break;
                     case "Exit":
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
@@ -132,7 +143,7 @@ public class Game extends JFrame {
         String[] options;
 
         // Conditional buat nentuin menu apa aja yang bakal ditampilin
-        if (currentSim.getCurrentPosition().getRumah().getPemilik().getNamaLengkap()
+        if (currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                 .equals(currentSim.getNamaLengkap())) {
             options = new String[anyHouseMenu.length + simHouseMenu.length + 1];
             System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
@@ -362,7 +373,7 @@ public class Game extends JFrame {
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga(3);
                 } else if (aksi.equals("Berkunjung")) {
-                    currentSim.berkunjung();
+                    // currentSim.berkunjung();
                 } else if (aksi.equals("Beli Barang")) {
                     currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
@@ -445,7 +456,7 @@ public class Game extends JFrame {
                 randY = rand.nextInt(64);
             } while (world.getPeta().getElement(randX, randY) != null);
             world.tambahRumah(rumah, randX, randY);
-            rumah.setPemilik(sim);
+            rumah.setNamaPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
         } catch (IllegalLocationException e) {
             // TODO: handle exception
@@ -489,6 +500,45 @@ public class Game extends JFrame {
             }
         }
     }
+
+    // private void save(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // try {
+    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+    // ".json");
+    // fileWriter.write("[");
+    // gson.toJson(World.getInstance(), fileWriter);
+    // fileWriter.write(",");
+    // gson.toJson(sims, fileWriter);
+    // fileWriter.write("]");
+    // fileWriter.close();
+    // JOptionPane.showMessageDialog(null, "Berhasil menyimpan data!",
+    // "Notification",
+    // JOptionPane.INFORMATION_MESSAGE);
+    // } catch (IOException e) {
+    // JOptionPane.showMessageDialog(null, "Gagal menyimpan data!", "Error",
+    // JOptionPane.ERROR_MESSAGE);
+    // }
+    // }
+
+    // private World loadWorld(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // World world = null;
+    // try {
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // ".json");
+    // JsonReader jsonReader = new JsonReader(fileReader);
+    // jsonReader.beginArray();
+    // world = gson.fromJson(jsonReader, World.class);
+    // jsonReader.endArray();
+    // jsonReader.close();
+    // fileReader.close();
+    // } catch (IOException e) {
+    // JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
+    // JOptionPane.ERROR_MESSAGE);
+    // }
+    // return world;
+    // }
 
     public void runGame() {
         setVisible(true);

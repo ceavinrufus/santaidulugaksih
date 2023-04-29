@@ -8,7 +8,7 @@ public class MenuGame {
     private Sim currentSim;
     private ArrayList<Pekerjaan> daftarPekerjaan;
 
-    //Getter & Setter
+    // Getter & Setter
     public boolean getIsStarted() {
         return isStarted;
     }
@@ -17,20 +17,20 @@ public class MenuGame {
         return currentSim;
     }
 
-    public ArrayList<Pekerjaan> getDaftarPekerjaan(){
+    public ArrayList<Pekerjaan> getDaftarPekerjaan() {
         return daftarPekerjaan;
     }
 
-    public void setIsStarted(boolean isStarted){
+    public void setIsStarted(boolean isStarted) {
         this.isStarted = isStarted;
     }
 
-    public void setCurrentSim(Sim currentSim){
+    public void setCurrentSim(Sim currentSim) {
         this.currentSim = currentSim;
     }
 
-    //Main Function
-    public void startGame(){
+    // Main Function
+    public void startGame() {
         isStarted = true;
         Scanner input = new Scanner(System.in);
         String nama = input.nextLine();
@@ -50,20 +50,20 @@ public class MenuGame {
         ruangan.memasangBarang(kompor, true, 2, 5);
         ruangan.memasangBarang(mejaKursi, true, 1, 1);
         Rumah rumah = new Rumah(ruangan);
-        rumah.setPemilik(currentSim);
+        rumah.setNamaPemilik(currentSim);
         World world = World.getInstance();
     }
 
-    public void help(){
+    public void help() {
         System.out.println("Hai! Selamat datang di Simplicity!\nBerikut merupakan panduan bermain game ini.");
     }
 
-    public void exit(){
+    public void exit() {
         System.out.println("Terima kasih telah bermain Simplicity!");
         isStarted = false;
     }
 
-    public void viewSimInfo(){
+    public void viewSimInfo() {
         if (isStarted) {
             System.out.println("Berikut merupakan informasi dari Sim:");
             System.out.println("Nama: " + currentSim.getNamaLengkap());
@@ -77,16 +77,16 @@ public class MenuGame {
         }
     }
 
-    public void addSim(){
+    public void addSim() {
         //
     }
 
-    public void changeSim(){
+    public void changeSim() {
         //
     }
 
-    public void viewCurrentLocation(){
-        if (isStarted){
+    public void viewCurrentLocation() {
+        if (isStarted) {
             System.out.println("Berikut merupakan informasi lokasimu saat ini:");
             System.out.println("Rumah: ");
             System.out.println("Ruangan: ");
@@ -95,15 +95,15 @@ public class MenuGame {
         }
     }
 
-    public void viewInventory(){
+    public void viewInventory() {
         if (isStarted) {
             System.out.println("Berikut isi dari inventorymu saat ini: ");
-        } else{
+        } else {
             System.out.println("Maaf, Anda harus memulai permainan terlebih dahulu.");
         }
     }
 
-    public void upgradeHouse(){
+    public void upgradeHouse() {
         if (isStarted) {
             //
         } else {
@@ -111,15 +111,7 @@ public class MenuGame {
         }
     }
 
-    public void moveRoom(){
-        if (isStarted){
-            //
-        } else {
-            System.out.println("Maaf, Anda harus memulai permainan terlebih dahulu.");
-        }
-    }
-
-    public void editRoom(){
+    public void moveRoom() {
         if (isStarted) {
             //
         } else {
@@ -127,27 +119,35 @@ public class MenuGame {
         }
     }
 
-    public void displayBeforeGame(){
+    public void editRoom() {
+        if (isStarted) {
+            //
+        } else {
+            System.out.println("Maaf, Anda harus memulai permainan terlebih dahulu.");
+        }
+    }
+
+    public void displayBeforeGame() {
         //
     }
 
-    public void displayGame(){
+    public void displayGame() {
         //
     }
 
-    public void displayAksiBarang(){
+    public void displayAksiBarang() {
         //
     }
 
-    public void listObject(){
+    public void listObject() {
         //
     }
 
-    public void goToObject(){
+    public void goToObject() {
         //
     }
 
-    public void action(){
+    public void action() {
         //
     }
 }

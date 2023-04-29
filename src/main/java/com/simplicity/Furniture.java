@@ -67,7 +67,7 @@ public abstract class Furniture implements Storable, Purchasable {
             // Pasang
             Sim currentSim = Game.getInstance().getCurrentSim();
             Rumah currentHouse = Game.getInstance().getCurrentSim().getCurrentPosition().getRumah();
-            if (currentSim.equals(currentHouse.getPemilik())) {
+            if (currentSim.getNamaLengkap().equals(currentHouse.getNamaPemilik())) {
                 // Cari posisi
                 // Pasang
                 String[] orientationOptions = { "Horizontal", "Vertikal" };
