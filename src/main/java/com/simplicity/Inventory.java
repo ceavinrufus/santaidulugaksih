@@ -50,6 +50,18 @@ public class Inventory {
         }
     }
 
+    public boolean isContains(Storable barang) {
+        boolean contains = true;
+        int i = 0;
+        while (contains && i < container.size()) {
+            if (container.get(i).getKey().getNama().equals(barang.getNama())) {
+                contains = true;
+            }
+            i++;
+        }
+        return contains;
+    }
+
     // GUI
     public void displayInventory(Class<? extends Storable> className) {
         // testing
