@@ -166,6 +166,7 @@ public class Rumah {
         }
 
         int ctrMeja = 0;
+        int ctrKompor = 0;
 
         Color gridBg = new Color(255, 255, 255, 90);
         SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
@@ -267,6 +268,41 @@ public class Rumah {
                                 ctrMeja = 0;
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Kompor Gas")) {
+                            ctrKompor++;
+                            Image kompor = null;
+                            if (barang.getIsHorizontal()){
+                                if (ctrKompor == 1){
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor3.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor4.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKompor = 0;
+                                }
+                            } else {
+                                if (ctrKompor == 1){
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor1.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor2.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKompor = 0;
+                                }
+                            }
+                            g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else {
                             g.setColor(Color.RED);
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
