@@ -43,6 +43,7 @@ public class Kasur extends Furniture {
                     // Validasi sleepTime
                     if (sleepTime < 240) {
                     } else {
+                        
                     }
                 }
             } catch (NumberFormatException e) {

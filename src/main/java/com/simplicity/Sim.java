@@ -109,8 +109,12 @@ public class Sim {
         checkTidakTidur();
     }
 
-    public void kerja(int workingTime) {
-        if (waktuBolehGantiKerja >= 720 && workingTime % 120 == 0) {
+    public void kerja() {
+        Integer workingTime = 0;
+        if (waktuBolehGantiKerja >= 720) {
+            while (workingTime == 0 || workingTime % 120 != 0) {
+                workingTime = inputActionTime();
+            }
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
                 totalWorkTime += workingTime;
@@ -122,8 +126,8 @@ public class Sim {
                     uang += pekerjaan.getGaji() * (workingTime % 240);
                     waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
                 }
-            } catch (InterruptedException e) {
-                // do something
+        } catch (InterruptedException e) {
+
             }
         }
     }

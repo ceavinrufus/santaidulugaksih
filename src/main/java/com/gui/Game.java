@@ -373,7 +373,7 @@ public class Game extends JFrame {
             JButton button = new JButton(aksi);
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
-                    currentSim.kerja(currentSim.inputActionTime());
+                    currentSim.kerja();
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga(currentSim.inputActionTime());
                 } else if (aksi.equals("Berkunjung")) {
