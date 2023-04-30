@@ -176,9 +176,11 @@ public class Game extends JFrame {
                         break;
                     case "Save":
                         try {
-                            saveWorld("save");
-                            saveSims("save");
-                            saveCurrentSim("save");
+                            String saveName = JOptionPane.showInputDialog(null, "Masukkan nama save file",
+                                    "Save Game", JOptionPane.QUESTION_MESSAGE);
+                            saveWorld(saveName);
+                            saveSims(saveName);
+                            saveCurrentSim(saveName);
                         } catch (IOException exception) {
                             JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
                                     JOptionPane.ERROR_MESSAGE);
@@ -582,15 +584,10 @@ public class Game extends JFrame {
         gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
         gson = gsonBuilder.create();
         World world = null;
-        try {
-            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-                    "_world.json");
-            world = gson.fromJson(fileReader, World.class);
-            fileReader.close();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                "_world.json");
+        world = gson.fromJson(fileReader, World.class);
+        fileReader.close();
         return world;
     }
 
@@ -603,16 +600,11 @@ public class Game extends JFrame {
         gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
         gson = gsonBuilder.create();
         HashMap<String, Sim> sims = null;
-        try {
-            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-                    "_sims.json");
-            sims = gson.fromJson(fileReader, new TypeToken<HashMap<String, Sim>>() {
-            }.getType());
-            fileReader.close();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                "_sims.json");
+        sims = gson.fromJson(fileReader, new TypeToken<HashMap<String, Sim>>() {
+        }.getType());
+        fileReader.close();
         return sims;
     }
 
@@ -625,15 +617,10 @@ public class Game extends JFrame {
         gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
         gson = gsonBuilder.create();
         Sim sim = null;
-        try {
-            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-                    "_currentSim.json");
-            sim = gson.fromJson(fileReader, Sim.class);
-            fileReader.close();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                "_currentSim.json");
+        sim = gson.fromJson(fileReader, Sim.class);
+        fileReader.close();
         return sim;
     }
 

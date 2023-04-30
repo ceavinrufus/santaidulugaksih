@@ -88,19 +88,20 @@ public class Peta<T> {
     }
 
     public void displayList() {
-        HashSet<T> listElement = new HashSet<T>();
-        for (int i = 0; i < getRow(); i++) {
-            for (int j = 0; j < getColumn(); j++) {
+        TreeSet<String> setOfElement = new TreeSet<String>();
+
+        for (int i = 0; i < getColumn(); i++) {
+            for (int j = 0; j < getRow(); j++) {
                 T el = getElement(i, j);
                 if (el != null) {
-                    listElement.add(el);
+                    setOfElement.add(el.toString());
                 }
             }
         }
 
         StringBuilder message = new StringBuilder("");
         int idx = 1;
-        for (T el : listElement) {
+        for (String el : setOfElement) {
             message.append(String.format("%d. %s\n", idx, el.toString()));
             idx++;
         }
