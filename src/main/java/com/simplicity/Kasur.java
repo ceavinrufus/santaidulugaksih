@@ -43,7 +43,7 @@ public class Kasur extends Furniture {
                     // Validasi sleepTime
                     if (sleepTime < 240) {
                     } else {
-                        
+
                     }
                 }
             } catch (NumberFormatException e) {
@@ -62,6 +62,7 @@ public class Kasur extends Furniture {
             }
             totalWaktu.addWaktu(sleepTime);
             sim.setWaktuTidakTidur(0);
+            sim.setIsSehabisTidur(true);
         }
     }
 }
