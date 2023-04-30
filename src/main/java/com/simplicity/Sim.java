@@ -296,7 +296,17 @@ public class Sim {
     }
 
     public void buangAir() {
-
+        try {
+            TimeUnit.SECONDS.sleep(10);
+            recentActionTime = 10;
+            stats.kurangKekenyangan(20);
+            stats.tambahMood(10);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        totalWaktu.addWaktu(10);
+        isSehabisMakan = false;
+        isSehabisTidur = false;
     }
 
     public void upgradeRumah() {
