@@ -35,21 +35,22 @@ public class Kasur extends Furniture {
     public void aksi(Sim sim) {
         Integer sleepTime = 0;
         while (sleepTime < 240) {
+            String input = "";
             try {
-                String input = JOptionPane.showInputDialog(null, "Masukkan sleepTime:");
+                input = JOptionPane.showInputDialog(null, "Masukkan waktu tidur: ");
                 if (input == null) {
                     // Kalo pencet tombol close
-                    JOptionPane.getRootFrame().dispose();
+                    return;
                 } else {
                     sleepTime = Integer.parseInt(input);
-                    // Validasi sleepTime
                     if (sleepTime < 240) {
-                    } else {
-
+                        JOptionPane.showMessageDialog(null, "Minimal tidur selama 240 detik", "Error",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Masukkan angka yang valid", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Waktu tidur harus berbentuk angka, loh!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 

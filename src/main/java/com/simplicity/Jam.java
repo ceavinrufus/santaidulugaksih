@@ -1,5 +1,7 @@
 package com.simplicity;
 
+import javax.swing.JOptionPane;
+
 import com.simplicity.AbstractClass.Furniture;
 
 public class Jam extends Furniture {
@@ -20,8 +22,10 @@ public class Jam extends Furniture {
     public void aksi(Sim sim) {
         Waktu waktu = Waktu.waktu();
         int totalWaktu = waktu.getWaktu();
-        int jam = (int) totalWaktu / 3600;
-        int menit = (int) (totalWaktu - (jam * 3600)) / 60;
-        int sekon = totalWaktu - jam * 3600 - menit * 60;
+        int hariKe = totalWaktu % (12 * 60);
+        int sisaWaktuSekon = totalWaktu - (hariKe * 12 * 60);
+        int sisaWaktuMenit = sisaWaktuSekon / 60;
+        String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuSekon, sisaWaktuMenit);
+        JOptionPane.showMessageDialog(null, info, "Info Waktu", JOptionPane.INFORMATION_MESSAGE);
     }
 }

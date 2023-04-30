@@ -26,7 +26,7 @@ public class Game extends JFrame {
     // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
     private Sim currentSim;
-
+    public HomePanel homePanel;
     JTabbedPane tabbedPane;
 
     private Game() {
@@ -467,7 +467,7 @@ public class Game extends JFrame {
             String selectedOption = list.getSelectedValue();
             if (selectedOption != null) {
                 currentSim = sims.get(selectedOption);
-                HomePanel.getInstance().setCurrentSim(currentSim);
+                homePanel.setCurrentSim(currentSim);
                 JOptionPane.showMessageDialog(null, "Berhasil mengganti Sim!", "Notification",
                         JOptionPane.INFORMATION_MESSAGE);
                 repaint();
@@ -525,7 +525,7 @@ public class Game extends JFrame {
         setVisible(true);
         setFocusable(true);
         mainMenu.setVisible(false);
-        HomePanel homePanel = HomePanel.getInstance();
+        homePanel = new HomePanel(currentSim);
         WorldPanel worldPanel = WorldPanel.getInstance();
         homePanel.setCurrentSim(currentSim);
         tabbedPane.addTab("House Map", homePanel);
