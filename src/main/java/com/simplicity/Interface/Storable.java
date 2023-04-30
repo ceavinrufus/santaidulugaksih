@@ -1,4 +1,4 @@
-package com.simplicity;
+package com.simplicity.Interface;
 
 public interface Storable {
     public String getNama();

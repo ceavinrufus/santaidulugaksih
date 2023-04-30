@@ -3,6 +3,7 @@ package com.simplicity;
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Food;
+import com.simplicity.Interface.Purchasable;
 
 public class NonCookableFood extends Food implements Purchasable {
     private int harga;

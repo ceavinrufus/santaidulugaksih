@@ -5,11 +5,11 @@ import java.util.Objects;
 import javax.swing.*;
 
 import com.gui.Game;
-import com.simplicity.Purchasable;
 import com.simplicity.Ruangan;
 import com.simplicity.Rumah;
 import com.simplicity.Sim;
-import com.simplicity.Storable;
+import com.simplicity.Interface.Purchasable;
+import com.simplicity.Interface.Storable;
 
 public abstract class Furniture implements Storable, Purchasable {
     private String nama;
