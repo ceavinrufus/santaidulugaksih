@@ -9,6 +9,7 @@ import com.simplicity.AbstractClass.Furniture;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,19 @@ public class Game extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tabbedPane = new JTabbedPane();
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                // Get the selected tab index
+                int selectedIndex = tabbedPane.getSelectedIndex();
+
+                // Get the component at the selected tab index
+                Component selectedComponent = tabbedPane.getComponentAt(selectedIndex);
+
+                // Request focus on the selected component
+                selectedComponent.requestFocusInWindow();
+            }
+        });
         tabbedPane.setFocusable(false);
         add(tabbedPane);
 
@@ -63,10 +77,25 @@ public class Game extends JFrame {
 
     // Menu game
     public void displayGameMenu() {
-        ArrayList<String> optionsList = new ArrayList<>(Arrays.asList("View Sim Info", "View Current Location",
-                "View Inventory", "House Menu", "Add Sim", "Change Sim", "Save", "Exit"));
+        String[] anyHouseMenu = { "View Sim Info", "View Current Location",
+                "View Inventory", "Move Room", "List Object", "Go To Object", "Action", "House Menu", "Add Sim",
+                "Change Sim" };
+        String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
+        String[] options;
 
-        String[] options = optionsList.toArray(new String[0]);
+        // Conditional buat nentuin menu apa aja yang bakal ditampilin
+        if (currentSim.getCurrentPosition().getRumah().getNamaPemilik()
+                .equals(currentSim.getNamaLengkap())) {
+            options = new String[anyHouseMenu.length + simHouseMenu.length + 2];
+            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
+            System.arraycopy(simHouseMenu, 0, options, anyHouseMenu.length, simHouseMenu.length);
+        } else {
+            options = new String[anyHouseMenu.length + 2];
+            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
+        }
+        options[options.length - 2] = "Save";
+        options[options.length - 1] = "Exit";
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
 
@@ -93,10 +122,6 @@ public class Game extends JFrame {
                     case "View Inventory":
                         currentSim.getInventory().displayInventory(Storable.class);
                         break;
-                    case "House Menu":
-                        JOptionPane.getRootFrame().dispose();
-                        displayHouseMenu();
-                        break;
                     case "Add Sim":
                         try {
                             makeNewSim();
@@ -108,6 +133,29 @@ public class Game extends JFrame {
                         break;
                     case "Change Sim":
                         changeSim();
+                        break;
+                    case "Upgrade House":
+                        currentSim.upgradeRumah();
+                        break;
+                    case "Move Room":
+                        // Belom dicek karena belom bisa upgrade house
+                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
+                                .selectElement();
+                        if (selectedRuangan != null) {
+                            currentSim.getCurrentPosition().setRuang(selectedRuangan);
+                        }
+                        break;
+                    case "Edit Room":
+                        editRoom();
+                        break;
+                    case "List Object":
+                        displayListObject();
+                        break;
+                    case "Go To Object":
+                        goToObject();
+                        break;
+                    case "Action":
+                        action();
                         break;
                     case "Save":
                         // try {
@@ -136,72 +184,6 @@ public class Game extends JFrame {
         int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-    }
-
-    // House Menu
-    private void displayHouseMenu() {
-        String[] anyHouseMenu = { "Move Room", "List Object", "Go To Object", "Action" }; // Di manapun bisa diakses
-        String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
-        String[] options;
-
-        // Conditional buat nentuin menu apa aja yang bakal ditampilin
-        if (currentSim.getCurrentPosition().getRumah().getNamaPemilik()
-                .equals(currentSim.getNamaLengkap())) {
-            options = new String[anyHouseMenu.length + simHouseMenu.length + 1];
-            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
-            System.arraycopy(simHouseMenu, 0, options, anyHouseMenu.length, simHouseMenu.length);
-        } else {
-            options = new String[anyHouseMenu.length + 1];
-            System.arraycopy(anyHouseMenu, 0, options, 0, anyHouseMenu.length);
-        }
-        options[options.length - 1] = "Back";
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0, 1));
-
-        // Add button listener
-        for (String option : options) {
-            JButton button = new JButton(option);
-            button.addActionListener(e -> {
-                switch (option) {
-                    case "Upgrade House":
-                        currentSim.upgradeRumah();
-                        break;
-                    case "Move Room":
-                        // Belom dicek karena belom bisa upgrade house
-                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
-                                .selectElement();
-                        if (selectedRuangan != null) {
-                            currentSim.getCurrentPosition().setRuang(selectedRuangan);
-                        }
-                        break;
-                    case "Edit Room":
-                        editRoom();
-                        break;
-                    case "List Object":
-                        displayListObject();
-                        break;
-                    case "Go To Object":
-                        goToObject();
-                        break;
-                    case "Action":
-                        action();
-                        break;
-                    case "Back":
-                        JOptionPane.getRootFrame().dispose();
-                        displayGameMenu();
-                        break;
-                }
-            });
-            panel.add(button);
-        }
-
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "House Menu", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
-
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
-            JOptionPane.getRootFrame().dispose();
-        }
     }
 
     private void goToObject() {
@@ -247,7 +229,7 @@ public class Game extends JFrame {
 
         if (dialogResult == JOptionPane.CLOSED_OPTION) {
             JOptionPane.getRootFrame().dispose();
-            displayHouseMenu();
+            displayGameMenu();
         }
     }
 
@@ -356,18 +338,8 @@ public class Game extends JFrame {
     }
 
     private void action() {
-        String[] listAksi = { "Kerja", "Olahraga", "Makan", "Berkunjung", "Beli Barang" };
-        ArrayList<String> listAksiBarang = new ArrayList<String>(Arrays.asList(listAksi));
-        SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-        Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(),
-                simCurrentPosition.getLokasi().getY());
+        String[] listAksi = { "Kerja", "Olahraga", "Makan", "Berkunjung", "Beli Barang", "Back" };
 
-        if (barang != null) {
-            listAksiBarang.add(barang.getNamaAksi());
-        }
-        listAksiBarang.add("Back");
-
-        listAksi = listAksiBarang.toArray(listAksi);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
 
@@ -386,10 +358,6 @@ public class Game extends JFrame {
                     // currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
-                } else {
-                    if (barang != null) {
-                        currentSim.interact(barang);
-                    }
                 }
             });
             panel.add(button);
@@ -400,7 +368,7 @@ public class Game extends JFrame {
 
         if (dialogResult == JOptionPane.CLOSED_OPTION) {
             JOptionPane.getRootFrame().dispose();
-            displayHouseMenu();
+            displayGameMenu();
         }
     }
 
@@ -564,7 +532,6 @@ public class Game extends JFrame {
         tabbedPane.addTab("House Map", homePanel);
         tabbedPane.addTab("World Map", worldPanel);
         // add(homePanel);
-        homePanel.requestFocusInWindow();
         // displayRumah = true;
     }
 }

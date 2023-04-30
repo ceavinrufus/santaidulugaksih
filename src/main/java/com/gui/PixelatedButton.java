@@ -3,22 +3,24 @@ package com.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Cursor;
-import javax.swing.JPanel;
 
-public class PixelatedButton extends JPanel {
+import javax.swing.JButton;
+
+public class PixelatedButton extends JButton {
     private String buttonText;
-    private Font font;
     private boolean isPressed;
     private boolean isHovered;
 
-    public PixelatedButton(String buttonText, Font font) {
+    public PixelatedButton(String buttonText) {
         this.buttonText = buttonText;
-        this.font = font;
         setPreferredSize(new Dimension(200, 50)); // button preferred size
 
         addMouseListener(new MouseAdapter() {
@@ -52,6 +54,11 @@ public class PixelatedButton extends JPanel {
     }
 
     @Override
+    public void setText(String buttonText) {
+        this.buttonText = buttonText;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -66,7 +73,15 @@ public class PixelatedButton extends JPanel {
             g.fillRect(0, 0, getWidth(), getHeight());
         }
         // font & warna text
-        g.setFont(font);
+        Font customFont = null;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/java/resources/font/ArcadeGamer.otf"));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+        Font customSizedFont = customFont.deriveFont(Font.BOLD, 20);
+
+        g.setFont(customSizedFont);
         g.setColor(Color.BLACK);
 
         // text di tengah tengah

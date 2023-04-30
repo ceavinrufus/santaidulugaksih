@@ -33,7 +33,7 @@ public class MainMenu extends JFrame {
         Font font = new Font("Minecraft", Font.BOLD, 18);
 
         // Start button
-        startButton = new PixelatedButton("Start", font);
+        startButton = new PixelatedButton("Start");
         startButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
@@ -53,7 +53,7 @@ public class MainMenu extends JFrame {
         });
 
         // Help button
-        helpButton = new PixelatedButton("Help", font);
+        helpButton = new PixelatedButton("Help");
         helpButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
