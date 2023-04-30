@@ -167,6 +167,7 @@ public class Rumah {
 
         int ctrMeja = 0;
         int ctrKompor = 0;
+        int ctrKasur = 0;
 
         Color gridBg = new Color(255, 255, 255, 90);
         SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
@@ -303,6 +304,81 @@ public class Rumah {
                                 }
                             }
                             g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Kompor Listrik")) {
+                            Image komporlistrik = null;
+                            if (barang.getIsHorizontal()){
+                                try {
+                                    komporlistrik = ImageIO.read(new File("src/main/java/resources/images/komporlistrik_horizontal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                try {
+                                    komporlistrik = ImageIO.read(new File("src/main/java/resources/images/komporlistrik_vertikal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            g.drawImage(komporlistrik, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Kasur Single")) {
+                            ctrKasur++;
+                            Image bed = null;
+                            if (barang.getIsHorizontal()){
+                                if (ctrKasur == 1){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed1.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 2){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed2.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 3){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed3.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed4.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKasur = 0;
+                                }
+                            } else {
+                                if (ctrKasur == 1){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed5.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 2){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed6.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 3){
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed7.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed8.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKasur = 0;
+                                }
+                            }
+                            g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else {
                             g.setColor(Color.RED);
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
