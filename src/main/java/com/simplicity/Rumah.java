@@ -187,6 +187,13 @@ public class Rumah {
                     if (barang != null) {
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
+                            BufferedImage bath_tiles = null;
+                            try {
+                                bath_tiles = ImageIO.read(new File("src/main/java/resources/images/bathfloor.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(bath_tiles, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             if (barang.getIsHorizontal()){
                                 try {
                                     toilet = ImageIO.read(new File("src/main/java/resources/images/toilet_horizontal.png"));
