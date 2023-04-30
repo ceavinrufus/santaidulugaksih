@@ -13,11 +13,15 @@ public class Sim {
     private Stats stats = new Stats();
     private boolean isLibur = false;
     private SimPosition currentPosition;
+
     private int totalWorkTime = 0;
     private int waktuBolehGantiKerja = 720;
     private int waktuKerjaBelumDibayar = 0;
     private int waktuTidakTidur = 0;
     private int waktuTidakBuangAir = 0;
+    private boolean isSehabisMakan = false;
+    private boolean isSehabisTidur = false;
+    private int recentActionTime = 0;
 
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
@@ -157,6 +161,10 @@ public class Sim {
         this.stats = stats;
     }
 
+    public int getRecentActionTime() {
+        return recentActionTime;
+    }
+
     public SimPosition getCurrentPosition() {
         return currentPosition;
     }
@@ -165,24 +173,40 @@ public class Sim {
         this.currentPosition = currentPosition;
     }
 
-    public void addWaktuTidakTidur(int waktu) {
-        waktuTidakTidur += waktu;
-    }
-
     public void setWaktuTidakTidur(int waktu) {
         waktuTidakTidur = waktu;
     }
 
-    public void checkTidakTidur() {
+    public void trackTidur(int waktu) {
+        if (!isSehabisTidur) {
+            waktuTidakTidur += waktu;
+        }
         if (waktuTidakTidur >= 600) {
             stats.kurangKesehatan(5);
             stats.kurangMood(5);
         }
     }
 
-    public void trackTidur(int waktu) {
-        addWaktuTidakTidur(waktu);
-        checkTidakTidur();
+    public void setWaktuTidakBuangAir(int waktu) {
+        waktuTidakBuangAir = waktu;
+    }
+
+    public void trackBuangAir(int waktu) {
+        if (isSehabisMakan) {
+            waktuTidakBuangAir += waktu;
+        }
+        if (waktuTidakBuangAir % 240 == 0 && waktuTidakBuangAir != 0) {
+            stats.kurangKesehatan(5);
+            stats.kurangMood(5);
+        }
+    }
+
+    public void setIsSehabisTidur(boolean b) {
+        isSehabisTidur = b;
+    }
+
+    public void setIsSehabisMakan(boolean b) {
+        isSehabisMakan = b;
     }
 
     public void kerja() {
@@ -194,16 +218,20 @@ public class Sim {
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
                 totalWorkTime += workingTime;
+                recentActionTime = workingTime;
+                totalWaktu.addWaktu(workingTime);
                 if (waktuKerjaBelumDibayar > 0) {
                     workingTime += waktuKerjaBelumDibayar;
                     waktuKerjaBelumDibayar = 0;
-                    stats.kurangKekenyangan(workingTime / 30 * 10);
-                    stats.kurangMood(workingTime / 30 * 10);
-                    uang += pekerjaan.getGaji() * (workingTime % 240);
-                    waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
                 }
+                stats.kurangKekenyangan(workingTime / 30 * 10);
+                stats.kurangMood(workingTime / 30 * 10);
+                uang += pekerjaan.getGaji() * (workingTime % 240);
+                waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
+                isSehabisMakan = false;
+                isSehabisTidur = false;
             } catch (InterruptedException e) {
-
+                // do something
             }
         }
     }
@@ -215,6 +243,7 @@ public class Sim {
         }
         try {
             TimeUnit.SECONDS.sleep(workoutTime);
+            recentActionTime = workoutTime;
             stats.tambahKesehatan(workoutTime / 20 * 5);
             stats.kurangKekenyangan(workoutTime / 20 * 5);
             stats.tambahMood(workoutTime / 20 * 10);
@@ -222,7 +251,8 @@ public class Sim {
             Thread.currentThread().interrupt();
         }
         totalWaktu.addWaktu(workoutTime);
-        // trackTidur(workoutTime);
+        isSehabisMakan = false;
+        isSehabisTidur = false;
     }
 
     public void makan(Eatable food) {

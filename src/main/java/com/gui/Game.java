@@ -354,7 +354,7 @@ public class Game extends JFrame {
     }
 
     private void action() {
-        String[] listAksi = { "Kerja", "Olahraga", "Berkunjung", "Beli Barang" };
+        String[] listAksi = { "Kerja", "Olahraga", "Makan", "Berkunjung", "Beli Barang" };
         ArrayList<String> listAksiBarang = new ArrayList<String>(Arrays.asList(listAksi));
         SimPosition simCurrentPosition = currentSim.getCurrentPosition();
         Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(simCurrentPosition.getLokasi().getX(),
@@ -374,6 +374,7 @@ public class Game extends JFrame {
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
                     currentSim.kerja();
+                    // trackSimsStats();
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
                 } else if (aksi.equals("Berkunjung")) {
@@ -503,6 +504,13 @@ public class Game extends JFrame {
                 repaint();
             }
         }
+    }
+
+    public void trackSimsStats() {
+        sims.forEach((key, value) -> {
+            value.trackTidur(value.getRecentActionTime());
+            value.trackBuangAir(value.getRecentActionTime());
+        });
     }
 
     // private void save(String filename) throws IOException {
