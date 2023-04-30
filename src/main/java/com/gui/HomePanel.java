@@ -8,13 +8,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class HomePanel extends JPanel {
-    private static HomePanel instance = new HomePanel(null);
     int keyChar;
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     PixelatedButton interactButton;
+    private Sim currentSim;
 
     public HomePanel(Sim currentSim) {
         this.currentSim = currentSim;
+        System.out.println(currentSim);
         setFocusable(true);
         addKeyListener(keyListener);
 
@@ -28,6 +29,7 @@ public class HomePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 Game.getInstance().displayGameMenu();
+                requestFocusInWindow();
             }
         });
 
@@ -50,6 +52,7 @@ public class HomePanel extends JPanel {
                         null,
                         options,
                         options[0]);
+                requestFocusInWindow();
             }
         });
 
@@ -57,7 +60,14 @@ public class HomePanel extends JPanel {
         interactButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                interactButton.setVisible(!interactButton.isVisible());
+                if (currentSim != null) {
+                    SimPosition simCurrentPosition = currentSim.getCurrentPosition();
+                    Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(
+                            simCurrentPosition.getLokasi().getX(),
+                            simCurrentPosition.getLokasi().getY());
+                    currentSim.interact(barang);
+                }
+                requestFocusInWindow();
             }
         });
 
@@ -81,10 +91,6 @@ public class HomePanel extends JPanel {
 
     public int getKeyChar() {
         return keyChar;
-    }
-
-    public static HomePanel getInstance() {
-        return instance;
     }
 
     public void setCurrentSim(Sim currentSim) {
@@ -116,7 +122,10 @@ public class HomePanel extends JPanel {
                     currentSimPosition.getLokasi().setX(currentSimPosition.getLokasi().getX() + 1);
                     repaint();
                 }
+            } else {
+                return;
             }
+
             SimPosition simCurrentPosition = currentSim.getCurrentPosition();
             Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(
                     simCurrentPosition.getLokasi().getX(),
@@ -130,12 +139,10 @@ public class HomePanel extends JPanel {
         }
     };
 
-    private Sim currentSim;
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight());
+        currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight(), keyChar);
     }
 }
