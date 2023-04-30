@@ -519,6 +519,14 @@ public class Game extends JFrame {
 
     private void saveWorld(String filename) throws IOException {
         Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
                     "_world.json");
@@ -531,6 +539,14 @@ public class Game extends JFrame {
 
     private void saveSims(String filename) throws IOException {
         Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
                     "_sims.json");
@@ -543,6 +559,14 @@ public class Game extends JFrame {
 
     private void saveCurrentSim(String filename) throws IOException {
         Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
                     "_currentSim.json");
@@ -555,9 +579,12 @@ public class Game extends JFrame {
 
     public World loadWorld(String filename) throws IOException {
         Gson gson = new Gson();
-        // GsonBuilder gsonBuilder = new GsonBuilder();
-        // gsonBuilder.registerTypeAdapter(Furniture.class, new
-        // InterfaceAdapter<Furniture>());
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         World world = null;
         try {
             FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
@@ -573,6 +600,12 @@ public class Game extends JFrame {
 
     public HashMap<String, Sim> loadSims(String filename) throws IOException {
         Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         HashMap<String, Sim> sims = null;
         try {
             FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
@@ -589,6 +622,12 @@ public class Game extends JFrame {
 
     public Sim loadCurrentSim(String filename) throws IOException {
         Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Eatable.class, new EatableAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
         Sim sim = null;
         try {
             FileReader fileReader = new FileReader("src/main/java/saves/" + filename +

@@ -66,7 +66,8 @@ public class Inventory {
     public void displayInventory(Class<? extends Storable> className) {
         // testing
         addBarang(new Kasur("Kasur Queen Size"), 5);
-        addBarang(NonCookableFood.AYAM, 10);
+        // Menambahkan ayam dari uncookable ke inventory
+        // addBarang(NonCookableFood.AYAM, 5);
 
         int count = 0;
         for (Pair<? extends Storable, Integer> pair : container) {

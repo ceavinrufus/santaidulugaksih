@@ -1,1 +1,561 @@
-{"namaLengkap":"nopal","pekerjaan":"KOKI","uang":100.0,"inventory":{"container":[{"key":{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},"value":9},{"key":"AYAM","value":20}]},"currentActions":[],"stats":{"mood":80,"kekenyangan":80,"kesehatan":80},"isLibur":false,"currentPosition":{"rumah":{"namaPemilik":"nopal","petaRuangan":{"matriks":[[{"namaRuangan":"Main Room","petaBarang":{"matriks":[[null,null,{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50}],[null,{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},null],[{"nama":"Kompor Gas","panjang":2,"lebar":1,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},null],[{"nama":"Kompor Gas","panjang":2,"lebar":1,"harga":100},null,null,{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}],[null,null,null,{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}],[{"nama":"Toilet","panjang":1,"lebar":1,"harga":50},null,{"nama":"Jam","panjang":1,"lebar":1,"harga":10},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}]]}}]]}},"ruang":{"namaRuangan":"Main Room","petaBarang":{"matriks":[[null,null,{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50},{"nama":"Kasur Single","panjang":4,"lebar":1,"harga":50}],[null,{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},null],[{"nama":"Kompor Gas","panjang":2,"lebar":1,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},{"nama":"Kasur Queen Size","panjang":4,"lebar":2,"harga":100},null],[{"nama":"Kompor Gas","panjang":2,"lebar":1,"harga":100},null,null,{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}],[null,null,null,{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}],[{"nama":"Toilet","panjang":1,"lebar":1,"harga":50},null,{"nama":"Jam","panjang":1,"lebar":1,"harga":10},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50},{"nama":"Meja dan Kursi","panjang":3,"lebar":3,"harga":50}]]}},"lokasi":{"x":0,"y":0}},"totalWorkTime":0,"changeJobTime":720,"waktuKerjaBelumDibayar":0,"waktuTidakTidur":0,"waktuTidakBuangAir":0,"totalWaktu":{"waktu":0}}
+{
+  "namaLengkap": "nopal",
+  "pekerjaan": "PROGRAMMER",
+  "uang": 100.0,
+  "inventory": {
+    "container": [
+      {
+        "key": {
+          "type": "Kasur",
+          "properties": {
+            "nama": "Kasur Queen Size",
+            "panjang": 4,
+            "lebar": 2,
+            "harga": 100
+          }
+        },
+        "value": 9
+      }
+    ]
+  },
+  "currentActions": [],
+  "stats": {
+    "mood": 80,
+    "kekenyangan": 80,
+    "kesehatan": 80
+  },
+  "isLibur": false,
+  "currentPosition": {
+    "rumah": {
+      "namaPemilik": "nopal",
+      "petaRuangan": {
+        "matriks": [
+          [
+            {
+              "namaRuangan": "Main Room",
+              "petaBarang": {
+                "matriks": [
+                  [
+                    null,
+                    null,
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Single",
+                        "panjang": 4,
+                        "lebar": 1,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Single",
+                        "panjang": 4,
+                        "lebar": 1,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Single",
+                        "panjang": 4,
+                        "lebar": 1,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Single",
+                        "panjang": 4,
+                        "lebar": 1,
+                        "harga": 50
+                      }
+                    }
+                  ],
+                  [
+                    null,
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    null
+                  ],
+                  [
+                    {
+                      "type": "Kompor",
+                      "properties": {
+                        "nama": "Kompor Gas",
+                        "panjang": 2,
+                        "lebar": 1,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    {
+                      "type": "Kasur",
+                      "properties": {
+                        "nama": "Kasur Queen Size",
+                        "panjang": 4,
+                        "lebar": 2,
+                        "harga": 100
+                      }
+                    },
+                    null
+                  ],
+                  [
+                    {
+                      "type": "Kompor",
+                      "properties": {
+                        "nama": "Kompor Gas",
+                        "panjang": 2,
+                        "lebar": 1,
+                        "harga": 100
+                      }
+                    },
+                    null,
+                    null,
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    }
+                  ],
+                  [
+                    null,
+                    null,
+                    null,
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    }
+                  ],
+                  [
+                    {
+                      "type": "Toilet",
+                      "properties": {
+                        "nama": "Toilet",
+                        "panjang": 1,
+                        "lebar": 1,
+                        "harga": 50
+                      }
+                    },
+                    null,
+                    {
+                      "type": "Jam",
+                      "properties": {
+                        "nama": "Jam",
+                        "panjang": 1,
+                        "lebar": 1,
+                        "harga": 10
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    },
+                    {
+                      "type": "MejaKursi",
+                      "properties": {
+                        "nama": "Meja dan Kursi",
+                        "panjang": 3,
+                        "lebar": 3,
+                        "harga": 50
+                      }
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        ]
+      }
+    },
+    "ruang": {
+      "namaRuangan": "Main Room",
+      "petaBarang": {
+        "matriks": [
+          [
+            null,
+            null,
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Single",
+                "panjang": 4,
+                "lebar": 1,
+                "harga": 50
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Single",
+                "panjang": 4,
+                "lebar": 1,
+                "harga": 50
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Single",
+                "panjang": 4,
+                "lebar": 1,
+                "harga": 50
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Single",
+                "panjang": 4,
+                "lebar": 1,
+                "harga": 50
+              }
+            }
+          ],
+          [
+            null,
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            null
+          ],
+          [
+            {
+              "type": "Kompor",
+              "properties": {
+                "nama": "Kompor Gas",
+                "panjang": 2,
+                "lebar": 1,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            {
+              "type": "Kasur",
+              "properties": {
+                "nama": "Kasur Queen Size",
+                "panjang": 4,
+                "lebar": 2,
+                "harga": 100
+              }
+            },
+            null
+          ],
+          [
+            {
+              "type": "Kompor",
+              "properties": {
+                "nama": "Kompor Gas",
+                "panjang": 2,
+                "lebar": 1,
+                "harga": 100
+              }
+            },
+            null,
+            null,
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            }
+          ],
+          [
+            {
+              "type": "Toilet",
+              "properties": {
+                "nama": "Toilet",
+                "panjang": 1,
+                "lebar": 1,
+                "harga": 50
+              }
+            },
+            null,
+            {
+              "type": "Jam",
+              "properties": {
+                "nama": "Jam",
+                "panjang": 1,
+                "lebar": 1,
+                "harga": 10
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            },
+            {
+              "type": "MejaKursi",
+              "properties": {
+                "nama": "Meja dan Kursi",
+                "panjang": 3,
+                "lebar": 3,
+                "harga": 50
+              }
+            }
+          ]
+        ]
+      }
+    },
+    "lokasi": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "totalWorkTime": 0,
+  "changeJobTime": 720,
+  "waktuKerjaBelumDibayar": 0,
+  "waktuTidakTidur": 0,
+  "waktuTidakBuangAir": 0,
+  "totalWaktu": {
+    "waktu": 0
+  }
+}
