@@ -132,19 +132,21 @@ public class Sim {
         }
     }
 
-    public void olahraga(int workoutTime) {
-        if (workoutTime % 20 == 0) {
-            try {
-                TimeUnit.SECONDS.sleep(workoutTime);
-                stats.tambahKesehatan(workoutTime / 20 * 5);
-                stats.kurangKekenyangan(workoutTime / 20 * 5);
-                stats.tambahMood(workoutTime / 20 * 10);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            totalWaktu.addWaktu(workoutTime);
-            // trackTidur(workoutTime);
+    public void olahraga() {
+        Integer workoutTime = 0;
+        while (workoutTime % 20 != 0) {
+            workoutTime = inputActionTime();
         }
+        try {
+            TimeUnit.SECONDS.sleep(workoutTime);
+            stats.tambahKesehatan(workoutTime / 20 * 5);
+            stats.kurangKekenyangan(workoutTime / 20 * 5);
+            stats.tambahMood(workoutTime / 20 * 10);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        totalWaktu.addWaktu(workoutTime);
+        // trackTidur(workoutTime);
     }
 
     public void makan(Eatable food) {

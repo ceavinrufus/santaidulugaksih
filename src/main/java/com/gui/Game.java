@@ -375,7 +375,7 @@ public class Game extends JFrame {
                 if (aksi.equals("Kerja")) {
                     currentSim.kerja();
                 } else if (aksi.equals("Olahraga")) {
-                    currentSim.olahraga(currentSim.inputActionTime());
+                    currentSim.olahraga();
                 } else if (aksi.equals("Berkunjung")) {
                     currentSim.berkunjung();
                     repaint();
