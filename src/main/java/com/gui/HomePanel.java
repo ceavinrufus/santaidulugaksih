@@ -15,7 +15,7 @@ public class HomePanel extends JPanel {
 
     public HomePanel(Sim currentSim) {
         this.currentSim = currentSim;
-        System.out.println(currentSim);
+        // System.out.println(currentSim);
         setFocusable(true);
         addKeyListener(keyListener);
 
@@ -62,9 +62,7 @@ public class HomePanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (currentSim != null) {
                     SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-                    Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(
-                            simCurrentPosition.getLokasi().getX(),
-                            simCurrentPosition.getLokasi().getY());
+                    Furniture barang = simCurrentPosition.getRuang().getBarangByKoordinat(simCurrentPosition.getLokasi());
                     currentSim.interact(barang);
                 }
                 requestFocusInWindow();
@@ -127,9 +125,7 @@ public class HomePanel extends JPanel {
             }
 
             SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-            Furniture barang = simCurrentPosition.getRuang().getPeta().getElement(
-                    simCurrentPosition.getLokasi().getX(),
-                    simCurrentPosition.getLokasi().getY());
+            Furniture barang = simCurrentPosition.getRuang().getBarangByKoordinat(simCurrentPosition.getLokasi());
             if (barang != null) {
                 interactButton.setText(barang.getNamaAksi());
                 interactButton.setVisible(true);

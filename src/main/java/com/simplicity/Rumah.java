@@ -182,8 +182,8 @@ public class Rumah {
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
                 } else {
                     // Barang
-                    Furniture barang = petaRuangan.getElement(x / 6, (row - y - 1) / 6).getPeta().getElement(x % 6,
-                            (row - y - 1) % 6);
+                    Ruangan ruangan = petaRuangan.getElement(x / 6, (row - y - 1) / 6);
+                    Furniture barang = ruangan.getBarangByKoordinat(new Point(x % 6, (row - y - 1) % 6));
                     if (barang != null) {
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
