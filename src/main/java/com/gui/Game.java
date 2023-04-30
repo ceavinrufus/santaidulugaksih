@@ -2,9 +2,11 @@ package com.gui;
 
 import com.simplicity.*;
 import com.simplicity.Point;
-import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.AbstractClass.*;
+import com.simplicity.Interface.*;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -68,6 +70,10 @@ public class Game extends JFrame {
 
     public Sim getCurrentSim() {
         return currentSim;
+    }
+
+    public void setSims(HashMap<String, Sim> sims) {
+        this.sims = sims;
     }
 
     public void setCurrentSim(Sim currentSim) {
@@ -157,12 +163,14 @@ public class Game extends JFrame {
                         action();
                         break;
                     case "Save":
-                        // try {
-                        // save("save");
-                        // } catch (IOException exception) {
-                        // JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
-                        // JOptionPane.ERROR_MESSAGE);
-                        // }
+                        try {
+                            saveWorld("save");
+                            saveSims("save");
+                            saveCurrentSim("save");
+                        } catch (IOException exception) {
+                            JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                         break;
                     case "Exit":
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
@@ -482,44 +490,129 @@ public class Game extends JFrame {
         });
     }
 
-    // private void save(String filename) throws IOException {
-    // Gson gson = new Gson();
-    // try {
-    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
-    // ".json");
-    // fileWriter.write("[");
-    // gson.toJson(World.getInstance(), fileWriter);
-    // fileWriter.write(",");
-    // gson.toJson(sims, fileWriter);
-    // fileWriter.write("]");
-    // fileWriter.close();
-    // JOptionPane.showMessageDialog(null, "Berhasil menyimpan data!",
-    // "Notification",
-    // JOptionPane.INFORMATION_MESSAGE);
-    // } catch (IOException e) {
-    // JOptionPane.showMessageDialog(null, "Gagal menyimpan data!", "Error",
-    // JOptionPane.ERROR_MESSAGE);
-    // }
-    // }
+    private void saveWorld(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+                    "_world.json");
+            gson.toJson(World.getInstance(), fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    // private World loadWorld(String filename) throws IOException {
-    // Gson gson = new Gson();
-    // World world = null;
-    // try {
-    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-    // ".json");
-    // JsonReader jsonReader = new JsonReader(fileReader);
-    // jsonReader.beginArray();
-    // world = gson.fromJson(jsonReader, World.class);
-    // jsonReader.endArray();
-    // jsonReader.close();
-    // fileReader.close();
-    // } catch (IOException e) {
-    // JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
-    // JOptionPane.ERROR_MESSAGE);
-    // }
-    // return world;
-    // }
+    private void saveSims(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+                    "_sims.json");
+            gson.toJson(sims, fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveCurrentSim(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+                    "_currentSim.json");
+            gson.toJson(currentSim, fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public World loadWorld(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        World world = null;
+        try {
+            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                    "_world.json");
+            world = gson.fromJson(fileReader, World.class);
+            fileReader.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return world;
+    }
+
+    public HashMap<String, Sim> loadSims(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        HashMap<String, Sim> sims = null;
+        try {
+            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                    "_sims.json");
+            sims = gson.fromJson(fileReader, new TypeToken<HashMap<String, Sim>>() {
+            }.getType());
+            fileReader.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return sims;
+    }
+
+    public Sim loadCurrentSim(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        Sim sim = null;
+        try {
+            FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                    "_currentSim.json");
+            sim = gson.fromJson(fileReader, Sim.class);
+            fileReader.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return sim;
+    }
 
     public void runGame() {
         setVisible(true);
