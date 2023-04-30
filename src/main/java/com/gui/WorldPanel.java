@@ -28,7 +28,6 @@ public class WorldPanel extends JPanel {
                 }
             }
         });
-        requestFocusInWindow(); // Request focus for the panel after it has been added to the JFrame
     }
 
     @Override

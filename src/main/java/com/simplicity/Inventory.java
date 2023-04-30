@@ -65,10 +65,6 @@ public class Inventory {
 
     // GUI
     public void displayInventory(Class<? extends Storable> className) {
-        // testing
-        addBarang(new Kasur("Kasur Queen Size"), 5);
-        addBarang(new NonCookableFood("Ayam"), 10);
-
         ArrayList<Storable> temp = new ArrayList<Storable>();
 
         int count = 0;
