@@ -9,6 +9,8 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -82,8 +84,12 @@ public class Game extends JFrame {
 
     // Menu game
     public void displayGameMenu() {
+        displayGameMenu(null);
+    }
+
+    public void displayGameMenu(Component parentComponent) {
         String[] anyHouseMenu = { "View Sim Info", "View Current Location",
-                "View Inventory", "Move Room", "List Object", "Go To Object", "Action", "House Menu", "Add Sim",
+                "View Inventory", "Move Room", "List Object", "Go To Object", "Action", "Add Sim",
                 "Change Sim" };
         String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
         String[] options;
@@ -144,8 +150,14 @@ public class Game extends JFrame {
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
-                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
-                                .selectElement();
+                        Peta<Ruangan> petaRumah = currentSim.getCurrentPosition().getRumah().getPeta();
+                        if (petaRumah.getColumn() == 1 && petaRumah.getRow() == 1) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Sejauh ini kamu baru punya satu ruangan, nih!\nCoba upgrade rumah kamu dulu untuk menambah ruangan.",
+                                    "Sayang sekali :(", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                        }
+                        Ruangan selectedRuangan = petaRumah.selectElement();
                         if (selectedRuangan != null) {
                             currentSim.getCurrentPosition().setRuang(selectedRuangan);
                         }
@@ -188,7 +200,7 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
+        int dialogResult = JOptionPane.showOptionDialog(parentComponent, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
     }
@@ -231,13 +243,9 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
-            JOptionPane.getRootFrame().dispose();
-            displayGameMenu();
-        }
     }
 
     private void buyFurniture() {
@@ -359,8 +367,28 @@ public class Game extends JFrame {
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
                 } else if (aksi.equals("Berkunjung")) {
-                    currentSim.berkunjung();
-                    repaint();
+                    if (sims.size() == 1) {
+                        JOptionPane.showMessageDialog(null,
+                                "Kamu hanya sendiri di dunia ini",
+                                "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        Peta<Rumah> petaRumah = World.getInstance().getPeta();
+                        Rumah selectedRumah = petaRumah.selectElement();
+                        if (selectedRumah != null) {
+                            Point sourcePoint = petaRumah
+                                    .getElementCoordinate(currentSim.getCurrentPosition().getRumah());
+                            Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
+                            int distance = Math.round(sourcePoint.distance(destPoint));
+                            try {
+                                TimeUnit.SECONDS.sleep(distance);
+                            } catch (InterruptedException er) {
+                                Thread.currentThread().interrupt();
+                            }
+                            currentSim.getCurrentPosition().setRumah(selectedRumah);
+                            repaint();
+                        }
+                        repaint();
+                    }
                 } else if (aksi.equals("Beli Barang")) {
                     // currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
@@ -370,13 +398,8 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
-
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
-            JOptionPane.getRootFrame().dispose();
-            displayGameMenu();
-        }
     }
 
     private void displayListObject() {

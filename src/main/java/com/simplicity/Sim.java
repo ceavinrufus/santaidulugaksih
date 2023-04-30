@@ -25,6 +25,7 @@ public class Sim {
     private int waktuTidakBuangAir = 0;
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
+    private boolean isOnKunjungan = false;
     private int recentActionTime = 0;
 
     // Waktu Terpusat
@@ -213,6 +214,10 @@ public class Sim {
         isSehabisMakan = b;
     }
 
+    public void setIsOnKunjungan(boolean b) {
+        isOnKunjungan = b;
+    }
+
     public void kerja() {
         Integer workingTime = 0;
         if (waktuBolehGantiKerja >= 720) {
@@ -286,15 +291,6 @@ public class Sim {
         }
     }
 
-    public void berkunjung() {
-        Peta<Rumah> petaRumah = World.getInstance().getPeta();
-        Rumah selectedRumah = petaRumah.selectElement();
-
-        if (selectedRumah != null) {
-            getCurrentPosition().setRumah(selectedRumah);
-        }
-    }
-
     public void buangAir() {
         try {
             TimeUnit.SECONDS.sleep(10);
@@ -328,6 +324,10 @@ public class Sim {
                 // do something
             }
             totalWaktu.addWaktu(18 * 60);
+        } else {
+            JOptionPane.showMessageDialog(null, "Sayang sekali, uangmu belum cukup untuk melakukan upgrade rumah!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 

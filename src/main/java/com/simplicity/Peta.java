@@ -107,6 +107,19 @@ public class Peta<T> {
         JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public Point getElementCoordinate(T element) {
+        for (int rowIndex = 0; rowIndex < getRow(); rowIndex++) {
+            for (int colIndex = 0; colIndex < getColumn(); colIndex++) {
+                T currentElement = getElement(colIndex, rowIndex);
+                if (currentElement != null && currentElement.equals(element)) {
+                    return new Point(colIndex, rowIndex);
+                }
+            }
+        }
+
+        return null;
+    }
+
     public Point getClosestElementCoordinate(Point initialPoint, T element) {
         int closestRowIndex = -1;
         int closestColIndex = -1;
