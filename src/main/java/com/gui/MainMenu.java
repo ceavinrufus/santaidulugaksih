@@ -2,14 +2,14 @@ package com.gui;
 
 import javax.swing.*;
 
-import com.google.gson.Gson;
+// import com.google.gson.Gson;
 
 import com.simplicity.*;
 import com.simplicity.ExceptionHandling.SimNotCreatedException;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;;
+import java.io.IOException;
 
 public class MainMenu extends JFrame {
     private static MainMenu instance = new MainMenu();
@@ -33,9 +33,6 @@ public class MainMenu extends JFrame {
         // Add JLabel ke content pane JFrame
         add(backgroundLabel);
 
-        // Pixelated font
-        Font font = new Font("Minecraft", Font.BOLD, 18);
-
         // Start button
         newGameButton = new PixelatedButton("New Game");
         newGameButton.addMouseListener(new MouseAdapter() {
@@ -57,24 +54,26 @@ public class MainMenu extends JFrame {
         });
 
         // Load button
-        loadGameButton = new PixelatedButton("Load Game");
-        loadGameButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent ev) {
-                String inputFileName = JOptionPane.showInputDialog(null, "Masukkan nama file: ", "Load Game",
-                        JOptionPane.QUESTION_MESSAGE);
+        // loadGameButton = new PixelatedButton("Load Game");
+        // loadGameButton.addMouseListener(new MouseAdapter() {
+        // @Override
+        // public void mouseClicked(MouseEvent ev) {
+        // String inputFileName = JOptionPane.showInputDialog(null, "Masukkan nama file:
+        // ", "Load Game",
+        // JOptionPane.QUESTION_MESSAGE);
 
-                Game game = Game.getInstance();
-                try {
-                    World world = game.loadWorld(inputFileName);
-                    game.setSims(game.loadSims(inputFileName));
-                    game.setCurrentSim(game.loadCurrentSim(inputFileName));
-                    game.runGame();
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        // Game game = Game.getInstance();
+        // try {
+        // World world = game.loadWorld(inputFileName);
+        // game.setSims(game.loadSims(inputFileName));
+        // game.setCurrentSim(game.loadCurrentSim(inputFileName));
+        // game.runGame();
+        // } catch (IOException e) {
+        // JOptionPane.showMessageDialog(null, e.getMessage(), "Error",
+        // JOptionPane.ERROR_MESSAGE);
+        // }
+        // }
+        // });
 
         // Help button
         helpButton = new PixelatedButton("Help");
@@ -108,7 +107,7 @@ public class MainMenu extends JFrame {
         });
 
         backgroundLabel.add(newGameButton);
-        backgroundLabel.add(loadGameButton);
+        // backgroundLabel.add(loadGameButton);
         backgroundLabel.add(helpButton);
         setVisible(true);
         setFocusable(true);
@@ -125,7 +124,8 @@ public class MainMenu extends JFrame {
                 buttonHeight);
         helpButton.setBounds(2 * getWidth() / 3 - buttonWidth / 2, 27 * getHeight() / 40, buttonWidth,
                 buttonHeight);
-        loadGameButton.setBounds(getWidth() / 2 - buttonWidth / 2, 27 * getHeight() / 40, buttonWidth,
-                buttonHeight);
+        // loadGameButton.setBounds(getWidth() / 2 - buttonWidth / 2, 27 * getHeight() /
+        // 40, buttonWidth,
+        // buttonHeight);
     }
 }
