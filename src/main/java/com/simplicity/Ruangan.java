@@ -43,6 +43,7 @@ public class Ruangan {
     }
 
     public void memasangBarang(Furniture barang, Boolean isHorizontal, int x, int y) {
+        barang.setIsHorizontal(isHorizontal);
         if (isSpaceAvailable(barang, isHorizontal, x, y)) {
             if (isHorizontal) {
                 for (int i = x; i < x + barang.getPanjang(); i++) {

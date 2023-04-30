@@ -165,6 +165,8 @@ public class Rumah {
             }
         }
 
+        int ctrMeja = 0;
+
         Color gridBg = new Color(255, 255, 255, 90);
         SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
         String currentNamaRuangan = Game.getInstance().getCurrentSim().getCurrentPosition().getRuang()
@@ -183,10 +185,18 @@ public class Rumah {
                     if (barang != null) {
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
-                            try {
-                                toilet = ImageIO.read(new File("src/main/java/resources/images/toilet.png"));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            if (barang.getIsHorizontal()){
+                                try {
+                                    toilet = ImageIO.read(new File("src/main/java/resources/images/toilet_horizontal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                try {
+                                    toilet = ImageIO.read(new File("src/main/java/resources/images/toilet_vertikal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             g.drawImage(toilet, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else if (barang.getNama().equals("Jam")) {
@@ -197,6 +207,66 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(jam, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Meja dan Kursi")) {
+                            ctrMeja++;
+                            Image meja = null;
+                            if (ctrMeja == 1){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja1.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 2){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja2.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 3){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja3.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 4){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja4.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 5){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja5.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 6){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja6.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 7){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja7.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 8){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja8.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 9){
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja9.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                ctrMeja = 0;
+                            }
+                            g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else {
                             g.setColor(Color.RED);
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));

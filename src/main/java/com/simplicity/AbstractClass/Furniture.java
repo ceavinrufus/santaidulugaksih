@@ -16,6 +16,7 @@ public abstract class Furniture implements Storable, Purchasable {
     private int panjang;
     private int lebar;
     private int harga;
+    private boolean isHorizontal;
 
     public Furniture(String nama) {
         this.nama = nama;
@@ -38,6 +39,10 @@ public abstract class Furniture implements Storable, Purchasable {
         return harga;
     }
 
+    public boolean getIsHorizontal(){
+        return isHorizontal;
+    }
+
     protected void setPanjang(int panjang) {
         this.panjang = panjang;
     }
@@ -48,6 +53,10 @@ public abstract class Furniture implements Storable, Purchasable {
 
     protected void setHarga(int harga) {
         this.harga = harga;
+    }
+
+    public void setIsHorizontal(boolean isHorizontal){
+        this.isHorizontal = isHorizontal;
     }
 
     @Override
@@ -94,7 +103,7 @@ public abstract class Furniture implements Storable, Purchasable {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         null, orientationOptions, orientationOptions[0]);
 
-                Boolean isHorizontal = (inputOrientation == 1) ? false : true;
+                isHorizontal = (inputOrientation == 1) ? false : true;
 
                 String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
                 int koordinatX = Integer.parseInt(inputX);
