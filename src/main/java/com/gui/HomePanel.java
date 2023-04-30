@@ -15,7 +15,6 @@ public class HomePanel extends JPanel {
 
     public HomePanel(Sim currentSim) {
         this.currentSim = currentSim;
-        System.out.println(currentSim);
         setFocusable(true);
         addKeyListener(keyListener);
 
@@ -28,7 +27,7 @@ public class HomePanel extends JPanel {
         pauseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
-                Game.getInstance().displayGameMenu();
+                Game.getInstance().displayGameMenu(HomePanel.this);
                 requestFocusInWindow();
             }
         });

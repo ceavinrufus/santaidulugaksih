@@ -24,7 +24,7 @@ public class WorldPanel extends JPanel {
             public void keyPressed(KeyEvent e) {
                 int keyChar = e.getKeyCode();
                 if (keyChar == KeyEvent.VK_SPACE) {
-                    Game.getInstance().displayGameMenu();
+                    Game.getInstance().displayGameMenu(WorldPanel.this);
                 }
             }
         });
