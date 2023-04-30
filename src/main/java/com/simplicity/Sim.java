@@ -2,6 +2,7 @@ package com.simplicity;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
 
 public class Sim {
     private String namaLengkap;
@@ -13,7 +14,7 @@ public class Sim {
     private boolean isLibur = false;
     private SimPosition currentPosition;
     private int totalWorkTime = 0;
-    private int changeJobTime = 720;
+    private int waktuBolehGantiKerja = 720;
     private int waktuKerjaBelumDibayar = 0;
     private int waktuTidakTidur = 0;
     private int waktuTidakBuangAir = 0;
@@ -55,7 +56,7 @@ public class Sim {
             this.pekerjaan = pekerjaan;
             uang -= pekerjaan.getGaji() * 0.5;
             totalWorkTime = 0;
-            changeJobTime = 0;
+            waktuBolehGantiKerja = 0;
 
         }
     }
@@ -109,7 +110,7 @@ public class Sim {
     }
 
     public void kerja(int workingTime) {
-        if (changeJobTime >= 720 && workingTime % 120 == 0) {
+        if (waktuBolehGantiKerja >= 720 && workingTime % 120 == 0) {
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
                 totalWorkTime += workingTime;
@@ -138,7 +139,7 @@ public class Sim {
                 Thread.currentThread().interrupt();
             }
             totalWaktu.addWaktu(workoutTime);
-            trackTidur(workoutTime);
+            // trackTidur(workoutTime);
         }
     }
 
@@ -236,5 +237,24 @@ public class Sim {
 
     public void interact(Furniture barang) {
         barang.aksi(this);
+    }
+
+    // GUI
+    public int inputActionTime() {
+        String input = "";
+        try {
+            input = JOptionPane.showInputDialog(null, "Masukkan waktu aksi: ");
+            if (input == null) {
+                // Kalo pencet tombol close
+                JOptionPane.getRootFrame().dispose();
+                return 0;
+            } else {
+                int time = Integer.parseInt(input);
+                return time;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new NumberFormatException("Masukan harus berupa angka");
+        }
     }
 }

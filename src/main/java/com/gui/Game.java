@@ -373,11 +373,9 @@ public class Game extends JFrame {
             JButton button = new JButton(aksi);
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
-                    int time = inputActionTime();
-                    currentSim.kerja(time);
+                    currentSim.kerja(currentSim.inputActionTime());
                 } else if (aksi.equals("Olahraga")) {
-                    int time = inputActionTime();
-                    currentSim.olahraga(time);
+                    currentSim.olahraga(currentSim.inputActionTime());
                 } else if (aksi.equals("Berkunjung")) {
                     currentSim.berkunjung();
                     repaint();
@@ -400,23 +398,6 @@ public class Game extends JFrame {
         if (dialogResult == JOptionPane.CLOSED_OPTION) {
             JOptionPane.getRootFrame().dispose();
             displayHouseMenu();
-        }
-    }
-
-    public int inputActionTime() {
-        String input = "";
-        try {
-            input = JOptionPane.showInputDialog(null, "Masukkan waktu aksi: ");
-            if (input == null) {
-                // Kalo pencet tombol close
-                JOptionPane.getRootFrame().dispose();
-                return 0;
-            } else {
-                int time = Integer.parseInt(input);
-                return time;
-            }
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Masukan harus berupa angka");
         }
     }
 
