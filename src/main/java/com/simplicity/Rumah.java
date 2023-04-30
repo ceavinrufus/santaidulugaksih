@@ -177,6 +177,7 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
+                // Kalo bukan ruangan
                 if (petaRuangan.getElement(x / 6, (row - y - 1) / 6) == null) {
                     g.setColor(Color.BLACK);
                     g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
@@ -194,7 +195,7 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(bath_tiles, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            if (barang.getIsHorizontal()){
+                            if (barang.getIsHorizontal()) {
                                 try {
                                     toilet = ImageIO
                                             .read(new File("src/main/java/resources/images/toilet_horizontal.png"));
@@ -442,8 +443,14 @@ public class Rumah {
             for (int y = 0; y < row; y++) {
                 float cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                 float cellY = yOffset + (y - row / 2) * gridSize + yCenter;
-                g.setColor(new Color(156, 134, 112));
-                g.drawRect((int) cellX, (int) cellY, (int) gridSize, (int) gridSize);
+                // Kalo bukan ruangan
+                if (petaRuangan.getElement(x / 6, (row - y - 1) / 6) == null) {
+                    g.setColor(Color.GRAY);
+                    g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
+                } else {
+                    g.setColor(new Color(156, 134, 112));
+                    g.drawRect((int) cellX, (int) cellY, (int) gridSize, (int) gridSize);
+                }
             }
         }
     }

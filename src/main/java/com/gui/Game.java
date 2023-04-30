@@ -52,8 +52,8 @@ public class Game extends JFrame {
         tabbedPane.setFocusable(false);
         add(tabbedPane);
 
-        setMinimumSize(new Dimension(800, 1000)); // Set minimum size JFrame
-        setPreferredSize(new Dimension(800, 1000)); // Set preferred size JFrame
+        setMinimumSize(new Dimension(900, 1000)); // Set minimum size JFrame
+        setPreferredSize(new Dimension(900, 1000)); // Set preferred size JFrame
         pack(); // Bikin JFrame fit ke preferred size
 
         try {
@@ -82,9 +82,8 @@ public class Game extends JFrame {
     }
 
     public void displayGameMenu(Component parentComponent) {
-        String[] anyHouseMenu = { "View Sim Info", "View Current Location",
-                "View Inventory", "Move Room", "List Object", "Go To Object", "Action", "Add Sim",
-                "Change Sim" };
+        String[] anyHouseMenu = { "View Sim Info", "View Current Location", "View Inventory", "Move Room",
+                "List Object", "Go To Object", "Add Sim", "Change Sim" };
         String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
         String[] options;
 
@@ -149,11 +148,15 @@ public class Game extends JFrame {
                             JOptionPane.showMessageDialog(null,
                                     "Sejauh ini kamu baru punya satu ruangan, nih!\nCoba upgrade rumah kamu dulu untuk menambah ruangan.",
                                     "Sayang sekali :(", JOptionPane.INFORMATION_MESSAGE);
-                            return;
+                            break;
                         }
-                        Ruangan selectedRuangan = petaRumah.selectElement();
+                        Ruangan selectedRuangan = petaRumah.selectElement(currentSim.getCurrentPosition().getRuang());
                         if (selectedRuangan != null) {
                             currentSim.getCurrentPosition().setRuang(selectedRuangan);
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Kamu belum memilih ruangan!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                         break;
                     case "Edit Room":
@@ -164,9 +167,6 @@ public class Game extends JFrame {
                         break;
                     case "Go To Object":
                         goToObject();
-                        break;
-                    case "Action":
-                        action();
                         break;
                     case "Save":
                         // try {
@@ -344,8 +344,8 @@ public class Game extends JFrame {
         currentSim.getInventory().displayInventory(Storable.class);
     }
 
-    private void action() {
-        String[] listAksi = { "Kerja", "Olahraga", "Makan", "Berkunjung", "Beli Barang", "Back" };
+    public void action() {
+        String[] listAksi = { "Kerja", "Olahraga", "Berkunjung", "Beli Barang", "Back" };
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
@@ -365,21 +365,24 @@ public class Game extends JFrame {
                                 "Notification", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         Peta<Rumah> petaRumah = World.getInstance().getPeta();
-                        Rumah selectedRumah = petaRumah.selectElement();
+                        Rumah selectedRumah = petaRumah.selectElement(currentSim.getCurrentPosition().getRumah());
                         if (selectedRumah != null) {
                             Point sourcePoint = petaRumah
                                     .getElementCoordinate(currentSim.getCurrentPosition().getRumah());
                             Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
                             int distance = Math.round(sourcePoint.distance(destPoint));
                             try {
+                                JOptionPane.getRootFrame().dispose();
                                 TimeUnit.SECONDS.sleep(distance);
                             } catch (InterruptedException er) {
                                 Thread.currentThread().interrupt();
                             }
                             currentSim.getCurrentPosition().setRumah(selectedRumah);
                             repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Kamu belum memilih rumah!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
-                        repaint();
                     }
                 } else if (aksi.equals("Beli Barang")) {
                     // currentSim.beliBarang();
@@ -396,7 +399,7 @@ public class Game extends JFrame {
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        Ruangan selectedRuangan = currentHouse.getPeta().selectElement();
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement(null);
 
         if (selectedRuangan != null) {
             selectedRuangan.getPeta().displayList();
@@ -409,7 +412,7 @@ public class Game extends JFrame {
         String nama = "";
         Sim sim = null;
 
-        while (nama.length() < 4 || nama.length() > 16) {
+        while (nama.length() < 1 || nama.length() > 16) {
             try {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
                 if (nama == null) {
@@ -417,19 +420,19 @@ public class Game extends JFrame {
                     return null;
                 } else {
                     // Validasi nama
-                    if (nama.length() < 4 || nama.length() > 16) {
-                        throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
+                    if (nama.length() < 1 || nama.length() > 16) {
+                        throw new IllegalInputException("Nama harus terdiri dari 1-16 karakter.");
                     } else {
                         sim = new Sim(nama);
                         // Cek udah ada Sim dengan nama yang sama belom
                         if (sims.putIfAbsent(sim.getNamaLengkap(), sim) != null) {
-                            throw new IllegalNameException(
+                            throw new IllegalInputException(
                                     String.format("Sim dengan nama '%s' sudah ada",
                                             sim.getNamaLengkap()));
                         }
                     }
                 }
-            } catch (IllegalNameException error) {
+            } catch (IllegalInputException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 throw new SimNotCreatedException();
             }
@@ -456,7 +459,6 @@ public class Game extends JFrame {
             rumah.setNamaPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
         } catch (IllegalLocationException e) {
-            // TODO: handle exception
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();
         }

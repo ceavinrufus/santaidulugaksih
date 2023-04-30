@@ -147,13 +147,23 @@ public class Peta<T> {
     }
 
     public T selectElement() {
+        return selectElement(null);
+    }
+
+    public T selectElement(T currentElement) {
         TreeSet<String> setOfElement = new TreeSet<String>();
 
         for (int i = 0; i < getColumn(); i++) {
             for (int j = 0; j < getRow(); j++) {
                 T el = getElement(i, j);
-                if (el != null) {
-                    setOfElement.add(el.toString());
+                if (currentElement == null) {
+                    if (el != null) {
+                        setOfElement.add(el.toString());
+                    }
+                } else {
+                    if (el != null && !el.equals(currentElement)) {
+                        setOfElement.add(el.toString());
+                    }
                 }
             }
         }
