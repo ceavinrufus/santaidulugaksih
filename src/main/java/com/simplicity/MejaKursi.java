@@ -1,13 +1,18 @@
 package com.simplicity;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JOptionPane;
+
+import com.simplicity.AbstractClass.Food;
+import com.simplicity.AbstractClass.Furniture;
 
 public class MejaKursi extends Furniture {
     public MejaKursi() {
         super("Meja dan Kursi");
-        this.panjang = 3;
-        this.lebar = 3;
-        this.harga = 50;
+        setPanjang(3);
+        setLebar(3);
+        setHarga(50);
     }
 
     @Override
@@ -17,10 +22,21 @@ public class MejaKursi extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        Eatable makanan;
-        sim.getInventory().displayInventory(Eatable.class);
+        Food food = new NonCookableFood("Ayam");
+        sim.getInventory().displayInventory(Food.class);
         // Ambil makanan dari inventory
-        // sim.getStatus().increaseKekenyangan(makanan.getKekenyangan());
+        for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {
+            if (item.getKey().getNama().equals(food.getNama())) {
+                try {
+                    TimeUnit.SECONDS.sleep(30);
+                    sim.getInventory().reduceBarang(food, 1);
+                    sim.getStats().tambahKekenyangan(food.getKekenyangan());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                Waktu.waktu().addWaktu(30);
+            }
+        }
         // sim.addAction(getNamaAksi());
         // Lanjut
     }

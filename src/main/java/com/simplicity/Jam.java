@@ -1,12 +1,14 @@
 package com.simplicity;
 
+import com.simplicity.AbstractClass.Furniture;
+
 public class Jam extends Furniture {
 
     public Jam() {
         super("Jam");
-        this.panjang = 1;
-        this.lebar = 1;
-        this.harga = 10;
+        setPanjang(1);
+        setLebar(1);
+        setHarga(10);
     }
 
     @Override

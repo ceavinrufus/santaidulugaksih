@@ -2,6 +2,7 @@ package com.gui;
 
 import com.simplicity.*;
 import com.simplicity.Point;
+import com.simplicity.AbstractClass.Furniture;
 
 // import com.google.gson.*;
 // import org.json.*;

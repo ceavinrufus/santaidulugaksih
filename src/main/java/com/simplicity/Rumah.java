@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import com.gui.*;
+import com.simplicity.AbstractClass.Furniture;
 
 public class Rumah {
     /*

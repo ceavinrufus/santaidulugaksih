@@ -66,7 +66,7 @@ public class Inventory {
     public void displayInventory(Class<? extends Storable> className) {
         // testing
         addBarang(new Kasur("Kasur Queen Size"), 5);
-        addBarang(NonCookableFood.AYAM, 10);
+        addBarang(new NonCookableFood("Ayam"), 10);
 
         ArrayList<Storable> temp = new ArrayList<Storable>();
 

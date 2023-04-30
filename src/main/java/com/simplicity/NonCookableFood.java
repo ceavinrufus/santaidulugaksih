@@ -2,47 +2,42 @@ package com.simplicity;
 
 import javax.swing.JOptionPane;
 
-public enum NonCookableFood implements Eatable, Purchasable {
-    NASI("Nasi", 5, 5),
-    KENTANG("Kentang", 3, 4),
-    AYAM("Ayam", 10, 8),
-    SAPI("Sapi", 12, 15),
-    WORTEL("Wortel", 3, 2),
-    BAYAM("Bayam", 3, 2),
-    KACANG("Kacang", 2, 2),
-    SUSU("Susu", 2, 1);
+import com.simplicity.AbstractClass.Food;
 
-    private String nama;
+public class NonCookableFood extends Food implements Purchasable {
     private int harga;
-    private int kekenyangan;
 
-    private NonCookableFood(String nama, int harga, int kekenyangan) {
-        this.nama = nama;
-        this.harga = harga;
-        this.kekenyangan = kekenyangan;
-    }
+    public NonCookableFood(String nama) {
+        super(nama);
 
-    public String getNama() {
-        return nama;
+        if (nama.equals("Nasi")) {
+            this.harga = 5;
+            setKekenyangan(5);
+        } else if (nama.equals("Kentang")) {
+            this.harga = 3;
+            setKekenyangan(4);
+        } else if (nama.equals("Ayam")) {
+            this.harga = 10;
+            setKekenyangan(8);
+        } else if (nama.equals("Sapi")) {
+            this.harga = 12;
+            setKekenyangan(15);
+        } else if (nama.equals("Wortel")) {
+            this.harga = 3;
+            setKekenyangan(2);
+        } else if (nama.equals("Bayam")) {
+            this.harga = 3;
+            setKekenyangan(2);
+        } else if (nama.equals("Kacang")) {
+            this.harga = 2;
+            setKekenyangan(2);
+        } else if (nama.equals("Susu")) {
+            this.harga = 2;
+            setKekenyangan(1);
+        }
     }
 
     public int getHarga() {
         return harga;
-    }
-
-    @Override
-    public void displayInfo() {
-        String message = "Nama: " + nama + "\n" +
-                "Harga: " + harga + "\n" +
-                "Kekenyangan: " + kekenyangan + "\n";
-
-        Object[] options = { "Makan", "Back" };
-        JOptionPane.showOptionDialog(null, message, "Food Info", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-    }
-
-    @Override
-    public int getKekenyangan() {
-        return kekenyangan;
     }
 }

@@ -2,6 +2,8 @@ package com.simplicity;
 
 import java.util.*;
 
+import com.simplicity.AbstractClass.Furniture;
+
 public class Ruangan {
     private String namaRuangan;
     private Peta<Furniture> petaBarang = new Peta<Furniture>(6, 6);

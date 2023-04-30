@@ -1,16 +1,21 @@
-package com.simplicity;
+package com.simplicity.AbstractClass;
 
 import java.util.Objects;
 
 import javax.swing.*;
 
 import com.gui.Game;
+import com.simplicity.Purchasable;
+import com.simplicity.Ruangan;
+import com.simplicity.Rumah;
+import com.simplicity.Sim;
+import com.simplicity.Storable;
 
 public abstract class Furniture implements Storable, Purchasable {
     private String nama;
-    protected int panjang;
-    protected int lebar;
-    protected int harga;
+    private int panjang;
+    private int lebar;
+    private int harga;
 
     public Furniture(String nama) {
         this.nama = nama;
@@ -31,6 +36,18 @@ public abstract class Furniture implements Storable, Purchasable {
 
     public int getHarga() {
         return harga;
+    }
+
+    protected void setPanjang(int panjang) {
+        this.panjang = panjang;
+    }
+
+    protected void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    protected void setHarga(int harga) {
+        this.harga = harga;
     }
 
     @Override

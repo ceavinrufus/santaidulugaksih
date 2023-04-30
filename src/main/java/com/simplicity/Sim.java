@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
+import com.simplicity.AbstractClass.Furniture;
+
 public class Sim {
     private String namaLengkap;
     private Pekerjaan pekerjaan;
@@ -256,18 +258,7 @@ public class Sim {
     }
 
     public void makan(Eatable food) {
-        for (Pair<Storable, Integer> item : inventory.getItems()) {
-            if (item.getKey().getNama().equals(food.getNama())) {
-                try {
-                    TimeUnit.SECONDS.sleep(30);
-                    inventory.reduceBarang(food, 1);
-                    stats.tambahKekenyangan(food.getKekenyangan());
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                totalWaktu.addWaktu(30);
-            }
-        }
+
     }
 
     public void memasak(CookableFood food) {
@@ -307,15 +298,7 @@ public class Sim {
     }
 
     public void buangAir() {
-        try {
-            TimeUnit.SECONDS.sleep(10);
-            stats.kurangKekenyangan(20);
-            stats.tambahMood(10);
-            waktuTidakBuangAir = 0;
-        } catch (InterruptedException e) {
-            // do something
-        }
-        totalWaktu.addWaktu(10);
+
     }
 
     public void upgradeRumah() {
