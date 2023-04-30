@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.table.DefaultTableModel;
 import com.simplicity.ExceptionHandling.*;
+import com.simplicity.Interface.Storable;
 
 public class Game extends JFrame {
     private static Game instance = new Game();

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.gui.Game;
+import com.simplicity.Interface.Storable;
 
 import java.util.ArrayList;
 

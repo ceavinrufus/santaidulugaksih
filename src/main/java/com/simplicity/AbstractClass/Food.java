@@ -2,7 +2,7 @@ package com.simplicity.AbstractClass;
 
 import javax.swing.JOptionPane;
 
-import com.simplicity.Storable;
+import com.simplicity.Interface.Storable;
 
 public abstract class Food implements Storable {
     private String nama;

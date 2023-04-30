@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Food;
 import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.Interface.Storable;
 
 public class MejaKursi extends Furniture {
     public MejaKursi() {

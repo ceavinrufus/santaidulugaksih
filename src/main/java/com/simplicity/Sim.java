@@ -5,6 +5,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.Interface.Purchasable;
+import com.simplicity.Interface.Storable;
 
 public class Sim {
     private String namaLengkap;
@@ -255,10 +257,6 @@ public class Sim {
         totalWaktu.addWaktu(workoutTime);
         isSehabisMakan = false;
         isSehabisTidur = false;
-    }
-
-    public void makan(Eatable food) {
-
     }
 
     public void memasak(CookableFood food) {
