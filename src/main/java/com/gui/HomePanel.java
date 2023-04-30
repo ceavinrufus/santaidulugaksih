@@ -5,10 +5,6 @@ import com.simplicity.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class HomePanel extends JPanel {
     private static HomePanel instance = new HomePanel(null);

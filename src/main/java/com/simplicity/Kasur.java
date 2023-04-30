@@ -43,20 +43,20 @@ public class Kasur extends Furniture {
                     // Validasi sleepTime
                     if (sleepTime < 240) {
                     } else {
-                        
+
                     }
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Masukkan angka yang valid", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        Stats stats = sim.getStats();
+
         Waktu totalWaktu = Waktu.waktu();
         if (sleepTime >= 240) {
             try {
                 TimeUnit.SECONDS.sleep(sleepTime);
-                stats.tambahMood(sleepTime / 240 * 30);
-                stats.tambahKesehatan(sleepTime / 240 * 20);
+                sim.getStats().tambahMood(sleepTime / 240 * 30);
+                sim.getStats().tambahKesehatan(sleepTime / 240 * 20);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

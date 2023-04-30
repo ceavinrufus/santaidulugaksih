@@ -40,7 +40,7 @@ public enum CookableFood implements Eatable {
         String message = "Nama: " + nama + "\n" +
                 "Kekenyangan: " + kekenyangan + "\n";
 
-        Object[] options = { "Back" };
+        Object[] options = { "Makan", "Back" };
         JOptionPane.showOptionDialog(null, message, "Food Info", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }

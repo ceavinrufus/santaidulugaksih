@@ -82,7 +82,6 @@ public class Game extends JFrame {
                         JOptionPane.showMessageDialog(null, message, "Sim Info", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case "View Current Location":
-                        SimPosition currentSimPosition = instance.getCurrentSim().getCurrentPosition();
                         message = "Rumah " + currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                                 + "\n" +
                                 "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
@@ -99,6 +98,7 @@ public class Game extends JFrame {
                     case "Add Sim":
                         try {
                             makeNewSim();
+                            repaint();
                         } catch (SimNotCreatedException exception) {
                             JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
                                     JOptionPane.ERROR_MESSAGE);
@@ -187,6 +187,7 @@ public class Game extends JFrame {
                         break;
                     case "Back":
                         JOptionPane.getRootFrame().dispose();
+                        displayGameMenu();
                         break;
                 }
             });
@@ -198,7 +199,6 @@ public class Game extends JFrame {
 
         if (dialogResult == JOptionPane.CLOSED_OPTION) {
             JOptionPane.getRootFrame().dispose();
-            displayGameMenu();
         }
     }
 
@@ -421,7 +421,6 @@ public class Game extends JFrame {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
                 if (nama == null) {
                     // Kalo pencet tombol close
-                    JOptionPane.getRootFrame().dispose();
                     return null;
                 } else {
                     // Validasi nama

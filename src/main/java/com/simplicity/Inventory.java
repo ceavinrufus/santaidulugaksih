@@ -68,9 +68,12 @@ public class Inventory {
         addBarang(new Kasur("Kasur Queen Size"), 5);
         addBarang(NonCookableFood.AYAM, 10);
 
+        ArrayList<Storable> temp = new ArrayList<Storable>();
+
         int count = 0;
         for (Pair<? extends Storable, Integer> pair : container) {
             if (className.isAssignableFrom(pair.getKey().getClass())) {
+                temp.add(count, pair.getKey());
                 count++;
             }
         }
@@ -105,8 +108,11 @@ public class Inventory {
             // Info
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
-                container.get(selectedRow).getKey().displayInfo();
+                temp.get(selectedRow).displayInfo();
                 displayInventory(className);
+            } else {
+                JOptionPane.showMessageDialog(null, "Kamu belum memilih barang!", "Sim Info",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } else if (choice == 1) {
         }
