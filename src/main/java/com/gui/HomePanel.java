@@ -61,7 +61,8 @@ public class HomePanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (currentSim != null) {
                     SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-                    Furniture barang = simCurrentPosition.getRuang().getBarangByKoordinat(simCurrentPosition.getLokasi());
+                    Furniture barang = simCurrentPosition.getRuang()
+                            .getBarangByKoordinat(simCurrentPosition.getLokasi());
                     currentSim.interact(barang);
                 }
                 requestFocusInWindow();
@@ -136,14 +137,6 @@ public class HomePanel extends JPanel {
                 return;
             }
 
-            SimPosition simCurrentPosition = currentSim.getCurrentPosition();
-            Furniture barang = simCurrentPosition.getRuang().getBarangByKoordinat(simCurrentPosition.getLokasi());
-            if (barang != null) {
-                interactButton.setText(barang.getNamaAksi());
-                interactButton.setVisible(true);
-            } else {
-                interactButton.setVisible(false);
-            }
         }
     };
 
@@ -151,6 +144,15 @@ public class HomePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        currentSim.getCurrentPosition().getRumah().paint(g, getWidth(), getHeight(), keyChar);
+        SimPosition simCurrentPosition = currentSim.getCurrentPosition();
+        Furniture barang = simCurrentPosition.getRuang().getBarangByKoordinat(simCurrentPosition.getLokasi());
+        if (barang != null) {
+            interactButton.setText(barang.getNamaAksi());
+            interactButton.setVisible(true);
+        } else {
+            interactButton.setVisible(false);
+        }
+
+        simCurrentPosition.getRumah().paint(g, getWidth(), getHeight(), keyChar);
     }
 }
