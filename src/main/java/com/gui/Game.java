@@ -314,17 +314,17 @@ public class Game extends JFrame {
         if (currentSim.getUang() >= cost) {
             try {
                 // tambah ruangan
-                String nama = "";
-                while (nama.length() < 1 || nama.length() > 10) {
+                String namaRuangan = "";
+                while (namaRuangan.length() < 1 || namaRuangan.length() > 10) {
                     try {
-                        nama = JOptionPane.showInputDialog(null, "Masukkan nama:", "Add Sim",
+                        namaRuangan = JOptionPane.showInputDialog(null, "Masukkan nama ruangan yang ingin dibuat:", "Add Room",
                                 JOptionPane.QUESTION_MESSAGE);
-                        if (nama == null) {
+                        if (namaRuangan == null) {
                             // Kalo pencet tombol close
                             return;
                         } else {
                             // Validasi nama
-                            if (nama.length() < 1 || nama.length() > 10) {
+                            if (namaRuangan.length() < 1 || namaRuangan.length() > 10) {
                                 throw new IllegalInputException("Nama harus terdiri dari 1-10 karakter.");
                             } else {
                                 // Lanjut
@@ -336,7 +336,7 @@ public class Game extends JFrame {
                         JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                Ruangan ruanganBaru = new Ruangan(nama);
+                Ruangan ruanganBaru = new Ruangan(namaRuangan);
                 Peta<Ruangan> petaRumah = currentSim.getCurrentPosition().getRumah().getPeta();
                 Ruangan ruanganPatokan = petaRumah.selectElement("Pilih ruangan patokan");
                 if (ruanganPatokan == null) {

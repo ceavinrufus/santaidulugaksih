@@ -30,6 +30,7 @@ public class Sim {
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
+    private boolean isDead = false;
     private int recentActionTime = 0;
 
     // Waktu Terpusat
@@ -204,6 +205,10 @@ public class Sim {
         waktuTidakBuangAir = waktu;
     }
 
+    public void setSimDead() {
+        isDead = true;
+    }
+
     public void trackBuangAir(int waktu) {
         if (isSehabisMakan) {
             waktuTidakBuangAir += waktu;
@@ -259,7 +264,7 @@ public class Sim {
                 isSehabisMakan = false;
                 isSehabisTidur = false;
             } catch (InterruptedException e) {
-                // do something
+                Thread.currentThread().interrupt();
             }
             JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
         }
