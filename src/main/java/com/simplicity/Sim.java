@@ -256,28 +256,14 @@ public class Sim {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            final Integer tWorkingTime = workingTime;
-            Thread t = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        ThreadManager.getInstance().startAllThreads();
-                        int i = 0;
-                        while (i < tWorkingTime) {
-                            TimeUnit.SECONDS.sleep(1);
-                            i++;
-                        }
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                    ThreadManager.getInstance().stopAllThreads();
-                }
-            });
-            t.start();
+
+            ThreadManager.getInstance().startAllThreads();
             try {
-                t.join();
+                TimeUnit.SECONDS.sleep(workingTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            ThreadManager.getInstance().stopAllThreads();
 
             totalWorkTime += workingTime;
             recentActionTime = workingTime;
