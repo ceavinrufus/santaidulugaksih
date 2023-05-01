@@ -217,7 +217,7 @@ public class Ruangan {
             }
         }
         return isAtKoordinat;
-    }   
+    }
 
     public int getIDBarangAtKoordinat(int x, int y) {
         PlacedFurniture placedObject = petaBarang.getElement(x, y);
@@ -232,7 +232,7 @@ public class Ruangan {
         Sim currentSim = Game.getInstance().getCurrentSim();
         SimPosition currentPosition = currentSim.getCurrentPosition();
         Peta<PlacedFurniture> petaRuangan = currentPosition.getRuang().getPeta();
-        PlacedFurniture selectedBarang = petaRuangan.selectElement();
+        PlacedFurniture selectedBarang = petaRuangan.selectElement("Pilih objek yang ingin kamu tuju");
 
         if (selectedBarang != null) {
             Point newPoint = petaRuangan.getClosestElementCoordinate(currentPosition.getLokasi(), selectedBarang);
@@ -341,10 +341,10 @@ public class Ruangan {
                 if (countBarang(takenObject) > 1) {
                     String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
                     int koordinatX = Integer.parseInt(inputX);
-    
+
                     String inputY = JOptionPane.showInputDialog("Masukkan koordinat Y: ");
                     int koordinatY = Integer.parseInt(inputY);
-                    
+
                     if (!isBarangAtKoordinat(takenObject, koordinatX, koordinatY)) {
                         JOptionPane.showMessageDialog(null,
                                 "Maaf, koordinat tidak sesuai dengan posisi barang!",
@@ -353,7 +353,8 @@ public class Ruangan {
                     }
                     idBarang = getIDBarangAtKoordinat(koordinatX, koordinatY);
                 } else {
-                    idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
+                    idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(),
+                            listBarang.get(selectedOption).getY());
                 }
 
                 currentRoom.mengambilBarang(takenObject, idBarang);

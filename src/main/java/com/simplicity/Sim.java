@@ -1,17 +1,21 @@
 package com.simplicity;
 
+import java.awt.GridLayout;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import javax.swing.JOptionPane;
 
+import javax.swing.*;
+
+import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
-import com.simplicity.Interface.Purchasable;
-import com.simplicity.Interface.Storable;
+import com.simplicity.ExceptionHandling.IllegalInputException;
+import com.simplicity.Interface.*;
 
 public class Sim {
     private String namaLengkap;
     private Pekerjaan pekerjaan;
-    private double uang = 100;
+    // TODO: Gantii ini jadi 100
+    private double uang = 1500;
     private Inventory inventory = new Inventory();
     private ArrayList<String> currentActions = new ArrayList<String>();
     private Stats stats = new Stats();
@@ -29,7 +33,7 @@ public class Sim {
     private int recentActionTime = 0;
 
     // Waktu Terpusat
-    public Waktu totalWaktu = Waktu.waktu();
+    Waktu totalWaktu = Waktu.waktu();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -305,36 +309,6 @@ public class Sim {
                 // do something
             }
             totalWaktu.addWaktu((int) 1.5 * food.getKekenyangan());
-        }
-    }
-
-    public void buangAir() {
-
-    }
-
-    public void upgradeRumah() {
-        int cost = 1500;
-        if (uang > cost) {
-            try {
-                TimeUnit.SECONDS.sleep(18 * 60);
-                // tambah ruangan
-                if (currentPosition.getRumah().getNamaPemilik().equals(this.namaLengkap)) {
-                    Scanner scanner = new Scanner(System.in);
-                    String namaRuangan = scanner.nextLine();
-                    Ruangan baru = new Ruangan(namaRuangan);
-                    String arah = scanner.nextLine();
-                    String ruanganPatokan = scanner.nextLine();
-                    // currentPosition.getRumah().tambahRuangan(baru, arah, ruanganPatokan);
-                }
-                uang -= cost;
-            } catch (InterruptedException e) {
-                // do something
-            }
-            totalWaktu.addWaktu(18 * 60);
-        } else {
-            JOptionPane.showMessageDialog(null, "Sayang sekali, uangmu belum cukup untuk melakukan upgrade rumah!",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
