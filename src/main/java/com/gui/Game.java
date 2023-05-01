@@ -30,7 +30,7 @@ public class Game extends JFrame {
 
     // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
-    private World world = new World();
+    // private World world = new World();
     private Sim currentSim;
     public HomePanel homePanel;
     JTabbedPane tabbedPane;
@@ -79,9 +79,9 @@ public class Game extends JFrame {
         return instance;
     }
 
-    public void setWorld(World world) {
-        this.world = world;
-    }
+    // public void setWorld(World world) {
+    // this.world = world;
+    // }
 
     public Sim getCurrentSim() {
         return currentSim;
@@ -197,7 +197,7 @@ public class Game extends JFrame {
                         try {
                             String saveName = JOptionPane.showInputDialog(null, "Masukkan nama save file",
                                     "Save Game", JOptionPane.QUESTION_MESSAGE);
-                            saveWorld(saveName);
+                            World.getInstance().saveWorld(saveName);
                             saveSims(saveName);
                             saveCurrentSim(saveName);
                             totalWaktu.saveWaktu(saveName);
@@ -286,7 +286,7 @@ public class Game extends JFrame {
                                 "Kamu hanya sendiri di dunia ini",
                                 "Notification", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        Peta<Rumah> petaRumah = world.getPeta();
+                        Peta<Rumah> petaRumah = World.getInstance().getPeta();
                         Rumah selectedRumah = petaRumah.selectElement(currentSim.getCurrentPosition().getRumah(),
                                 "Mau berkunjung ke rumah siapa?");
                         if (selectedRumah != null) {
@@ -451,13 +451,13 @@ public class Game extends JFrame {
                     int koordinatY = Integer.parseInt(inputY.getText());
                     if ((koordinatX < 0 || koordinatX >= 64) || (koordinatY < 0 || koordinatY >= 64)) {
                         throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-63, ya!");
-                    } else if (world.getPeta().getElement(koordinatX, koordinatY) != null) {
+                    } else if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) != null) {
                         JOptionPane.showMessageDialog(null,
                                 "Maaf, Rumah tidak bisa dibangun karena lahan sudah digunakan.",
                                 "Notification",
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        world.tambahRumah(rumah, koordinatX, koordinatY);
+                        World.getInstance().tambahRumah(rumah, koordinatX, koordinatY);
                         rumah.setNamaPemilik(sim);
                         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
                         inputValid = true;
@@ -528,25 +528,25 @@ public class Game extends JFrame {
         });
     }
 
-    private void saveWorld(String filename) throws IOException {
-        Gson gson = new Gson();
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.serializeNulls();
-        gsonBuilder.setPrettyPrinting();
-        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
-        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
-        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
-        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
-        gson = gsonBuilder.create();
-        try {
-            FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
-                    "_world.json");
-            gson.toJson(world, fileWriter);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // private void saveWorld(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.serializeNulls();
+    // gsonBuilder.setPrettyPrinting();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // try {
+    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+    // "_world.json");
+    // gson.toJson(world, fileWriter);
+    // fileWriter.close();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
 
     private void saveSims(String filename) throws IOException {
         Gson gson = new Gson();
@@ -588,21 +588,21 @@ public class Game extends JFrame {
         }
     }
 
-    public World loadWorld(String filename) throws IOException {
-        Gson gson = new Gson();
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
-        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
-        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
-        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
-        gson = gsonBuilder.create();
-        World world = null;
-        FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-                "_world.json");
-        world = gson.fromJson(fileReader, World.class);
-        fileReader.close();
-        return world;
-    }
+    // public World loadWorld(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // World world = null;
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // "_world.json");
+    // world = gson.fromJson(fileReader, World.class);
+    // fileReader.close();
+    // return world;
+    // }
 
     public HashMap<String, Sim> loadSims(String filename) throws IOException {
         Gson gson = new Gson();
@@ -642,10 +642,10 @@ public class Game extends JFrame {
         setFocusable(true);
         mainMenu.setVisible(false);
         homePanel = new HomePanel(currentSim);
-        WorldPanel worldPanel = new WorldPanel(world);
+        // WorldPanel worldPanel = new WorldPanel(world);
         homePanel.setCurrentSim(currentSim);
         tabbedPane.addTab("House Map", homePanel);
-        tabbedPane.addTab("World Map", worldPanel);
+        tabbedPane.addTab("World Map", WorldPanel.getInstance());
         // add(homePanel);
         // displayRumah = true;
     }

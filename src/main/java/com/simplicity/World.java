@@ -1,7 +1,11 @@
 package com.simplicity;
 
-// import java.io.*;
-// import com.google.gson.Gson;
+import java.io.*;
+import com.google.gson.*;
+import com.google.gson.reflect.*;
+import com.simplicity.Interface.*;
+import com.simplicity.AbstractClass.*;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -12,14 +16,15 @@ import com.gui.Game;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 
 public class World {
+    private static World instance = new World();
     private Peta<Rumah> petaRumah = new Peta<Rumah>(64, 64);
 
     public World() {
     }
 
-    // public static World getInstance() {
-    // return instance;
-    // }
+    public static World getInstance() {
+        return instance;
+    }
 
     public Peta<Rumah> getPeta() {
         return petaRumah;
@@ -47,6 +52,42 @@ public class World {
                 throw new IllegalLocationException("Lahan rumah kosong");
             }
         }
+    }
+
+    public void saveWorld(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+                    "_world.json");
+            gson.toJson(this, fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public World loadWorld(String filename) throws IOException {
+        Gson gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+        gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+        gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+        gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+        gson = gsonBuilder.create();
+        World world = null;
+        FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+                "_world.json");
+        world = gson.fromJson(fileReader, World.class);
+        fileReader.close();
+        return world;
     }
 
     // GUI

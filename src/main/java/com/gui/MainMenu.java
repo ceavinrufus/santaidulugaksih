@@ -63,7 +63,15 @@ public class MainMenu extends JFrame {
                 } else {
                     Game game = Game.getInstance();
                     try {
-                        game.setWorld(game.loadWorld(inputFileName));
+                        for (int i = 0; i < World.getInstance().loadWorld(inputFileName).getPeta().getRow(); i++) {
+                            for (int j = 0; j < World.getInstance().loadWorld(inputFileName).getPeta()
+                                    .getColumn(); j++) {
+                                if (World.getInstance().loadWorld(inputFileName).getPeta().getElement(i, j) != null) {
+                                    World.getInstance().getPeta().setElement(i, i,
+                                            World.getInstance().loadWorld(inputFileName).getPeta().getElement(i, j));
+                                }
+                            }
+                        }
                         game.setSims(game.loadSims(inputFileName));
                         game.setCurrentSim(game.loadCurrentSim(inputFileName));
                         game.getTotalWaktu().addWaktu(game.getTotalWaktu().loadWaktu(inputFileName).getWaktu());
