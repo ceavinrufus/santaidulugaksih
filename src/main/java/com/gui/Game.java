@@ -172,7 +172,8 @@ public class Game extends JFrame {
                         displayListObject();
                         break;
                     case "Go To Object":
-                        goToObject();
+                        currentSim.getCurrentPosition().getRuang().goToObject();
+                        repaint();
                         break;
                     case "Save":
                         try {
@@ -207,35 +208,26 @@ public class Game extends JFrame {
 
     }
 
-    private void goToObject() {
-        SimPosition currentPosition = currentSim.getCurrentPosition();
-        Peta<Furniture> petaRuangan = currentPosition.getRuang().getPeta();
-        Furniture selectedBarang = petaRuangan.selectElement();
-
-        if (selectedBarang != null) {
-            Point newPoint = petaRuangan.getClosestElementCoordinate(currentPosition.getLokasi(), selectedBarang);
-            currentSim.getCurrentPosition().setLokasi(newPoint);
-            repaint();
-        }
-    }
-
     private void editRoom() {
         String[] options = { "Buy Object", "Take Object", "Put Object", "Back" };
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
+        Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
 
         for (String option : options) {
             JButton button = new JButton(option);
             button.addActionListener(e -> {
                 switch (option) {
                     case "Buy Object":
-                        buyFurniture();
+                        currentRoom.buyFurniture();
                         break;
                     case "Take Object":
-                        takeObject();
+                        currentRoom.takeObject();
+                        repaint();
                         break;
                     case "Put Object":
                         putObject();
+                        repaint();
                         break;
                     case "Back":
                         JOptionPane.getRootFrame().dispose();
@@ -248,106 +240,6 @@ public class Game extends JFrame {
         JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-    }
-
-    private void buyFurniture() {
-        ArrayList<Furniture> listFurniture = new ArrayList<Furniture>();
-        listFurniture.add(new Kasur("Kasur Single"));
-        listFurniture.add(new Kasur("Kasur Queen Size"));
-        listFurniture.add(new Kasur("Kasur King Size"));
-        listFurniture.add(new Toilet());
-        listFurniture.add(new Kompor("Kompor Gas"));
-        listFurniture.add(new MejaKursi());
-        listFurniture.add(new Jam());
-
-        String[][] tableData = new String[listFurniture.size()][2];
-        String[] columnNames = { "Furniture Name", "Price" };
-
-        for (int i = 0; i < listFurniture.size(); i++) {
-            tableData[i][0] = listFurniture.get(i).getNama(); // Furniture Name
-            tableData[i][1] = String.valueOf(listFurniture.get(i).getHarga()); // Price
-        }
-
-        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JTable table = new JTable(tableModel);
-
-        // Menampilkan option pane
-        String[] options = { "Buy", "Back" };
-        int choice = JOptionPane.showOptionDialog(
-                null,
-                new JScrollPane(table),
-                "Edit Room Menu",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-        if (choice == 0) {
-            int selectedRow = table.getSelectedRow();
-            double uangSim = currentSim.getUang();
-            double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
-
-            String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah barang yang diinginkan: ");
-            int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
-
-            if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
-                JOptionPane.showMessageDialog(null,
-                        "Maaf, uang kamu tidak cukup!",
-                        "Notification", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
-                Furniture barangTerpilih = listFurniture.get(selectedRow);
-                currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
-                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih,
-                        barangTerpilih.getNama());
-                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-        }
-    }
-
-    private void takeObject() {
-        HashMap<String, com.simplicity.Point> listBarang = new HashMap<String, com.simplicity.Point>();
-        Peta<Furniture> petaBarang = currentSim.getCurrentPosition().getRuang().getPeta();
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                Furniture barang = (Furniture) petaBarang.getElement(i, j);
-                if (barang != null) {
-                    listBarang.putIfAbsent(barang.getNama(), new com.simplicity.Point(i, j));
-                }
-            }
-        }
-
-        String[] objectOptions = {};
-        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
-
-        for (String x : listBarang.keySet()) {
-            listObjects.add(x);
-        }
-
-        objectOptions = listObjects.toArray(objectOptions);
-        if (objectOptions.length == 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
-                    "Notification", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JList<String> list = new JList<>(objectOptions);
-            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Take Object", JOptionPane.PLAIN_MESSAGE);
-            String selectedOption = list.getSelectedValue();
-            if (selectedOption != null) {
-                Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
-                Furniture takenObject = currentRoom.findBarang(selectedOption);
-                currentRoom.mengambilBarang(takenObject);
-                repaint();
-                currentSim.getInventory().addBarang(takenObject, 1);
-            }
-        }
     }
 
     private void putObject() {
