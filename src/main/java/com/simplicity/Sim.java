@@ -246,8 +246,18 @@ public class Sim {
     public void kerja() {
         Integer workingTime = 0;
         if (waktuBolehGantiKerja >= 720) {
-            while (workingTime == 0 || workingTime % 120 != 0) {
+            Boolean inputValid = false;
+            while (!inputValid) {
                 workingTime = inputActionTime();
+                if (workingTime == null) {
+                    return;
+                }
+                if (workingTime != 0 && workingTime % 120 == 0) {
+                    inputValid = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Waktu kerja harus kelipatan 120!", "Input tidak valid",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
@@ -273,8 +283,18 @@ public class Sim {
 
     public void olahraga() {
         Integer workoutTime = 0;
-        while (workoutTime % 20 != 0) {
+        Boolean inputValid = false;
+        while (!inputValid) {
             workoutTime = inputActionTime();
+            if (workoutTime == null) {
+                return;
+            }
+            if (workoutTime != 0 && workoutTime % 20 == 0) {
+                inputValid = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Waktu kerja harus kelipatan 20!", "Input tidak valid",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         try {
             TimeUnit.SECONDS.sleep(workoutTime);
@@ -315,9 +335,11 @@ public class Sim {
                 // do something
             }
             totalWaktu.addWaktu((int) 1.5 * food.getKekenyangan());
-            JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -325,7 +347,7 @@ public class Sim {
         String[] buyOptions = { "Bahan Makanan", "Furniture" };
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
-        
+
         ArrayList<Purchasable> listPembelian = new ArrayList<Purchasable>();
         for (String option : buyOptions) {
             JButton button = new JButton(option);
@@ -357,11 +379,11 @@ public class Sim {
         }
 
         String[] back = { "Back" };
-        int choice = JOptionPane.showOptionDialog(null, panel, "Pilihan Pembelian", 
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, back, null);
-        
+        int choice = JOptionPane.showOptionDialog(null, panel, "Pilihan Pembelian",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, back, null);
+
         // Choosing Back Button
-        if (choice == 0) { 
+        if (choice == 0) {
             return;
         }
 
@@ -424,21 +446,20 @@ public class Sim {
     }
 
     // GUI
-    public int inputActionTime() {
+    private Integer inputActionTime() {
         String input = "";
         try {
             input = JOptionPane.showInputDialog(null, "Masukkan waktu aksi: ");
             if (input == null) {
                 // Kalo pencet tombol close
-                JOptionPane.getRootFrame().dispose();
-                return 0;
+                return null;
             } else {
-                int time = Integer.parseInt(input);
+                Integer time = Integer.parseInt(input);
                 return time;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            throw new NumberFormatException("Masukan harus berupa angka");
+            JOptionPane.showMessageDialog(null, "Masukan harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
     }
 }
