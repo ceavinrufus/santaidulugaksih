@@ -39,7 +39,7 @@ public class Kasur extends Furniture {
         while (sleepTime < 240) {
             String input = "";
             try {
-                input = JOptionPane.showInputDialog(null, "Masukkan waktu tidur: ");
+                input = JOptionPane.showInputDialog(null, "Masukkan waktu tidur (detik): ");
                 if (input == null) {
                     // Kalo pencet tombol close
                     return;

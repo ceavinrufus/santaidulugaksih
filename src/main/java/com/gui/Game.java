@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +64,13 @@ public class Game extends JFrame {
         } catch (IOException e) {
             System.out.println("Error loading background image");
         }
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); // close the parent JFrame
+            }
+        });
     }
 
     public static Game getInstance() {
@@ -380,7 +388,6 @@ public class Game extends JFrame {
             try {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:", "Add Sim", JOptionPane.QUESTION_MESSAGE);
                 if (nama == null) {
-                    // Kalo pencet tombol close
                     return null;
                 } else {
                     // Validasi nama
@@ -389,7 +396,7 @@ public class Game extends JFrame {
                     } else {
                         sim = new Sim(nama);
                         // Cek udah ada Sim dengan nama yang sama belom
-                        if (sims.putIfAbsent(sim.getNamaLengkap(), sim) != null) {
+                        if (sims.containsKey(sim.getNamaLengkap())) {
                             throw new IllegalInputException(
                                     String.format("Sim dengan nama '%s' sudah ada",
                                             sim.getNamaLengkap()));
@@ -409,10 +416,9 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
         ruangan.memasangBarang(new Toilet(), true, 0, 5);
+        Rumah rumah = new Rumah(ruangan);
 
         try {
-            Rumah rumah = new Rumah(ruangan);
-
             JTextField inputX = new JTextField();
             JTextField inputY = new JTextField();
             Object[] messageInput = {
@@ -441,7 +447,7 @@ public class Game extends JFrame {
                         inputValid = true;
                     }
                 } else {
-                    break;
+                    return null;
                 }
             } while (!inputValid);
         } catch (IllegalLocationException e) {
@@ -452,6 +458,13 @@ public class Game extends JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();
+        }
+
+        if (sims.putIfAbsent(sim.getNamaLengkap(), sim) != null) {
+            JOptionPane.showMessageDialog(null,
+                    String.format("Sim dengan nama '%s' sudah ada",
+                            sim.getNamaLengkap()),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         // Mengecek apakah Add Sim atau tidak
