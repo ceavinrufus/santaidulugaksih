@@ -176,6 +176,9 @@ public class Peta<T> {
         JList<String> list = new JList<>(roomOptions);
         // JOptionPane.showMessageDialog(null, new JScrollPane(list), header,
         // JOptionPane.PLAIN_MESSAGE);
+
+        // TODO: Ada bug kalo pencet close saat udah milih, tetep kepilih jadi seolah
+        // olah mencet ok
         JOptionPane optionPane = new JOptionPane(new JScrollPane(list), JOptionPane.PLAIN_MESSAGE);
         JDialog dialog = optionPane.createDialog(header);
         dialog.addWindowListener(new WindowAdapter() {
