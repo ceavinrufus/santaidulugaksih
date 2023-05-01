@@ -387,6 +387,7 @@ public class Game extends JFrame {
                             } catch (InterruptedException er) {
                                 Thread.currentThread().interrupt();
                             }
+                            currentSim.setRecentActionTime(distance);
                             currentSim.getCurrentPosition().setRumah(selectedRumah);
                             repaint();
                         } else {
@@ -514,6 +515,7 @@ public class Game extends JFrame {
         sims.forEach((key, value) -> {
             value.trackTidur(value.getRecentActionTime());
             value.trackBuangAir(value.getRecentActionTime());
+            value.trackKunjungan(value.getRecentActionTime());
         });
     }
 

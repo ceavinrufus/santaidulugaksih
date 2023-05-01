@@ -170,6 +170,10 @@ public class Sim {
         return recentActionTime;
     }
 
+    public void setRecentActionTime(int waktu) {
+        recentActionTime = waktu;
+    }
+
     public SimPosition getCurrentPosition() {
         return currentPosition;
     }
@@ -203,6 +207,13 @@ public class Sim {
         if (waktuTidakBuangAir % 240 == 0 && waktuTidakBuangAir != 0) {
             stats.kurangKesehatan(5);
             stats.kurangMood(5);
+        }
+    }
+
+    public void trackKunjungan(int waktu) {
+        if (isOnKunjungan) {
+            stats.kurangKekenyangan(waktu / 30 * 10);
+            stats.tambahMood(waktu / 30 * 10);
         }
     }
 
