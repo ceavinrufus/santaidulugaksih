@@ -1,7 +1,6 @@
 package com.simplicity;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
@@ -25,17 +24,17 @@ public class Cermin extends Furniture {
         Random rand = new Random();
         int randomNum = rand.nextInt(10);
         if (randomNum % 2 == 1) {
+            sim.getStats().tambahMood(30);
             JOptionPane.showMessageDialog(null,
                     "Makin mood deh!",
                     "Cermin",
                     JOptionPane.INFORMATION_MESSAGE);
-            sim.getStats().tambahMood(30);
         } else {
+            sim.getStats().kurangMood(20);
             JOptionPane.showMessageDialog(null,
                     "Duh jadi gak mood :(",
                     "Cermin",
                     JOptionPane.INFORMATION_MESSAGE);
-            sim.getStats().kurangMood(20);
         }
     }
 }

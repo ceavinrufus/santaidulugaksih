@@ -54,6 +54,10 @@ public class TV extends Furniture {
             }
             sim.getStats().tambahMood(menontonTime);
             sim.getStats().kurangKekenyangan(menontonTime);
+            JOptionPane.showMessageDialog(null,
+                    "Seru banget filmnya!",
+                    "TV",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (InterruptedException e) {
 
         }

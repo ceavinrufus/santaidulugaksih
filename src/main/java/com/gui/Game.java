@@ -418,8 +418,7 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
-        // TODO: Ganti ini ke toilet lagi
-        ruangan.memasangBarang(new Komputer(), true, 0, 5);
+        ruangan.memasangBarang(new Toilet(), true, 0, 5);
         Rumah rumah = new Rumah(ruangan);
 
         try {

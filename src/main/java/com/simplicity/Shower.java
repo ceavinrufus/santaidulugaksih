@@ -52,6 +52,10 @@ public class Shower extends Furniture {
             }
             sim.getStats().tambahMood(showerTime / 10 * 10);
             sim.getStats().kurangKekenyangan(showerTime / 10 * 10);
+            JOptionPane.showMessageDialog(null,
+                    "Seger!",
+                    "Shower",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (InterruptedException e) {
 
         }
