@@ -246,6 +246,7 @@ public class Sim {
             } catch (InterruptedException e) {
                 // do something
             }
+            JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -266,6 +267,7 @@ public class Sim {
         totalWaktu.addWaktu(workoutTime);
         isSehabisMakan = false;
         isSehabisTidur = false;
+        JOptionPane.showMessageDialog(null, "Olahraga selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void memasak(CookableFood food) {
