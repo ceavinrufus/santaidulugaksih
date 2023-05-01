@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
@@ -317,10 +318,101 @@ public class Sim {
         }
     }
 
-    public void beliBarang(Purchasable barang) {
-        if (uang >= barang.getHarga()) {
-            inventory.addBarang(barang, 1);
-            uang -= barang.getHarga();
+    public void beliBarang() {
+        String[] buyOptions = { "Bahan Makanan", "Furniture" };
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
+        
+        ArrayList<Purchasable> listPembelian = new ArrayList<Purchasable>();
+        for (String option : buyOptions) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                switch (option) {
+                    case "Bahan Makanan":
+                        listPembelian.add(new NonCookableFood("Nasi"));
+                        listPembelian.add(new NonCookableFood("Kentang"));
+                        listPembelian.add(new NonCookableFood("Ayam"));
+                        listPembelian.add(new NonCookableFood("Sapi"));
+                        listPembelian.add(new NonCookableFood("Wortel"));
+                        listPembelian.add(new NonCookableFood("Bayam"));
+                        listPembelian.add(new NonCookableFood("Kacang"));
+                        listPembelian.add(new NonCookableFood("Susu"));
+                        break;
+                    case "Furniture":
+                        listPembelian.add(new Kasur("Kasur Single"));
+                        listPembelian.add(new Kasur("Kasur Queen Size"));
+                        listPembelian.add(new Kasur("Kasur King Size"));
+                        listPembelian.add(new Toilet());
+                        listPembelian.add(new Kompor("Kompor Gas"));
+                        listPembelian.add(new MejaKursi());
+                        listPembelian.add(new Jam());
+                        break;
+                }
+                JOptionPane.getRootFrame().dispose();
+            });
+            panel.add(button);
+        }
+
+        String[] back = { "Back" };
+        int choice = JOptionPane.showOptionDialog(null, panel, "Pilihan Pembelian", 
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, back, null);
+        
+        // Choosing Back Button
+        if (choice == 0) { 
+            return;
+        }
+
+        Sim currentSim = Game.getInstance().getCurrentSim();
+
+        String[][] tableData = new String[listPembelian.size()][2];
+        String[] columnNames = { "Name", "Price" };
+
+        for (int i = 0; i < listPembelian.size(); i++) {
+            tableData[i][0] = listPembelian.get(i).getNama(); // Furniture Name
+            tableData[i][1] = String.valueOf(listPembelian.get(i).getHarga()); // Price
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
+
+        // Menampilkan option pane
+        String[] options = { "Buy", "Back" };
+        int buyChoice = JOptionPane.showOptionDialog(
+                null,
+                new JScrollPane(table),
+                "Pilihan Pembelian",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (buyChoice == 0) {
+            int selectedRow = table.getSelectedRow();
+            double uangSim = currentSim.getUang();
+            double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
+
+            String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
+            int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+
+            if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
+                JOptionPane.showMessageDialog(null,
+                        "Maaf, uang kamu tidak cukup!",
+                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
+                Purchasable barangTerpilih = listPembelian.get(selectedRow);
+                currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
+                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih,
+                        barangTerpilih.getNama());
+                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
         }
     }
 

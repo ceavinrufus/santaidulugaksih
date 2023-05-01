@@ -294,7 +294,7 @@ public class Game extends JFrame {
                         }
                     }
                 } else if (aksi.equals("Beli Barang")) {
-                    // currentSim.beliBarang();
+                    currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
                 }
@@ -308,7 +308,8 @@ public class Game extends JFrame {
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        Ruangan selectedRuangan = currentHouse.getPeta().selectElement(null);
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement("Posisi sekarang: "
+                + currentSim.getCurrentPosition().getRuang().getNamaRuangan());
 
         if (selectedRuangan != null) {
             selectedRuangan.getPeta().displayList();
@@ -323,7 +324,8 @@ public class Game extends JFrame {
                 String namaRuangan = "";
                 while (namaRuangan.length() < 1 || namaRuangan.length() > 10) {
                     try {
-                        namaRuangan = JOptionPane.showInputDialog(null, "Masukkan nama ruangan yang ingin dibuat:", "Add Room",
+                        namaRuangan = JOptionPane.showInputDialog(null, "Masukkan nama ruangan yang ingin dibuat:",
+                                "Add Room",
                                 JOptionPane.QUESTION_MESSAGE);
                         if (namaRuangan == null) {
                             // Kalo pencet tombol close
@@ -415,7 +417,8 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Kompor("Kompor Gas"), false, 0, 2);
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
-        ruangan.memasangBarang(new Toilet(), true, 0, 5);
+        // TODO: Ganti ini ke toilet lagi
+        ruangan.memasangBarang(new Shower(), true, 0, 5);
         Rumah rumah = new Rumah(ruangan);
 
         try {
