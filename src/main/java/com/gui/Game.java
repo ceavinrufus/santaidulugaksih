@@ -419,7 +419,7 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
         // TODO: Ganti ini ke toilet lagi
-        ruangan.memasangBarang(new Cermin(), true, 0, 5);
+        ruangan.memasangBarang(new Komputer(), true, 0, 5);
         Rumah rumah = new Rumah(ruangan);
 
         try {

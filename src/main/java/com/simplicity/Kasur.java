@@ -69,7 +69,8 @@ public class Kasur extends Furniture {
             sim.setWaktuTidakTidur(0);
             sim.setIsSehabisTidur(true);
             sim.setIsSehabisMakan(false);
-            JOptionPane.showMessageDialog(null, "Tidur selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Enaknya tidur " + sleepTime + " detik!", "Kasur",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

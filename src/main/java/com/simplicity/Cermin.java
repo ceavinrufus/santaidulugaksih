@@ -27,13 +27,13 @@ public class Cermin extends Furniture {
         if (randomNum % 2 == 1) {
             JOptionPane.showMessageDialog(null,
                     "Makin mood deh!",
-                    "Becermin",
+                    "Cermin",
                     JOptionPane.INFORMATION_MESSAGE);
             sim.getStats().tambahMood(30);
         } else {
             JOptionPane.showMessageDialog(null,
                     "Duh jadi gak mood :(",
-                    "Becermin",
+                    "Cermin",
                     JOptionPane.INFORMATION_MESSAGE);
             sim.getStats().kurangMood(20);
         }
