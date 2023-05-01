@@ -357,8 +357,8 @@ public class Sim {
         int choice = JOptionPane.showOptionDialog(null, panel, "Pilihan Pembelian", 
                         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, back, null);
         
-        // Choosing Back Button or Close Button
-        if (choice == 0 || choice == -1 ) { 
+        // Choosing Back Button
+        if (choice == 0) { 
             return;
         }
 
