@@ -88,23 +88,37 @@ public class Peta<T> {
     }
 
     public void displayList() {
-        HashSet<T> listElement = new HashSet<T>();
-        for (int i = 0; i < getRow(); i++) {
-            for (int j = 0; j < getColumn(); j++) {
+        TreeSet<String> setOfElement = new TreeSet<String>();
+
+        for (int i = 0; i < getColumn(); i++) {
+            for (int j = 0; j < getRow(); j++) {
                 T el = getElement(i, j);
                 if (el != null) {
-                    listElement.add(el);
+                    setOfElement.add(el.toString());
                 }
             }
         }
 
         StringBuilder message = new StringBuilder("");
         int idx = 1;
-        for (T el : listElement) {
+        for (String el : setOfElement) {
             message.append(String.format("%d. %s\n", idx, el.toString()));
             idx++;
         }
         JOptionPane.showMessageDialog(null, message, "List Object", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public Point getElementCoordinate(T element) {
+        for (int rowIndex = 0; rowIndex < getRow(); rowIndex++) {
+            for (int colIndex = 0; colIndex < getColumn(); colIndex++) {
+                T currentElement = getElement(colIndex, rowIndex);
+                if (currentElement != null && currentElement.equals(element)) {
+                    return new Point(colIndex, rowIndex);
+                }
+            }
+        }
+
+        return null;
     }
 
     public Point getClosestElementCoordinate(Point initialPoint, T element) {
@@ -134,13 +148,23 @@ public class Peta<T> {
     }
 
     public T selectElement() {
+        return selectElement(null);
+    }
+
+    public T selectElement(T currentElement) {
         TreeSet<String> setOfElement = new TreeSet<String>();
 
         for (int i = 0; i < getColumn(); i++) {
             for (int j = 0; j < getRow(); j++) {
                 T el = getElement(i, j);
-                if (el != null) {
-                    setOfElement.add(el.toString());
+                if (currentElement == null) {
+                    if (el != null) {
+                        setOfElement.add(el.toString());
+                    }
+                } else {
+                    if (el != null && !el.equals(currentElement)) {
+                        setOfElement.add(el.toString());
+                    }
                 }
             }
         }

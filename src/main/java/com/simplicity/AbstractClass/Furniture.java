@@ -8,6 +8,8 @@ import com.gui.Game;
 import com.simplicity.Ruangan;
 import com.simplicity.Rumah;
 import com.simplicity.Sim;
+import com.simplicity.ExceptionHandling.IllegalInputException;
+import com.simplicity.ExceptionHandling.IllegalLocationException;
 import com.simplicity.Interface.Purchasable;
 import com.simplicity.Interface.Storable;
 
@@ -39,7 +41,7 @@ public abstract class Furniture implements Storable, Purchasable {
         return harga;
     }
 
-    public boolean getIsHorizontal(){
+    public boolean getIsHorizontal() {
         return isHorizontal;
     }
 
@@ -55,7 +57,7 @@ public abstract class Furniture implements Storable, Purchasable {
         this.harga = harga;
     }
 
-    public void setIsHorizontal(boolean isHorizontal){
+    public void setIsHorizontal(boolean isHorizontal) {
         this.isHorizontal = isHorizontal;
     }
 
@@ -105,24 +107,59 @@ public abstract class Furniture implements Storable, Purchasable {
 
                 isHorizontal = (inputOrientation == 1) ? false : true;
 
-                String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
-                int koordinatX = Integer.parseInt(inputX);
+                JTextField inputX = new JTextField();
+                JTextField inputY = new JTextField();
+                Object[] message1 = {
+                        "X:", inputX,
+                        "Y:", inputY
+                };
 
-                String inputY = JOptionPane.showInputDialog("Masukkan koordinat Y: ");
-                int koordinatY = Integer.parseInt(inputY);
+                Boolean inputValid = false;
+                while (!inputValid) {
+                    int option = JOptionPane.showConfirmDialog(null, message1, "Input Point",
+                            JOptionPane.OK_CANCEL_OPTION);
+                    if (option == JOptionPane.OK_OPTION) {
+                        try {
+                            int koordinatX = Integer.parseInt(inputX.getText());
+                            int koordinatY = Integer.parseInt(inputY.getText());
+                            if ((koordinatX < 0 || koordinatX >= 6) || (koordinatY < 0 || koordinatY >= 6)) {
+                                throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-5, ya!");
+                            } else {
+                                if (isHorizontal) {
+                                    if (koordinatX + this.getPanjang() > 6 || koordinatY + this.getLebar() > 6) {
+                                        throw new IllegalLocationException("Waduh, gak muat!");
+                                    }
+                                } else {
+                                    if (koordinatX + this.getLebar() > 6 || koordinatY + this.getPanjang() > 6) {
+                                        throw new IllegalLocationException("Waduh, gak muat!");
+                                    }
+                                }
+                            }
 
-                Ruangan currentRuang = currentSim.getCurrentPosition().getRuang();
-                Boolean isAvailable = currentRuang.isSpaceAvailable(this, isHorizontal, koordinatX, koordinatY);
-                if (isAvailable) {
-                    currentRuang.memasangBarang(this, isHorizontal, koordinatX, koordinatY);
-                    currentSim.getInventory().reduceBarang(this, 1);
-                    Game.getInstance().repaint();
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
-                            "Notification", JOptionPane.INFORMATION_MESSAGE);
+                            Ruangan currentRuang = currentSim.getCurrentPosition().getRuang();
+                            if (currentRuang.isSpaceAvailable(this, isHorizontal, koordinatX, koordinatY)) {
+                                currentRuang.memasangBarang(this, isHorizontal, koordinatX, koordinatY);
+                                currentSim.getInventory().reduceBarang(this, 1);
+                                inputValid = true;
+                                Game.getInstance().repaint();
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
+                                        "Notification",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, loh!",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } catch (IllegalLocationException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Notification",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        break;
+                    }
                 }
-
             } else {
                 JOptionPane.showOptionDialog(null, "Anda harus ke rumah anda dulu!", "Food Info",
                         JOptionPane.DEFAULT_OPTION,

@@ -2,11 +2,15 @@ package com.gui;
 
 import com.simplicity.*;
 import com.simplicity.Point;
-import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.AbstractClass.*;
+import com.simplicity.Interface.*;
 
-import com.google.gson.*;
+// import com.google.gson.*;
+// import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -50,8 +54,8 @@ public class Game extends JFrame {
         tabbedPane.setFocusable(false);
         add(tabbedPane);
 
-        setMinimumSize(new Dimension(800, 1000)); // Set minimum size JFrame
-        setPreferredSize(new Dimension(800, 1000)); // Set preferred size JFrame
+        setMinimumSize(new Dimension(900, 1000)); // Set minimum size JFrame
+        setPreferredSize(new Dimension(900, 1000)); // Set preferred size JFrame
         pack(); // Bikin JFrame fit ke preferred size
 
         try {
@@ -70,15 +74,22 @@ public class Game extends JFrame {
         return currentSim;
     }
 
+    public void setSims(HashMap<String, Sim> sims) {
+        this.sims = sims;
+    }
+
     public void setCurrentSim(Sim currentSim) {
         this.currentSim = currentSim;
     }
 
     // Menu game
     public void displayGameMenu() {
-        String[] anyHouseMenu = { "View Sim Info", "View Current Location",
-                "View Inventory", "Move Room", "List Object", "Go To Object", "Action", "House Menu", "Add Sim",
-                "Change Sim" };
+        displayGameMenu(null);
+    }
+
+    public void displayGameMenu(Component parentComponent) {
+        String[] anyHouseMenu = { "View Sim Info", "View Current Location", "View Inventory", "Move Room",
+                "List Object", "Go To Object", "Add Sim", "Change Sim" };
         String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
         String[] options;
 
@@ -138,10 +149,20 @@ public class Game extends JFrame {
                         break;
                     case "Move Room":
                         // Belom dicek karena belom bisa upgrade house
-                        Ruangan selectedRuangan = currentSim.getCurrentPosition().getRumah().getPeta()
-                                .selectElement();
+                        Peta<Ruangan> petaRumah = currentSim.getCurrentPosition().getRumah().getPeta();
+                        if (petaRumah.getColumn() == 1 && petaRumah.getRow() == 1) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Sejauh ini kamu baru punya satu ruangan, nih!\nCoba upgrade rumah kamu dulu untuk menambah ruangan.",
+                                    "Sayang sekali :(", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        }
+                        Ruangan selectedRuangan = petaRumah.selectElement(currentSim.getCurrentPosition().getRuang());
                         if (selectedRuangan != null) {
                             currentSim.getCurrentPosition().setRuang(selectedRuangan);
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Kamu belum memilih ruangan!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                         break;
                     case "Edit Room":
@@ -154,12 +175,14 @@ public class Game extends JFrame {
                         currentSim.getCurrentPosition().getRuang().goToObject();
                         repaint();
                         break;
-                    case "Action":
-                        action();
-                        break;
                     case "Save":
                         // try {
-                        // save("save");
+                        // String saveName = JOptionPane.showInputDialog(null, "Masukkan nama save
+                        // file",
+                        // "Save Game", JOptionPane.QUESTION_MESSAGE);
+                        // saveWorld(saveName);
+                        // saveSims(saveName);
+                        // saveCurrentSim(saveName);
                         // } catch (IOException exception) {
                         // JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
                         // JOptionPane.ERROR_MESSAGE);
@@ -181,7 +204,7 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
+        int dialogResult = JOptionPane.showOptionDialog(parentComponent, panel, "Game Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
     }
@@ -215,21 +238,17 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
 
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
-            JOptionPane.getRootFrame().dispose();
-            displayGameMenu();
-        }
     }
 
     private void putObject() {
         currentSim.getInventory().displayInventory(Storable.class);
     }
 
-    private void action() {
-        String[] listAksi = { "Kerja", "Olahraga", "Makan", "Berkunjung", "Beli Barang", "Back" };
+    public void action() {
+        String[] listAksi = { "Kerja", "Olahraga", "Berkunjung", "Beli Barang", "Back" };
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
@@ -243,8 +262,31 @@ public class Game extends JFrame {
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
                 } else if (aksi.equals("Berkunjung")) {
-                    currentSim.berkunjung();
-                    repaint();
+                    if (sims.size() == 1) {
+                        JOptionPane.showMessageDialog(null,
+                                "Kamu hanya sendiri di dunia ini",
+                                "Notification", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        Peta<Rumah> petaRumah = World.getInstance().getPeta();
+                        Rumah selectedRumah = petaRumah.selectElement(currentSim.getCurrentPosition().getRumah());
+                        if (selectedRumah != null) {
+                            Point sourcePoint = petaRumah
+                                    .getElementCoordinate(currentSim.getCurrentPosition().getRumah());
+                            Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
+                            int distance = Math.round(sourcePoint.distance(destPoint));
+                            try {
+                                JOptionPane.getRootFrame().dispose();
+                                TimeUnit.SECONDS.sleep(distance);
+                            } catch (InterruptedException er) {
+                                Thread.currentThread().interrupt();
+                            }
+                            currentSim.getCurrentPosition().setRumah(selectedRumah);
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Kamu belum memilih rumah!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 } else if (aksi.equals("Beli Barang")) {
                     // currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
@@ -254,18 +296,13 @@ public class Game extends JFrame {
             panel.add(button);
         }
 
-        int dialogResult = JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
-
-        if (dialogResult == JOptionPane.CLOSED_OPTION) {
-            JOptionPane.getRootFrame().dispose();
-            displayGameMenu();
-        }
     }
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        Ruangan selectedRuangan = currentHouse.getPeta().selectElement();
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement(null);
 
         if (selectedRuangan != null) {
             selectedRuangan.getPeta().displayList();
@@ -278,7 +315,7 @@ public class Game extends JFrame {
         String nama = "";
         Sim sim = null;
 
-        while (nama.length() < 4 || nama.length() > 16) {
+        while (nama.length() < 1 || nama.length() > 16) {
             try {
                 nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
                 if (nama == null) {
@@ -286,19 +323,19 @@ public class Game extends JFrame {
                     return null;
                 } else {
                     // Validasi nama
-                    if (nama.length() < 4 || nama.length() > 16) {
-                        throw new IllegalNameException("Nama harus terdiri dari 4-16 karakter.");
+                    if (nama.length() < 1 || nama.length() > 16) {
+                        throw new IllegalInputException("Nama harus terdiri dari 1-16 karakter.");
                     } else {
                         sim = new Sim(nama);
                         // Cek udah ada Sim dengan nama yang sama belom
                         if (sims.putIfAbsent(sim.getNamaLengkap(), sim) != null) {
-                            throw new IllegalNameException(
+                            throw new IllegalInputException(
                                     String.format("Sim dengan nama '%s' sudah ada",
                                             sim.getNamaLengkap()));
                         }
                     }
                 }
-            } catch (IllegalNameException error) {
+            } catch (IllegalInputException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 throw new SimNotCreatedException();
             }
@@ -325,7 +362,6 @@ public class Game extends JFrame {
             rumah.setNamaPemilik(sim);
             sim.setCurrentPosition(new SimPosition(rumah, ruangan));
         } catch (IllegalLocationException e) {
-            // TODO: handle exception
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();
         }
@@ -374,43 +410,113 @@ public class Game extends JFrame {
         });
     }
 
-    // private void save(String filename) throws IOException {
+    // private void saveWorld(String filename) throws IOException {
     // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.serializeNulls();
+    // gsonBuilder.setPrettyPrinting();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
     // try {
     // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
-    // ".json");
-    // fileWriter.write("[");
+    // "_world.json");
     // gson.toJson(World.getInstance(), fileWriter);
-    // fileWriter.write(",");
-    // gson.toJson(sims, fileWriter);
-    // fileWriter.write("]");
     // fileWriter.close();
-    // JOptionPane.showMessageDialog(null, "Berhasil menyimpan data!",
-    // "Notification",
-    // JOptionPane.INFORMATION_MESSAGE);
     // } catch (IOException e) {
-    // JOptionPane.showMessageDialog(null, "Gagal menyimpan data!", "Error",
-    // JOptionPane.ERROR_MESSAGE);
+    // e.printStackTrace();
     // }
     // }
 
-    // private World loadWorld(String filename) throws IOException {
+    // private void saveSims(String filename) throws IOException {
     // Gson gson = new Gson();
-    // World world = null;
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.serializeNulls();
+    // gsonBuilder.setPrettyPrinting();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
     // try {
-    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-    // ".json");
-    // JsonReader jsonReader = new JsonReader(fileReader);
-    // jsonReader.beginArray();
-    // world = gson.fromJson(jsonReader, World.class);
-    // jsonReader.endArray();
-    // jsonReader.close();
-    // fileReader.close();
+    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+    // "_sims.json");
+    // gson.toJson(sims, fileWriter);
+    // fileWriter.close();
     // } catch (IOException e) {
-    // JOptionPane.showMessageDialog(null, "Gagal membaca data!", "Error",
-    // JOptionPane.ERROR_MESSAGE);
+    // e.printStackTrace();
     // }
+    // }
+
+    // private void saveCurrentSim(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.serializeNulls();
+    // gsonBuilder.setPrettyPrinting();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // try {
+    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
+    // "_currentSim.json");
+    // gson.toJson(currentSim, fileWriter);
+    // fileWriter.close();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
+
+    // public World loadWorld(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // World world = null;
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // "_world.json");
+    // world = gson.fromJson(fileReader, World.class);
+    // fileReader.close();
     // return world;
+    // }
+
+    // public HashMap<String, Sim> loadSims(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // HashMap<String, Sim> sims = null;
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // "_sims.json");
+    // sims = gson.fromJson(fileReader, new TypeToken<HashMap<String, Sim>>() {
+    // }.getType());
+    // fileReader.close();
+    // return sims;
+    // }
+
+    // public Sim loadCurrentSim(String filename) throws IOException {
+    // Gson gson = new Gson();
+    // GsonBuilder gsonBuilder = new GsonBuilder();
+    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
+    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
+    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
+    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
+    // gson = gsonBuilder.create();
+    // Sim sim = null;
+    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
+    // "_currentSim.json");
+    // sim = gson.fromJson(fileReader, Sim.class);
+    // fileReader.close();
+    // return sim;
     // }
 
     public void runGame() {

@@ -3,10 +3,12 @@ package com.simplicity;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 import com.gui.Game;
 import com.simplicity.Point;
 import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.ExceptionHandling.IllegalLocationException;
 
 public class Ruangan {
     private String namaRuangan;
@@ -154,20 +156,24 @@ public class Ruangan {
 
     public Boolean isSpaceAvailable(Furniture barang, Boolean isHorizontal, int x, int y) {
         Boolean isAvailable = true;
-        if (isHorizontal) {
-            for (int i = x; i < x + barang.getPanjang(); i++) {
-                for (int j = y; j < y + barang.getLebar(); j++) {
-                    if (petaBarang.getElement(i, j) != null)
-                        isAvailable = false;
+        if (x < 6 && y < 6) {
+            if (isHorizontal) {
+                for (int i = x; i < x + barang.getPanjang(); i++) {
+                    for (int j = y; j < y + barang.getLebar(); j++) {
+                        if (petaBarang.getElement(i, j) != null)
+                            isAvailable = false;
+                    }
+                }
+            } else {
+                for (int i = x; i < x + barang.getLebar(); i++) {
+                    for (int j = y; j < y + barang.getPanjang(); j++) {
+                        if (petaBarang.getElement(i, j) != null)
+                            isAvailable = false;
+                    }
                 }
             }
         } else {
-            for (int i = x; i < x + barang.getLebar(); i++) {
-                for (int j = y; j < y + barang.getPanjang(); j++) {
-                    if (petaBarang.getElement(i, j) != null)
-                        isAvailable = false;
-                }
-            }
+            isAvailable = false;
         }
 
         return isAvailable;

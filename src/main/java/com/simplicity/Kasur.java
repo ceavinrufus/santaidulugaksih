@@ -2,8 +2,10 @@ package com.simplicity;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.gui.CountdownPanel;
 import com.simplicity.AbstractClass.Furniture;
 
 public class Kasur extends Furniture {
@@ -49,7 +51,7 @@ public class Kasur extends Furniture {
                     }
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Waktu tidur harus berbentuk angka, loh!", "Error",
+                JOptionPane.showMessageDialog(null, "Waktu tidur harus berbentuk bilangan bulat, loh!", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
         }

@@ -9,13 +9,12 @@ import java.awt.event.*;
 
 public class HomePanel extends JPanel {
     int keyChar;
-    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     PixelatedButton interactButton;
     private Sim currentSim;
 
     public HomePanel(Sim currentSim) {
         this.currentSim = currentSim;
-        // System.out.println(currentSim);
         setFocusable(true);
         addKeyListener(keyListener);
 
@@ -28,7 +27,7 @@ public class HomePanel extends JPanel {
         pauseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
-                Game.getInstance().displayGameMenu();
+                Game.getInstance().displayGameMenu(HomePanel.this);
                 requestFocusInWindow();
             }
         });
@@ -69,6 +68,17 @@ public class HomePanel extends JPanel {
             }
         });
 
+        PixelatedButton actionButton = new PixelatedButton("Action");
+        actionButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (currentSim != null) {
+                    Game.getInstance().action();
+                }
+                requestFocusInWindow();
+            }
+        });
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -76,6 +86,7 @@ public class HomePanel extends JPanel {
                     // Toggle visibility
                     pauseButton.setVisible(!pauseButton.isVisible());
                     helpButton.setVisible(!helpButton.isVisible());
+                    actionButton.setVisible(!actionButton.isVisible());
                 }
             }
         });
@@ -84,6 +95,7 @@ public class HomePanel extends JPanel {
         buttonPanel.add(pauseButton);
         buttonPanel.add(helpButton);
         interactButton.setVisible(false);
+        buttonPanel.add(actionButton);
         buttonPanel.add(interactButton);
     }
 
