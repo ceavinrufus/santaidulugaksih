@@ -1,5 +1,6 @@
 package com.simplicity;
 
+import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -173,7 +174,18 @@ public class Peta<T> {
         String[] roomOptions = listElement.toArray(new String[0]);
 
         JList<String> list = new JList<>(roomOptions);
-        JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
+        // JOptionPane.showMessageDialog(null, new JScrollPane(list), header,
+        // JOptionPane.PLAIN_MESSAGE);
+        JOptionPane optionPane = new JOptionPane(new JScrollPane(list), JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = optionPane.createDialog(header);
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dialog.dispose(); // close the dialog
+            }
+        });
+        dialog.setVisible(true);
+
         String selectedOption = list.getSelectedValue();
 
         T element = null;
