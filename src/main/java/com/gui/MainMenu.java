@@ -59,16 +59,18 @@ public class MainMenu extends JFrame {
             public void mouseClicked(MouseEvent ev) {
                 String inputFileName = JOptionPane.showInputDialog(null, "Masukkan nama file:", "Load Game",
                         JOptionPane.QUESTION_MESSAGE);
-
-                Game game = Game.getInstance();
-                try {
-                    World world = game.loadWorld(inputFileName);
-                    game.setSims(game.loadSims(inputFileName));
-                    game.setCurrentSim(game.loadCurrentSim(inputFileName));
-                    game.runGame();
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                if (inputFileName == null) {
+                } else {
+                    Game game = Game.getInstance();
+                    try {
+                        World world = game.loadWorld(inputFileName);
+                        game.setSims(game.loadSims(inputFileName));
+                        game.setCurrentSim(game.loadCurrentSim(inputFileName));
+                        game.runGame();
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, "Save file tidak ditemukan!", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });

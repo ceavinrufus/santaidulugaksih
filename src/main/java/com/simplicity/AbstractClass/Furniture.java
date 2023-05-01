@@ -109,14 +109,14 @@ public abstract class Furniture implements Storable, Purchasable {
 
                 JTextField inputX = new JTextField();
                 JTextField inputY = new JTextField();
-                Object[] message1 = {
+                Object[] messageInput = {
                         "X:", inputX,
                         "Y:", inputY
                 };
 
                 Boolean inputValid = false;
                 while (!inputValid) {
-                    int option = JOptionPane.showConfirmDialog(null, message1, "Input Point",
+                    int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Point",
                             JOptionPane.OK_CANCEL_OPTION);
                     if (option == JOptionPane.OK_OPTION) {
                         try {
