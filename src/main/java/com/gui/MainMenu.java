@@ -63,9 +63,10 @@ public class MainMenu extends JFrame {
                 } else {
                     Game game = Game.getInstance();
                     try {
-                        World world = game.loadWorld(inputFileName);
+                        game.setWorld(game.loadWorld(inputFileName));
                         game.setSims(game.loadSims(inputFileName));
                         game.setCurrentSim(game.loadCurrentSim(inputFileName));
+                        game.getTotalWaktu().addWaktu(game.getTotalWaktu().loadWaktu(inputFileName).getWaktu());
                         game.runGame();
                     } catch (IOException e) {
                         JOptionPane.showMessageDialog(null, "Save file tidak ditemukan!", "Error",

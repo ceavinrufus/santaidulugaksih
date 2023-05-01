@@ -11,13 +11,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class WorldPanel extends JPanel {
-    private static WorldPanel instance = new WorldPanel();
+    // private static WorldPanel instance = new WorldPanel();
 
-    public static WorldPanel getInstance() {
-        return instance;
-    }
+    // public static WorldPanel getInstance() {
+    // return instance;
+    // }
 
-    public WorldPanel() {
+    private World world;
+
+    public WorldPanel(World world) {
+        this.world = world;
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             @Override
@@ -49,6 +52,6 @@ public class WorldPanel extends JPanel {
                 }
             }
         }
-        World.getInstance().paint(g, getWidth(), getHeight());
+        world.paint(g, getWidth(), getHeight());
     }
 }

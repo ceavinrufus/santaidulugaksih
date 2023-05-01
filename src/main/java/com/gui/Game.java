@@ -29,6 +29,7 @@ public class Game extends JFrame {
 
     // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
+    private World world = new World();
     private Sim currentSim;
     public HomePanel homePanel;
     JTabbedPane tabbedPane;
@@ -77,6 +78,10 @@ public class Game extends JFrame {
         return instance;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
     public Sim getCurrentSim() {
         return currentSim;
     }
@@ -87,6 +92,14 @@ public class Game extends JFrame {
 
     public void setCurrentSim(Sim currentSim) {
         this.currentSim = currentSim;
+    }
+
+    public Waktu getTotalWaktu() {
+        return totalWaktu;
+    }
+
+    public void setTotalWaktu(Waktu totalWaktu) {
+        this.totalWaktu = totalWaktu;
     }
 
     // Menu game
@@ -186,6 +199,7 @@ public class Game extends JFrame {
                             saveWorld(saveName);
                             saveSims(saveName);
                             saveCurrentSim(saveName);
+                            totalWaktu.saveWaktu(saveName);
                         } catch (IOException exception) {
                             JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
                                     JOptionPane.ERROR_MESSAGE);
@@ -271,7 +285,7 @@ public class Game extends JFrame {
                                 "Kamu hanya sendiri di dunia ini",
                                 "Notification", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        Peta<Rumah> petaRumah = World.getInstance().getPeta();
+                        Peta<Rumah> petaRumah = world.getPeta();
                         Rumah selectedRumah = petaRumah.selectElement(currentSim.getCurrentPosition().getRumah(),
                                 "Mau berkunjung ke rumah siapa?");
                         if (selectedRumah != null) {
@@ -382,8 +396,6 @@ public class Game extends JFrame {
     }
 
     public Sim makeNewSim() throws SimNotCreatedException {
-        World world = World.getInstance();
-
         String nama = "";
         Sim sim = null;
 
@@ -528,7 +540,7 @@ public class Game extends JFrame {
         try {
             FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
                     "_world.json");
-            gson.toJson(World.getInstance(), fileWriter);
+            gson.toJson(world, fileWriter);
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -629,7 +641,7 @@ public class Game extends JFrame {
         setFocusable(true);
         mainMenu.setVisible(false);
         homePanel = new HomePanel(currentSim);
-        WorldPanel worldPanel = WorldPanel.getInstance();
+        WorldPanel worldPanel = new WorldPanel(world);
         homePanel.setCurrentSim(currentSim);
         tabbedPane.addTab("House Map", homePanel);
         tabbedPane.addTab("World Map", worldPanel);
