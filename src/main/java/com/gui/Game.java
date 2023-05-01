@@ -288,7 +288,7 @@ public class Game extends JFrame {
                         }
                     }
                 } else if (aksi.equals("Beli Barang")) {
-                    // currentSim.beliBarang();
+                    currentSim.beliBarang();
                 } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
                 }
@@ -302,7 +302,8 @@ public class Game extends JFrame {
 
     private void displayListObject() {
         Rumah currentHouse = currentSim.getCurrentPosition().getRumah();
-        Ruangan selectedRuangan = currentHouse.getPeta().selectElement(null);
+        Ruangan selectedRuangan = currentHouse.getPeta().selectElement("Posisi sekarang: "
+                + currentSim.getCurrentPosition().getRuang().getNamaRuangan());
 
         if (selectedRuangan != null) {
             selectedRuangan.getPeta().displayList();
