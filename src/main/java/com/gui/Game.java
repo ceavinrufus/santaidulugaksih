@@ -424,7 +424,7 @@ public class Game extends JFrame {
 
         while (nama.length() < 1 || nama.length() > 16) {
             try {
-                nama = JOptionPane.showInputDialog(null, "Masukkan nama:");
+                nama = JOptionPane.showInputDialog(null, "Masukkan nama:", "Add Sim", JOptionPane.QUESTION_MESSAGE);
                 if (nama == null) {
                     // Kalo pencet tombol close
                     return null;
@@ -458,18 +458,45 @@ public class Game extends JFrame {
 
         try {
             Rumah rumah = new Rumah(ruangan);
-            Random rand = new Random();
-            int randX;
-            int randY;
+
+            JTextField inputX = new JTextField();
+            JTextField inputY = new JTextField();
+            Object[] messageInput = {
+                    "X:", inputX,
+                    "Y:", inputY
+            };
+
+            Boolean inputValid = false;
             do {
-                randX = rand.nextInt(64);
-                randY = rand.nextInt(64);
-            } while (world.getPeta().getElement(randX, randY) != null);
-            world.tambahRumah(rumah, randX, randY);
-            rumah.setNamaPemilik(sim);
-            sim.setCurrentPosition(new SimPosition(rumah, ruangan));
+                int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Point",
+                        JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    int koordinatX = Integer.parseInt(inputX.getText());
+                    int koordinatY = Integer.parseInt(inputY.getText());
+                    if ((koordinatX < 0 || koordinatX >= 64) || (koordinatY < 0 || koordinatY >= 64)) {
+                        throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-63, ya!");
+                    } else if (world.getPeta().getElement(koordinatX, koordinatY) != null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
+                                "Notification",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        world.tambahRumah(rumah, koordinatX, koordinatY);
+                        rumah.setNamaPemilik(sim);
+                        sim.setCurrentPosition(new SimPosition(rumah, ruangan));
+                        inputValid = true;
+                    }
+                } else {
+                    break;
+                }
+            } while (!inputValid);
         } catch (IllegalLocationException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new SimNotCreatedException();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, loh!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();
         }
 

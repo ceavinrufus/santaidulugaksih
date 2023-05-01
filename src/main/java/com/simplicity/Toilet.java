@@ -2,6 +2,8 @@ package com.simplicity;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 import com.simplicity.AbstractClass.Furniture;
 
 public class Toilet extends Furniture {
@@ -21,15 +23,20 @@ public class Toilet extends Furniture {
     public void aksi(Sim sim) {
         // Cek hari ini udah makan atau belum
         // Kalau udah
-        try {
-            TimeUnit.SECONDS.sleep(10);
-            sim.getStats().kurangKekenyangan(20);
-            sim.getStats().tambahMood(10);
-            sim.setWaktuTidakBuangAir(0);
-        } catch (InterruptedException e) {
-            // do something
+        if (sim.getIsSehabisMakan()) {
+            try {
+                TimeUnit.SECONDS.sleep(10);
+                sim.getStats().kurangKekenyangan(20);
+                sim.getStats().tambahMood(10);
+                sim.setWaktuTidakBuangAir(0);
+            } catch (InterruptedException e) {
+
+            }
+            Waktu.waktu().addWaktu(10);
+        } else {
+            JOptionPane.showMessageDialog(null, "Kok bisa udah buang air padahal belum makan?", "Sus",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
-        Waktu.waktu().addWaktu(10);
         // Kalau belom, ya gabisa berak
     }
 }
