@@ -147,11 +147,11 @@ public class Peta<T> {
         }
     }
 
-    public T selectElement() {
-        return selectElement(null);
+    public T selectElement(String header) {
+        return selectElement(null, header);
     }
 
-    public T selectElement(T currentElement) {
+    public T selectElement(T currentElement, String header) {
         TreeSet<String> setOfElement = new TreeSet<String>();
 
         for (int i = 0; i < getColumn(); i++) {
@@ -173,7 +173,6 @@ public class Peta<T> {
         String[] roomOptions = listElement.toArray(new String[0]);
 
         JList<String> list = new JList<>(roomOptions);
-        String header = "Select";
         JOptionPane.showMessageDialog(null, new JScrollPane(list), header, JOptionPane.PLAIN_MESSAGE);
         String selectedOption = list.getSelectedValue();
 
