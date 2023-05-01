@@ -248,6 +248,7 @@ public class Ruangan {
         listFurniture.add(new Kasur("Kasur King Size"));
         listFurniture.add(new Toilet());
         listFurniture.add(new Kompor("Kompor Gas"));
+        listFurniture.add(new Kompor("Kompor Listrik"));
         listFurniture.add(new MejaKursi());
         listFurniture.add(new Jam());
 
