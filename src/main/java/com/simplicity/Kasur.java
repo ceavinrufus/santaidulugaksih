@@ -2,10 +2,8 @@ package com.simplicity;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.gui.CountdownPanel;
 import com.simplicity.AbstractClass.Furniture;
 
 public class Kasur extends Furniture {

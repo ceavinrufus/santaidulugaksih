@@ -6,9 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
 import com.gui.Game;
-import com.simplicity.Point;
 import com.simplicity.AbstractClass.Furniture;
-import com.simplicity.ExceptionHandling.IllegalLocationException;
 
 public class Ruangan {
     private String namaRuangan;
@@ -149,8 +147,6 @@ public class Ruangan {
                     }
                 }
             }
-        } else {
-            System.out.println("Barang tidak dapat dipasang karena lahan sudah digunakan.");
         }
     }
 

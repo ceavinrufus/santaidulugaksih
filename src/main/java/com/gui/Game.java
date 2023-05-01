@@ -21,6 +21,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import com.simplicity.ExceptionHandling.*;
 import com.simplicity.Interface.Storable;
+import com.simplicity.Thread.*;
 
 public class Game extends JFrame {
     private static Game instance = new Game();
@@ -361,18 +362,18 @@ public class Game extends JFrame {
                     JButton button = new JButton(arah);
                     button.addActionListener(e -> {
                         currentSim.setUang(currentSim.getUang() - cost);
-                        currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah, ruanganPatokan);
+                        ThreadBangunRumah bangunRumah = new ThreadBangunRumah(currentSim, ruanganBaru, ruanganPatokan,
+                                arah);
+                        ThreadManager.getInstance().addThread(bangunRumah);
+                        Thread t = new Thread(bangunRumah);
+                        t.start();
                         JOptionPane.getRootFrame().dispose();
-                        Game.getInstance().repaint();
                     });
                     panel.add(button);
                 }
                 JOptionPane.showOptionDialog(null, panel, "Mau ditambah di mananya?", JOptionPane.DEFAULT_OPTION,
                         JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
-                // TimeUnit.SECONDS.sleep(18 * 60);
-                totalWaktu.addWaktu(18 * 60);
             } catch (Exception e) {
-                // do something
             }
         } else {
             JOptionPane.showMessageDialog(null, "Sayang sekali, uangmu belum cukup untuk melakukan upgrade rumah!",
@@ -440,7 +441,7 @@ public class Game extends JFrame {
                         throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-63, ya!");
                     } else if (world.getPeta().getElement(koordinatX, koordinatY) != null) {
                         JOptionPane.showMessageDialog(null,
-                                "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
+                                "Maaf, Rumah tidak bisa dibangun karena lahan sudah digunakan.",
                                 "Notification",
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else {
