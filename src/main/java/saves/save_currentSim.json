@@ -1,22 +1,9 @@
 {
-  "namaLengkap": "nopal",
+  "namaLengkap": "Nopal",
   "pekerjaan": "PROGRAMMER",
-  "uang": 100.0,
+  "uang": 50.0,
   "inventory": {
-    "container": [
-      {
-        "key": {
-          "type": "Kasur",
-          "properties": {
-            "nama": "Kasur Queen Size",
-            "panjang": 4,
-            "lebar": 2,
-            "harga": 100
-          }
-        },
-        "value": 9
-      }
-    ]
+    "container": []
   },
   "currentActions": [],
   "stats": {
@@ -27,7 +14,7 @@
   "isLibur": false,
   "currentPosition": {
     "rumah": {
-      "namaPemilik": "nopal",
+      "namaPemilik": "Nopal",
       "petaRuangan": {
         "matriks": [
           [
@@ -44,7 +31,8 @@
                         "nama": "Kasur Single",
                         "panjang": 4,
                         "lebar": 1,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -53,7 +41,8 @@
                         "nama": "Kasur Single",
                         "panjang": 4,
                         "lebar": 1,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -62,7 +51,8 @@
                         "nama": "Kasur Single",
                         "panjang": 4,
                         "lebar": 1,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -71,7 +61,8 @@
                         "nama": "Kasur Single",
                         "panjang": 4,
                         "lebar": 1,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     }
                   ],
@@ -80,37 +71,41 @@
                     {
                       "type": "Kasur",
                       "properties": {
-                        "nama": "Kasur Queen Size",
+                        "nama": "Kasur Single",
                         "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
+                        "lebar": 1,
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
                       "type": "Kasur",
                       "properties": {
-                        "nama": "Kasur Queen Size",
+                        "nama": "Kasur Single",
                         "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
+                        "lebar": 1,
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
                       "type": "Kasur",
                       "properties": {
-                        "nama": "Kasur Queen Size",
+                        "nama": "Kasur Single",
                         "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
+                        "lebar": 1,
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
                       "type": "Kasur",
                       "properties": {
-                        "nama": "Kasur Queen Size",
+                        "nama": "Kasur Single",
                         "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
+                        "lebar": 1,
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     null
@@ -122,45 +117,14 @@
                         "nama": "Kompor Gas",
                         "panjang": 2,
                         "lebar": 1,
-                        "harga": 100
+                        "harga": 100,
+                        "isHorizontal": false
                       }
                     },
-                    {
-                      "type": "Kasur",
-                      "properties": {
-                        "nama": "Kasur Queen Size",
-                        "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
-                      }
-                    },
-                    {
-                      "type": "Kasur",
-                      "properties": {
-                        "nama": "Kasur Queen Size",
-                        "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
-                      }
-                    },
-                    {
-                      "type": "Kasur",
-                      "properties": {
-                        "nama": "Kasur Queen Size",
-                        "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
-                      }
-                    },
-                    {
-                      "type": "Kasur",
-                      "properties": {
-                        "nama": "Kasur Queen Size",
-                        "panjang": 4,
-                        "lebar": 2,
-                        "harga": 100
-                      }
-                    },
+                    null,
+                    null,
+                    null,
+                    null,
                     null
                   ],
                   [
@@ -170,7 +134,8 @@
                         "nama": "Kompor Gas",
                         "panjang": 2,
                         "lebar": 1,
-                        "harga": 100
+                        "harga": 100,
+                        "isHorizontal": false
                       }
                     },
                     null,
@@ -181,7 +146,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -190,7 +156,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -199,7 +166,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     }
                   ],
@@ -213,7 +181,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -222,7 +191,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -231,7 +201,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     }
                   ],
@@ -242,7 +213,8 @@
                         "nama": "Toilet",
                         "panjang": 1,
                         "lebar": 1,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     null,
@@ -252,7 +224,8 @@
                         "nama": "Jam",
                         "panjang": 1,
                         "lebar": 1,
-                        "harga": 10
+                        "harga": 10,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -261,7 +234,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -270,7 +244,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     },
                     {
@@ -279,7 +254,8 @@
                         "nama": "Meja dan Kursi",
                         "panjang": 3,
                         "lebar": 3,
-                        "harga": 50
+                        "harga": 50,
+                        "isHorizontal": true
                       }
                     }
                   ]
@@ -303,7 +279,8 @@
                 "nama": "Kasur Single",
                 "panjang": 4,
                 "lebar": 1,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -312,7 +289,8 @@
                 "nama": "Kasur Single",
                 "panjang": 4,
                 "lebar": 1,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -321,7 +299,8 @@
                 "nama": "Kasur Single",
                 "panjang": 4,
                 "lebar": 1,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -330,7 +309,8 @@
                 "nama": "Kasur Single",
                 "panjang": 4,
                 "lebar": 1,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             }
           ],
@@ -339,37 +319,41 @@
             {
               "type": "Kasur",
               "properties": {
-                "nama": "Kasur Queen Size",
+                "nama": "Kasur Single",
                 "panjang": 4,
-                "lebar": 2,
-                "harga": 100
+                "lebar": 1,
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
               "type": "Kasur",
               "properties": {
-                "nama": "Kasur Queen Size",
+                "nama": "Kasur Single",
                 "panjang": 4,
-                "lebar": 2,
-                "harga": 100
+                "lebar": 1,
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
               "type": "Kasur",
               "properties": {
-                "nama": "Kasur Queen Size",
+                "nama": "Kasur Single",
                 "panjang": 4,
-                "lebar": 2,
-                "harga": 100
+                "lebar": 1,
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
               "type": "Kasur",
               "properties": {
-                "nama": "Kasur Queen Size",
+                "nama": "Kasur Single",
                 "panjang": 4,
-                "lebar": 2,
-                "harga": 100
+                "lebar": 1,
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             null
@@ -381,45 +365,14 @@
                 "nama": "Kompor Gas",
                 "panjang": 2,
                 "lebar": 1,
-                "harga": 100
+                "harga": 100,
+                "isHorizontal": false
               }
             },
-            {
-              "type": "Kasur",
-              "properties": {
-                "nama": "Kasur Queen Size",
-                "panjang": 4,
-                "lebar": 2,
-                "harga": 100
-              }
-            },
-            {
-              "type": "Kasur",
-              "properties": {
-                "nama": "Kasur Queen Size",
-                "panjang": 4,
-                "lebar": 2,
-                "harga": 100
-              }
-            },
-            {
-              "type": "Kasur",
-              "properties": {
-                "nama": "Kasur Queen Size",
-                "panjang": 4,
-                "lebar": 2,
-                "harga": 100
-              }
-            },
-            {
-              "type": "Kasur",
-              "properties": {
-                "nama": "Kasur Queen Size",
-                "panjang": 4,
-                "lebar": 2,
-                "harga": 100
-              }
-            },
+            null,
+            null,
+            null,
+            null,
             null
           ],
           [
@@ -429,7 +382,8 @@
                 "nama": "Kompor Gas",
                 "panjang": 2,
                 "lebar": 1,
-                "harga": 100
+                "harga": 100,
+                "isHorizontal": false
               }
             },
             null,
@@ -440,7 +394,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -449,7 +404,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -458,7 +414,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             }
           ],
@@ -472,7 +429,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -481,7 +439,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -490,7 +449,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             }
           ],
@@ -501,7 +461,8 @@
                 "nama": "Toilet",
                 "panjang": 1,
                 "lebar": 1,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             null,
@@ -511,7 +472,8 @@
                 "nama": "Jam",
                 "panjang": 1,
                 "lebar": 1,
-                "harga": 10
+                "harga": 10,
+                "isHorizontal": true
               }
             },
             {
@@ -520,7 +482,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -529,7 +492,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             },
             {
@@ -538,7 +502,8 @@
                 "nama": "Meja dan Kursi",
                 "panjang": 3,
                 "lebar": 3,
-                "harga": 50
+                "harga": 50,
+                "isHorizontal": true
               }
             }
           ]
@@ -551,10 +516,13 @@
     }
   },
   "totalWorkTime": 0,
-  "changeJobTime": 720,
+  "waktuBolehGantiKerja": 720,
   "waktuKerjaBelumDibayar": 0,
   "waktuTidakTidur": 0,
   "waktuTidakBuangAir": 0,
+  "isSehabisMakan": false,
+  "isSehabisTidur": false,
+  "recentActionTime": 0,
   "totalWaktu": {
     "waktu": 0
   }

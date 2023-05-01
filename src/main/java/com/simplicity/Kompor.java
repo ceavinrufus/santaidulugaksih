@@ -1,18 +1,20 @@
 package com.simplicity;
 
+import com.simplicity.AbstractClass.Furniture;
+
 public class Kompor extends Furniture {
     public Kompor(String nama) throws IllegalArgumentException {
         super(nama);
         if (nama.equals("Kompor Gas")) {
-            this.panjang = 2;
-            this.lebar = 1;
-            this.harga = 100;
+            setPanjang(2);
+            setLebar(1);
+            setHarga(100);
         } else if (nama.equals("Kompor Listrik")) {
-            this.panjang = 1;
-            this.lebar = 1;
-            this.harga = 200;
+            setPanjang(1);
+            setLebar(1);
+            setHarga(200);
         } else {
-            throw new IllegalArgumentException("Nama kasur invalid!");
+            throw new IllegalArgumentException("Nama kompor invalid!");
         }
     }
 
@@ -23,6 +25,6 @@ public class Kompor extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        CookableFood.displayResep();
+        Resep.displayResep();
     }
 }

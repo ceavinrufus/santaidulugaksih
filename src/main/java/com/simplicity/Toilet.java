@@ -1,12 +1,15 @@
 package com.simplicity;
-import javax.swing.JOptionPane;
+
+import java.util.concurrent.TimeUnit;
+
+import com.simplicity.AbstractClass.Furniture;
 
 public class Toilet extends Furniture {
     public Toilet() {
         super("Toilet");
-        this.panjang = 1;
-        this.lebar = 1;
-        this.harga = 50;
+        setPanjang(1);
+        setLebar(1);
+        setHarga(50);
     }
 
     @Override
@@ -17,7 +20,16 @@ public class Toilet extends Furniture {
     @Override
     public void aksi(Sim sim) {
         // Cek hari ini udah makan atau belum
-        // Kalau udah, berak
+        // Kalau udah
+        try {
+            TimeUnit.SECONDS.sleep(10);
+            sim.getStats().kurangKekenyangan(20);
+            sim.getStats().tambahMood(10);
+            sim.setWaktuTidakBuangAir(0);
+        } catch (InterruptedException e) {
+            // do something
+        }
+        Waktu.waktu().addWaktu(10);
         // Kalau belom, ya gabisa berak
     }
 }

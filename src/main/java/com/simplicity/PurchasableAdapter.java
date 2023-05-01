@@ -1,5 +1,6 @@
 package com.simplicity;
 
+import com.simplicity.Interface.*;
 import com.google.gson.*;
 
 public class PurchasableAdapter implements JsonSerializer<Purchasable>, JsonDeserializer<Purchasable> {

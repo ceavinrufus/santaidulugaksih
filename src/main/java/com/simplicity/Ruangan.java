@@ -2,6 +2,8 @@ package com.simplicity;
 
 import java.util.*;
 
+import com.simplicity.AbstractClass.Furniture;
+
 public class Ruangan {
     private String namaRuangan;
     private Peta<Furniture> petaBarang = new Peta<Furniture>(6, 6);
@@ -41,6 +43,7 @@ public class Ruangan {
     }
 
     public void memasangBarang(Furniture barang, Boolean isHorizontal, int x, int y) {
+        barang.setIsHorizontal(isHorizontal);
         if (isSpaceAvailable(barang, isHorizontal, x, y)) {
             if (isHorizontal) {
                 for (int i = x; i < x + barang.getPanjang(); i++) {

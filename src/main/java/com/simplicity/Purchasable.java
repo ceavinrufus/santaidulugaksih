@@ -1,5 +1,5 @@
 package com.simplicity;
 
-public interface Purchasable extends Storable {
+public interface Purchasable {
     public int getHarga();
 }

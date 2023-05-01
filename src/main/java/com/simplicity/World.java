@@ -14,15 +14,18 @@ import com.simplicity.ExceptionHandling.IllegalLocationException;
 
 public class World {
     // Singleton
-    private static World instance = new World();
     private Peta<Rumah> petaRumah = new Peta<Rumah>(64, 64);
 
-    private World() {
+    public World() {
     }
 
-    public static World getInstance() {
-        return instance;
-    }
+    // public static World getInstance() {
+    // return instance;
+    // }
+
+    // public static void resetInstance() {
+    // instance = new World();
+    // }
 
     public Peta<Rumah> getPeta() {
         return petaRumah;

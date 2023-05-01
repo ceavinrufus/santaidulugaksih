@@ -1,16 +1,22 @@
-package com.simplicity;
+package com.simplicity.AbstractClass;
 
 import java.util.Objects;
 
 import javax.swing.*;
 
 import com.gui.Game;
+import com.simplicity.Ruangan;
+import com.simplicity.Rumah;
+import com.simplicity.Sim;
+import com.simplicity.Interface.Purchasable;
+import com.simplicity.Interface.Storable;
 
 public abstract class Furniture implements Storable, Purchasable {
     private String nama;
-    protected int panjang;
-    protected int lebar;
-    protected int harga;
+    private int panjang;
+    private int lebar;
+    private int harga;
+    private boolean isHorizontal;
 
     public Furniture(String nama) {
         this.nama = nama;
@@ -31,6 +37,26 @@ public abstract class Furniture implements Storable, Purchasable {
 
     public int getHarga() {
         return harga;
+    }
+
+    public boolean getIsHorizontal(){
+        return isHorizontal;
+    }
+
+    protected void setPanjang(int panjang) {
+        this.panjang = panjang;
+    }
+
+    protected void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    protected void setHarga(int harga) {
+        this.harga = harga;
+    }
+
+    public void setIsHorizontal(boolean isHorizontal){
+        this.isHorizontal = isHorizontal;
     }
 
     @Override
@@ -77,7 +103,7 @@ public abstract class Furniture implements Storable, Purchasable {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                         null, orientationOptions, orientationOptions[0]);
 
-                Boolean isHorizontal = (inputOrientation == 1) ? false : true;
+                isHorizontal = (inputOrientation == 1) ? false : true;
 
                 String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
                 int koordinatX = Integer.parseInt(inputX);

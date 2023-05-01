@@ -11,24 +11,29 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class WorldPanel extends JPanel {
-    private static WorldPanel instance = new WorldPanel();
+    private World world;
+    // private static WorldPanel instance = new WorldPanel();
 
-    public static WorldPanel getInstance() {
-        return instance;
-    }
+    // // public static WorldPanel getInstance() {
+    // // return instance;
+    // // }
 
-    public WorldPanel() {
+    // public static void resetInstance() {
+    // instance = new WorldPanel();
+    // }
+
+    public WorldPanel(World world) {
+        this.world = world;
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyChar = e.getKeyCode();
                 if (keyChar == KeyEvent.VK_SPACE) {
-                    Game.getInstance().displayGameMenu();
+                    Game.getInstance().displayGameMenu(WorldPanel.this);
                 }
             }
         });
-        requestFocusInWindow(); // Request focus for the panel after it has been added to the JFrame
     }
 
     @Override
@@ -50,6 +55,6 @@ public class WorldPanel extends JPanel {
                 }
             }
         }
-        World.getInstance().paint(g, getWidth(), getHeight());
+        world.paint(g, getWidth(), getHeight());
     }
 }

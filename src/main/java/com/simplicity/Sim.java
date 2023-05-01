@@ -2,6 +2,11 @@ package com.simplicity;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
+
+import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.Interface.Purchasable;
+import com.simplicity.Interface.Storable;
 
 public class Sim {
     private String namaLengkap;
@@ -12,11 +17,16 @@ public class Sim {
     private Stats stats = new Stats();
     private boolean isLibur = false;
     private SimPosition currentPosition;
+
     private int totalWorkTime = 0;
-    private int changeJobTime = 720;
+    private int waktuBolehGantiKerja = 720;
     private int waktuKerjaBelumDibayar = 0;
     private int waktuTidakTidur = 0;
     private int waktuTidakBuangAir = 0;
+    private boolean isSehabisMakan = false;
+    private boolean isSehabisTidur = false;
+    private boolean isOnKunjungan = false;
+    private int recentActionTime = 0;
 
     // Waktu Terpusat
     public Waktu totalWaktu = Waktu.waktu();
@@ -36,6 +46,84 @@ public class Sim {
         currentPosition = new SimPosition(posisiRumah, posisiRuangan);
     }
 
+    public class Stats {
+        private int mood;
+        private int kekenyangan;
+        private int kesehatan;
+
+        public Stats() {
+            mood = 80;
+            kekenyangan = 80;
+            kesehatan = 80;
+        }
+
+        public int getMood() {
+            return mood;
+        }
+
+        public int getKekenyangan() {
+            return kekenyangan;
+        }
+
+        public int getKesehatan() {
+            return kesehatan;
+        }
+
+        public void setMood(int mood) {
+            this.mood = mood;
+        }
+
+        public void setKekenyangan(int kekenyangan) {
+            this.kekenyangan = kekenyangan;
+        }
+
+        public void setKesehatan(int kesehatan) {
+            this.kesehatan = kesehatan;
+        }
+
+        public void tambahMood(int mood) {
+            this.mood += mood;
+            if (this.mood > 100) {
+                this.mood = 100;
+            }
+        }
+
+        public void tambahKekenyangan(int kekenyangan) {
+            this.kekenyangan += kekenyangan;
+            if (this.kekenyangan > 100) {
+                this.kekenyangan = 100;
+            }
+        }
+
+        public void tambahKesehatan(int kesehatan) {
+            this.kesehatan += kesehatan;
+            if (this.kesehatan > 100) {
+                this.kesehatan = 100;
+            }
+        }
+
+        public void kurangMood(int mood) {
+            this.mood -= mood;
+            if (this.mood < 0) {
+                this.mood = 0;
+            }
+        }
+
+        public void kurangKekenyangan(int kekenyangan) {
+            this.kekenyangan -= kekenyangan;
+            if (this.kekenyangan < 0) {
+                this.kekenyangan = 0;
+            }
+        }
+
+        public void kurangKesehatan(int kesehatan) {
+            this.kesehatan -= kesehatan;
+            if (this.kesehatan < 0) {
+                this.kesehatan = 0;
+            }
+        }
+    }
+
     public String getNamaLengkap() {
         return namaLengkap;
     }
@@ -53,7 +141,7 @@ public class Sim {
             this.pekerjaan = pekerjaan;
             uang -= pekerjaan.getGaji() * 0.5;
             totalWorkTime = 0;
-            changeJobTime = 0;
+            waktuBolehGantiKerja = 0;
 
         }
     }
@@ -78,6 +166,10 @@ public class Sim {
         this.stats = stats;
     }
 
+    public int getRecentActionTime() {
+        return recentActionTime;
+    }
+
     public SimPosition getCurrentPosition() {
         return currentPosition;
     }
@@ -86,73 +178,90 @@ public class Sim {
         this.currentPosition = currentPosition;
     }
 
-    public void addWaktuTidakTidur(int waktu) {
-        waktuTidakTidur += waktu;
-    }
-
     public void setWaktuTidakTidur(int waktu) {
         waktuTidakTidur = waktu;
     }
 
-    public void checkTidakTidur() {
+    public void trackTidur(int waktu) {
+        if (!isSehabisTidur) {
+            waktuTidakTidur += waktu;
+        }
         if (waktuTidakTidur >= 600) {
             stats.kurangKesehatan(5);
             stats.kurangMood(5);
         }
     }
 
-    public void trackTidur(int waktu) {
-        addWaktuTidakTidur(waktu);
-        checkTidakTidur();
+    public void setWaktuTidakBuangAir(int waktu) {
+        waktuTidakBuangAir = waktu;
     }
 
-    public void kerja(int workingTime) {
-        if (changeJobTime >= 720 && workingTime % 120 == 0) {
+    public void trackBuangAir(int waktu) {
+        if (isSehabisMakan) {
+            waktuTidakBuangAir += waktu;
+        }
+        if (waktuTidakBuangAir % 240 == 0 && waktuTidakBuangAir != 0) {
+            stats.kurangKesehatan(5);
+            stats.kurangMood(5);
+        }
+    }
+
+    public void setIsSehabisTidur(boolean b) {
+        isSehabisTidur = b;
+    }
+
+    public void setIsSehabisMakan(boolean b) {
+        isSehabisMakan = b;
+    }
+
+    public void setIsOnKunjungan(boolean b) {
+        isOnKunjungan = b;
+    }
+
+    public void kerja() {
+        Integer workingTime = 0;
+        if (waktuBolehGantiKerja >= 720) {
+            while (workingTime == 0 || workingTime % 120 != 0) {
+                workingTime = inputActionTime();
+            }
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
                 totalWorkTime += workingTime;
+                recentActionTime = workingTime;
+                totalWaktu.addWaktu(workingTime);
                 if (waktuKerjaBelumDibayar > 0) {
                     workingTime += waktuKerjaBelumDibayar;
                     waktuKerjaBelumDibayar = 0;
-                    stats.kurangKekenyangan(workingTime / 30 * 10);
-                    stats.kurangMood(workingTime / 30 * 10);
-                    uang += pekerjaan.getGaji() * (workingTime % 240);
-                    waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
                 }
+                stats.kurangKekenyangan(workingTime / 30 * 10);
+                stats.kurangMood(workingTime / 30 * 10);
+                uang += pekerjaan.getGaji() * (workingTime % 240);
+                waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
+                isSehabisMakan = false;
+                isSehabisTidur = false;
             } catch (InterruptedException e) {
                 // do something
             }
         }
     }
 
-    public void olahraga(int workoutTime) {
-        if (workoutTime % 20 == 0) {
-            try {
-                TimeUnit.SECONDS.sleep(workoutTime);
-                stats.tambahKesehatan(workoutTime / 20 * 5);
-                stats.kurangKekenyangan(workoutTime / 20 * 5);
-                stats.tambahMood(workoutTime / 20 * 10);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            totalWaktu.addWaktu(workoutTime);
-            trackTidur(workoutTime);
+    public void olahraga() {
+        Integer workoutTime = 0;
+        while (workoutTime % 20 != 0) {
+            workoutTime = inputActionTime();
         }
-    }
-
-    public void makan(Eatable food) {
-        for (Pair<Storable, Integer> item : inventory.getItems()) {
-            if (item.getKey().getNama().equals(food.getNama())) {
-                try {
-                    TimeUnit.SECONDS.sleep(30);
-                    inventory.reduceBarang(food, 1);
-                    stats.tambahKekenyangan(food.getKekenyangan());
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                totalWaktu.addWaktu(30);
-            }
+        try {
+            TimeUnit.SECONDS.sleep(workoutTime);
+            recentActionTime = workoutTime;
+            stats.tambahKesehatan(workoutTime / 20 * 5);
+            stats.kurangKekenyangan(workoutTime / 20 * 5);
+            stats.tambahMood(workoutTime / 20 * 10);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+        totalWaktu.addWaktu(workoutTime);
+        isSehabisMakan = false;
+        isSehabisTidur = false;
     }
 
     public void memasak(CookableFood food) {
@@ -182,25 +291,18 @@ public class Sim {
         }
     }
 
-    public void berkunjung() {
-        Peta<Rumah> petaRumah = World.getInstance().getPeta();
-        Rumah selectedRumah = petaRumah.selectElement();
-
-        if (selectedRumah != null) {
-            getCurrentPosition().setRumah(selectedRumah);
-        }
-    }
-
     public void buangAir() {
         try {
             TimeUnit.SECONDS.sleep(10);
+            recentActionTime = 10;
             stats.kurangKekenyangan(20);
             stats.tambahMood(10);
-            waktuTidakBuangAir = 0;
         } catch (InterruptedException e) {
-            // do something
+            Thread.currentThread().interrupt();
         }
         totalWaktu.addWaktu(10);
+        isSehabisMakan = false;
+        isSehabisTidur = false;
     }
 
     public void upgradeRumah() {
@@ -222,6 +324,10 @@ public class Sim {
                 // do something
             }
             totalWaktu.addWaktu(18 * 60);
+        } else {
+            JOptionPane.showMessageDialog(null, "Sayang sekali, uangmu belum cukup untuk melakukan upgrade rumah!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -234,5 +340,24 @@ public class Sim {
 
     public void interact(Furniture barang) {
         barang.aksi(this);
+    }
+
+    // GUI
+    public int inputActionTime() {
+        String input = "";
+        try {
+            input = JOptionPane.showInputDialog(null, "Masukkan waktu aksi: ");
+            if (input == null) {
+                // Kalo pencet tombol close
+                JOptionPane.getRootFrame().dispose();
+                return 0;
+            } else {
+                int time = Integer.parseInt(input);
+                return time;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new NumberFormatException("Masukan harus berupa angka");
+        }
     }
 }

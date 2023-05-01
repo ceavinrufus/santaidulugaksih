@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import com.gui.*;
+import com.simplicity.AbstractClass.Furniture;
 
 public class Rumah {
     /*
@@ -121,7 +122,7 @@ public class Rumah {
     }
 
     // GUI
-    public void paint(Graphics g, int windowWidth, int windowHeight) {
+    public void paint(Graphics g, int windowWidth, int windowHeight, int key) {
         int row = petaRuangan.getRow() * 6;
         int column = petaRuangan.getColumn() * 6;
         int width = windowWidth - column;
@@ -164,6 +165,10 @@ public class Rumah {
             }
         }
 
+        int ctrMeja = 0;
+        int ctrKompor = 0;
+        int ctrKasur = 0;
+
         Color gridBg = new Color(255, 255, 255, 90);
         SimPosition currentSimPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
         String currentNamaRuangan = Game.getInstance().getCurrentSim().getCurrentPosition().getRuang()
@@ -182,10 +187,27 @@ public class Rumah {
                     if (barang != null) {
                         if (barang.getNama().equals("Toilet")) {
                             Image toilet = null;
+                            BufferedImage bath_tiles = null;
                             try {
-                                toilet = ImageIO.read(new File("src/main/java/resources/images/toilet.png"));
+                                bath_tiles = ImageIO.read(new File("src/main/java/resources/images/bathfloor.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
+                            }
+                            g.drawImage(bath_tiles, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                            if (barang.getIsHorizontal()){
+                                try {
+                                    toilet = ImageIO
+                                            .read(new File("src/main/java/resources/images/toilet_horizontal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                try {
+                                    toilet = ImageIO
+                                            .read(new File("src/main/java/resources/images/toilet_vertikal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             g.drawImage(toilet, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else if (barang.getNama().equals("Jam")) {
@@ -196,6 +218,179 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(jam, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Meja dan Kursi")) {
+                            ctrMeja++;
+                            Image meja = null;
+                            if (ctrMeja == 1) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja1.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 2) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja2.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 3) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja3.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 4) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja4.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 5) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja5.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 6) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja6.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 7) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja7.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 8) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja8.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (ctrMeja == 9) {
+                                try {
+                                    meja = ImageIO.read(new File("src/main/java/resources/images/meja9.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                ctrMeja = 0;
+                            }
+                            g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Kompor Gas")) {
+                            ctrKompor++;
+                            Image kompor = null;
+                            if (barang.getIsHorizontal()) {
+                                if (ctrKompor == 1) {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor3.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor4.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKompor = 0;
+                                }
+                            } else {
+                                if (ctrKompor == 1) {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor1.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        kompor = ImageIO.read(new File("src/main/java/resources/images/kompor2.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKompor = 0;
+                                }
+                            }
+                            g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Kompor Listrik")) {
+                            Image komporlistrik = null;
+                            if (barang.getIsHorizontal()) {
+                                try {
+                                    komporlistrik = ImageIO.read(
+                                            new File("src/main/java/resources/images/komporlistrik_horizontal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                try {
+                                    komporlistrik = ImageIO.read(
+                                            new File("src/main/java/resources/images/komporlistrik_vertikal.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            g.drawImage(komporlistrik, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize),
+                                    null);
+                        } else if (barang.getNama().equals("Kasur Single")) {
+                            ctrKasur++;
+                            Image bed = null;
+                            if (barang.getIsHorizontal()) {
+                                if (ctrKasur == 1) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed1.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 2) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed2.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 3) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed3.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed4.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKasur = 0;
+                                }
+                            } else {
+                                if (ctrKasur == 1) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed5.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 2) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed6.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else if (ctrKasur == 3) {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed7.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        bed = ImageIO.read(new File("src/main/java/resources/images/bed8.png"));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ctrKasur = 0;
+                                }
+                            }
+                            g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         } else {
                             g.setColor(Color.RED);
                             g.fillRect((int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize));
@@ -206,7 +401,6 @@ public class Rumah {
                             && (x % 6 == currentSimPosition.getLokasi().getX()
                                     && (row - y - 1) % 6 == currentSimPosition.getLokasi().getY())) {
                         Image player = null;
-                        int key = HomePanel.getInstance().getKeyChar();
                         if ((key == KeyEvent.VK_W) || (key == KeyEvent.VK_UP)) {
                             try {
                                 player = ImageIO.read(new File("src/main/java/resources/images/player_back.png"));

@@ -37,11 +37,14 @@ public class MainMenu extends JFrame {
         Font font = new Font("Minecraft", Font.BOLD, 18);
 
         // Start button
-        newGameButton = new PixelatedButton("New Game", font);
+        newGameButton = new PixelatedButton("New Game");
         newGameButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
+                Game.resetInstance();
+                // WorldPanel.getInstance();
                 Game game = Game.getInstance();
+                // game.tabbedPane.remove(game.homePanel);
                 Sim sim;
                 try {
                     sim = game.makeNewSim();
@@ -57,15 +60,18 @@ public class MainMenu extends JFrame {
         });
 
         // Load button
-        loadGameButton = new PixelatedButton("Load Game", font);
+        loadGameButton = new PixelatedButton("Load Game");
         loadGameButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ev) {
                 String inputFileName = JOptionPane.showInputDialog(null, "Masukkan nama file: ", "Load Game",
                         JOptionPane.QUESTION_MESSAGE);
-
+                Game.resetInstance();
+                // WorldPanel.resetInstance();
                 Game game = Game.getInstance();
+                // game.tabbedPane.remove(game.homePanel);
                 try {
+                    // World.resetInstance();
                     World world = game.loadWorld(inputFileName);
                     game.setSims(game.loadSims(inputFileName));
                     game.setCurrentSim(game.loadCurrentSim(inputFileName));
@@ -77,7 +83,7 @@ public class MainMenu extends JFrame {
         });
 
         // Help button
-        helpButton = new PixelatedButton("Help", font);
+        helpButton = new PixelatedButton("Help");
         helpButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -121,11 +127,11 @@ public class MainMenu extends JFrame {
     private void updateButtonPosition() {
         int buttonWidth = 200;
         int buttonHeight = 50;
-        newGameButton.setBounds(getWidth() / 2 - buttonWidth - 10, 27 * getHeight() / 40, buttonWidth,
+        newGameButton.setBounds(getWidth() / 3 - buttonWidth / 2, 27 * getHeight() / 40, buttonWidth,
+                buttonHeight);
+        helpButton.setBounds(2 * getWidth() / 3 - buttonWidth / 2, 27 * getHeight() / 40, buttonWidth,
                 buttonHeight);
         loadGameButton.setBounds(getWidth() / 2 - buttonWidth / 2, 27 * getHeight() / 40, buttonWidth,
-                buttonHeight);
-        helpButton.setBounds(getWidth() / 2 + 10, 27 * getHeight() / 40, buttonWidth,
                 buttonHeight);
     }
 }

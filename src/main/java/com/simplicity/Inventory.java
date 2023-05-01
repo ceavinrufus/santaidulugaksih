@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.gui.Game;
+import com.simplicity.Interface.Storable;
 
 import java.util.ArrayList;
 
@@ -64,14 +65,12 @@ public class Inventory {
 
     // GUI
     public void displayInventory(Class<? extends Storable> className) {
-        // testing
-        addBarang(new Kasur("Kasur Queen Size"), 5);
-        // Menambahkan ayam dari uncookable ke inventory
-        // addBarang(NonCookableFood.AYAM, 5);
+        ArrayList<Storable> temp = new ArrayList<Storable>();
 
         int count = 0;
         for (Pair<? extends Storable, Integer> pair : container) {
             if (className.isAssignableFrom(pair.getKey().getClass())) {
+                temp.add(count, pair.getKey());
                 count++;
             }
         }
@@ -106,8 +105,11 @@ public class Inventory {
             // Info
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
-                container.get(selectedRow).getKey().displayInfo();
+                temp.get(selectedRow).displayInfo();
                 displayInventory(className);
+            } else {
+                JOptionPane.showMessageDialog(null, "Kamu belum memilih barang!", "Sim Info",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } else if (choice == 1) {
         }
