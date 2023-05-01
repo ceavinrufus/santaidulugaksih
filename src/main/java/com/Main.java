@@ -4,7 +4,7 @@ import com.gui.*;
 
 public class Main {
     public static void main(String[] args) {
-        MainMenu mainMenu = MainMenu.getInstance();
+        MainMenu.getInstance();
         // Game game = Game.getInstance();
     }
 }

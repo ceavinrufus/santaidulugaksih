@@ -1,7 +1,5 @@
 package com.simplicity;
 
-import javax.swing.*;
-
 import com.simplicity.AbstractClass.Food;
 
 public class CookableFood extends Food {

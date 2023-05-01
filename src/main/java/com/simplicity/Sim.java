@@ -9,18 +9,15 @@ import javax.swing.table.DefaultTableModel;
 
 import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
-import com.simplicity.ExceptionHandling.IllegalInputException;
 import com.simplicity.Interface.*;
+import com.simplicity.Thread.ThreadManager;
 
 public class Sim {
     private String namaLengkap;
     private Pekerjaan pekerjaan;
-    // TODO: Gantii ini jadi 100
-    private double uang = 1500;
+    private double uang = 100;
     private Inventory inventory = new Inventory();
-    private ArrayList<String> currentActions = new ArrayList<String>();
     private Stats stats = new Stats();
-    private boolean isLibur = false;
     private SimPosition currentPosition;
 
     private int totalWorkTime = 0;
@@ -259,24 +256,26 @@ public class Sim {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+
+            ThreadManager.getInstance().startAllThreads();
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
-                totalWorkTime += workingTime;
-                recentActionTime = workingTime;
-                totalWaktu.addWaktu(workingTime);
-                if (waktuKerjaBelumDibayar > 0) {
-                    workingTime += waktuKerjaBelumDibayar;
-                    waktuKerjaBelumDibayar = 0;
-                }
-                stats.kurangKekenyangan(workingTime / 30 * 10);
-                stats.kurangMood(workingTime / 30 * 10);
-                uang += pekerjaan.getGaji() * (workingTime % 240);
-                waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
-                isSehabisMakan = false;
-                isSehabisTidur = false;
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                e.printStackTrace();
             }
+            ThreadManager.getInstance().stopAllThreads();
+
+            totalWorkTime += workingTime;
+            recentActionTime = workingTime;
+            totalWaktu.addWaktu(workingTime);
+            if (waktuKerjaBelumDibayar > 0) {
+                workingTime += waktuKerjaBelumDibayar;
+                waktuKerjaBelumDibayar = 0;
+            }
+            stats.kurangKekenyangan(workingTime / 30 * 10);
+            stats.kurangMood(workingTime / 30 * 10);
+            uang += pekerjaan.getGaji() * (workingTime % 240);
+            waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
             JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
         }
     }

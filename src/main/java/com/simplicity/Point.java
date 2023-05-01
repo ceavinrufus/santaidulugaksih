@@ -56,18 +56,4 @@ public class Point {
         float distance = (float) Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
         return distance;
     }
-
-    // public static void main(String[] args) {
-    // Point point1 = new Point(6, 3);
-    // System.out.println(point1.toString());
-    // Point point2 = new Point();
-    // System.out.println(point2.toString());
-    // System.out.println(point1.equals(point2));
-    // point2.move(6, 3);
-    // System.out.println(point1.equals(point2));
-    // point1.setX(2);
-    // System.out.println(point1.toString());
-    // Point point3 = new Point(point2);
-    // System.out.println(point3.toString());
-    // }
 }

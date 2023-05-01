@@ -1,11 +1,6 @@
 package com.simplicity;
 
 import com.simplicity.AbstractClass.Furniture;
-import java.util.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 
 public class Kompor extends Furniture {
     public Kompor(String nama) throws IllegalArgumentException {

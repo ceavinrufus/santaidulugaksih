@@ -96,7 +96,6 @@ public class Rumah {
                                 }
                                 break;
                             default:
-                                System.out.println("Arah tidak valid");
                                 break;
                         }
                     }
@@ -220,7 +219,8 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(jam, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if ((barang.getNama().equals("Meja dan Kursi")) && !(checkPoint.contains(new Point(x, y)))) {
+                        } else if ((barang.getNama().equals("Meja dan Kursi"))
+                                && !(checkPoint.contains(new Point(x, y)))) {
                             // Draw Meja1
                             Image meja = null;
                             checkPoint.add(new Point(x, y));
@@ -232,30 +232,30 @@ public class Rumah {
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             // Draw Meja2
                             meja = null;
-                            checkPoint.add(new Point(x, y+1));
+                            checkPoint.add(new Point(x, y + 1));
                             cellX = xOffset + (x - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                            cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja2.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja3
+                            // Draw Meja3
                             meja = null;
-                            checkPoint.add(new Point(x, y+2));
+                            checkPoint.add(new Point(x, y + 2));
                             cellX = xOffset + (x - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                            cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja3.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja4
+                            // Draw Meja4
                             meja = null;
-                            checkPoint.add(new Point(x+1, y));
-                            cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                            checkPoint.add(new Point(x + 1, y));
+                            cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                             cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja4.png"));
@@ -263,32 +263,32 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja5
+                            // Draw Meja5
                             meja = null;
-                            checkPoint.add(new Point(x+1, y+1));
-                            cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                            checkPoint.add(new Point(x + 1, y + 1));
+                            cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                            cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja5.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja6
+                            // Draw Meja6
                             meja = null;
-                            checkPoint.add(new Point(x+1, y+2));
-                            cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                            checkPoint.add(new Point(x + 1, y + 2));
+                            cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                            cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja6.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja7
+                            // Draw Meja7
                             meja = null;
-                            checkPoint.add(new Point(x+2, y));
-                            cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
+                            checkPoint.add(new Point(x + 2, y));
+                            cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
                             cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja7.png"));
@@ -296,22 +296,22 @@ public class Rumah {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja8
+                            // Draw Meja8
                             meja = null;
-                            checkPoint.add(new Point(x+2, y+1));
-                            cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                            checkPoint.add(new Point(x + 2, y + 1));
+                            cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
+                            cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja8.png"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             g.drawImage(meja, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                            //Draw Meja9
+                            // Draw Meja9
                             meja = null;
-                            checkPoint.add(new Point(x+2, y+2));
-                            cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
-                            cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                            checkPoint.add(new Point(x + 2, y + 2));
+                            cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
+                            cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                             try {
                                 meja = ImageIO.read(new File("src/main/java/resources/images/meja9.png"));
                             } catch (IOException e) {
@@ -321,7 +321,7 @@ public class Rumah {
                         } else if ((barang.getNama().equals("Kompor Gas")) && !(checkPoint.contains(new Point(x, y)))) {
                             Image kompor = null;
                             if (barang.getIsHorizontal()) {
-                                //Draw Kompor3
+                                // Draw Kompor3
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     kompor = ImageIO.read(new File("src/main/java/resources/images/kompor3.png"));
@@ -329,9 +329,9 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Kompor4
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Draw Kompor4
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     kompor = ImageIO.read(new File("src/main/java/resources/images/kompor4.png"));
@@ -340,7 +340,7 @@ public class Rumah {
                                 }
                                 g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             } else {
-                                //Draw Kompor1
+                                // Draw Kompor1
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     kompor = ImageIO.read(new File("src/main/java/resources/images/kompor1.png"));
@@ -348,10 +348,10 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(kompor, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Kompor2
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Kompor2
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     kompor = ImageIO.read(new File("src/main/java/resources/images/kompor2.png"));
                                 } catch (IOException e) {
@@ -377,11 +377,13 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                             }
-                            g.drawImage(komporlistrik, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                        } else if ((barang.getNama().equals("Kasur Single")) && !(checkPoint.contains(new Point(x, y)))) {
+                            g.drawImage(komporlistrik, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize),
+                                    null);
+                        } else if ((barang.getNama().equals("Kasur Single"))
+                                && !(checkPoint.contains(new Point(x, y)))) {
                             Image bed = null;
                             if (barang.getIsHorizontal()) {
-                                //Draw Bed1
+                                // Draw Bed1
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed1.png"));
@@ -389,9 +391,9 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed2
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Draw Bed2
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed2.png"));
@@ -399,9 +401,9 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed3
-                                checkPoint.add(new Point(x+2, y));
-                                cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
+                                // Draw Bed3
+                                checkPoint.add(new Point(x + 2, y));
+                                cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed3.png"));
@@ -409,9 +411,9 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed4
-                                checkPoint.add(new Point(x+3, y));
-                                cellX = xOffset + ((x+3) - column / 2) * gridSize + xCenter;
+                                // Draw Bed4
+                                checkPoint.add(new Point(x + 3, y));
+                                cellX = xOffset + ((x + 3) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed4.png"));
@@ -420,7 +422,7 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             } else {
-                                //Gambar Bed5
+                                // Gambar Bed5
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed5.png"));
@@ -428,30 +430,30 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed6
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Bed6
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed6.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed7
-                                checkPoint.add(new Point(x, y+2));
+                                // Draw Bed7
+                                checkPoint.add(new Point(x, y + 2));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed7.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed8
-                                checkPoint.add(new Point(x, y+3));
+                                // Draw Bed8
+                                checkPoint.add(new Point(x, y + 3));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+3) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 3) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/bed8.png"));
                                 } catch (IOException e) {
@@ -459,10 +461,11 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             }
-                        } else if ((barang.getNama().equals("Kasur Queen Size")) && !(checkPoint.contains(new Point(x, y)))) {
+                        } else if ((barang.getNama().equals("Kasur Queen Size"))
+                                && !(checkPoint.contains(new Point(x, y)))) {
                             Image bed = null;
                             if (!barang.getIsHorizontal()) {
-                                //Draw Bed1
+                                // Draw Bed1
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen1.png"));
@@ -470,39 +473,39 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed2
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Bed2
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen2.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed3
-                                checkPoint.add(new Point(x, y+2));
+                                // Draw Bed3
+                                checkPoint.add(new Point(x, y + 2));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen3.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed4
-                                checkPoint.add(new Point(x, y+3));
+                                // Draw Bed4
+                                checkPoint.add(new Point(x, y + 3));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+3) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 3) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen4.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Gambar Bed5
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Gambar Bed5
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen5.png"));
@@ -510,30 +513,30 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed6
-                                checkPoint.add(new Point(x+1, y+1));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed6
+                                checkPoint.add(new Point(x + 1, y + 1));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen6.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed7
-                                checkPoint.add(new Point(x+1, y+2));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                                // Draw Bed7
+                                checkPoint.add(new Point(x + 1, y + 2));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen7.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed8
-                                checkPoint.add(new Point(x+1, y+3));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+3) - row / 2) * gridSize + yCenter;
+                                // Draw Bed8
+                                checkPoint.add(new Point(x + 1, y + 3));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 3) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen8.png"));
                                 } catch (IOException e) {
@@ -541,7 +544,7 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             } else {
-                                //Draw Bed9
+                                // Draw Bed9
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen9.png"));
@@ -549,19 +552,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed10
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Bed10
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen10.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed11
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Draw Bed11
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen11.png"));
@@ -569,19 +572,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed12
-                                checkPoint.add(new Point(x+1, y+1));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed12
+                                checkPoint.add(new Point(x + 1, y + 1));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen12.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed13
-                                checkPoint.add(new Point(x+2, y));
-                                cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
+                                // Draw Bed13
+                                checkPoint.add(new Point(x + 2, y));
+                                cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen13.png"));
@@ -589,19 +592,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed14
-                                checkPoint.add(new Point(x+2, y+1));
-                                cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed14
+                                checkPoint.add(new Point(x + 2, y + 1));
+                                cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen14.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed15
-                                checkPoint.add(new Point(x+3, y));
-                                cellX = xOffset + ((x+3) - column / 2) * gridSize + xCenter;
+                                // Draw Bed15
+                                checkPoint.add(new Point(x + 3, y));
+                                cellX = xOffset + ((x + 3) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen15.png"));
@@ -609,10 +612,10 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed16
-                                checkPoint.add(new Point(x+3, y+1));
-                                cellX = xOffset + ((x+3) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed16
+                                checkPoint.add(new Point(x + 3, y + 1));
+                                cellX = xOffset + ((x + 3) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/queen16.png"));
                                 } catch (IOException e) {
@@ -620,10 +623,11 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             }
-                        } else if ((barang.getNama().equals("Kasur King Size")) && !(checkPoint.contains(new Point(x, y)))) {
+                        } else if ((barang.getNama().equals("Kasur King Size"))
+                                && !(checkPoint.contains(new Point(x, y)))) {
                             Image bed = null;
                             if (!barang.getIsHorizontal()) {
-                                //Draw Bed11
+                                // Draw Bed11
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king11.png"));
@@ -631,49 +635,49 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed12
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Bed12
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king12.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed13
-                                checkPoint.add(new Point(x, y+2));
+                                // Draw Bed13
+                                checkPoint.add(new Point(x, y + 2));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king13.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed14
-                                checkPoint.add(new Point(x, y+3));
+                                // Draw Bed14
+                                checkPoint.add(new Point(x, y + 3));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+3) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 3) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king14.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed15
-                                checkPoint.add(new Point(x, y+4));
+                                // Draw Bed15
+                                checkPoint.add(new Point(x, y + 4));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+4) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 4) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king15.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Gambar Bed16
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Gambar Bed16
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king16.png"));
@@ -681,40 +685,40 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed17
-                                checkPoint.add(new Point(x+1, y+1));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed17
+                                checkPoint.add(new Point(x + 1, y + 1));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king17.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed18
-                                checkPoint.add(new Point(x+1, y+2));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+2) - row / 2) * gridSize + yCenter;
+                                // Draw Bed18
+                                checkPoint.add(new Point(x + 1, y + 2));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 2) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king18.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed19
-                                checkPoint.add(new Point(x+1, y+3));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+3) - row / 2) * gridSize + yCenter;
+                                // Draw Bed19
+                                checkPoint.add(new Point(x + 1, y + 3));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 3) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king19.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed20
-                                checkPoint.add(new Point(x+1, y+4));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+4) - row / 2) * gridSize + yCenter;
+                                // Draw Bed20
+                                checkPoint.add(new Point(x + 1, y + 4));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 4) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king20.png"));
                                 } catch (IOException e) {
@@ -722,7 +726,7 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             } else {
-                                //Draw Bed1
+                                // Draw Bed1
                                 checkPoint.add(new Point(x, y));
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king1.png"));
@@ -730,19 +734,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed2
-                                checkPoint.add(new Point(x, y+1));
+                                // Draw Bed2
+                                checkPoint.add(new Point(x, y + 1));
                                 cellX = xOffset + ((x) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king2.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed3
-                                checkPoint.add(new Point(x+1, y));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
+                                // Draw Bed3
+                                checkPoint.add(new Point(x + 1, y));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king3.png"));
@@ -750,19 +754,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed4
-                                checkPoint.add(new Point(x+1, y+1));
-                                cellX = xOffset + ((x+1) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed4
+                                checkPoint.add(new Point(x + 1, y + 1));
+                                cellX = xOffset + ((x + 1) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king4.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed5
-                                checkPoint.add(new Point(x+2, y));
-                                cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
+                                // Draw Bed5
+                                checkPoint.add(new Point(x + 2, y));
+                                cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king5.png"));
@@ -770,19 +774,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed6
-                                checkPoint.add(new Point(x+2, y+1));
-                                cellX = xOffset + ((x+2) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed6
+                                checkPoint.add(new Point(x + 2, y + 1));
+                                cellX = xOffset + ((x + 2) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king6.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed7
-                                checkPoint.add(new Point(x+3, y));
-                                cellX = xOffset + ((x+3) - column / 2) * gridSize + xCenter;
+                                // Draw Bed7
+                                checkPoint.add(new Point(x + 3, y));
+                                cellX = xOffset + ((x + 3) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king7.png"));
@@ -790,19 +794,19 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed8
-                                checkPoint.add(new Point(x+3, y+1));
-                                cellX = xOffset + ((x+3) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed8
+                                checkPoint.add(new Point(x + 3, y + 1));
+                                cellX = xOffset + ((x + 3) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king8.png"));
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed9
-                                checkPoint.add(new Point(x+4, y));
-                                cellX = xOffset + ((x+4) - column / 2) * gridSize + xCenter;
+                                // Draw Bed9
+                                checkPoint.add(new Point(x + 4, y));
+                                cellX = xOffset + ((x + 4) - column / 2) * gridSize + xCenter;
                                 cellY = yOffset + ((y) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king9.png"));
@@ -810,10 +814,10 @@ public class Rumah {
                                     e.printStackTrace();
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
-                                //Draw Bed10
-                                checkPoint.add(new Point(x+4, y+1));
-                                cellX = xOffset + ((x+4) - column / 2) * gridSize + xCenter;
-                                cellY = yOffset + ((y+1) - row / 2) * gridSize + yCenter;
+                                // Draw Bed10
+                                checkPoint.add(new Point(x + 4, y + 1));
+                                cellX = xOffset + ((x + 4) - column / 2) * gridSize + xCenter;
+                                cellY = yOffset + ((y + 1) - row / 2) * gridSize + yCenter;
                                 try {
                                     bed = ImageIO.read(new File("src/main/java/resources/images/king10.png"));
                                 } catch (IOException e) {
@@ -893,7 +897,7 @@ public class Rumah {
                             g.drawImage(game, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         }
                     }
-                    
+
                     cellX = xOffset + (x - column / 2) * gridSize + xCenter;
                     cellY = yOffset + (y - row / 2) * gridSize + yCenter;
                     // Player
