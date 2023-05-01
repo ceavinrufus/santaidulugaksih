@@ -860,6 +860,13 @@ public class Rumah {
                         } else if (barang.getNama().equals("Shower")) {
                             checkPoint.add(new Point(x, y));
                             Image shower = null;
+                            BufferedImage bath_tiles = null;
+                            try {
+                                bath_tiles = ImageIO.read(new File("src/main/java/resources/images/bathfloor.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(bath_tiles, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             try {
                                 shower = ImageIO.read(new File("src/main/java/resources/images/shower.png"));
                             } catch (IOException e) {
