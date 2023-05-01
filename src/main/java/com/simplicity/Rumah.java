@@ -821,6 +821,69 @@ public class Rumah {
                                 }
                                 g.drawImage(bed, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                             }
+                        } else if (barang.getNama().equals("Kipas")) {
+                            checkPoint.add(new Point(x, y));
+                            Image fan = null;
+                            try {
+                                fan = ImageIO.read(new File("src/main/java/resources/images/fan.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(fan, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("TV")) {
+                            checkPoint.add(new Point(x, y));
+                            Image tv = null;
+                            try {
+                                tv = ImageIO.read(new File("src/main/java/resources/images/tv.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(tv, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Komputer")) {
+                            checkPoint.add(new Point(x, y));
+                            Image komputer = null;
+                            try {
+                                komputer = ImageIO.read(new File("src/main/java/resources/images/komputer.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(komputer, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Tanaman")) {
+                            checkPoint.add(new Point(x, y));
+                            Image plant = null;
+                            try {
+                                plant = ImageIO.read(new File("src/main/java/resources/images/plant.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(plant, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Shower")) {
+                            checkPoint.add(new Point(x, y));
+                            Image shower = null;
+                            try {
+                                shower = ImageIO.read(new File("src/main/java/resources/images/shower.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(shower, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Cermin")) {
+                            checkPoint.add(new Point(x, y));
+                            Image cermin = null;
+                            try {
+                                cermin = ImageIO.read(new File("src/main/java/resources/images/cermin.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(cermin, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
+                        } else if (barang.getNama().equals("Arcade Machine")) {
+                            checkPoint.add(new Point(x, y));
+                            Image game = null;
+                            try {
+                                game = ImageIO.read(new File("src/main/java/resources/images/game.png"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            g.drawImage(game, (int) cellX, (int) cellY, (int) (gridSize), (int) (gridSize), null);
                         }
                     }
                     
