@@ -51,7 +51,7 @@ public class Kasur extends Furniture {
                     }
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Waktu tidur harus berbentuk bilangan bulat, loh!", "Error",
+                JOptionPane.showMessageDialog(null, "Waktu tidur harus berbentuk bilangan bulat, lho!", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
         }

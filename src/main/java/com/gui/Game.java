@@ -195,11 +195,12 @@ public class Game extends JFrame {
                         int confirm = JOptionPane.showConfirmDialog(null, "Yakin keluar dari game?",
                                 "Exit Game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confirm == JOptionPane.YES_OPTION) {
-                            sims.clear();
-                            currentSim = null;
-                            setVisible(false);
-                            mainMenu.setVisible(true);
-                            JOptionPane.getRootFrame().dispose();
+                            // sims.clear();
+                            // currentSim = null;
+                            // setVisible(false);
+                            // mainMenu.setVisible(true);
+                            // JOptionPane.getRootFrame().dispose();
+                            System.exit(0);
                         }
                         break;
                 }
@@ -418,7 +419,7 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
         // TODO: Ganti ini ke toilet lagi
-        ruangan.memasangBarang(new Shower(), true, 0, 5);
+        ruangan.memasangBarang(new TV(), true, 0, 5);
         Rumah rumah = new Rumah(ruangan);
 
         try {
@@ -457,7 +458,7 @@ public class Game extends JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, loh!",
+            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, lho!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             throw new SimNotCreatedException();

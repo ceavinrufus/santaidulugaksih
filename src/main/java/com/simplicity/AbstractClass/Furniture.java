@@ -149,7 +149,7 @@ public abstract class Furniture implements Storable, Purchasable {
                                         JOptionPane.INFORMATION_MESSAGE);
                             }
                         } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, loh!",
+                            JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, lho!",
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
                         } catch (IllegalLocationException e) {

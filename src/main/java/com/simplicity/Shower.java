@@ -32,12 +32,12 @@ public class Shower extends Furniture {
                 } else {
                     showerTime = Integer.parseInt(input);
                     if (showerTime < 10) {
-                        JOptionPane.showMessageDialog(null, "Mandi gak boleh cepet-cepet!", "Error",
+                        JOptionPane.showMessageDialog(null, "Mandi gak boleh cepet-cepet! Minimal 10 detik", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Waktu mandi harus berbentuk bilangan bulat, loh!", "Error",
+                JOptionPane.showMessageDialog(null, "Waktu mandi harus berbentuk bilangan bulat, lho!", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
