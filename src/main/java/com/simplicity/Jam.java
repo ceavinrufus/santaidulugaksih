@@ -22,10 +22,13 @@ public class Jam extends Furniture {
     public void aksi(Sim sim) {
         Waktu waktu = Waktu.waktu();
         int totalWaktu = waktu.getWaktu();
-        int hariKe = totalWaktu % (12 * 60);
-        int sisaWaktuSekon = totalWaktu - (hariKe * 12 * 60);
-        int sisaWaktuMenit = sisaWaktuSekon / 60;
-        String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuSekon, sisaWaktuMenit);
+        int waktuHariIni = totalWaktu;
+        while (waktuHariIni >= 720) {
+            waktuHariIni -= 720;
+        }
+        int sisaWaktuHariIni = (12*60) - waktuHariIni;
+        int sisaWaktuHariIniMenit = (int) sisaWaktuHariIni / 60;
+        String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuHariIni, sisaWaktuHariIniMenit);
         JOptionPane.showMessageDialog(null, info, "Info Waktu", JOptionPane.INFORMATION_MESSAGE);
     }
 }
