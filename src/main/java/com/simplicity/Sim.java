@@ -315,6 +315,9 @@ public class Sim {
                 // do something
             }
             totalWaktu.addWaktu((int) 1.5 * food.getKekenyangan());
+            JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

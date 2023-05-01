@@ -33,7 +33,7 @@ public enum Resep {
         return kekenyangan;
     }
 
-    public static void displayResep() {
+    public static void displayResep(Sim sim) {
         ArrayList<Resep> resep = new ArrayList<>(Arrays.asList(Resep.values()));
 
         String[][] tableData = new String[resep.size()][3];
@@ -69,6 +69,8 @@ public enum Resep {
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
                 String selectedOption = (String) table.getValueAt(selectedRow, 0);
+                CookableFood masakan = new CookableFood(selectedOption);
+                sim.memasak(masakan);
                 System.out.println("Selected option: " + selectedOption);
             }
         } else if (choice == 1) {
