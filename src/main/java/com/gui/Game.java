@@ -120,9 +120,7 @@ public class Game extends JFrame {
                     case "View Current Location":
                         message = "Rumah " + currentSim.getCurrentPosition().getRumah().getNamaPemilik()
                                 + "\n" +
-                                "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan()
-                                + "\n" +
-                                currentSim.getCurrentPosition().getLokasi().getX() + ", " + currentSim.getCurrentPosition().getLokasi().getY();
+                                "Ruangan: " + currentSim.getCurrentPosition().getRuang().getNamaRuangan();
                         JOptionPane.showMessageDialog(null, message, "Current Location",
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
