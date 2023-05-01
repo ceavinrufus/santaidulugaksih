@@ -279,6 +279,7 @@ public class Game extends JFrame {
                             } catch (InterruptedException er) {
                                 Thread.currentThread().interrupt();
                             }
+                            currentSim.totalWaktu.addWaktu(distance);
                             currentSim.setRecentActionTime(distance);
                             currentSim.getCurrentPosition().setRumah(selectedRumah);
                             repaint();
