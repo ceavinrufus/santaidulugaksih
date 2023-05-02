@@ -369,6 +369,13 @@ public class Game extends JFrame {
                 listPembelian.add(new Kompor("Kompor Gas"));
                 listPembelian.add(new MejaKursi());
                 listPembelian.add(new Jam());
+                listPembelian.add(new Cermin());
+                listPembelian.add(new ArcadeMachine());
+                listPembelian.add(new Kipas());
+                listPembelian.add(new Tanaman());
+                listPembelian.add(new Shower());
+                listPembelian.add(new TV());
+                listPembelian.add(new Komputer());
                 break;
         }
 
