@@ -302,7 +302,10 @@ public class Game extends JFrame {
                             }
                             totalWaktu.addWaktu(distance);
                             currentSim.setRecentActionTime(distance);
-                            currentSim.setCurrentPosition(new SimPosition(selectedRumah, new Ruangan("Main Room")));
+                            currentSim.setCurrentPosition(
+                                    new SimPosition(selectedRumah, selectedRumah.findRuangan("Main Room")));
+                            JOptionPane.showMessageDialog(null, "Sudah sampai!", "Action finished",
+                                    JOptionPane.INFORMATION_MESSAGE);
                             repaint();
                         } else {
                             JOptionPane.showMessageDialog(null, "Kamu belum memilih rumah!", "Error",

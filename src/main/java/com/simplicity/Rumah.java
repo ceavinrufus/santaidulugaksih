@@ -117,6 +117,20 @@ public class Rumah {
         }
     }
 
+    public Ruangan findRuangan(String namaRuangan) {
+        Ruangan ruangan = null;
+        for (int i = 0; i < petaRuangan.getRow(); i++) {
+            for (int j = 0; j < petaRuangan.getColumn(); j++) {
+                if (petaRuangan.getElement(i, j) != null) {
+                    if (petaRuangan.getElement(i, j).getNamaRuangan().equals(namaRuangan)) {
+                        ruangan = petaRuangan.getElement(i, j);
+                    }
+                }
+            }
+        }
+        return ruangan;
+    }
+
     @Override
     public String toString() {
         return "Rumah " + namaPemilik;
