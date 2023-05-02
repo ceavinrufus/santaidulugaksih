@@ -279,9 +279,10 @@ public class Game extends JFrame {
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
                     currentSim.kerja();
-                    // trackSimsStats();
+                    trackSimsStats();
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
+                    trackSimsStats();
                 } else if (aksi.equals("Berkunjung")) {
                     if (sims.size() == 1) {
                         JOptionPane.showMessageDialog(null,
@@ -303,9 +304,11 @@ public class Game extends JFrame {
                                 Thread.currentThread().interrupt();
                             }
                             totalWaktu.addWaktu(distance);
+                            currentSim.setIsOnKunjungan(true);
                             currentSim.setRecentActionTime(distance);
                             currentSim.setCurrentPosition(
                                     new SimPosition(selectedRumah, selectedRumah.findRuangan("Main Room")));
+                            trackSimsStats();
                             JOptionPane.showMessageDialog(null, "Sudah sampai!", "Action finished",
                                     JOptionPane.INFORMATION_MESSAGE);
                             repaint();
@@ -635,14 +638,24 @@ public class Game extends JFrame {
             value.trackTidur(value.getRecentActionTime());
             value.trackBuangAir(value.getRecentActionTime());
             value.trackKunjungan(value.getRecentActionTime());
-            value.trackIsDead();
-            if (value.getSimDead()) {
+            if (value.getStats().getKekenyangan() == 0 || value.getStats().getKesehatan() == 0
+                    || value.getStats().getMood() == 0) {
                 sims.remove(key);
-                JOptionPane.showMessageDialog(null, String.format("Sim %d mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati", JOptionPane.INFORMATION_MESSAGE);
-                if (currentSim.getNamaLengkap().equals(value.getNamaLengkap())) {
-                    currentSim = null;
+                JOptionPane.showMessageDialog(null,
+                        String.format("Sim %s mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati",
+                        JOptionPane.INFORMATION_MESSAGE);
+                if (currentSim.equals(value)) {
+                    if (sims.size() == 0) {
+                        JOptionPane.showMessageDialog(null, String.format("Terima kasih sudah bermain Sim-Plicity!"),
+                                "Game Over!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    } else {
+                        changeSim();
+                    }
                 }
             }
+
         });
     }
 
