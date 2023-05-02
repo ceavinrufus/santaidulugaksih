@@ -63,7 +63,7 @@ public class Kasur extends Furniture {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            totalWaktu.addWaktu(sleepTime);
+            Waktu.waktu().addWaktu(sleepTime);
             sim.setWaktuTidakTidur(0);
             sim.setIsSehabisTidur(true);
             sim.setIsSehabisMakan(false);

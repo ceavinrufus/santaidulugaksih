@@ -1,15 +1,11 @@
 package com.simplicity;
 
-import java.awt.GridLayout;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
-import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
-import com.simplicity.Interface.*;
 import com.simplicity.Thread.ThreadManager;
 
 public class Sim {
@@ -308,38 +304,6 @@ public class Sim {
         isSehabisMakan = false;
         isSehabisTidur = false;
         JOptionPane.showMessageDialog(null, "Olahraga selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void memasak(CookableFood food) {
-        boolean isBahanAda = true;
-        for (String bahan : food.getResep()) {
-            if (!inventory.isContains(bahan)) {
-                isBahanAda = false;
-            }
-        }
-
-        if (isBahanAda) {
-            try {
-                TimeUnit.SECONDS.sleep((int) 1.5 * food.getKekenyangan());
-                for (String bahan : food.getResep()) {
-                    for (Pair<Storable, Integer> item : inventory.getItems()) {
-                        if (item.getKey().getNama().equals(bahan)) {
-                            inventory.reduceBarang(item.getKey(), 1);
-                            inventory.addBarang(food, 1);
-                            stats.setMood(10);
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                // do something
-            }
-            totalWaktu.addWaktu((int) 1.5 * food.getKekenyangan());
-            JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     public void interact(Furniture barang) {

@@ -34,7 +34,7 @@ public class Game extends JFrame {
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
     // private World world = new World();
     private Sim currentSim;
-    public HomePanel homePanel;
+    HomePanel homePanel;
     JTabbedPane tabbedPane;
 
     private Game() {
@@ -631,26 +631,6 @@ public class Game extends JFrame {
         });
     }
 
-    // private void saveWorld(String filename) throws IOException {
-    // Gson gson = new Gson();
-    // GsonBuilder gsonBuilder = new GsonBuilder();
-    // gsonBuilder.serializeNulls();
-    // gsonBuilder.setPrettyPrinting();
-    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
-    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
-    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
-    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
-    // gson = gsonBuilder.create();
-    // try {
-    // FileWriter fileWriter = new FileWriter("src/main/java/saves/" + filename +
-    // "_world.json");
-    // gson.toJson(world, fileWriter);
-    // fileWriter.close();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
-
     private void saveSims(String filename) throws IOException {
         Gson gson = new Gson();
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -690,22 +670,6 @@ public class Game extends JFrame {
             e.printStackTrace();
         }
     }
-
-    // public World loadWorld(String filename) throws IOException {
-    // Gson gson = new Gson();
-    // GsonBuilder gsonBuilder = new GsonBuilder();
-    // gsonBuilder.registerTypeAdapter(Furniture.class, new FurnitureAdapter());
-    // gsonBuilder.registerTypeAdapter(Storable.class, new StorableAdapter());
-    // gsonBuilder.registerTypeAdapter(Food.class, new FoodAdapter());
-    // gsonBuilder.registerTypeAdapter(Purchasable.class, new PurchasableAdapter());
-    // gson = gsonBuilder.create();
-    // World world = null;
-    // FileReader fileReader = new FileReader("src/main/java/saves/" + filename +
-    // "_world.json");
-    // world = gson.fromJson(fileReader, World.class);
-    // fileReader.close();
-    // return world;
-    // }
 
     public HashMap<String, Sim> loadSims(String filename) throws IOException {
         Gson gson = new Gson();
