@@ -48,6 +48,18 @@ public class Ruangan {
         return null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Ruangan)) {
+            return false;
+        }
+        Ruangan rumah = (Ruangan) o;
+        return Objects.equals(namaRuangan, rumah.getNamaRuangan());
+    }
+
     public Furniture getBarangByKoordinat(Point koordinat) {
         PlacedFurniture temp = petaBarang.getElement(koordinat.getX(), koordinat.getY());
         if (temp != null) {

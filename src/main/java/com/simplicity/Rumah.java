@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
@@ -119,6 +120,18 @@ public class Rumah {
     @Override
     public String toString() {
         return "Rumah " + namaPemilik;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Rumah)) {
+            return false;
+        }
+        Rumah rumah = (Rumah) o;
+        return Objects.equals(namaPemilik, rumah.getNamaPemilik());
     }
 
     // GUI
