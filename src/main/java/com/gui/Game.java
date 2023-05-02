@@ -631,17 +631,24 @@ public class Game extends JFrame {
             value.trackTidur(value.getRecentActionTime());
             value.trackBuangAir(value.getRecentActionTime());
             value.trackKunjungan(value.getRecentActionTime());
-            value.trackIsDead();
-            if (value.getSimDead()) {
+            if (value.getStats().getKekenyangan() == 0 || value.getStats().getKesehatan() == 0
+                    || value.getStats().getMood() == 0) {
                 sims.remove(key);
-                JOptionPane.showMessageDialog(null, String.format("Sim %d mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati", JOptionPane.INFORMATION_MESSAGE);
-                if (currentSim.getNamaLengkap().equals(value.getNamaLengkap())) {
+                JOptionPane.showMessageDialog(null,
+                        String.format("Sim %s mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati",
+                        JOptionPane.INFORMATION_MESSAGE);
+                if (currentSim.equals(value)) {
                     if (sims.size() == 0) {
-                        // game over
+                        JOptionPane.showMessageDialog(null, String.format("Terima kasih sudah bermain Sim-Plicity!"),
+                                "Game Over!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    } else {
+                        changeSim();
                     }
-                    changeSim();
                 }
             }
+
         });
     }
 

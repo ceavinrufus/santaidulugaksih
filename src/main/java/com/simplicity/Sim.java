@@ -224,12 +224,6 @@ public class Sim {
         }
     }
 
-    public void trackIsDead() {
-        if (stats.getKekenyangan() == 0 || stats.getKesehatan() == 0) {
-            setSimDead();
-        }
-    }
-
     public void setIsSehabisTidur(boolean b) {
         isSehabisTidur = b;
     }
@@ -244,6 +238,18 @@ public class Sim {
 
     public void setIsOnKunjungan(boolean b) {
         isOnKunjungan = b;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Sim)) {
+            return false;
+        }
+        Sim sim = (Sim) o;
+        return Objects.equals(namaLengkap, sim.getNamaLengkap());
     }
 
     public void kerja() {
