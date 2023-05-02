@@ -279,9 +279,10 @@ public class Game extends JFrame {
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
                     currentSim.kerja();
-                    // trackSimsStats();
+                    trackSimsStats();
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
+                    trackSimsStats();
                 } else if (aksi.equals("Berkunjung")) {
                     if (sims.size() == 1) {
                         JOptionPane.showMessageDialog(null,
@@ -303,9 +304,11 @@ public class Game extends JFrame {
                                 Thread.currentThread().interrupt();
                             }
                             totalWaktu.addWaktu(distance);
+                            currentSim.setIsOnKunjungan(true);
                             currentSim.setRecentActionTime(distance);
                             currentSim.setCurrentPosition(
                                     new SimPosition(selectedRumah, selectedRumah.findRuangan("Main Room")));
+                            trackSimsStats();
                             JOptionPane.showMessageDialog(null, "Sudah sampai!", "Action finished",
                                     JOptionPane.INFORMATION_MESSAGE);
                             repaint();
@@ -633,7 +636,10 @@ public class Game extends JFrame {
                 sims.remove(key);
                 JOptionPane.showMessageDialog(null, String.format("Sim %d mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati", JOptionPane.INFORMATION_MESSAGE);
                 if (currentSim.getNamaLengkap().equals(value.getNamaLengkap())) {
-                    currentSim = null;
+                    if (sims.size() == 0) {
+                        // game over
+                    }
+                    changeSim();
                 }
             }
         });
