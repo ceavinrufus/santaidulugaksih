@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -239,7 +241,7 @@ public class Game extends JFrame {
             button.addActionListener(e -> {
                 switch (option) {
                     case "Buy Object":
-                        currentRoom.buyFurniture();
+                        displayEtalase("Furniture");
                         break;
                     case "Take Object":
                         currentRoom.takeObject();
@@ -313,7 +315,7 @@ public class Game extends JFrame {
                         }
                     }
                 } else if (aksi.equals("Beli Barang")) {
-                    currentSim.beliBarang();
+                    beliBarang();
                 } else if (aksi.equals("Back")) {
                     JOptionPane.getRootFrame().dispose();
                 }
@@ -323,6 +325,104 @@ public class Game extends JFrame {
 
         JOptionPane.showOptionDialog(null, panel, "List of Actions", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
+    }
+
+    private void beliBarang() {
+        String[] buyOptions = { "Bahan Makanan", "Furniture" };
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
+        int[] count = { 0 };
+
+        for (String option : buyOptions) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                count[0]++;
+                displayEtalase(option);
+            });
+            panel.add(button);
+        }
+
+        String[] back = { "Back" };
+        JOptionPane.showOptionDialog(null, panel, "Pilihan Pembelian",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, back, null);
+    }
+
+    public void displayEtalase(String kategori) {
+        Sim currentSim = Game.getInstance().getCurrentSim();
+        ArrayList<Purchasable> listPembelian = new ArrayList<Purchasable>();
+        switch (kategori) {
+            case "Bahan Makanan":
+                listPembelian.add(new NonCookableFood("Nasi"));
+                listPembelian.add(new NonCookableFood("Kentang"));
+                listPembelian.add(new NonCookableFood("Ayam"));
+                listPembelian.add(new NonCookableFood("Sapi"));
+                listPembelian.add(new NonCookableFood("Wortel"));
+                listPembelian.add(new NonCookableFood("Bayam"));
+                listPembelian.add(new NonCookableFood("Kacang"));
+                listPembelian.add(new NonCookableFood("Susu"));
+                break;
+            case "Furniture":
+                listPembelian.add(new Kasur("Kasur Single"));
+                listPembelian.add(new Kasur("Kasur Queen Size"));
+                listPembelian.add(new Kasur("Kasur King Size"));
+                listPembelian.add(new Toilet());
+                listPembelian.add(new Kompor("Kompor Gas"));
+                listPembelian.add(new MejaKursi());
+                listPembelian.add(new Jam());
+                break;
+        }
+
+        String[][] tableData = new String[listPembelian.size()][2];
+        String[] columnNames = { "Name", "Price" };
+
+        for (int i = 0; i < listPembelian.size(); i++) {
+            tableData[i][0] = listPembelian.get(i).getNama(); // Name
+            tableData[i][1] = String.valueOf(listPembelian.get(i).getHarga()); // Price
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
+
+        // Menampilkan option pane
+        String[] options = { "Buy", "Back" };
+        int buyChoice = JOptionPane.showOptionDialog(
+                null,
+                new JScrollPane(table),
+                "Pilihan Pembelian",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (buyChoice == 0) {
+            int selectedRow = table.getSelectedRow();
+            double uangSim = currentSim.getUang();
+            double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
+
+            String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
+            int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+
+            if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
+                JOptionPane.showMessageDialog(null,
+                        "Maaf, uang kamu tidak cukup!",
+                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
+                Purchasable barangTerpilih = listPembelian.get(selectedRow);
+                currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
+                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih,
+                        barangTerpilih.getNama());
+                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            return;
+        }
     }
 
     private void displayListObject() {
