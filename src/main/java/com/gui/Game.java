@@ -641,6 +641,7 @@ public class Game extends JFrame {
             if (value.getStats().getKekenyangan() == 0 || value.getStats().getKesehatan() == 0
                     || value.getStats().getMood() == 0) {
                 sims.remove(key);
+<<<<<<< Updated upstream
                 JOptionPane.showMessageDialog(null,
                         String.format("Sim %s mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -652,6 +653,18 @@ public class Game extends JFrame {
                         System.exit(0);
                     } else {
                         changeSim();
+=======
+                JOptionPane.showMessageDialog(null, String.format("Sim %s mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati", JOptionPane.INFORMATION_MESSAGE);
+                if (value.getNamaLengkap().equals(currentSim.getNamaLengkap())) {
+                    if (sims.size() == 0) {
+                        try {
+                            makeNewSim();
+                            // repaint();
+                        } catch (SimNotCreatedException exception) {
+                            JOptionPane.showMessageDialog(null, exception.getMessage(), "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+>>>>>>> Stashed changes
                     }
                 }
             }
