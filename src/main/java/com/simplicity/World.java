@@ -2,7 +2,6 @@ package com.simplicity;
 
 import java.io.*;
 import com.google.gson.*;
-import com.google.gson.reflect.*;
 import com.simplicity.Interface.*;
 import com.simplicity.AbstractClass.*;
 
