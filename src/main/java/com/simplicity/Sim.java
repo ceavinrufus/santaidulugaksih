@@ -199,6 +199,10 @@ public class Sim {
         waktuTidakBuangAir = waktu;
     }
 
+    public boolean getSimDead() {
+        return isDead;
+    }
+
     public void setSimDead() {
         isDead = true;
     }
@@ -217,6 +221,12 @@ public class Sim {
         if (isOnKunjungan) {
             stats.kurangKekenyangan(waktu / 30 * 10);
             stats.tambahMood(waktu / 30 * 10);
+        }
+    }
+
+    public void trackIsDead() {
+        if (stats.getKekenyangan() == 0 || stats.getKesehatan() == 0) {
+            setSimDead();
         }
     }
 

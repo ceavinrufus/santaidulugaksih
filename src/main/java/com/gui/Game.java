@@ -628,6 +628,14 @@ public class Game extends JFrame {
             value.trackTidur(value.getRecentActionTime());
             value.trackBuangAir(value.getRecentActionTime());
             value.trackKunjungan(value.getRecentActionTime());
+            value.trackIsDead();
+            if (value.getSimDead()) {
+                sims.remove(key);
+                JOptionPane.showMessageDialog(null, String.format("Sim %d mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati", JOptionPane.INFORMATION_MESSAGE);
+                if (currentSim.getNamaLengkap().equals(value.getNamaLengkap())) {
+                    currentSim = null;
+                }
+            }
         });
     }
 
