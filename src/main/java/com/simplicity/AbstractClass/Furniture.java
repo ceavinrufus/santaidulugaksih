@@ -8,7 +8,6 @@ import com.gui.Game;
 import com.simplicity.Ruangan;
 import com.simplicity.Rumah;
 import com.simplicity.Sim;
-import com.simplicity.ExceptionHandling.IllegalInputException;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 import com.simplicity.Interface.Purchasable;
 import com.simplicity.Interface.Storable;

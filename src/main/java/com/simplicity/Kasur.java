@@ -54,7 +54,6 @@ public class Kasur extends Furniture {
             }
         }
 
-        Waktu totalWaktu = Waktu.waktu();
         if (sleepTime >= 240) {
             try {
                 TimeUnit.SECONDS.sleep(sleepTime);

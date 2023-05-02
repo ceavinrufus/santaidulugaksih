@@ -51,6 +51,16 @@ public class Kompor extends Furniture {
         return "Memasak";
     }
 
+    private boolean isBahanAda(Inventory inventory, CookableFood masakan) {
+        boolean isBahanAda = true;
+        for (String bahan : masakan.getResep()) {
+            if (!inventory.contains(bahan)) {
+                isBahanAda = false;
+            }
+        }
+        return isBahanAda;
+    }
+
     @Override
     public void aksi(Sim sim) {
         ArrayList<Resep> resep = new ArrayList<>(Arrays.asList(Resep.values()));
@@ -95,15 +105,9 @@ public class Kompor extends Furniture {
         }
 
         if (masakan != null) {
-            boolean isBahanAda = true;
-            for (String bahan : masakan.getResep()) {
-                if (!sim.getInventory().isContains(bahan)) {
-                    isBahanAda = false;
-                }
-            }
-
-            if (isBahanAda) {
+            if (isBahanAda(sim.getInventory(), masakan)) {
                 try {
+                    // TODO: Ini kayaknya perlu dipindah ke bawah gasih?
                     TimeUnit.SECONDS.sleep((int) 1.5 * masakan.getKekenyangan());
                     for (String bahan : masakan.getResep()) {
                         for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {

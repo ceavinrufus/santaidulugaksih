@@ -50,16 +50,22 @@ public class Inventory {
         }
     }
 
-    public boolean isContains(String bahan) {
-        boolean contains = false;
-        int i = 0;
-        while (contains && i < container.size()) {
-            if (container.get(i).getKey().getNama().equals(bahan)) {
-                contains = true;
+    public boolean contains(Storable barang) {
+        for (Pair<Storable, Integer> item : container) {
+            if (item.getKey().getNama().equals(barang.getNama())) {
+                return true;
             }
-            i++;
         }
-        return contains;
+        return false;
+    }
+
+    public boolean contains(String namaBarang) {
+        for (Pair<Storable, Integer> item : container) {
+            if (item.getKey().getNama().equals(namaBarang)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // GUI
