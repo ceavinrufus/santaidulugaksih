@@ -33,7 +33,7 @@ public class MejaKursi extends Furniture {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                Waktu.waktu().addWaktu(30);
+                Waktu.getInstance().addWaktu(30);
             }
         }
         // sim.addAction(getNamaAksi());

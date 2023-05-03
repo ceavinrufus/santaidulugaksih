@@ -28,7 +28,7 @@ public class Sim {
     private int recentActionTime = 0;
 
     // Waktu Terpusat
-    Waktu totalWaktu = Waktu.waktu();
+    Waktu totalWaktu = Waktu.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;

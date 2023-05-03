@@ -59,6 +59,6 @@ public class Shower extends Furniture {
         } catch (InterruptedException e) {
 
         }
-        Waktu.waktu().addWaktu(showerTime);
+        Waktu.getInstance().addWaktu(showerTime);
     }
 }

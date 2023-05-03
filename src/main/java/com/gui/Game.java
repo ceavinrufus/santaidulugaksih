@@ -28,7 +28,7 @@ import com.simplicity.Thread.*;
 public class Game extends JFrame {
     private static Game instance = new Game();
     private static MainMenu mainMenu = MainMenu.getInstance();
-    public Waktu totalWaktu = Waktu.waktu();
+    public Waktu totalWaktu = Waktu.getInstance();
 
     // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();

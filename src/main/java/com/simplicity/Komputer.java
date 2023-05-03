@@ -52,6 +52,6 @@ public class Komputer extends Furniture {
         } catch (InterruptedException e) {
 
         }
-        Waktu.waktu().addWaktu(nubesTime);
+        Waktu.getInstance().addWaktu(nubesTime);
     }
 }

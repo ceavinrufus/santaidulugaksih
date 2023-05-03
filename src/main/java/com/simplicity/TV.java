@@ -61,6 +61,6 @@ public class TV extends Furniture {
         } catch (InterruptedException e) {
 
         }
-        Waktu.waktu().addWaktu(menontonTime);
+        Waktu.getInstance().addWaktu(menontonTime);
     }
 }

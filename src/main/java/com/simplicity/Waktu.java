@@ -14,7 +14,7 @@ public class Waktu {
         waktu = 0;
     }
 
-    public synchronized static Waktu waktu() {
+    public synchronized static Waktu getInstance() {
         if (waktuTotal == null) {
             waktuTotal = new Waktu();
         }
@@ -70,7 +70,7 @@ public class Waktu {
     }
 
     // public static void main(String[] args) throws InterruptedException {
-    // Waktu w = Waktu.waktu();
+    // Waktu w = Waktu.getInstance();
 
     // Runnable runA = new Runnable() {
     // public void run() {

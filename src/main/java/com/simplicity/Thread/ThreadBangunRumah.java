@@ -11,7 +11,7 @@ import com.simplicity.Interface.Leaveable;
 public class ThreadBangunRumah implements Leaveable {
     private volatile boolean shouldRun = false;
     // TODO: Karena lebih dari 1 hari, kemungkinan ada yang perlu dihandle
-    private int initialCountdown = 60 * 18;
+    private int sisaWaktu = 60 * 18;
     private Sim currentSim;
     private Ruangan ruanganBaru;
     private Ruangan ruanganPatokan;
@@ -26,10 +26,10 @@ public class ThreadBangunRumah implements Leaveable {
 
     @Override
     public void run() {
-        while (initialCountdown != 0) {
+        while (sisaWaktu != 0) {
             try {
                 if (shouldRun) {
-                    initialCountdown -= 1;
+                    sisaWaktu -= 1;
                     TimeUnit.SECONDS.sleep(1);
                 }
             } catch (InterruptedException e) {
@@ -39,19 +39,29 @@ public class ThreadBangunRumah implements Leaveable {
 
         currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah,
                 ruanganPatokan);
-        // String message = String.format("Upgrade rumah berhasil. Ruangan %s berhasil
-        // dibuat di %s ruangan %s!",
-        // ruanganBaru.getNamaRuangan(), arah.toLowerCase(),
-        // ruanganPatokan.getNamaRuangan());
-        // JOptionPane.showMessageDialog(null, message, "Notification",
-        // JOptionPane.INFORMATION_MESSAGE);
         Game.getInstance().repaint();
     }
 
+    @Override
+    public int getSisaWaktu() {
+        return sisaWaktu;
+    }
+
+    @Override
+    public void showCompleteMessage() {
+        String message = String.format("Upgrade rumah berhasil. Ruangan %s berhasil dibuat di %s ruangan %s!",
+                ruanganBaru.getNamaRuangan(), arah.toLowerCase(),
+                ruanganPatokan.getNamaRuangan());
+        JOptionPane.showMessageDialog(null, message, "Notification",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
     public void stop() {
         shouldRun = false;
     }
 
+    @Override
     public void start() {
         shouldRun = true;
     }

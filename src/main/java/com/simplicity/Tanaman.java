@@ -33,6 +33,6 @@ public class Tanaman extends Furniture {
         } catch (InterruptedException e) {
 
         }
-        Waktu.waktu().addWaktu(plantTime);
+        Waktu.getInstance().addWaktu(plantTime);
     }
 }

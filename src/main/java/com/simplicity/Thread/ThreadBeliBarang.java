@@ -10,7 +10,7 @@ import com.simplicity.Interface.Purchasable;
 
 public class ThreadBeliBarang implements Leaveable {
     private volatile boolean shouldRun = false;
-    private int initialCountdown = 25;
+    private int sisaWaktu = 25;
     private Sim currentSim;
     private Purchasable barang;
     private int jumlahBarang;
@@ -23,10 +23,10 @@ public class ThreadBeliBarang implements Leaveable {
 
     @Override
     public void run() {
-        while (initialCountdown != 0) {
+        while (sisaWaktu != 0) {
             try {
                 if (shouldRun) {
-                    initialCountdown -= 1;
+                    sisaWaktu -= 1;
                     TimeUnit.SECONDS.sleep(1);
                 }
             } catch (InterruptedException e) {
@@ -34,18 +34,28 @@ public class ThreadBeliBarang implements Leaveable {
             }
         }
         currentSim.getInventory().addBarang(barang, jumlahBarang);
-        // String message = String.format("Selamat! Pembelian %d %s berhasil.",
-        // jumlahBarang, barang.getNama());
-        // JOptionPane.showMessageDialog(null, message, "Notification",
-        // JOptionPane.INFORMATION_MESSAGE);
     }
 
+    @Override
+    public int getSisaWaktu() {
+        return sisaWaktu;
+    }
+
+    @Override
+    public void showCompleteMessage() {
+        String message = String.format("Selamat! Pembelian %d %s berhasil.",
+                jumlahBarang, barang.getNama());
+        JOptionPane.showMessageDialog(null, message, "Notification",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
     public void stop() {
         shouldRun = false;
     }
 
+    @Override
     public void start() {
         shouldRun = true;
     }
-
 }

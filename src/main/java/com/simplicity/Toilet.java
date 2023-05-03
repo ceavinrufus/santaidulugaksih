@@ -30,7 +30,7 @@ public class Toilet extends Furniture {
             } catch (InterruptedException e) {
 
             }
-            Waktu.waktu().addWaktu(10);
+            Waktu.getInstance().addWaktu(10);
         } else {
             JOptionPane.showMessageDialog(null, "Kok bisa udah buang air padahal belum makan?", "Sus",
                     JOptionPane.INFORMATION_MESSAGE);

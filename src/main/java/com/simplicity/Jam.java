@@ -20,15 +20,16 @@ public class Jam extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        Waktu waktu = Waktu.waktu();
+        Waktu waktu = Waktu.getInstance();
         int totalWaktu = waktu.getWaktu();
         int waktuHariIni = totalWaktu;
         while (waktuHariIni >= 720) {
             waktuHariIni -= 720;
         }
-        int sisaWaktuHariIni = (12*60) - waktuHariIni;
+        int sisaWaktuHariIni = (12 * 60) - waktuHariIni;
         int sisaWaktuHariIniMenit = (int) sisaWaktuHariIni / 60;
-        String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuHariIni, sisaWaktuHariIniMenit);
+        String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuHariIni,
+                sisaWaktuHariIniMenit);
         JOptionPane.showMessageDialog(null, info, "Info Waktu", JOptionPane.INFORMATION_MESSAGE);
     }
 }

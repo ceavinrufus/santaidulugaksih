@@ -68,7 +68,7 @@ public abstract class Food implements Storable {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            Waktu.waktu().addWaktu(30);
+            Waktu.getInstance().addWaktu(30);
 
             // if (true) {
             // } else {

@@ -53,6 +53,6 @@ public class ArcadeMachine extends Furniture {
         } catch (InterruptedException e) {
 
         }
-        Waktu.waktu().addWaktu(bermainTime);
+        Waktu.getInstance().addWaktu(bermainTime);
     }
 }

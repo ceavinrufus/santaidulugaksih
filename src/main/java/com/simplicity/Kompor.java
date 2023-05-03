@@ -121,7 +121,7 @@ public class Kompor extends Furniture {
                 } catch (InterruptedException e) {
                     // do something
                 }
-                Waktu.waktu().addWaktu((int) 1.5 * masakan.getKekenyangan());
+                Waktu.getInstance().addWaktu((int) 1.5 * masakan.getKekenyangan());
                 JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
