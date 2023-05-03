@@ -425,10 +425,10 @@ public class Game extends JFrame {
             } else {
                 currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
                 Purchasable barangTerpilih = listPembelian.get(selectedRow);
-                currentSim.getInventory().addBarang(barangTerpilih, jumlahBarangTerpilih);
-                String message = String.format("Selamat! Pembelian %d %s berhasil.", jumlahBarangTerpilih,
-                        barangTerpilih.getNama());
-                JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+                ThreadBeliBarang beliBarang = new ThreadBeliBarang(currentSim, barangTerpilih, jumlahBarangTerpilih);
+                ThreadManager.addThread(beliBarang);
+                Thread t = new Thread(beliBarang);
+                t.start();
             }
         } else {
             return;
@@ -491,7 +491,7 @@ public class Game extends JFrame {
                         currentSim.setUang(currentSim.getUang() - cost);
                         ThreadBangunRumah bangunRumah = new ThreadBangunRumah(currentSim, ruanganBaru, ruanganPatokan,
                                 arah);
-                        ThreadManager.getInstance().addThread(bangunRumah);
+                        ThreadManager.addThread(bangunRumah);
                         Thread t = new Thread(bangunRumah);
                         t.start();
                         JOptionPane.getRootFrame().dispose();

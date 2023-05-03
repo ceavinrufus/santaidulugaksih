@@ -2,7 +2,6 @@ package com.simplicity;
 
 import java.util.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
 import com.gui.Game;

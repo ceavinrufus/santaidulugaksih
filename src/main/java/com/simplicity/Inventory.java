@@ -18,12 +18,6 @@ public class Inventory {
         return container;
     }
 
-    public void displayBarang() {
-        for (Pair<Storable, Integer> item : container) {
-            System.out.println(item.getKey().getNama() + " : " + item.getValue());
-        }
-    }
-
     public void addBarang(Storable barang, int jumlah) {
         for (Pair<Storable, Integer> item : container) {
             if (item.getKey().getNama().equals(barang.getNama())) {

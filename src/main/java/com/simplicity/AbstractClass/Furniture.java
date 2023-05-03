@@ -10,9 +10,8 @@ import com.simplicity.Rumah;
 import com.simplicity.Sim;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 import com.simplicity.Interface.Purchasable;
-import com.simplicity.Interface.Storable;
 
-public abstract class Furniture implements Storable, Purchasable {
+public abstract class Furniture implements Purchasable {
     private String nama;
     private int panjang;
     private int lebar;

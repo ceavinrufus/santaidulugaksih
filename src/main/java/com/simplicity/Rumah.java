@@ -105,18 +105,6 @@ public class Rumah {
         }
     }
 
-    public void hapusRuangan(Ruangan ruangan) {
-        for (int i = 0; i < petaRuangan.getRow(); i++) {
-            for (int j = 0; j < petaRuangan.getColumn(); j++) {
-                if (petaRuangan.getElement(i, j) == ruangan) {
-                    petaRuangan.setElement(i, j, null);
-                } else {
-                    System.out.println("Ruangan tidak ditemukan");
-                }
-            }
-        }
-    }
-
     public Ruangan findRuangan(String namaRuangan) {
         Ruangan ruangan = null;
         for (int i = 0; i < petaRuangan.getRow(); i++) {

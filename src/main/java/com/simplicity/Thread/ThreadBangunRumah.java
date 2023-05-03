@@ -39,7 +39,12 @@ public class ThreadBangunRumah implements Leaveable {
 
         currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah,
                 ruanganPatokan);
-        JOptionPane.getRootFrame().dispose();
+        // String message = String.format("Upgrade rumah berhasil. Ruangan %s berhasil
+        // dibuat di %s ruangan %s!",
+        // ruanganBaru.getNamaRuangan(), arah.toLowerCase(),
+        // ruanganPatokan.getNamaRuangan());
+        // JOptionPane.showMessageDialog(null, message, "Notification",
+        // JOptionPane.INFORMATION_MESSAGE);
         Game.getInstance().repaint();
     }
 

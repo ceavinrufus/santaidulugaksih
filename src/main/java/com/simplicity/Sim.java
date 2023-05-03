@@ -269,13 +269,13 @@ public class Sim {
                 }
             }
 
-            ThreadManager.getInstance().startAllThreads();
+            ThreadManager.startAllThreads();
             try {
                 TimeUnit.SECONDS.sleep(workingTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ThreadManager.getInstance().stopAllThreads();
+            ThreadManager.stopAllThreads();
 
             totalWorkTime += workingTime;
             recentActionTime = workingTime;
@@ -307,15 +307,19 @@ public class Sim {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
+
+        ThreadManager.startAllThreads();
         try {
             TimeUnit.SECONDS.sleep(workoutTime);
-            recentActionTime = workoutTime;
-            stats.tambahKesehatan(workoutTime / 20 * 5);
-            stats.kurangKekenyangan(workoutTime / 20 * 5);
-            stats.tambahMood(workoutTime / 20 * 10);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        ThreadManager.stopAllThreads();
+
+        recentActionTime = workoutTime;
+        stats.tambahKesehatan(workoutTime / 20 * 5);
+        stats.kurangKekenyangan(workoutTime / 20 * 5);
+        stats.tambahMood(workoutTime / 20 * 10);
         totalWaktu.addWaktu(workoutTime);
         isSehabisMakan = false;
         isSehabisTidur = false;
