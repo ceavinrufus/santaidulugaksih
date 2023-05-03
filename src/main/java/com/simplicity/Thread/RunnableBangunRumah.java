@@ -8,7 +8,7 @@ import com.gui.Game;
 import com.simplicity.*;
 import com.simplicity.Interface.Leaveable;
 
-public class ThreadBangunRumah implements Leaveable {
+public class RunnableBangunRumah implements Leaveable {
     private volatile boolean shouldRun = false;
     // TODO: Karena lebih dari 1 hari, kemungkinan ada yang perlu dihandle
     private int sisaWaktu = 60 * 18;
@@ -17,7 +17,7 @@ public class ThreadBangunRumah implements Leaveable {
     private Ruangan ruanganPatokan;
     private String arah;
 
-    public ThreadBangunRumah(Sim currentSim, Ruangan ruanganBaru, Ruangan ruanganPatokan, String arah) {
+    public RunnableBangunRumah(Sim currentSim, Ruangan ruanganBaru, Ruangan ruanganPatokan, String arah) {
         this.currentSim = currentSim;
         this.ruanganBaru = ruanganBaru;
         this.ruanganPatokan = ruanganPatokan;

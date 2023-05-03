@@ -425,7 +425,8 @@ public class Game extends JFrame {
             } else {
                 currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
                 Purchasable barangTerpilih = listPembelian.get(selectedRow);
-                ThreadBeliBarang beliBarang = new ThreadBeliBarang(currentSim, barangTerpilih, jumlahBarangTerpilih);
+                RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
+                        jumlahBarangTerpilih);
                 ThreadManager.addThread(beliBarang);
                 Thread t = new Thread(beliBarang);
                 t.start();
@@ -489,7 +490,8 @@ public class Game extends JFrame {
                     JButton button = new JButton(arah);
                     button.addActionListener(e -> {
                         currentSim.setUang(currentSim.getUang() - cost);
-                        ThreadBangunRumah bangunRumah = new ThreadBangunRumah(currentSim, ruanganBaru, ruanganPatokan,
+                        RunnableBangunRumah bangunRumah = new RunnableBangunRumah(currentSim, ruanganBaru,
+                                ruanganPatokan,
                                 arah);
                         ThreadManager.addThread(bangunRumah);
                         Thread t = new Thread(bangunRumah);

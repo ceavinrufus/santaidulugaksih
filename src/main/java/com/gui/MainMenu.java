@@ -2,8 +2,6 @@ package com.gui;
 
 import javax.swing.*;
 
-import com.google.gson.Gson;
-
 import com.simplicity.*;
 import com.simplicity.ExceptionHandling.SimNotCreatedException;
 

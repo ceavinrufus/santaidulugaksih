@@ -8,14 +8,14 @@ import com.simplicity.Sim;
 import com.simplicity.Interface.Leaveable;
 import com.simplicity.Interface.Purchasable;
 
-public class ThreadBeliBarang implements Leaveable {
+public class RunnableBeliBarang implements Leaveable {
     private volatile boolean shouldRun = false;
     private int sisaWaktu = 25;
     private Sim currentSim;
     private Purchasable barang;
     private int jumlahBarang;
 
-    public ThreadBeliBarang(Sim currentSim, Purchasable barang, int jumlahBarang) {
+    public RunnableBeliBarang(Sim currentSim, Purchasable barang, int jumlahBarang) {
         this.currentSim = currentSim;
         this.barang = barang;
         this.jumlahBarang = jumlahBarang;
