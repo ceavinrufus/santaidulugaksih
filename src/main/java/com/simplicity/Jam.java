@@ -3,6 +3,7 @@ package com.simplicity;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,10 +47,13 @@ public class Jam extends Furniture {
                         break;
                     case "Lihat Waktu Sisa Aksi Pasif":
                         displayWaktuAksiPasif();
+                        break;
                 }
             });
+            panel.add(button);
         }
-        
+        JOptionPane.showOptionDialog(null, panel, "Lihat Waktu", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
     }
 
     private void displayWaktuPusat() {
@@ -88,6 +92,12 @@ public class Jam extends Furniture {
             }
         };
         JTable table = new JTable(tableModel);
+        String[] options = {"OK"};
+        int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Lihat Waktu", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        if (choice == 0) {
+            return;
+        }
     }
 
 }
