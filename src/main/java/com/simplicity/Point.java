@@ -15,8 +15,6 @@ public class Point {
     }
 
     public void move(int x, int y) {
-        // x : new X coordinate
-        // y : new Y coordinate
         setX(x);
         setY(y);
     }

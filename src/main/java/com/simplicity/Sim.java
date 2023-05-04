@@ -286,8 +286,8 @@ public class Sim {
             }
             stats.kurangKekenyangan(workingTime / 30 * 10);
             stats.kurangMood(workingTime / 30 * 10);
-            uang += pekerjaan.getGaji() * (workingTime % 240);
-            waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime % 240));
+            uang += pekerjaan.getGaji() * (workingTime / 240);
+            waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime / 240));
             JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
         }
     }
