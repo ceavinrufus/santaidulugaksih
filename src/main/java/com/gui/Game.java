@@ -412,24 +412,29 @@ public class Game extends JFrame {
 
         if (buyChoice == 0) {
             int selectedRow = table.getSelectedRow();
-            double uangSim = currentSim.getUang();
-            double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
-
-            String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
-            int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
-
-            if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
-                JOptionPane.showMessageDialog(null,
-                        "Maaf, uang kamu tidak cukup!",
-                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+            if (selectedRow>=0){
+                double uangSim = currentSim.getUang();
+                double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
+    
+                String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
+                int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+    
+                if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
+                    JOptionPane.showMessageDialog(null,
+                            "Maaf, uang kamu tidak cukup!",
+                            "Notification", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
+                    Purchasable barangTerpilih = listPembelian.get(selectedRow);
+                    RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
+                            jumlahBarangTerpilih);
+                    ThreadManager.addThread(beliBarang);
+                    Thread t = new Thread(beliBarang);
+                    t.start();
+                }
             } else {
-                currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
-                Purchasable barangTerpilih = listPembelian.get(selectedRow);
-                RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
-                        jumlahBarangTerpilih);
-                ThreadManager.addThread(beliBarang);
-                Thread t = new Thread(beliBarang);
-                t.start();
+                JOptionPane.showMessageDialog(null, "Kamu belum memilih barang!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else {
             return;

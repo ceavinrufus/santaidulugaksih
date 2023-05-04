@@ -107,8 +107,8 @@ public class Inventory {
                 temp.get(selectedRow).displayInfo();
                 displayInventory(className);
             } else {
-                JOptionPane.showMessageDialog(null, "Kamu belum memilih barang!", "Sim Info",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Kamu belum memilih barang!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else if (choice == 1) {
         }
