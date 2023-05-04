@@ -1,6 +1,20 @@
 package com.simplicity;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.GridLayout;
+import java.util.List;
+
+import javax.swing.JButton;
+import com.simplicity.Interface.Leaveable;
+import com.simplicity.Thread.RunnableBangunRumah;
+import com.simplicity.Thread.RunnableBeliBarang;
+import com.simplicity.Thread.ThreadManager;
+
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -20,6 +34,25 @@ public class Jam extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
+        String[] options = {"Lihat Waktu Pusat" , "Lihat Waktu Sisa Aksi Pasif"};
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 1));
+        for (String option : options) {
+            JButton button = new JButton(option);
+            button.addActionListener(e -> {
+                switch (option) {
+                    case "Lihat Waktu Pusat":
+                        displayWaktuPusat();
+                        break;
+                    case "Lihat Waktu Sisa Aksi Pasif":
+                        displayWaktuAksiPasif();
+                }
+            });
+        }
+        
+    }
+
+    private void displayWaktuPusat() {
         Waktu waktu = Waktu.getInstance();
         int totalWaktu = waktu.getWaktu();
         int waktuHariIni = totalWaktu;
@@ -32,4 +65,29 @@ public class Jam extends Furniture {
                 sisaWaktuHariIniMenit);
         JOptionPane.showMessageDialog(null, info, "Info Waktu", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    private void displayWaktuAksiPasif() {
+        List<Leaveable> threadlist = ThreadManager.getInstance();
+        String[][] tableData = new String[threadlist.size()][2];
+        String[] columnNames = {"Aksi", "Sisa Waktu"};
+
+        for (int i = 0; i < threadlist.size(); i++) {
+            if (threadlist.get(i) instanceof RunnableBangunRumah) {
+                tableData[i][0] = "Bangun Rumah";
+                tableData[i][1] = String.valueOf(threadlist.get(i).getSisaWaktu());
+            } else if (threadlist.get(i) instanceof RunnableBeliBarang) {
+                tableData[i][0] = "Beli Barang";
+                tableData[i][1] = String.valueOf(threadlist.get(i).getSisaWaktu());
+            }
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(tableModel);
+    }
+
 }
