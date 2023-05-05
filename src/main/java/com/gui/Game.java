@@ -562,9 +562,11 @@ public class Game extends JFrame {
 
             Boolean inputValid = false;
             do {
-                int option = JOptionPane.showConfirmDialog(null, messageInput, "Kamu mau bangun rumah di mana?",
-                        JOptionPane.OK_CANCEL_OPTION);
-                if (option == JOptionPane.OK_OPTION) {
+                // Testing for Random Location
+                String[] initialOptions = { "OK", "Cancel", "Random" };
+                int option = JOptionPane.showOptionDialog(null, messageInput, "Kamu mau bangun rumah di mana?",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, initialOptions, initialOptions[0]);
+                if (option == 0) {
                     int koordinatX = Integer.parseInt(inputX.getText());
                     int koordinatY = Integer.parseInt(inputY.getText());
                     if ((koordinatX < 0 || koordinatX >= 64) || (koordinatY < 0 || koordinatY >= 64)) {
@@ -580,9 +582,41 @@ public class Game extends JFrame {
                         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
                         inputValid = true;
                     }
-                } else {
+                } else if (option == 1) {
                     return null;
+                } else if (option == 2) {
+                    Random random = new Random();
+                    int koordinatX = random.nextInt(64);
+                    int koordinatY = random.nextInt(64);
+                    if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) == null) {
+                        World.getInstance().tambahRumah(rumah, koordinatX, koordinatY);
+                        rumah.setNamaPemilik(sim);
+                        sim.setCurrentPosition(new SimPosition(rumah, ruangan));
+                        inputValid = true;
+                    }
                 }
+
+                // int option = JOptionPane.showConfirmDialog(null, messageInput, "Kamu mau bangun rumah di mana?",
+                //         JOptionPane.OK_CANCEL_OPTION);
+                // if (option == JOptionPane.OK_OPTION) {
+                //     int koordinatX = Integer.parseInt(inputX.getText());
+                //     int koordinatY = Integer.parseInt(inputY.getText());
+                //     if ((koordinatX < 0 || koordinatX >= 64) || (koordinatY < 0 || koordinatY >= 64)) {
+                //         throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-63, ya!");
+                //     } else if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) != null) {
+                //         JOptionPane.showMessageDialog(null,
+                //                 "Maaf, Rumah tidak bisa dibangun karena lahan sudah digunakan.",
+                //                 "Notification",
+                //                 JOptionPane.INFORMATION_MESSAGE);
+                //     } else {
+                //         World.getInstance().tambahRumah(rumah, koordinatX, koordinatY);
+                //         rumah.setNamaPemilik(sim);
+                //         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
+                //         inputValid = true;
+                //     }
+                // } else {
+                //     return null;
+                // }
             } while (!inputValid);
         } catch (IllegalLocationException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
