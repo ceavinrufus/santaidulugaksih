@@ -60,7 +60,7 @@ public class HomePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (currentSim != null) {
-                    SimPosition simCurrentPosition = currentSim.getCurrentPosition();
+                    SimPosition simCurrentPosition = Game.getInstance().getCurrentSim().getCurrentPosition();
                     Furniture barang = simCurrentPosition.getRuang()
                             .getBarangByKoordinat(simCurrentPosition.getLokasi());
                     currentSim.interact(barang);
