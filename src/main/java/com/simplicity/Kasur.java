@@ -34,7 +34,7 @@ public class Kasur extends Furniture {
     @Override
     public void aksi(Sim sim) {
         Integer sleepTime = 0;
-        while (sleepTime < 240) {
+        while (sleepTime < 180) {
             String input = "";
             try {
                 input = JOptionPane.showInputDialog(null, "Masukkan waktu tidur (detik): ");
@@ -43,8 +43,8 @@ public class Kasur extends Furniture {
                     return;
                 } else {
                     sleepTime = Integer.parseInt(input);
-                    if (sleepTime < 240) {
-                        JOptionPane.showMessageDialog(null, "Minimal tidur selama 240 detik", "Error",
+                    if (sleepTime < 180) {
+                        JOptionPane.showMessageDialog(null, "Minimal tidur selama 180 detik", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -54,22 +54,15 @@ public class Kasur extends Furniture {
             }
         }
 
-        // TODO: Ini 180 bukan 240, trus ini gaperlu divalidasi kalau udah 3 menit atau
-        // nggak
-        if (sleepTime >= 240) {
-            try {
-                TimeUnit.SECONDS.sleep(sleepTime);
-                sim.getStats().tambahMood(sleepTime / 240 * 30);
-                sim.getStats().tambahKesehatan(sleepTime / 240 * 20);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            Waktu.getInstance().addWaktu(sleepTime);
-            sim.setWaktuTidakTidur(0);
-            sim.setIsSehabisTidur(true);
-            sim.setIsSehabisMakan(false);
-            JOptionPane.showMessageDialog(null, "Enaknya tidur " + sleepTime + " detik!", "Kasur",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+        mulaiAksi(sleepTime);
+
+        sim.getStats().tambahMood(sleepTime / 180 * 30);
+        sim.getStats().tambahKesehatan(sleepTime / 180 * 20);
+        sim.setWaktuTidakTidur(0);
+        sim.setIsSehabisTidur(true);
+        sim.setIsSehabisMakan(false);
+        JOptionPane.showMessageDialog(null, "Enaknya tidur " + sleepTime + " detik!", "Kasur",
+        JOptionPane.INFORMATION_MESSAGE);
+        Waktu.getInstance().addWaktu(sleepTime);
     }
 }

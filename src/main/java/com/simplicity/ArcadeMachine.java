@@ -40,19 +40,17 @@ public class ArcadeMachine extends Furniture {
             }
         }
 
-        try {
-            bermainTime += 10;
-            TimeUnit.SECONDS.sleep(bermainTime);
-            sim.getStats().tambahMood(bermainTime / 10 * 10);
-            sim.getStats().kurangKekenyangan(bermainTime / 10 * 10);
-            sim.getStats().kurangKesehatan(bermainTime / 10 * 10);
-            JOptionPane.showMessageDialog(null,
-                    "Waduh keasikan...",
-                    "Arcade Machine",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e) {
+        bermainTime += 10;
 
-        }
+        mulaiAksi(bermainTime);
+
+        sim.getStats().tambahMood(bermainTime / 10 * 10);
+        sim.getStats().kurangKekenyangan(bermainTime / 10 * 10);
+        sim.getStats().kurangKesehatan(bermainTime / 10 * 10);
+        JOptionPane.showMessageDialog(null,
+                "Waduh keasikan...",
+                "Arcade Machine",
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(bermainTime);
     }
 }
