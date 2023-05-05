@@ -9,7 +9,7 @@ import com.simplicity.Interface.Leaveable;
 import com.simplicity.Interface.Purchasable;
 
 public class RunnableBeliBarang implements Leaveable {
-    private volatile boolean shouldRun = true;
+    private volatile boolean shouldRun = false;
     private int sisaWaktu;
     private Sim currentSim;
     private Purchasable barang;
