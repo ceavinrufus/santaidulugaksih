@@ -49,7 +49,7 @@ public class Rumah {
     // return jumlahRuangan;
     // }
 
-    public void tambahRuangan(Ruangan ruanganBaru, String arah, Ruangan ruanganPatokan) {
+    public synchronized void tambahRuangan(Ruangan ruanganBaru, String arah, Ruangan ruanganPatokan) {
         int x;
         int y;
         int jumlahCol = petaRuangan.getColumn();

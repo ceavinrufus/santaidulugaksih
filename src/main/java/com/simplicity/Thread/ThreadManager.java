@@ -7,15 +7,15 @@ import com.simplicity.Interface.Leaveable;
 public class ThreadManager {
     private static List<Leaveable> threadList = new ArrayList<>();
 
-    public static List<Leaveable> getInstance() {
+    public synchronized static List<Leaveable> getInstance() {
         return threadList;
     }
 
-    public static void addThread(Leaveable thread) {
+    public synchronized static void addThread(Leaveable thread) {
         threadList.add(thread);
     }
 
-    public static void removeThread(Leaveable thread) {
+    public synchronized static void removeThread(Leaveable thread) {
         threadList.remove(thread);
     }
 
