@@ -24,7 +24,6 @@ public class Sim {
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
-    private boolean isDead = false;
     private int recentActionTime = 0;
 
     // Waktu Terpusat
@@ -197,14 +196,6 @@ public class Sim {
 
     public void setWaktuTidakBuangAir(int waktu) {
         waktuTidakBuangAir = waktu;
-    }
-
-    public boolean getSimDead() {
-        return isDead;
-    }
-
-    public void setSimDead() {
-        isDead = true;
     }
 
     public void trackBuangAir(int waktu) {
