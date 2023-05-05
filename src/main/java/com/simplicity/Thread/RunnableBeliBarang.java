@@ -10,7 +10,7 @@ import com.simplicity.Interface.Purchasable;
 
 public class RunnableBeliBarang implements Leaveable {
     private volatile boolean shouldRun = false;
-    private int sisaWaktu = 25;
+    private int sisaWaktu;
     private Sim currentSim;
     private Purchasable barang;
     private int jumlahBarang;
@@ -19,6 +19,11 @@ public class RunnableBeliBarang implements Leaveable {
         this.currentSim = currentSim;
         this.barang = barang;
         this.jumlahBarang = jumlahBarang;
+
+        int lowerBound = 1;
+        int upperBound = 5;
+        int random_int = (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+        sisaWaktu = random_int * 30;
     }
 
     @Override
@@ -37,6 +42,11 @@ public class RunnableBeliBarang implements Leaveable {
             ThreadManager.removeThread(this);
         }
         currentSim.getInventory().addBarang(barang, jumlahBarang);
+        showCompleteMessage();
+    }
+
+    public Purchasable getBarang() {
+        return barang;
     }
 
     @Override
