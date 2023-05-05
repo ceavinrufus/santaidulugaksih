@@ -588,7 +588,12 @@ public class Game extends JFrame {
                     Random random = new Random();
                     int koordinatX = random.nextInt(64);
                     int koordinatY = random.nextInt(64);
-                    if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) == null) {
+                    if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) != null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Maaf, Rumah tidak bisa dibangun karena lahan sudah digunakan.",
+                                "Notification",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
                         World.getInstance().tambahRumah(rumah, koordinatX, koordinatY);
                         rumah.setNamaPemilik(sim);
                         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
