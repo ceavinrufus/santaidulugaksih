@@ -410,13 +410,13 @@ public class Game extends JFrame {
 
         if (buyChoice == 0) {
             int selectedRow = table.getSelectedRow();
-            if (selectedRow>=0){
+            if (selectedRow >= 0) {
                 double uangSim = currentSim.getUang();
                 double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
-    
+
                 String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
                 int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
-    
+
                 if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
                     JOptionPane.showMessageDialog(null,
                             "Maaf, uang kamu tidak cukup!",
@@ -426,7 +426,8 @@ public class Game extends JFrame {
                     Purchasable barangTerpilih = listPembelian.get(selectedRow);
                     RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
                             jumlahBarangTerpilih);
-                    String message = String.format("Silakan menunggu pengiriman %d %s selama %d detik", jumlahBarangTerpilih, barangTerpilih.getNama(), beliBarang.getSisaWaktu());
+                    String message = String.format("Silakan menunggu pengiriman %d %s selama %d detik",
+                            jumlahBarangTerpilih, barangTerpilih.getNama(), beliBarang.getSisaWaktu());
                     JOptionPane.showMessageDialog(null, message, "Pembelian Berhasil",
                             JOptionPane.INFORMATION_MESSAGE);
                     ThreadManager.addThread(beliBarang);
@@ -604,28 +605,6 @@ public class Game extends JFrame {
                         inputValid = true;
                     }
                 }
-
-                // int option = JOptionPane.showConfirmDialog(null, messageInput, "Kamu mau bangun rumah di mana?",
-                //         JOptionPane.OK_CANCEL_OPTION);
-                // if (option == JOptionPane.OK_OPTION) {
-                //     int koordinatX = Integer.parseInt(inputX.getText());
-                //     int koordinatY = Integer.parseInt(inputY.getText());
-                //     if ((koordinatX < 0 || koordinatX >= 64) || (koordinatY < 0 || koordinatY >= 64)) {
-                //         throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-63, ya!");
-                //     } else if (World.getInstance().getPeta().getElement(koordinatX, koordinatY) != null) {
-                //         JOptionPane.showMessageDialog(null,
-                //                 "Maaf, Rumah tidak bisa dibangun karena lahan sudah digunakan.",
-                //                 "Notification",
-                //                 JOptionPane.INFORMATION_MESSAGE);
-                //     } else {
-                //         World.getInstance().tambahRumah(rumah, koordinatX, koordinatY);
-                //         rumah.setNamaPemilik(sim);
-                //         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
-                //         inputValid = true;
-                //     }
-                // } else {
-                //     return null;
-                // }
             } while (!inputValid);
         } catch (IllegalLocationException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,7 +1,5 @@
 package com.simplicity;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Food;
@@ -23,7 +21,7 @@ public class MejaKursi extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        //SUS
+        // SUS
         Food food = new NonCookableFood("Ayam");
         sim.getInventory().displayInventory(Food.class);
         // Ambil makanan dari inventory
@@ -37,7 +35,7 @@ public class MejaKursi extends Furniture {
                         "Yummy!",
                         "Meja dan Kursi",
                         JOptionPane.INFORMATION_MESSAGE);
-                
+
                 Waktu.getInstance().addWaktu(30);
             }
         }

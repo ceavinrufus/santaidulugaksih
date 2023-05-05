@@ -1,7 +1,5 @@
 package com.simplicity;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Furniture;
@@ -28,9 +26,9 @@ public class Toilet extends Furniture {
             sim.getStats().tambahMood(10);
             sim.setWaktuTidakBuangAir(0);
             JOptionPane.showMessageDialog(null,
-                "Ah legaa..",
-                "Toilet",
-                JOptionPane.INFORMATION_MESSAGE);
+                    "Ah legaa..",
+                    "Toilet",
+                    JOptionPane.INFORMATION_MESSAGE);
             Waktu.getInstance().addWaktu(10);
         } else {
             JOptionPane.showMessageDialog(null, "Kok bisa udah buang air padahal belum makan?", "Sus",

@@ -11,8 +11,6 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import com.simplicity.Interface.Leaveable;
-import com.simplicity.Thread.RunnableBangunRumah;
-import com.simplicity.Thread.RunnableBeliBarang;
 import com.simplicity.Thread.ThreadManager;
 
 import com.simplicity.AbstractClass.Furniture;

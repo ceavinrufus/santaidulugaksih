@@ -251,7 +251,7 @@ public class Ruangan {
 
     public void putObject() {
         Sim currentSim = Game.getInstance().getCurrentSim();
-        currentSim.getInventory().displayInventory(Storable.class);
+        currentSim.getInventory().displayInventory(Furniture.class);
     }
 
     public void takeObject() {
@@ -296,12 +296,13 @@ public class Ruangan {
                             "X:", inputX,
                             "Y:", inputY
                     };
-                    
+
                     int koordinatX = 0;
                     int koordinatY = 0;
                     Boolean inputValid = false;
                     while (!inputValid) {
-                        int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Barang yang Diambil",
+                        int option = JOptionPane.showConfirmDialog(null, messageInput,
+                                "Input Posisi Barang yang Diambil",
                                 JOptionPane.OK_CANCEL_OPTION);
                         if (option == JOptionPane.OK_OPTION) {
                             try {
@@ -387,12 +388,13 @@ public class Ruangan {
                             "X:", inputX,
                             "Y:", inputY
                     };
-                    
+
                     int koordinatX = 0;
                     int koordinatY = 0;
                     Boolean inputValid = false;
                     while (!inputValid) {
-                        int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Barang yang Diambil",
+                        int option = JOptionPane.showConfirmDialog(null, messageInput,
+                                "Input Posisi Barang yang Diambil",
                                 JOptionPane.OK_CANCEL_OPTION);
                         if (option == JOptionPane.OK_OPTION) {
                             try {
@@ -425,7 +427,8 @@ public class Ruangan {
                     }
                     idBarang = getIDBarangAtKoordinat(koordinatX, koordinatY);
                 } else {
-                    idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
+                    idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(),
+                            listBarang.get(selectedOption).getY());
                 }
                 currentRoom.mengambilBarang(takenObject, idBarang);
 
@@ -434,25 +437,25 @@ public class Ruangan {
                 if (currentSim.getNamaLengkap().equals(currentHouse.getNamaPemilik())) {
                     // Cari posisi
                     // Pasang
-                    Boolean isHorizontal = true; // default value 
+                    Boolean isHorizontal = true; // default value
                     if (takenObject.getPanjang() != takenObject.getLebar()) {
                         String[] orientationOptions = { "Vertikal", "Horizontal" };
-        
+
                         int inputOrientation = JOptionPane.showOptionDialog(
                                 null, "Pilih Orientasi", "Pasang Barang",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                                 null, orientationOptions, orientationOptions[0]);
-        
+
                         isHorizontal = (inputOrientation == 1) ? true : false;
                     }
-    
+
                     JTextField inputX = new JTextField();
                     JTextField inputY = new JTextField();
                     Object[] messageInput = {
                             "X:", inputX,
                             "Y:", inputY
                     };
-    
+
                     Boolean inputValid = false;
                     while (!inputValid) {
                         int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Pemasangan Barang",
@@ -465,16 +468,18 @@ public class Ruangan {
                                     throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-5, ya!");
                                 } else {
                                     if (isHorizontal) {
-                                        if (koordinatX + takenObject.getPanjang() > 6 || koordinatY + takenObject.getLebar() > 6) {
+                                        if (koordinatX + takenObject.getPanjang() > 6
+                                                || koordinatY + takenObject.getLebar() > 6) {
                                             throw new IllegalLocationException("Waduh, gak muat!");
                                         }
                                     } else {
-                                        if (koordinatX + takenObject.getLebar() > 6 || koordinatY + takenObject.getPanjang() > 6) {
+                                        if (koordinatX + takenObject.getLebar() > 6
+                                                || koordinatY + takenObject.getPanjang() > 6) {
                                             throw new IllegalLocationException("Waduh, gak muat!");
                                         }
                                     }
                                 }
-    
+
                                 Ruangan currentRuang = currentSim.getCurrentPosition().getRuang();
                                 if (currentRuang.isSpaceAvailable(takenObject, isHorizontal, koordinatX, koordinatY)) {
                                     currentRuang.memasangBarang(takenObject, isHorizontal, koordinatX, koordinatY);
@@ -487,7 +492,8 @@ public class Ruangan {
                                             JOptionPane.INFORMATION_MESSAGE);
                                 }
                             } catch (NumberFormatException e) {
-                                JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, lho!",
+                                JOptionPane.showMessageDialog(null,
+                                        "Nilai koordinat harus berbentuk bilangan bulat, lho!",
                                         "Error",
                                         JOptionPane.ERROR_MESSAGE);
                             } catch (IllegalLocationException e) {

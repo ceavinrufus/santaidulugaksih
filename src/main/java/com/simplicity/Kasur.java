@@ -1,7 +1,5 @@
 package com.simplicity;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Furniture;
@@ -62,7 +60,7 @@ public class Kasur extends Furniture {
         sim.setIsSehabisTidur(true);
         sim.setIsSehabisMakan(false);
         JOptionPane.showMessageDialog(null, "Enaknya tidur " + sleepTime + " detik!", "Kasur",
-        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(sleepTime);
     }
 }

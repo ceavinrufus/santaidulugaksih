@@ -1,7 +1,5 @@
 package com.simplicity;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Furniture;
@@ -22,7 +20,7 @@ public class Tanaman extends Furniture {
     @Override
     public void aksi(Sim sim) {
         int plantTime = 60;
-        
+
         mulaiAksi(plantTime);
 
         sim.getStats().tambahMood(30);

@@ -2,7 +2,6 @@ package com.simplicity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -121,7 +120,7 @@ public class Kompor extends Furniture {
                         }
                     }
                 }
-                
+
                 JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
                         JOptionPane.INFORMATION_MESSAGE);
                 Waktu.getInstance().addWaktu((int) 1.5 * masakan.getKekenyangan());

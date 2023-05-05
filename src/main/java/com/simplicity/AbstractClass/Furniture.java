@@ -98,15 +98,15 @@ public abstract class Furniture implements Purchasable {
             if (currentSim.getNamaLengkap().equals(currentHouse.getNamaPemilik())) {
                 // Cari posisi
                 // Pasang
-                isHorizontal = true; // default value 
+                isHorizontal = true; // default value
                 if (panjang != lebar) {
                     String[] orientationOptions = { "Vertikal", "Horizontal" };
-    
+
                     int inputOrientation = JOptionPane.showOptionDialog(
                             null, "Pilih Orientasi", "Pasang Barang",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                             null, orientationOptions, orientationOptions[0]);
-    
+
                     isHorizontal = (inputOrientation == 1) ? true : false;
                 }
 
@@ -173,7 +173,7 @@ public abstract class Furniture implements Purchasable {
         }
     }
 
-    public void mulaiAksi(int sisaWaktu){
+    protected void mulaiAksi(int sisaWaktu) {
         ThreadManager.startAllThreads();
         while (sisaWaktu != 0) {
             try {
