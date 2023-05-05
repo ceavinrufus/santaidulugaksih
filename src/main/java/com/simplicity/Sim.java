@@ -270,10 +270,15 @@ public class Sim {
             }
 
             ThreadManager.startAllThreads();
-            try {
-                TimeUnit.SECONDS.sleep(workingTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            // TimeUnit.SECONDS.sleep(workingTime);
+            int sisaWaktu = workingTime;
+            while (sisaWaktu != 0) {
+                try {
+                    sisaWaktu -= 1;
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             ThreadManager.stopAllThreads();
 
@@ -309,10 +314,15 @@ public class Sim {
         }
 
         ThreadManager.startAllThreads();
-        try {
-            TimeUnit.SECONDS.sleep(workoutTime);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        // TimeUnit.SECONDS.sleep(workoutTime);
+        int sisaWaktu = workoutTime;
+        while (sisaWaktu != 0) {
+            try {
+                sisaWaktu -= 1;
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         ThreadManager.stopAllThreads();
 

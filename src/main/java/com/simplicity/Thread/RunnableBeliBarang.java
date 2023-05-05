@@ -42,7 +42,7 @@ public class RunnableBeliBarang implements Leaveable {
             ThreadManager.removeThread(this);
         }
         currentSim.getInventory().addBarang(barang, jumlahBarang);
-        showCompleteMessage();
+        // showCompleteMessage();
     }
 
     public Purchasable getBarang() {

@@ -54,6 +54,8 @@ public class Kasur extends Furniture {
             }
         }
 
+        // TODO: Ini 180 bukan 240, trus ini gaperlu divalidasi kalau udah 3 menit atau
+        // nggak
         if (sleepTime >= 240) {
             try {
                 TimeUnit.SECONDS.sleep(sleepTime);

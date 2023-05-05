@@ -14,7 +14,7 @@ public class Inventory {
         container = new ArrayList<>();
     }
 
-    public ArrayList<Pair<Storable, Integer>> getItems() {
+    public synchronized ArrayList<Pair<Storable, Integer>> getItems() {
         return container;
     }
 
