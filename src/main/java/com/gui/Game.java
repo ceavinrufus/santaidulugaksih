@@ -248,7 +248,7 @@ public class Game extends JFrame {
                         repaint();
                         break;
                     case "Put Object":
-                        putObject();
+                        currentRoom.putObject();
                         repaint();
                         break;
                     case "Back":
@@ -261,11 +261,6 @@ public class Game extends JFrame {
 
         JOptionPane.showOptionDialog(null, panel, "Edit Room Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, new Object[] {}, null);
-
-    }
-
-    private void putObject() {
-        currentSim.getInventory().displayInventory(Storable.class);
     }
 
     public void action() {

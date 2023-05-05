@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
+import com.simplicity.Interface.Storable;
 
 public class Ruangan {
     private String namaRuangan;
@@ -247,6 +248,11 @@ public class Ruangan {
         }
     }
 
+    public void putObject() {
+        Sim currentSim = Game.getInstance().getCurrentSim();
+        currentSim.getInventory().displayInventory(Storable.class);
+    }
+
     public void takeObject() {
         Sim currentSim = Game.getInstance().getCurrentSim();
         HashMap<String, Point> listBarang = new HashMap<String, Point>();
@@ -306,5 +312,4 @@ public class Ruangan {
             }
         }
     }
-
 }
