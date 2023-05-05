@@ -80,7 +80,8 @@ public class Jam extends Furniture {
                 tableData[i][0] = "Bangun Rumah";
                 tableData[i][1] = String.valueOf(threadlist.get(i).getSisaWaktu());
             } else if (threadlist.get(i) instanceof RunnableBeliBarang) {
-                tableData[i][0] = "Beli Barang";
+                RunnableBeliBarang barangTerkirim = (RunnableBeliBarang) threadlist.get(i);
+                tableData[i][0] = String.format("Beli Barang (%s)", barangTerkirim.getBarang().getNama());
                 tableData[i][1] = String.valueOf(threadlist.get(i).getSisaWaktu());
             }
         }

@@ -428,6 +428,9 @@ public class Game extends JFrame {
                     Purchasable barangTerpilih = listPembelian.get(selectedRow);
                     RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
                             jumlahBarangTerpilih);
+                    String message = String.format("Silakan menunggu pengiriman %d %s selama %d detik", jumlahBarangTerpilih, barangTerpilih.getNama(), beliBarang.getSisaWaktu());
+                    JOptionPane.showMessageDialog(null, message, "Pembelian Berhasil",
+                            JOptionPane.INFORMATION_MESSAGE);
                     ThreadManager.addThread(beliBarang);
                     Thread t = new Thread(beliBarang);
                     t.start();
