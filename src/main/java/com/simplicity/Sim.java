@@ -11,7 +11,7 @@ import com.simplicity.Thread.ThreadManager;
 public class Sim {
     private String namaLengkap;
     private Pekerjaan pekerjaan;
-    private double uang = 100;
+    private double uang = 2000;
     private Inventory inventory = new Inventory();
     private Stats stats = new Stats();
     private SimPosition currentPosition;
@@ -145,7 +145,7 @@ public class Sim {
         }
     }
 
-    public Inventory getInventory() {
+    public synchronized Inventory getInventory() {
         return inventory;
     }
 

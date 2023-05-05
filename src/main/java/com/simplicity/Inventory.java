@@ -18,7 +18,7 @@ public class Inventory {
         return container;
     }
 
-    public void addBarang(Storable barang, int jumlah) {
+    public synchronized void addBarang(Storable barang, int jumlah) {
         for (Pair<Storable, Integer> item : container) {
             if (item.getKey().getNama().equals(barang.getNama())) {
                 item.setValue(item.getValue() + jumlah);

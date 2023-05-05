@@ -37,9 +37,17 @@ public class RunnableBangunRumah implements Leaveable {
             }
         }
 
+        if (sisaWaktu == 0) {
+            ThreadManager.removeThread(this);
+        }
         currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah,
                 ruanganPatokan);
         Game.getInstance().repaint();
+    }
+
+    @Override
+    public String getNamaAksi() {
+        return "Sim " + currentSim.getNamaLengkap() + ": Membangun ruangan " + ruanganBaru.getNamaRuangan();
     }
 
     @Override

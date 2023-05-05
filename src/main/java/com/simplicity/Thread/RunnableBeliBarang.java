@@ -38,12 +38,20 @@ public class RunnableBeliBarang implements Leaveable {
                 e.printStackTrace();
             }
         }
+        if (sisaWaktu == 0) {
+            ThreadManager.removeThread(this);
+        }
         currentSim.getInventory().addBarang(barang, jumlahBarang);
         showCompleteMessage();
     }
 
     public Purchasable getBarang() {
         return barang;
+    }
+
+    @Override
+    public String getNamaAksi() {
+        return "Sim " + currentSim.getNamaLengkap() + ": Membeli " + jumlahBarang + " " + barang.getNama();
     }
 
     @Override

@@ -10,12 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.JButton;
 import com.simplicity.Interface.Leaveable;
 import com.simplicity.Thread.RunnableBangunRumah;
 import com.simplicity.Thread.RunnableBeliBarang;
 import com.simplicity.Thread.ThreadManager;
-
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -35,7 +33,7 @@ public class Jam extends Furniture {
 
     @Override
     public void aksi(Sim sim) {
-        String[] options = {"Lihat Waktu Pusat" , "Lihat Waktu Sisa Aksi Pasif"};
+        String[] options = { "Lihat Waktu Pusat", "Lihat Waktu Sisa Aksi Pasif" };
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         for (String option : options) {
@@ -73,7 +71,7 @@ public class Jam extends Furniture {
     private void displayWaktuAksiPasif() {
         List<Leaveable> threadlist = ThreadManager.getInstance();
         String[][] tableData = new String[threadlist.size()][2];
-        String[] columnNames = {"Aksi", "Sisa Waktu"};
+        String[] columnNames = { "Aksi", "Sisa Waktu" };
 
         for (int i = 0; i < threadlist.size(); i++) {
             if (threadlist.get(i) instanceof RunnableBangunRumah) {
@@ -93,12 +91,15 @@ public class Jam extends Furniture {
             }
         };
         JTable table = new JTable(tableModel);
-        String[] options = {"OK"};
-        int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Lihat Waktu", JOptionPane.DEFAULT_OPTION,
+
+        // Panjang kolom
+        table.getColumnModel().getColumn(0).setPreferredWidth(175);
+        table.getColumnModel().getColumn(1).setPreferredWidth(25);
+
+        String[] options = { "Back" };
+        JOptionPane.showOptionDialog(null, new JScrollPane(table), "Lihat Waktu",
+                JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (choice == 0) {
-            return;
-        }
     }
 
 }
