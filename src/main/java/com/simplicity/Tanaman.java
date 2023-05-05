@@ -22,17 +22,15 @@ public class Tanaman extends Furniture {
     @Override
     public void aksi(Sim sim) {
         int plantTime = 60;
-        try {
-            TimeUnit.SECONDS.sleep(plantTime);
-            sim.getStats().tambahMood(30);
-            sim.getStats().kurangKekenyangan(30);
-            JOptionPane.showMessageDialog(null,
-                    "Seneng banget abis nyiram tanaman!",
-                    "Tanaman",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e) {
+        
+        mulaiAksi(plantTime);
 
-        }
+        sim.getStats().tambahMood(30);
+        sim.getStats().kurangKekenyangan(30);
+        JOptionPane.showMessageDialog(null,
+                "Seneng banget abis nyiram tanaman!",
+                "Tanaman",
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(plantTime);
     }
 }

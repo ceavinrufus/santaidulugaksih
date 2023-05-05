@@ -40,18 +40,15 @@ public class Komputer extends Furniture {
             }
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(nubesTime);
-            sim.getStats().kurangMood(30);
-            sim.getStats().kurangKekenyangan(30);
-            sim.getStats().kurangKesehatan(30);
-            JOptionPane.showMessageDialog(null,
-                    "AAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA!",
-                    "Komputer",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e) {
+        mulaiAksi(nubesTime);
 
-        }
+        sim.getStats().kurangMood(30);
+        sim.getStats().kurangKekenyangan(30);
+        sim.getStats().kurangKesehatan(30);
+        JOptionPane.showMessageDialog(null,
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA!",
+                "Komputer",
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(nubesTime);
     }
 }

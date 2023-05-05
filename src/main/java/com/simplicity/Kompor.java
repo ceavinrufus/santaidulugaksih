@@ -106,24 +106,25 @@ public class Kompor extends Furniture {
 
         if (masakan != null) {
             if (isBahanAda(sim.getInventory(), masakan)) {
-                try {
-                    // TODO: Ini kayaknya perlu dipindah ke bawah gasih?
-                    TimeUnit.SECONDS.sleep((int) 1.5 * masakan.getKekenyangan());
-                    for (String bahan : masakan.getResep()) {
-                        for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {
-                            if (item.getKey().getNama().equals(bahan)) {
-                                sim.getInventory().reduceBarang(item.getKey(), 1);
-                                sim.getInventory().addBarang(masakan, 1);
-                                sim.getStats().setMood(10);
-                            }
+                // TODO: Ini kayaknya perlu dipindah ke bawah gasih?
+                // TimeUnit.SECONDS.sleep((int) 1.5 * masakan.getKekenyangan());
+                int masakTime = (int) 1.5 * masakan.getKekenyangan();
+
+                mulaiAksi(masakTime);
+
+                for (String bahan : masakan.getResep()) {
+                    for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {
+                        if (item.getKey().getNama().equals(bahan)) {
+                            sim.getInventory().reduceBarang(item.getKey(), 1);
+                            sim.getInventory().addBarang(masakan, 1);
+                            sim.getStats().setMood(10);
                         }
                     }
-                } catch (InterruptedException e) {
-                    // do something
                 }
-                Waktu.getInstance().addWaktu((int) 1.5 * masakan.getKekenyangan());
+                
                 JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
                         JOptionPane.INFORMATION_MESSAGE);
+                Waktu.getInstance().addWaktu((int) 1.5 * masakan.getKekenyangan());
             } else {
                 JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error",
                         JOptionPane.ERROR_MESSAGE);

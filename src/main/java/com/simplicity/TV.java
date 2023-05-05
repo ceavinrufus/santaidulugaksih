@@ -46,21 +46,18 @@ public class TV extends Furniture {
             }
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(menontonTime);
-            int batasWajar = 40;
-            if (menontonTime > batasWajar) {
-                sim.getStats().kurangKesehatan((menontonTime - batasWajar));
-            }
-            sim.getStats().tambahMood(menontonTime);
-            sim.getStats().kurangKekenyangan(menontonTime);
-            JOptionPane.showMessageDialog(null,
-                    "Seru banget filmnya!",
-                    "TV",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e) {
+        mulaiAksi(menontonTime);
 
+        int batasWajar = 40;
+        if (menontonTime > batasWajar) {
+            sim.getStats().kurangKesehatan((menontonTime - batasWajar));
         }
+        sim.getStats().tambahMood(menontonTime);
+        sim.getStats().kurangKekenyangan(menontonTime);
+        JOptionPane.showMessageDialog(null,
+                "Seru banget filmnya!",
+                "TV",
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(menontonTime);
     }
 }

@@ -22,14 +22,15 @@ public class Toilet extends Furniture {
     @Override
     public void aksi(Sim sim) {
         if (sim.getIsSehabisMakan()) {
-            try {
-                TimeUnit.SECONDS.sleep(10);
-                sim.getStats().kurangKekenyangan(20);
-                sim.getStats().tambahMood(10);
-                sim.setWaktuTidakBuangAir(0);
-            } catch (InterruptedException e) {
+            mulaiAksi(10);
 
-            }
+            sim.getStats().kurangKekenyangan(20);
+            sim.getStats().tambahMood(10);
+            sim.setWaktuTidakBuangAir(0);
+            JOptionPane.showMessageDialog(null,
+                "Ah legaa..",
+                "Toilet",
+                JOptionPane.INFORMATION_MESSAGE);
             Waktu.getInstance().addWaktu(10);
         } else {
             JOptionPane.showMessageDialog(null, "Kok bisa udah buang air padahal belum makan?", "Sus",
