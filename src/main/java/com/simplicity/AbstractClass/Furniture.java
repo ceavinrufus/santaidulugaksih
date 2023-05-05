@@ -1,6 +1,7 @@
 package com.simplicity.AbstractClass;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -10,6 +11,7 @@ import com.simplicity.Rumah;
 import com.simplicity.Sim;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 import com.simplicity.Interface.Purchasable;
+import com.simplicity.Thread.ThreadManager;
 
 public abstract class Furniture implements Purchasable {
     private String nama;
@@ -166,6 +168,19 @@ public abstract class Furniture implements Purchasable {
         } else if (choice == 1) {
             // Back
         }
+    }
+
+    public void mulaiAksi(int sisaWaktu){
+        ThreadManager.startAllThreads();
+        while (sisaWaktu != 0) {
+            try {
+                sisaWaktu -= 1;
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        ThreadManager.stopAllThreads();
     }
 
     public abstract String getNamaAksi();

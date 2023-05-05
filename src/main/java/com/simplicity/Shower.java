@@ -42,23 +42,20 @@ public class Shower extends Furniture {
             }
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(showerTime);
-            if (showerTime > 30) {
-                sim.getStats().tambahKesehatan(30);
-                sim.getStats().kurangKesehatan((showerTime - 30) / 10 * 5);
-            } else {
-                sim.getStats().tambahKesehatan(showerTime / 10 * 10);
-            }
-            sim.getStats().tambahMood(showerTime / 10 * 10);
-            sim.getStats().kurangKekenyangan(showerTime / 10 * 10);
-            JOptionPane.showMessageDialog(null,
-                    "Seger!",
-                    "Shower",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e) {
-
+        mulaiAksi(showerTime);
+        
+        if (showerTime > 30) {
+            sim.getStats().tambahKesehatan(30);
+            sim.getStats().kurangKesehatan((showerTime - 30) / 10 * 5);
+        } else {
+            sim.getStats().tambahKesehatan(showerTime / 10 * 10);
         }
+        sim.getStats().tambahMood(showerTime / 10 * 10);
+        sim.getStats().kurangKekenyangan(showerTime / 10 * 10);
+        JOptionPane.showMessageDialog(null,
+                "Seger!",
+                "Shower",
+                JOptionPane.INFORMATION_MESSAGE);
         Waktu.getInstance().addWaktu(showerTime);
     }
 }
