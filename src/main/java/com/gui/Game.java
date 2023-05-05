@@ -231,7 +231,7 @@ public class Game extends JFrame {
     }
 
     private void editRoom() {
-        String[] options = { "Buy Object", "Take Object", "Put Object", "Back" };
+        String[] options = { "Buy Object", "Move Object", "Take Object", "Put Object", "Back" };
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
@@ -242,6 +242,9 @@ public class Game extends JFrame {
                 switch (option) {
                     case "Buy Object":
                         displayEtalase("Furniture");
+                        break;
+                    case "Move Object":
+                        currentRoom.moveObject();
                         break;
                     case "Take Object":
                         currentRoom.takeObject();

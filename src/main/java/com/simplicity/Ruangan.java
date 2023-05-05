@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
 import com.simplicity.Interface.Storable;
+import com.simplicity.ExceptionHandling.*;
 
 public class Ruangan {
     private String namaRuangan;
@@ -289,11 +290,41 @@ public class Ruangan {
                 Furniture takenObject = currentRoom.findBarang(selectedOption);
                 int idBarang;
                 if (countBarang(takenObject) > 1) {
-                    String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
-                    int koordinatX = Integer.parseInt(inputX);
-
-                    String inputY = JOptionPane.showInputDialog("Masukkan koordinat Y: ");
-                    int koordinatY = Integer.parseInt(inputY);
+                    JTextField inputX = new JTextField();
+                    JTextField inputY = new JTextField();
+                    Object[] messageInput = {
+                            "X:", inputX,
+                            "Y:", inputY
+                    };
+                    
+                    int koordinatX = 0;
+                    int koordinatY = 0;
+                    Boolean inputValid = false;
+                    while (!inputValid) {
+                        int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Barang yang Diambil",
+                                JOptionPane.OK_CANCEL_OPTION);
+                        if (option == JOptionPane.OK_OPTION) {
+                            try {
+                                koordinatX = Integer.parseInt(inputX.getText());
+                                koordinatY = Integer.parseInt(inputY.getText());
+                                if ((koordinatX < 0 || koordinatX >= 6) || (koordinatY < 0 || koordinatY >= 6)) {
+                                    throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-5, ya!");
+                                } else {
+                                    inputValid = true;
+                                }
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Pastikan x sama y kamu berupa angka, ya!",
+                                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (IllegalLocationException e) {
+                                JOptionPane.showMessageDialog(null,
+                                        e.getMessage(),
+                                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            return;
+                        }
+                    }
 
                     if (!isBarangAtKoordinat(takenObject, koordinatX, koordinatY)) {
                         JOptionPane.showMessageDialog(null,
@@ -313,66 +344,167 @@ public class Ruangan {
         }
     }
 
-    // public void moveObject() {
-    //     Sim currentSim = Game.getInstance().getCurrentSim();
-    //     HashMap<String, Point> listBarang = new HashMap<String, Point>();
-    //     for (int i = 0; i < 6; i++) {
-    //         for (int j = 0; j < 6; j++) {
-    //             PlacedFurniture placedObject = petaBarang.getElement(i, j);
-    //             if (placedObject != null) {
-    //                 Furniture barang = placedObject.getBarang();
-    //                 if (barang != null) {
-    //                     listBarang.put(barang.getNama(), new Point(i, j));
-    //                 }
-    //             }
-    //         }
-    //     }
+    public void moveObject() {
+        Sim currentSim = Game.getInstance().getCurrentSim();
+        HashMap<String, Point> listBarang = new HashMap<String, Point>();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                PlacedFurniture placedObject = petaBarang.getElement(i, j);
+                if (placedObject != null) {
+                    Furniture barang = placedObject.getBarang();
+                    if (barang != null) {
+                        listBarang.put(barang.getNama(), new Point(i, j));
+                    }
+                }
+            }
+        }
 
-    //     String[] objectOptions = {};
-    //     ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
+        String[] objectOptions = {};
+        ArrayList<String> listObjects = new ArrayList<String>(Arrays.asList(objectOptions));
 
-    //     for (String x : listBarang.keySet()) {
-    //         listObjects.add(x);
-    //     }
+        for (String x : listBarang.keySet()) {
+            listObjects.add(x);
+        }
 
-    //     objectOptions = listObjects.toArray(objectOptions);
-    //     if (objectOptions.length == 0) {
-    //         JOptionPane.showMessageDialog(null,
-    //                 "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
-    //                 "Notification", JOptionPane.INFORMATION_MESSAGE);
-    //     } else {
-    //         JList<String> list = new JList<>(objectOptions);
-    //         JOptionPane.showMessageDialog(null, new JScrollPane(list), "Move Object", JOptionPane.PLAIN_MESSAGE);
-    //         String selectedOption = list.getSelectedValue();
-    //         if (selectedOption != null) {
-    //             // Memilih barang yang akan dipindahkan
-    //             Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
-    //             Furniture takenObject = currentRoom.findBarang(selectedOption);
-    //             int idBarang;
-    //             if (countBarang(takenObject) > 1) {
-    //                 String inputX = JOptionPane.showInputDialog("Masukkan koordinat X: ");
-    //                 int koordinatX = Integer.parseInt(inputX);
+        objectOptions = listObjects.toArray(objectOptions);
+        if (objectOptions.length == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Tidak ada barang di ruangan ini!\nCoba beli dan pasang barang dulu ya!",
+                    "Notification", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JList<String> list = new JList<>(objectOptions);
+            JOptionPane.showMessageDialog(null, new JScrollPane(list), "Move Object", JOptionPane.PLAIN_MESSAGE);
+            String selectedOption = list.getSelectedValue();
+            if (selectedOption != null) {
+                // Memilih barang yang akan dipindahkan
+                Ruangan currentRoom = currentSim.getCurrentPosition().getRuang();
+                Furniture takenObject = currentRoom.findBarang(selectedOption);
+                int idBarang;
+                if (countBarang(takenObject) > 1) {
+                    JTextField inputX = new JTextField();
+                    JTextField inputY = new JTextField();
+                    Object[] messageInput = {
+                            "X:", inputX,
+                            "Y:", inputY
+                    };
+                    
+                    int koordinatX = 0;
+                    int koordinatY = 0;
+                    Boolean inputValid = false;
+                    while (!inputValid) {
+                        int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Barang yang Diambil",
+                                JOptionPane.OK_CANCEL_OPTION);
+                        if (option == JOptionPane.OK_OPTION) {
+                            try {
+                                koordinatX = Integer.parseInt(inputX.getText());
+                                koordinatY = Integer.parseInt(inputY.getText());
+                                if ((koordinatX < 0 || koordinatX >= 6) || (koordinatY < 0 || koordinatY >= 6)) {
+                                    throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-5, ya!");
+                                } else {
+                                    inputValid = true;
+                                }
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Pastikan x sama y kamu berupa angka, ya!",
+                                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (IllegalLocationException e) {
+                                JOptionPane.showMessageDialog(null,
+                                        e.getMessage(),
+                                        "Notification", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            return;
+                        }
+                    }
 
-    //                 String inputY = JOptionPane.showInputDialog("Masukkan koordinat Y: ");
-    //                 int koordinatY = Integer.parseInt(inputY);
+                    if (!isBarangAtKoordinat(takenObject, koordinatX, koordinatY)) {
+                        JOptionPane.showMessageDialog(null,
+                                "Maaf, koordinat tidak sesuai dengan posisi barang!",
+                                "Notification", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    idBarang = getIDBarangAtKoordinat(koordinatX, koordinatY);
+                } else {
+                    idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
+                }
+                currentRoom.mengambilBarang(takenObject, idBarang);
 
-    //                 if (!isBarangAtKoordinat(takenObject, koordinatX, koordinatY)) {
-    //                     JOptionPane.showMessageDialog(null,
-    //                             "Maaf, koordinat tidak sesuai dengan posisi barang!",
-    //                             "Notification", JOptionPane.INFORMATION_MESSAGE);
-    //                     return;
-    //                 }
-    //                 idBarang = getIDBarangAtKoordinat(koordinatX, koordinatY);
-    //             } else {
-    //                 idBarang = getIDBarangAtKoordinat(listBarang.get(selectedOption).getX(), listBarang.get(selectedOption).getY());
-    //             }
-
-    //             // Memilih koordinat tujuan
-                
-
-    //             currentRoom.mengambilBarang(takenObject, idBarang);
-    //             currentSim.getInventory().addBarang(takenObject, 1);
-    //         }
-    //     }
-    // }
+                // Memilih koordinat tujuan
+                Rumah currentHouse = Game.getInstance().getCurrentSim().getCurrentPosition().getRumah();
+                if (currentSim.getNamaLengkap().equals(currentHouse.getNamaPemilik())) {
+                    // Cari posisi
+                    // Pasang
+                    Boolean isHorizontal = true; // default value 
+                    if (takenObject.getPanjang() != takenObject.getLebar()) {
+                        String[] orientationOptions = { "Vertikal", "Horizontal" };
+        
+                        int inputOrientation = JOptionPane.showOptionDialog(
+                                null, "Pilih Orientasi", "Pasang Barang",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                                null, orientationOptions, orientationOptions[0]);
+        
+                        isHorizontal = (inputOrientation == 1) ? true : false;
+                    }
+    
+                    JTextField inputX = new JTextField();
+                    JTextField inputY = new JTextField();
+                    Object[] messageInput = {
+                            "X:", inputX,
+                            "Y:", inputY
+                    };
+    
+                    Boolean inputValid = false;
+                    while (!inputValid) {
+                        int option = JOptionPane.showConfirmDialog(null, messageInput, "Input Posisi Pemasangan Barang",
+                                JOptionPane.OK_CANCEL_OPTION);
+                        if (option == JOptionPane.OK_OPTION) {
+                            try {
+                                int koordinatX = Integer.parseInt(inputX.getText());
+                                int koordinatY = Integer.parseInt(inputY.getText());
+                                if ((koordinatX < 0 || koordinatX >= 6) || (koordinatY < 0 || koordinatY >= 6)) {
+                                    throw new IllegalLocationException("Pastikan x sama y kamu di antara 0-5, ya!");
+                                } else {
+                                    if (isHorizontal) {
+                                        if (koordinatX + takenObject.getPanjang() > 6 || koordinatY + takenObject.getLebar() > 6) {
+                                            throw new IllegalLocationException("Waduh, gak muat!");
+                                        }
+                                    } else {
+                                        if (koordinatX + takenObject.getLebar() > 6 || koordinatY + takenObject.getPanjang() > 6) {
+                                            throw new IllegalLocationException("Waduh, gak muat!");
+                                        }
+                                    }
+                                }
+    
+                                Ruangan currentRuang = currentSim.getCurrentPosition().getRuang();
+                                if (currentRuang.isSpaceAvailable(takenObject, isHorizontal, koordinatX, koordinatY)) {
+                                    currentRuang.memasangBarang(takenObject, isHorizontal, koordinatX, koordinatY);
+                                    inputValid = true;
+                                    Game.getInstance().repaint();
+                                } else {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Maaf, Barang tidak dapat dipasang karena lahan sudah digunakan.",
+                                            "Notification",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                }
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Nilai koordinat harus berbentuk bilangan bulat, lho!",
+                                        "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            } catch (IllegalLocationException e) {
+                                JOptionPane.showMessageDialog(null, e.getMessage(), "Notification",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                } else {
+                    String[] options = { "Back" };
+                    JOptionPane.showOptionDialog(null, "Anda harus ke rumah anda dulu!", "Furniture Info",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                }
+            }
+        }
+    }
 }

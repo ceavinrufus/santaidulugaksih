@@ -164,7 +164,7 @@ public abstract class Furniture implements Purchasable {
                     }
                 }
             } else {
-                JOptionPane.showOptionDialog(null, "Anda harus ke rumah anda dulu!", "Food Info",
+                JOptionPane.showOptionDialog(null, "Anda harus ke rumah anda dulu!", "Furniture Info",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             }
