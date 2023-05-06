@@ -487,9 +487,8 @@ public class Game extends JFrame {
                 } else {
                     currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
                     Purchasable barangTerpilih = listPembelian.get(selectedRow);
-                    RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
-                            jumlahBarangTerpilih);
-                    String message = String.format("Silakan menunggu pengiriman %d %s selama %d detik",
+                    RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih, jumlahBarangTerpilih);
+                    String message = String.format("Pengiriman %d %s selama %d detik akan dilakukan saat aksi aktif dimulai!",
                             jumlahBarangTerpilih, barangTerpilih.getNama(), beliBarang.getSisaWaktu());
                     JOptionPane.showMessageDialog(null, message, "Pembelian Berhasil",
                             JOptionPane.INFORMATION_MESSAGE);
