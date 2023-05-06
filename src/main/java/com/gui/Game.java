@@ -9,7 +9,6 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -473,7 +472,7 @@ public class Game extends JFrame {
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                     return;
-                } 
+                }
 
                 if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
                     JOptionPane.showMessageDialog(null,
@@ -612,7 +611,6 @@ public class Game extends JFrame {
         ruangan.memasangBarang(new Jam(), true, 2, 5);
         ruangan.memasangBarang(new MejaKursi(), true, 3, 3);
         ruangan.memasangBarang(new Toilet(), true, 0, 5);
-        ruangan.memasangBarang(new Shower(), true, 1, 5);
         Rumah rumah = new Rumah(ruangan);
 
         try {
