@@ -464,8 +464,16 @@ public class Game extends JFrame {
                 double uangSim = currentSim.getUang();
                 double hargaBarangTerpilih = Double.parseDouble(tableData[selectedRow][1]);
 
-                String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
-                int jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+                int jumlahBarangTerpilih = 1; // default value
+                try {
+                    String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang diinginkan: ");
+                    jumlahBarangTerpilih = Integer.parseInt(inputJumlah);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Jumlah yang dimasukkan tidak valid!",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                } 
 
                 if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
                     JOptionPane.showMessageDialog(null,

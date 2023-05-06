@@ -5,3 +5,6 @@
 build
 bin
 *.class
+
+# Ignore save files directory
+src/main/java/saves/
