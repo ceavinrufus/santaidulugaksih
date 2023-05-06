@@ -22,7 +22,7 @@ public class RunnableBeliBarang implements Leaveable {
 
         int lowerBound = 1;
         int upperBound = 5;
-        int random_int = (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+        int random_int = (int) (Math.random() % (upperBound - lowerBound + 1) + lowerBound);
         sisaWaktu = random_int * 30;
     }
 
