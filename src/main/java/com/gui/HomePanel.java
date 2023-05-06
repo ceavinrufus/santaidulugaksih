@@ -40,11 +40,12 @@ public class HomePanel extends JPanel {
                 // Help
                 Object[] options = { "Aku mengerti!" };
                 JOptionPane.showOptionDialog(null,
-                        "Hai! Selamat datang di Simplycity!\n" +
-                                "Klik Enter untuk memulai game\n" +
-                                "Klik Spasi untuk melihat help\n" +
-                                "Klik w, a, s, d atau tombol panah untuk menggerakan Sim dalam permainan\n" +
-                                "Selamat bermain!",
+                        "Sudah siap untuk petualangan di Simplicity?\n" +
+                                "Tekan tombol PAUSE untuk membuka Game Menu\n" +
+                                "Tekan tombol HELP untuk melihat bantuan\n" +
+                                "Tekan tombol ACTION untuk melakukan aksi-aksi yang memakan waktu S\n" +
+                                "Tekan W, A, S, D atau tombol panah untuk menggerakan Sim dalam permainan\n" +
+                                "Selamat bermain dan nikmati setiap momen petualanganmu!",
                         "Help",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,
