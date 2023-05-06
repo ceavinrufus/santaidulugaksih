@@ -43,7 +43,7 @@ public class HomePanel extends JPanel {
                         "Sudah siap untuk petualangan di Simplicity?\n" +
                                 "Tekan tombol PAUSE untuk membuka Game Menu\n" +
                                 "Tekan tombol HELP untuk melihat bantuan\n" +
-                                "Tekan tombol ACTION untuk melakukan aksi-aksi yang memakan waktu S\n" +
+                                "Tekan tombol ACTION untuk melakukan aksi-aksi yang memakan waktu\n" +
                                 "Tekan W, A, S, D atau tombol panah untuk menggerakan Sim dalam permainan\n" +
                                 "Selamat bermain dan nikmati setiap momen petualanganmu!",
                         "Help",
