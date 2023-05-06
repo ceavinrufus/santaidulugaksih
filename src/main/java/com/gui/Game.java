@@ -112,7 +112,7 @@ public class Game extends JFrame {
 
         Waktu.getInstance().addWaktu(sisaWaktu);
         ThreadManager.startAllThreads();
-        while (sisaWaktu != 0) {
+        while (sisaWaktu > 1) {
             try {
                 sisaWaktu -= 1;
                 TimeUnit.SECONDS.sleep(1);
