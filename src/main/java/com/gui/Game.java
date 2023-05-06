@@ -101,7 +101,8 @@ public class Game extends JFrame {
         this.totalWaktu = totalWaktu;
     }
 
-    public void mulaiAksi(int sisaWaktu) {
+    public void mulaiAksi(Integer sisaWaktu) {
+        Waktu.getInstance().addWaktu(sisaWaktu);
         ThreadManager.startAllThreads();
         while (sisaWaktu != 0) {
             try {
@@ -304,13 +305,9 @@ public class Game extends JFrame {
                                     .getElementCoordinate(currentSim.getCurrentPosition().getRumah());
                             Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
                             int distance = Math.round(sourcePoint.distance(destPoint));
-                            try {
-                                JOptionPane.getRootFrame().dispose();
-                                TimeUnit.SECONDS.sleep(distance);
-                            } catch (InterruptedException er) {
-                                Thread.currentThread().interrupt();
-                            }
-                            totalWaktu.addWaktu(distance);
+                            JOptionPane.getRootFrame().dispose();
+                            mulaiAksi(distance);
+
                             currentSim.setIsOnKunjungan(true);
                             currentSim.setRecentActionTime(distance);
                             currentSim.setCurrentPosition(

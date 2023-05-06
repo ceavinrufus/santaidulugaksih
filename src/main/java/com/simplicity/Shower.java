@@ -54,6 +54,5 @@ public class Shower extends Furniture {
                 "Seger!",
                 "Shower",
                 JOptionPane.INFORMATION_MESSAGE);
-        Waktu.getInstance().addWaktu(showerTime);
     }
 }

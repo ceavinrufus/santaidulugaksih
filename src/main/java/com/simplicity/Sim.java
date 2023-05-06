@@ -1,12 +1,11 @@
 package com.simplicity;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
+import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
-import com.simplicity.Thread.ThreadManager;
 
 public class Sim {
     private String namaLengkap;
@@ -25,9 +24,6 @@ public class Sim {
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
     private int recentActionTime = 0;
-
-    // Waktu Terpusat
-    Waktu totalWaktu = Waktu.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -260,22 +256,10 @@ public class Sim {
                 }
             }
 
-            ThreadManager.startAllThreads();
-            // TimeUnit.SECONDS.sleep(workingTime);
-            int sisaWaktu = workingTime;
-            while (sisaWaktu != 0) {
-                try {
-                    sisaWaktu -= 1;
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            ThreadManager.stopAllThreads();
+            Game.getInstance().mulaiAksi(workingTime);
 
             totalWorkTime += workingTime;
             recentActionTime = workingTime;
-            totalWaktu.addWaktu(workingTime);
             if (waktuKerjaBelumDibayar > 0) {
                 workingTime += waktuKerjaBelumDibayar;
                 waktuKerjaBelumDibayar = 0;
@@ -304,24 +288,12 @@ public class Sim {
             }
         }
 
-        ThreadManager.startAllThreads();
-        // TimeUnit.SECONDS.sleep(workoutTime);
-        int sisaWaktu = workoutTime;
-        while (sisaWaktu != 0) {
-            try {
-                sisaWaktu -= 1;
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        ThreadManager.stopAllThreads();
+        Game.getInstance().mulaiAksi(workoutTime);
 
         recentActionTime = workoutTime;
         stats.tambahKesehatan(workoutTime / 20 * 5);
         stats.kurangKekenyangan(workoutTime / 20 * 5);
         stats.tambahMood(workoutTime / 20 * 10);
-        totalWaktu.addWaktu(workoutTime);
         isSehabisMakan = false;
         isSehabisTidur = false;
         JOptionPane.showMessageDialog(null, "Olahraga selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);

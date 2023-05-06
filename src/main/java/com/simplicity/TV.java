@@ -57,6 +57,5 @@ public class TV extends Furniture {
                 "Seru banget filmnya!",
                 "TV",
                 JOptionPane.INFORMATION_MESSAGE);
-        Waktu.getInstance().addWaktu(menontonTime);
     }
 }

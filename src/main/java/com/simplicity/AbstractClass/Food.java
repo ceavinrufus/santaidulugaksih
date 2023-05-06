@@ -1,7 +1,6 @@
 package com.simplicity.AbstractClass;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
@@ -69,8 +68,6 @@ public abstract class Food implements Storable {
                         "Yummy!",
                         "Meja dan Kursi",
                         JOptionPane.INFORMATION_MESSAGE);
-
-                Waktu.getInstance().addWaktu(30);
             } else {
                 JOptionPane.showOptionDialog(null, "Gak boleh makan sambil berdiri!", "Food Info",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
