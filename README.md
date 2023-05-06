@@ -32,7 +32,7 @@
 
 ## Deskripsi Program
 
-Program ini berisi permainan berbasis Command Line Interface (CLI) bernama Sim-Plicity menggunakan bahasa pemrograman Java
+The Sim-Plicity adalah game simulasi kehidupan yang memungkinkan Anda untuk membuat dan mengendalikan karakter virtual dalam kehidupan sehari-hari mereka. Dalam game ini, Anda dapat bekerja, membeli inventory, memasak, makan, dan aktivitas menarik lainnya. Program dibuat menggunakan bahasa Java yang dilengkapi Graphical User Interface (GUI) menggunakan Java Swing.
 
 ## Pre-requisite
 
@@ -41,15 +41,12 @@ Program ini berisi permainan berbasis Command Line Interface (CLI) bernama Sim-P
 
 ## How to Run:
 
+1. Clone this repository in your directory
 ```
-.\gradlew -q --console plain run
+https://github.com/ceavinr/santaidulugaksih.git
 ```
 
+2. Run the program by using this command
 ```
 .\gradlew -q run
 ```
-
-## Notes:
-
-- Kalau mau pake GUI, buka file `build.gradle` terus ganti nilai variabel `mainClassName` jadi `'com.simplicity.Game'`
-- Kalau nggak mau, ganti nilai variabel `mainClassName` jadi `'com.simplicity.Main'`
