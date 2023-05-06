@@ -593,12 +593,12 @@ public class Game extends JFrame {
         String nama = "";
         Sim sim = null;
 
-        // if (!canAddSim) {
-        // JOptionPane.showMessageDialog(null, "Maksimal membuat Sim sehari sekali!",
-        // "Error",
-        // JOptionPane.ERROR_MESSAGE);
-        // throw new SimNotCreatedException();
-        // }
+        if (!canAddSim) {
+            JOptionPane.showMessageDialog(null, "Maksimal membuat Sim sehari sekali!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            throw new SimNotCreatedException();
+        }
 
         while (nama.length() < 1 || nama.length() > 16) {
             try {

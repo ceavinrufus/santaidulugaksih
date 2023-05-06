@@ -51,10 +51,9 @@ public class Sim {
         private int kesehatan;
 
         public Stats() {
-            // TODO: Ganti lagi ke 80
-            mood = 5;
-            kekenyangan = 5;
-            kesehatan = 5;
+            mood = 80;
+            kekenyangan = 80;
+            kesehatan = 80;
         }
 
         public synchronized int getMood() {
