@@ -140,7 +140,10 @@ public class Sim {
             uang -= pekerjaan.getGaji() * 0.5;
             totalWorkTime = 0;
             waktuBolehGantiKerja = 0;
-
+            JOptionPane.showMessageDialog(null, String.format("Pekerjaan berhasil diganti! Sekarang kamu adalah %s", pekerjaan.getNama()), "Action finished", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Yah, kamu belum bisa ganti pekerjaan nih:(", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
         }
     }
 

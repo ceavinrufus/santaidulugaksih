@@ -9,6 +9,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -116,7 +117,7 @@ public class Game extends JFrame {
 
     // Menu game
     public void displayGameMenu(Component parentComponent) {
-        String[] anyHouseMenu = { "View Sim Info", "View Current Location", "View Inventory", "Move Room",
+        String[] anyHouseMenu = { "View Sim Info", "View Current Location", "View Inventory", "Change Job", "Move Room",
                 "List Object", "Go To Object", "Add Sim", "Change Sim" };
         String[] simHouseMenu = { "Upgrade House", "Edit Room" }; // Di rumah current Sim aja
         String[] options;
@@ -159,6 +160,45 @@ public class Game extends JFrame {
                         break;
                     case "View Inventory":
                         currentSim.getInventory().displayInventory(Storable.class);
+                        break;
+                    case "Change Job":
+                        ArrayList<Pekerjaan> listPekerjaan = new ArrayList<>(Arrays.asList(Pekerjaan.values()));
+                        String[][] tableData = new String[listPekerjaan.size()][2];
+                        String[] columnNames = { "Pekerjaan", "Gaji" };
+                        for (int i = 0; i < listPekerjaan.size(); i++) {
+                            tableData[i][0] = listPekerjaan.get(i).getNama();
+                            tableData[i][1] = String.valueOf(listPekerjaan.get(i).getGaji());
+                        }
+                        // table data
+                        DefaultTableModel tableModel = new DefaultTableModel(tableData, columnNames) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        JTable table = new JTable(tableModel);
+
+                        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+                        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+
+                        String[] choices = { "Pilih", "Cancel" }; // custom buttons
+                        int choice = JOptionPane.showOptionDialog(null, new JScrollPane(table), "Pilihan Pekerjaan",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+                        if (choice == 0) {
+                            int selectedRow = table.getSelectedRow();
+                            if (selectedRow >= 0) {
+                                String selectedOption = (String) table.getValueAt(selectedRow, 0);
+                                for (Pekerjaan pekerjaan : Pekerjaan.values()) {
+                                    if (pekerjaan.getNama().equals(selectedOption)) {
+                                        currentSim.setPekerjaan(pekerjaan);
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Kamu belum memilih pekerjaan!", "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
                         break;
                     case "Add Sim":
                         try {
