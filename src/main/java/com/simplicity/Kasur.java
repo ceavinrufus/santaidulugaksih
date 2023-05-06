@@ -63,5 +63,6 @@ public class Kasur extends Furniture {
         sim.setIsSehabisMakan(false);
         JOptionPane.showMessageDialog(null, "Enaknya tidur " + sleepTime + " detik!", "Kasur",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(sleepTime);
     }
 }

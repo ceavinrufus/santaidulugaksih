@@ -107,7 +107,6 @@ public class Game extends JFrame {
         JOptionPane.showMessageDialog(null, message, "Status",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        trackSimsStats(durasiKerja);
         Waktu.getInstance().addWaktu(durasiKerja);
 
         // Kalo dah ganti hari
@@ -221,7 +220,10 @@ public class Game extends JFrame {
                         }
                         break;
                     case "Change Sim":
-                        changeSim();
+                        try {
+                            changeSim();
+                        } catch (IllegalInputException er) {
+                        }
                         break;
                     case "Upgrade House":
                         upgradeRumah();
@@ -369,6 +371,7 @@ public class Game extends JFrame {
                             JOptionPane.showMessageDialog(null, "Sudah sampai!", "Action finished",
                                     JOptionPane.INFORMATION_MESSAGE);
                             repaint();
+                            trackSimsStats(distance);
                         } else {
                             JOptionPane.showMessageDialog(null, "Kamu belum memilih rumah!", "Error",
                                     JOptionPane.ERROR_MESSAGE);
@@ -590,11 +593,12 @@ public class Game extends JFrame {
         String nama = "";
         Sim sim = null;
 
-        if (!canAddSim) {
-            JOptionPane.showMessageDialog(null, "Maksimal membuat Sim sehari sekali!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            throw new SimNotCreatedException();
-        }
+        // if (!canAddSim) {
+        // JOptionPane.showMessageDialog(null, "Maksimal membuat Sim sehari sekali!",
+        // "Error",
+        // JOptionPane.ERROR_MESSAGE);
+        // throw new SimNotCreatedException();
+        // }
 
         while (nama.length() < 1 || nama.length() > 16) {
             try {
@@ -708,7 +712,7 @@ public class Game extends JFrame {
         return sim;
     }
 
-    private void changeSim() {
+    private void changeSim() throws IllegalInputException {
         String[] simOptions = {};
         ArrayList<String> listSims = new ArrayList<String>(Arrays.asList(simOptions));
         for (String x : sims.keySet()) {
@@ -731,34 +735,50 @@ public class Game extends JFrame {
                 JOptionPane.showMessageDialog(null, "Berhasil mengganti Sim!", "Notification",
                         JOptionPane.INFORMATION_MESSAGE);
                 repaint();
+            } else {
+                throw new IllegalInputException("");
             }
         }
     }
 
     public void trackSimsStats(int durasiKerja) {
+        HashMap<String, Sim> simsBaru = new HashMap<String, Sim>();
+
         sims.forEach((key, value) -> {
             value.trackTidur(durasiKerja);
             value.trackBuangAir(durasiKerja);
             value.trackKunjungan(durasiKerja);
             if (value.getStats().getKekenyangan() == 0 || value.getStats().getKesehatan() == 0
                     || value.getStats().getMood() == 0) {
-                sims.remove(key);
                 JOptionPane.showMessageDialog(null,
                         String.format("Sim %s mati, Anda tidak lagi bisa memainkan sim ini!", key), "Sim mati",
                         JOptionPane.INFORMATION_MESSAGE);
-                if (currentSim.equals(value)) {
-                    if (sims.size() == 0) {
-                        JOptionPane.showMessageDialog(null, String.format("Terima kasih sudah bermain Sim-Plicity!"),
-                                "Game Over!",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        System.exit(0);
-                    } else {
-                        changeSim();
-                    }
-                }
+            } else {
+                simsBaru.put(key, value);
             }
-
         });
+        sims = simsBaru;
+
+        // Kalo currentSim mati
+        if (currentSim.getStats().getKekenyangan() == 0 || currentSim.getStats().getKesehatan() == 0
+                || currentSim.getStats().getMood() == 0) {
+            if (sims.size() == 0) {
+                JOptionPane.showMessageDialog(null, String.format("Terima kasih sudah bermain Sim-Plicity!"),
+                        "Game Over!",
+                        JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            } else {
+                boolean simGanti = true;
+                do {
+                    try {
+                        changeSim();
+                        simGanti = true;
+                    } catch (IllegalInputException e) {
+                        simGanti = false;
+                    }
+                } while (!simGanti);
+            }
+        }
     }
 
     private void saveSims(String filename) throws IOException {

@@ -39,7 +39,7 @@ public class Shower extends Furniture {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(showerTime);
 
@@ -55,5 +55,6 @@ public class Shower extends Furniture {
                 "Seger!",
                 "Shower",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(showerTime);
     }
 }

@@ -10,7 +10,6 @@ import com.simplicity.Interface.Leaveable;
 
 public class RunnableBangunRumah implements Leaveable {
     private volatile int decrement = 0;
-    // TODO: Karena lebih dari 1 hari, kemungkinan ada yang perlu dihandle
     private int sisaWaktu = 60 * 18;
     private Sim currentSim;
     private Ruangan ruanganBaru;

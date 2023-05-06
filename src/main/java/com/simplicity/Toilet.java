@@ -31,6 +31,7 @@ public class Toilet extends Furniture {
                     "Ah legaa..",
                     "Toilet",
                     JOptionPane.INFORMATION_MESSAGE);
+            Game.getInstance().trackSimsStats(10);
         } else {
             JOptionPane.showMessageDialog(null, "Kok bisa udah buang air padahal belum makan?", "Sus",
                     JOptionPane.INFORMATION_MESSAGE);

@@ -44,7 +44,7 @@ public class TV extends Furniture {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(menontonTime);
 
@@ -58,5 +58,6 @@ public class TV extends Furniture {
                 "Seru banget filmnya!",
                 "TV",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(menontonTime);
     }
 }
