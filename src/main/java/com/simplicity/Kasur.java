@@ -2,6 +2,7 @@ package com.simplicity;
 
 import javax.swing.JOptionPane;
 
+import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
 
 public class Kasur extends Furniture {
@@ -52,7 +53,7 @@ public class Kasur extends Furniture {
             }
         }
 
-        mulaiAksi(sleepTime);
+        Game.getInstance().mulaiAksi(sleepTime);
 
         sim.getStats().tambahMood(sleepTime / 180 * 30);
         sim.getStats().tambahKesehatan(sleepTime / 180 * 20);

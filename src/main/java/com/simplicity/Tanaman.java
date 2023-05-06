@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import javax.swing.JOptionPane;
+import com.gui.Game;
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -21,7 +22,7 @@ public class Tanaman extends Furniture {
     public void aksi(Sim sim) {
         int plantTime = 60;
 
-        mulaiAksi(plantTime);
+        Game.getInstance().mulaiAksi(plantTime);
 
         sim.getStats().tambahMood(30);
         sim.getStats().kurangKekenyangan(30);

@@ -173,19 +173,6 @@ public abstract class Furniture implements Purchasable {
         }
     }
 
-    protected void mulaiAksi(int sisaWaktu) {
-        ThreadManager.startAllThreads();
-        while (sisaWaktu != 0) {
-            try {
-                sisaWaktu -= 1;
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        ThreadManager.stopAllThreads();
-    }
-
     public abstract String getNamaAksi();
 
     public abstract void aksi(Sim sim);

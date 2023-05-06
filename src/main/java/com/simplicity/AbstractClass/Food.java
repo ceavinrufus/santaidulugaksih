@@ -62,20 +62,19 @@ public abstract class Food implements Storable {
             Sim sim = Game.getInstance().getCurrentSim();
             SimPosition currentPosition = sim.getCurrentPosition();
             if (currentPosition.getRuang().getBarangByKoordinat(currentPosition.getLokasi()) != null) {
-                try {
-                    JOptionPane.getRootFrame().dispose();
-                    TimeUnit.SECONDS.sleep(30);
-                    sim.getInventory().reduceBarang(this, 1);
-                    sim.getStats().tambahKekenyangan(this.getKekenyangan());
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                sim.getInventory().reduceBarang(this, 1);
+                sim.getStats().tambahKekenyangan(this.getKekenyangan());
+                Game.getInstance().mulaiAksi(30);
+                JOptionPane.showMessageDialog(null,
+                        "Yummy!",
+                        "Meja dan Kursi",
+                        JOptionPane.INFORMATION_MESSAGE);
+
                 Waktu.getInstance().addWaktu(30);
             } else {
                 JOptionPane.showOptionDialog(null, "Gak boleh makan sambil berdiri!", "Food Info",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             }
-
         } else if (choice == 1) {
             // Back
         }

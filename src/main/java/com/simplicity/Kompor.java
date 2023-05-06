@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.simplicity.AbstractClass.Furniture;
 import com.simplicity.Interface.Storable;
+import com.gui.Game;
 
 public class Kompor extends Furniture {
     public enum Resep {
@@ -109,7 +110,7 @@ public class Kompor extends Furniture {
                 // TimeUnit.SECONDS.sleep((int) 1.5 * masakan.getKekenyangan());
                 int masakTime = (int) 1.5 * masakan.getKekenyangan();
 
-                mulaiAksi(masakTime);
+                Game.getInstance().mulaiAksi(masakTime);
 
                 for (String bahan : masakan.getResep()) {
                     for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {

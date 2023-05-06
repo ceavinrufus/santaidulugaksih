@@ -1,5 +1,7 @@
 package com.simplicity;
+
 import javax.swing.JOptionPane;
+import com.gui.Game;
 import com.simplicity.AbstractClass.Furniture;
 
 public class Shower extends Furniture {
@@ -38,8 +40,8 @@ public class Shower extends Furniture {
             }
         }
 
-        mulaiAksi(showerTime);
-        
+        Game.getInstance().mulaiAksi(showerTime);
+
         if (showerTime > 30) {
             sim.getStats().tambahKesehatan(30);
             sim.getStats().kurangKesehatan((showerTime - 30) / 10 * 5);

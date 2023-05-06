@@ -81,10 +81,6 @@ public class Game extends JFrame {
         return instance;
     }
 
-    // public void setWorld(World world) {
-    // this.world = world;
-    // }
-
     public Sim getCurrentSim() {
         return currentSim;
     }
@@ -103,6 +99,19 @@ public class Game extends JFrame {
 
     public void setTotalWaktu(Waktu totalWaktu) {
         this.totalWaktu = totalWaktu;
+    }
+
+    public void mulaiAksi(int sisaWaktu) {
+        ThreadManager.startAllThreads();
+        while (sisaWaktu != 0) {
+            try {
+                sisaWaktu -= 1;
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        ThreadManager.stopAllThreads();
     }
 
     // Menu game

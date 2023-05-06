@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import javax.swing.JOptionPane;
+import com.gui.Game;
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -20,7 +21,7 @@ public class Toilet extends Furniture {
     @Override
     public void aksi(Sim sim) {
         if (sim.getIsSehabisMakan()) {
-            mulaiAksi(10);
+            Game.getInstance().mulaiAksi(10);
 
             sim.getStats().kurangKekenyangan(20);
             sim.getStats().tambahMood(10);

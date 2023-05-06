@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import javax.swing.JOptionPane;
+import com.gui.Game;
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -38,7 +39,7 @@ public class Komputer extends Furniture {
             }
         }
 
-        mulaiAksi(nubesTime);
+        Game.getInstance().mulaiAksi(nubesTime);
 
         sim.getStats().kurangMood(30);
         sim.getStats().kurangKekenyangan(30);

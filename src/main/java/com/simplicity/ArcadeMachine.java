@@ -1,6 +1,7 @@
 package com.simplicity;
 
 import javax.swing.JOptionPane;
+import com.gui.Game;
 
 import com.simplicity.AbstractClass.Furniture;
 
@@ -40,7 +41,7 @@ public class ArcadeMachine extends Furniture {
 
         bermainTime += 10;
 
-        mulaiAksi(bermainTime);
+        Game.getInstance().mulaiAksi(bermainTime);
 
         sim.getStats().tambahMood(bermainTime / 10 * 10);
         sim.getStats().kurangKekenyangan(bermainTime / 10 * 10);

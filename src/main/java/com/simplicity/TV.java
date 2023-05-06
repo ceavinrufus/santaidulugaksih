@@ -3,6 +3,7 @@ package com.simplicity;
 import javax.swing.JOptionPane;
 
 import com.simplicity.AbstractClass.Furniture;
+import com.gui.Game;
 
 public class TV extends Furniture {
     public TV() {
@@ -44,7 +45,7 @@ public class TV extends Furniture {
             }
         }
 
-        mulaiAksi(menontonTime);
+        Game.getInstance().mulaiAksi(menontonTime);
 
         int batasWajar = 40;
         if (menontonTime > batasWajar) {
