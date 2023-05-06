@@ -24,11 +24,9 @@ public class Sim {
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
-    private int recentActionTime = 0;
+    public int sleepTimeAkumulasi = 0;
     private int hariKeAwal = 0;
     private int hariKeAkhir = 0;
-
-    private Waktu waktu = Waktu.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
