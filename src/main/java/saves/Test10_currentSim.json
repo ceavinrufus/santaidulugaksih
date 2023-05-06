@@ -1,150 +1,24 @@
 {
-  "namaLengkap": "Lalala",
-  "pekerjaan": "PROGRAMMER",
-  "uang": 8170.0,
+  "namaLengkap": "Yeji",
+  "pekerjaan": "KOKI",
+  "uang": 100.0,
   "inventory": {
-    "container": [
-      {
-        "key": {
-          "type": "NonCookableFood",
-          "properties": {
-            "harga": 5,
-            "nama": "Nasi",
-            "kekenyangan": 5
-          }
-        },
-        "value": 6
-      },
-      {
-        "key": {
-          "type": "NonCookableFood",
-          "properties": {
-            "harga": 10,
-            "nama": "Ayam",
-            "kekenyangan": 8
-          }
-        },
-        "value": 8
-      },
-      {
-        "key": {
-          "type": "ArcadeMachine",
-          "properties": {
-            "nama": "Arcade Machine",
-            "panjang": 1,
-            "lebar": 1,
-            "harga": 100,
-            "isHorizontal": true
-          }
-        },
-        "value": 1
-      },
-      {
-        "key": {
-          "type": "CookableFood",
-          "properties": {
-            "resep": [
-              "Nasi",
-              "Ayam"
-            ],
-            "nama": "Nasi Ayam",
-            "kekenyangan": 16
-          }
-        },
-        "value": 1
-      }
-    ]
+    "container": []
   },
   "stats": {
-    "mood": 10,
-    "kekenyangan": 5,
-    "kesehatan": 100
+    "mood": 80,
+    "kekenyangan": 80,
+    "kesehatan": 80
   },
   "currentPosition": {
     "rumah": {
-      "namaPemilik": "Lalala",
+      "namaPemilik": "Yeji",
       "petaRuangan": {
         "matriks": [
           [
             {
-              "namaRuangan": "Teras",
-              "jumlahBarangTerpasang": 1,
-              "petaBarang": {
-                "matriks": [
-                  [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ],
-                  [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ],
-                  [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ],
-                  [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ],
-                  [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ],
-                  [
-                    {
-                      "barang": {
-                        "type": "Jam",
-                        "properties": {
-                          "nama": "Jam",
-                          "panjang": 1,
-                          "lebar": 1,
-                          "harga": 10,
-                          "isHorizontal": true
-                        }
-                      },
-                      "ID": 1,
-                      "koordinat": [
-                        {
-                          "x": 0,
-                          "y": 5
-                        }
-                      ]
-                    },
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            {
               "namaRuangan": "Main Room",
-              "jumlahBarangTerpasang": 7,
+              "jumlahBarangTerpasang": 6,
               "petaBarang": {
                 "matriks": [
                   [
@@ -494,25 +368,7 @@
                     }
                   ],
                   [
-                    {
-                      "barang": {
-                        "type": "ArcadeMachine",
-                        "properties": {
-                          "nama": "Arcade Machine",
-                          "panjang": 1,
-                          "lebar": 1,
-                          "harga": 100,
-                          "isHorizontal": true
-                        }
-                      },
-                      "ID": 7,
-                      "koordinat": [
-                        {
-                          "x": 0,
-                          "y": 4
-                        }
-                      ]
-                    },
+                    null,
                     null,
                     null,
                     {
@@ -691,12 +547,12 @@
                     },
                     {
                       "barang": {
-                        "type": "Jam",
+                        "type": "Shower",
                         "properties": {
-                          "nama": "Jam",
+                          "nama": "Shower",
                           "panjang": 1,
                           "lebar": 1,
-                          "harga": 10,
+                          "harga": 75,
                           "isHorizontal": true
                         }
                       },
@@ -889,41 +745,137 @@
       }
     },
     "ruang": {
-      "namaRuangan": "Teras",
-      "jumlahBarangTerpasang": 1,
+      "namaRuangan": "Main Room",
+      "jumlahBarangTerpasang": 6,
       "petaBarang": {
         "matriks": [
           [
             null,
             null,
-            null,
-            null,
-            null,
-            null
-          ],
-          [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
-          [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-          ],
-          [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            {
+              "barang": {
+                "type": "Kasur",
+                "properties": {
+                  "nama": "Kasur Single",
+                  "panjang": 4,
+                  "lebar": 1,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 1,
+              "koordinat": [
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 0
+                },
+                {
+                  "x": 5,
+                  "y": 0
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "Kasur",
+                "properties": {
+                  "nama": "Kasur Single",
+                  "panjang": 4,
+                  "lebar": 1,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 1,
+              "koordinat": [
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 0
+                },
+                {
+                  "x": 5,
+                  "y": 0
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "Kasur",
+                "properties": {
+                  "nama": "Kasur Single",
+                  "panjang": 4,
+                  "lebar": 1,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 1,
+              "koordinat": [
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 0
+                },
+                {
+                  "x": 5,
+                  "y": 0
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "Kasur",
+                "properties": {
+                  "nama": "Kasur Single",
+                  "panjang": 4,
+                  "lebar": 1,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 1,
+              "koordinat": [
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 4,
+                  "y": 0
+                },
+                {
+                  "x": 5,
+                  "y": 0
+                }
+              ]
+            }
           ],
           [
             null,
@@ -936,6 +888,412 @@
           [
             {
               "barang": {
+                "type": "Kompor",
+                "properties": {
+                  "nama": "Kompor Gas",
+                  "panjang": 2,
+                  "lebar": 1,
+                  "harga": 100,
+                  "isHorizontal": false
+                }
+              },
+              "ID": 2,
+              "koordinat": [
+                {
+                  "x": 0,
+                  "y": 2
+                },
+                {
+                  "x": 0,
+                  "y": 3
+                }
+              ]
+            },
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            {
+              "barang": {
+                "type": "Kompor",
+                "properties": {
+                  "nama": "Kompor Gas",
+                  "panjang": 2,
+                  "lebar": 1,
+                  "harga": 100,
+                  "isHorizontal": false
+                }
+              },
+              "ID": 2,
+              "koordinat": [
+                {
+                  "x": 0,
+                  "y": 2
+                },
+                {
+                  "x": 0,
+                  "y": 3
+                }
+              ]
+            },
+            null,
+            null,
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "barang": {
+                "type": "Toilet",
+                "properties": {
+                  "nama": "Toilet",
+                  "panjang": 1,
+                  "lebar": 1,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 5,
+              "koordinat": [
+                {
+                  "x": 0,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "Shower",
+                "properties": {
+                  "nama": "Shower",
+                  "panjang": 1,
+                  "lebar": 1,
+                  "harga": 75,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 6,
+              "koordinat": [
+                {
+                  "x": 1,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
                 "type": "Jam",
                 "properties": {
                   "nama": "Jam",
@@ -945,39 +1303,183 @@
                   "isHorizontal": true
                 }
               },
-              "ID": 1,
+              "ID": 3,
               "koordinat": [
                 {
-                  "x": 0,
+                  "x": 2,
                   "y": 5
                 }
               ]
             },
-            null,
-            null,
-            null,
-            null,
-            null
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            },
+            {
+              "barang": {
+                "type": "MejaKursi",
+                "properties": {
+                  "nama": "Meja dan Kursi",
+                  "panjang": 3,
+                  "lebar": 3,
+                  "harga": 50,
+                  "isHorizontal": true
+                }
+              },
+              "ID": 4,
+              "koordinat": [
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                }
+              ]
+            }
           ]
         ]
       }
     },
     "lokasi": {
-      "x": 1,
-      "y": 0
+      "x": 5,
+      "y": 5
     }
   },
-  "totalWorkTime": 120,
+  "totalWorkTime": 0,
   "waktuBolehGantiKerja": 720,
-  "waktuKerjaBelumDibayar": 120,
-  "waktuTidakTidur": 120,
+  "waktuKerjaBelumDibayar": 0,
+  "waktuTidakTidur": 0,
   "waktuTidakBuangAir": 0,
   "isSehabisMakan": false,
   "isSehabisTidur": false,
   "isOnKunjungan": false,
-  "isDead": false,
-  "recentActionTime": 120,
-  "totalWaktu": {
-    "waktu": 360
-  }
+  "recentActionTime": 0
 }

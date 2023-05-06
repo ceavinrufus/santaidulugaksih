@@ -80,7 +80,13 @@ public class MainMenu extends JFrame {
                                     .findRuangan(sim.getCurrentPosition().getRuang().getNamaRuangan()));
                         }
 
-                        game.setCurrentSim(game.loadCurrentSim(inputFileName));
+                        Sim loadedCurrentSim = game.loadCurrentSim(inputFileName);
+                        for (Sim sim : game.getSims().values()) {
+                            if (sim.getNamaLengkap().equals(loadedCurrentSim.getNamaLengkap())) {
+                                game.setCurrentSim(sim);
+                            }
+                        }
+
                         game.getCurrentSim().getCurrentPosition().setRumah(World.getInstance()
                                 .findRumah(game.getCurrentSim().getNamaLengkap()));
                         game.getCurrentSim().getCurrentPosition().setRuang(World.getInstance()
