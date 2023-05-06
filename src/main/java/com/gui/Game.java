@@ -102,10 +102,6 @@ public class Game extends JFrame {
         return totalWaktu;
     }
 
-    public void setTotalWaktu(Waktu totalWaktu) {
-        this.totalWaktu = totalWaktu;
-    }
-
     public void mulaiAksi(Integer durasiKerja) {
         String message = "Lagi " + currentSim.getActiveStatus() + " nihh. Tunggu ya!";
         JOptionPane.showMessageDialog(null, message, "Status",
@@ -593,6 +589,12 @@ public class Game extends JFrame {
     public Sim makeNewSim() throws SimNotCreatedException {
         String nama = "";
         Sim sim = null;
+
+        if (!canAddSim) {
+            JOptionPane.showMessageDialog(null, "Maksimal membuat Sim sehari sekali!", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            throw new SimNotCreatedException();
+        }
 
         while (nama.length() < 1 || nama.length() > 16) {
             try {
