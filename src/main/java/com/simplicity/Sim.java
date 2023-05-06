@@ -24,6 +24,11 @@ public class Sim {
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
+    private int recentActionTime = 0;
+    private int hariKeAwal = 0;
+    private int hariKeAkhir = 0;
+
+    private Waktu waktu = Waktu.getInstance();
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -162,6 +167,14 @@ public class Sim {
         this.stats = stats;
     }
 
+    public void setHariKeAwal(int a) {
+        hariKeAwal += a;
+    }
+
+    public void setHariKeAkhir(int a) {
+        hariKeAkhir += a;
+    }
+
     public SimPosition getCurrentPosition() {
         return currentPosition;
     }
@@ -174,9 +187,13 @@ public class Sim {
         waktuTidakTidur = waktu;
     }
 
-    public void trackTidur(int waktu) {
+    public void trackTidur(int t) {
         if (!isSehabisTidur) {
-            waktuTidakTidur += waktu;
+            waktuTidakTidur += t;
+        }
+        if (isSehabisTidur && hariKeAkhir > hariKeAwal) {
+            isSehabisTidur = false;
+            waktuTidakTidur += Jam.getWaktuHariIni();
         }
         if (waktuTidakTidur >= 600) {
             stats.kurangKesehatan(5);
