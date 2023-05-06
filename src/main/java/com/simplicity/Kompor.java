@@ -114,11 +114,11 @@ public class Kompor extends Furniture {
                     for (Pair<Storable, Integer> item : sim.getInventory().getItems()) {
                         if (item.getKey().getNama().equals(bahan)) {
                             sim.getInventory().reduceBarang(item.getKey(), 1);
-                            sim.getInventory().addBarang(masakan, 1);
-                            sim.getStats().setMood(10);
                         }
                     }
                 }
+                sim.getInventory().addBarang(masakan, 1);
+                sim.getStats().setMood(10);
 
                 JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
                         JOptionPane.INFORMATION_MESSAGE);

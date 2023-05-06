@@ -1,8 +1,5 @@
 package com.simplicity;
 
-import javax.swing.JOptionPane;
-
-import com.gui.Game;
 import com.simplicity.AbstractClass.Food;
 import com.simplicity.AbstractClass.Furniture;
 

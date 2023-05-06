@@ -9,7 +9,6 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -473,7 +472,7 @@ public class Game extends JFrame {
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                     return;
-                } 
+                }
 
                 if (uangSim < hargaBarangTerpilih * jumlahBarangTerpilih) {
                     JOptionPane.showMessageDialog(null,
