@@ -110,9 +110,8 @@ public class Game extends JFrame {
         JOptionPane.showMessageDialog(null, message, "Status",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        Waktu.getInstance().addWaktu(sisaWaktu);
-        ThreadManager.startAllThreads();
-        while (sisaWaktu > 1) {
+        ThreadManager.startAllThreads(sisaWaktu);
+        while (sisaWaktu != 0) {
             try {
                 sisaWaktu -= 1;
                 TimeUnit.SECONDS.sleep(1);
@@ -120,7 +119,6 @@ public class Game extends JFrame {
                 e.printStackTrace();
             }
         }
-        ThreadManager.stopAllThreads();
     }
 
     // Menu game
@@ -353,7 +351,7 @@ public class Game extends JFrame {
                             Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
                             int distance = Math.round(sourcePoint.distance(destPoint));
                             JOptionPane.getRootFrame().dispose();
-                            
+
                             currentSim.setActiveStatus("Jalan");
                             mulaiAksi(distance);
 
@@ -487,8 +485,10 @@ public class Game extends JFrame {
                 } else {
                     currentSim.setUang(uangSim - hargaBarangTerpilih * jumlahBarangTerpilih);
                     Purchasable barangTerpilih = listPembelian.get(selectedRow);
-                    RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih, jumlahBarangTerpilih);
-                    String message = String.format("Pengiriman %d %s selama %d detik akan dilakukan saat aksi aktif dimulai!",
+                    RunnableBeliBarang beliBarang = new RunnableBeliBarang(currentSim, barangTerpilih,
+                            jumlahBarangTerpilih);
+                    String message = String.format(
+                            "Pengiriman %d %s selama %d detik akan dilakukan saat aksi aktif dimulai!",
                             jumlahBarangTerpilih, barangTerpilih.getNama(), beliBarang.getSisaWaktu());
                     JOptionPane.showMessageDialog(null, message, "Pembelian Berhasil",
                             JOptionPane.INFORMATION_MESSAGE);

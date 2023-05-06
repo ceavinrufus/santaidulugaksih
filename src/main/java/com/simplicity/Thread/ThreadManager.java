@@ -19,15 +19,9 @@ public class ThreadManager {
         threadList.remove(thread);
     }
 
-    public static void stopAllThreads() {
+    public static void startAllThreads(int decrement) {
         for (Leaveable thread : threadList) {
-            thread.stop();
-        }
-    }
-
-    public static void startAllThreads() {
-        for (Leaveable thread : threadList) {
-            thread.start();
+            thread.start(decrement);
         }
     }
 }

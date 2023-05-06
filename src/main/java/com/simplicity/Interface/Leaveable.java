@@ -7,7 +7,5 @@ public interface Leaveable extends Runnable {
 
     public void showCompleteMessage();
 
-    public void stop();
-
-    public void start();
+    public void start(int decrement);
 }

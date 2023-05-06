@@ -1,6 +1,5 @@
 package com.simplicity.Thread;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
@@ -10,7 +9,7 @@ import com.simplicity.Interface.Leaveable;
 import com.simplicity.Interface.Purchasable;
 
 public class RunnableBeliBarang implements Leaveable {
-    private volatile boolean shouldRun = false;
+    private volatile int decrement = 0;
     private int sisaWaktu;
     private Sim currentSim;
     private Purchasable barang;
@@ -21,32 +20,30 @@ public class RunnableBeliBarang implements Leaveable {
         this.barang = barang;
         this.jumlahBarang = jumlahBarang;
 
-        Random random = new Random();
-        int random_int = random.nextInt(5) + 1;
+        int lowerBound = 1;
+        int upperBound = 5;
+        int random_int = (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
         sisaWaktu = random_int * 30;
     }
 
     @Override
     public void run() {
-        while (sisaWaktu != 0) {
-            try {
-                if (shouldRun) {
+        try {
+            while (sisaWaktu != 0) {
+                if (decrement > 0) {
                     sisaWaktu -= 1;
+                    decrement -= 1;
                     TimeUnit.SECONDS.sleep(1);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
         if (sisaWaktu == 0) {
             ThreadManager.removeThread(this);
+            currentSim.getInventory().addBarang(barang, jumlahBarang);
         }
-        currentSim.getInventory().addBarang(barang, jumlahBarang);
-        showCompleteMessage();
-    }
-
-    public Purchasable getBarang() {
-        return barang;
     }
 
     @Override
@@ -68,12 +65,7 @@ public class RunnableBeliBarang implements Leaveable {
     }
 
     @Override
-    public void stop() {
-        shouldRun = false;
-    }
-
-    @Override
-    public void start() {
-        shouldRun = true;
+    public void start(int decrement) {
+        this.decrement = decrement;
     }
 }

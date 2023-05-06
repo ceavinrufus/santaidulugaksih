@@ -9,7 +9,7 @@ import com.simplicity.*;
 import com.simplicity.Interface.Leaveable;
 
 public class RunnableBangunRumah implements Leaveable {
-    private volatile boolean shouldRun = false;
+    private volatile int decrement = 0;
     // TODO: Karena lebih dari 1 hari, kemungkinan ada yang perlu dihandle
     private int sisaWaktu = 60 * 18;
     private Sim currentSim;
@@ -26,23 +26,24 @@ public class RunnableBangunRumah implements Leaveable {
 
     @Override
     public void run() {
-        while (sisaWaktu != 0) {
-            try {
-                if (shouldRun) {
+        try {
+            while (sisaWaktu != 0) {
+                if (decrement > 0) {
                     sisaWaktu -= 1;
+                    decrement -= 1;
                     TimeUnit.SECONDS.sleep(1);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         if (sisaWaktu == 0) {
             ThreadManager.removeThread(this);
+            currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah,
+                    ruanganPatokan);
+            Game.getInstance().repaint();
         }
-        currentSim.getCurrentPosition().getRumah().tambahRuangan(ruanganBaru, arah,
-                ruanganPatokan);
-        Game.getInstance().repaint();
     }
 
     @Override
@@ -65,13 +66,7 @@ public class RunnableBangunRumah implements Leaveable {
     }
 
     @Override
-    public void stop() {
-        shouldRun = false;
+    public void start(int decrement) {
+        this.decrement = decrement;
     }
-
-    @Override
-    public void start() {
-        shouldRun = true;
-    }
-
 }
