@@ -502,6 +502,8 @@ public class Ruangan {
                             }
                         } else if (option == JOptionPane.CANCEL_OPTION) {
                             return;
+                        } else {
+                            return;
                         }
                     }
                 } else {
