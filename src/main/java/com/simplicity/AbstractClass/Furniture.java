@@ -1,7 +1,6 @@
 package com.simplicity.AbstractClass;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -11,7 +10,6 @@ import com.simplicity.Rumah;
 import com.simplicity.Sim;
 import com.simplicity.ExceptionHandling.IllegalLocationException;
 import com.simplicity.Interface.Purchasable;
-import com.simplicity.Thread.ThreadManager;
 
 public abstract class Furniture implements Purchasable {
     private String nama;

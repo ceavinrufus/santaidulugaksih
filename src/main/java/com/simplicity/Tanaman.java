@@ -30,6 +30,5 @@ public class Tanaman extends Furniture {
                 "Seneng banget abis nyiram tanaman!",
                 "Tanaman",
                 JOptionPane.INFORMATION_MESSAGE);
-        Waktu.getInstance().addWaktu(plantTime);
     }
 }
