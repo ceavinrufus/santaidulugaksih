@@ -356,7 +356,12 @@ public class Game extends JFrame {
                             currentSim.setActiveStatus("Jalan");
                             mulaiAksi(distance);
 
-                            currentSim.setIsOnKunjungan(true);
+                            if (selectedRumah.getNamaPemilik().equals(currentSim.getNamaLengkap())) {
+                                currentSim.setIsOnKunjungan(false);
+                            } else {
+                                currentSim.setIsOnKunjungan(true);
+                            }
+
                             currentSim.setRecentActionTime(distance);
                             currentSim.setCurrentPosition(
                                     new SimPosition(selectedRumah, selectedRumah.findRuangan("Main Room")));
