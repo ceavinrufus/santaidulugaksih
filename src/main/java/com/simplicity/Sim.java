@@ -64,18 +64,6 @@ public class Sim {
             return kesehatan;
         }
 
-        public void setMood(int mood) {
-            this.mood = mood;
-        }
-
-        public void setKekenyangan(int kekenyangan) {
-            this.kekenyangan = kekenyangan;
-        }
-
-        public void setKesehatan(int kesehatan) {
-            this.kesehatan = kesehatan;
-        }
-
         public void tambahMood(int mood) {
             this.mood += mood;
             if (this.mood > 100) {
@@ -137,10 +125,12 @@ public class Sim {
             uang -= pekerjaan.getGaji() * 0.5;
             totalWorkTime = 0;
             waktuBolehGantiKerja = 0;
-            JOptionPane.showMessageDialog(null, String.format("Pekerjaan berhasil diganti! Sekarang kamu adalah %s", pekerjaan.getNama()), "Action finished", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    String.format("Pekerjaan berhasil diganti! Sekarang kamu adalah %s", pekerjaan.getNama()),
+                    "Action finished", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Yah, kamu belum bisa ganti pekerjaan nih:(", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -148,11 +138,11 @@ public class Sim {
         return inventory;
     }
 
-    public String getActiveStatus(){
+    public String getActiveStatus() {
         return activeStatus;
     }
 
-    public void setActiveStatus(String activeStatus){
+    public void setActiveStatus(String activeStatus) {
         this.activeStatus = activeStatus;
     }
 
