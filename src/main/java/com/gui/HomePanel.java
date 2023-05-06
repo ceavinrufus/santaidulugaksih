@@ -64,6 +64,7 @@ public class HomePanel extends JPanel {
                     Furniture barang = simCurrentPosition.getRuang()
                             .getBarangByKoordinat(simCurrentPosition.getLokasi());
                     currentSim.interact(barang);
+                    Game.getInstance().trackSimsStats();
                 }
                 requestFocusInWindow();
             }
