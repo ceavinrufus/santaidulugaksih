@@ -65,6 +65,7 @@ public abstract class Food implements Storable {
                 sim.getStats().tambahKekenyangan(this.getKekenyangan());
                 Game.getInstance().getCurrentSim().setActiveStatus("Makan");
                 Game.getInstance().mulaiAksi(30);
+                sim.setIsSehabisMakan(true);
                 JOptionPane.showMessageDialog(null,
                         "Yummy!",
                         "Meja dan Kursi",
