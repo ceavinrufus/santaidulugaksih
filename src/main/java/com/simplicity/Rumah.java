@@ -109,9 +109,9 @@ public class Rumah {
         Ruangan ruangan = null;
         for (int i = 0; i < petaRuangan.getRow(); i++) {
             for (int j = 0; j < petaRuangan.getColumn(); j++) {
-                if (petaRuangan.getElement(i, j) != null) {
-                    if (petaRuangan.getElement(i, j).getNamaRuangan().equals(namaRuangan)) {
-                        ruangan = petaRuangan.getElement(i, j);
+                if (petaRuangan.getElement(j, i) != null) {
+                    if (petaRuangan.getElement(j, i).getNamaRuangan().equals(namaRuangan)) {
+                        ruangan = petaRuangan.getElement(j, i);
                     }
                 }
             }

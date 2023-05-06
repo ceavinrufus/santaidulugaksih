@@ -53,6 +53,19 @@ public class World {
         }
     }
 
+    public Rumah findRumah(String namaPemilik) {
+        for (int i = 0; i < petaRumah.getRow(); i++) {
+            for (int j = 0; j < petaRumah.getColumn(); j++) {
+                if (petaRumah.getElement(j, i) != null) {
+                    if (petaRumah.getElement(j, i).getNamaPemilik().equals(namaPemilik)) {
+                        return petaRumah.getElement(j, i);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void saveWorld(String filename) throws IOException {
         Gson gson = new Gson();
         GsonBuilder gsonBuilder = new GsonBuilder();

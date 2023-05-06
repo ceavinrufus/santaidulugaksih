@@ -86,12 +86,16 @@ public class Game extends JFrame {
         return currentSim;
     }
 
-    public void setSims(HashMap<String, Sim> sims) {
-        this.sims = sims;
-    }
-
     public void setCurrentSim(Sim currentSim) {
         this.currentSim = currentSim;
+    }
+
+    public HashMap<String, Sim> getSims() {
+        return sims;
+    }
+
+    public void setSims(HashMap<String, Sim> sims) {
+        this.sims = sims;
     }
 
     public Waktu getTotalWaktu() {

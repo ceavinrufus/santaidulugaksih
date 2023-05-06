@@ -65,14 +65,27 @@ public class MainMenu extends JFrame {
                         for (int i = 0; i < loadedWorld.getPeta().getRow(); i++) {
                             for (int j = 0; j < loadedWorld.getPeta()
                                     .getColumn(); j++) {
-                                if (loadedWorld.getPeta().getElement(i, j) != null) {
-                                    World.getInstance().getPeta().setElement(i, i,
-                                            loadedWorld.getPeta().getElement(i, j));
+                                if (loadedWorld.getPeta().getElement(j, i) != null) {
+                                    World.getInstance().getPeta().setElement(j, i,
+                                            loadedWorld.getPeta().getElement(j, i));
                                 }
                             }
                         }
                         game.setSims(game.loadSims(inputFileName));
+                        for (Sim sim : game.getSims().values()) {
+                            sim.getCurrentPosition().setRumah(World.getInstance()
+                                    .findRumah(sim.getNamaLengkap()));
+                            sim.getCurrentPosition().setRuang(World.getInstance()
+                                    .findRumah(sim.getNamaLengkap())
+                                    .findRuangan(sim.getCurrentPosition().getRuang().getNamaRuangan()));
+                        }
+
                         game.setCurrentSim(game.loadCurrentSim(inputFileName));
+                        game.getCurrentSim().getCurrentPosition().setRumah(World.getInstance()
+                                .findRumah(game.getCurrentSim().getNamaLengkap()));
+                        game.getCurrentSim().getCurrentPosition().setRuang(World.getInstance()
+                                .findRumah(game.getCurrentSim().getNamaLengkap())
+                                .findRuangan(game.getCurrentSim().getCurrentPosition().getRuang().getNamaRuangan()));
                         game.getTotalWaktu().addWaktu(game.getTotalWaktu().loadWaktu(inputFileName).getWaktu());
                         game.runGame();
                     } catch (IOException e) {
