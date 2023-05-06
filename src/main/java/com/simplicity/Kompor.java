@@ -106,7 +106,7 @@ public class Kompor extends Furniture {
 
         if (masakan != null) {
             if (isBahanAda(sim.getInventory(), masakan)) {
-                int masakTime = (int)(1.5 * masakan.getKekenyangan());
+                int masakTime = (int) (1.5 * masakan.getKekenyangan());
 
                 Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
                 Game.getInstance().mulaiAksi(masakTime);
@@ -124,6 +124,7 @@ public class Kompor extends Furniture {
 
                 JOptionPane.showMessageDialog(null, "Masakan selesai dimasak!", "Action finished",
                         JOptionPane.INFORMATION_MESSAGE);
+                Game.getInstance().trackSimsStats(masakTime);
             } else {
                 JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error",
                         JOptionPane.ERROR_MESSAGE);

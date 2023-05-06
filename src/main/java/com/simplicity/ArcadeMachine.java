@@ -51,5 +51,6 @@ public class ArcadeMachine extends Furniture {
                 "Waduh keasikan...",
                 "Arcade Machine",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(bermainTime);
     }
 }

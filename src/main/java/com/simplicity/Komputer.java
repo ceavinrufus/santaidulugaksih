@@ -49,5 +49,6 @@ public class Komputer extends Furniture {
                 "AAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAA!",
                 "Komputer",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(nubesTime);
     }
 }

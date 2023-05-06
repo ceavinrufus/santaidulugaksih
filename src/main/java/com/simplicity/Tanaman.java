@@ -31,5 +31,6 @@ public class Tanaman extends Furniture {
                 "Seneng banget abis nyiram tanaman!",
                 "Tanaman",
                 JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(plantTime);
     }
 }

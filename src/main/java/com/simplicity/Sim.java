@@ -56,54 +56,54 @@ public class Sim {
             kesehatan = 80;
         }
 
-        public int getMood() {
+        public synchronized int getMood() {
             return mood;
         }
 
-        public int getKekenyangan() {
+        public synchronized int getKekenyangan() {
             return kekenyangan;
         }
 
-        public int getKesehatan() {
+        public synchronized int getKesehatan() {
             return kesehatan;
         }
 
-        public void tambahMood(int mood) {
+        public synchronized void tambahMood(int mood) {
             this.mood += mood;
             if (this.mood > 100) {
                 this.mood = 100;
             }
         }
 
-        public void tambahKekenyangan(int kekenyangan) {
+        public synchronized void tambahKekenyangan(int kekenyangan) {
             this.kekenyangan += kekenyangan;
             if (this.kekenyangan > 100) {
                 this.kekenyangan = 100;
             }
         }
 
-        public void tambahKesehatan(int kesehatan) {
+        public synchronized void tambahKesehatan(int kesehatan) {
             this.kesehatan += kesehatan;
             if (this.kesehatan > 100) {
                 this.kesehatan = 100;
             }
         }
 
-        public void kurangMood(int mood) {
+        public synchronized void kurangMood(int mood) {
             this.mood -= mood;
             if (this.mood < 0) {
                 this.mood = 0;
             }
         }
 
-        public void kurangKekenyangan(int kekenyangan) {
+        public synchronized void kurangKekenyangan(int kekenyangan) {
             this.kekenyangan -= kekenyangan;
             if (this.kekenyangan < 0) {
                 this.kekenyangan = 0;
             }
         }
 
-        public void kurangKesehatan(int kesehatan) {
+        public synchronized void kurangKesehatan(int kesehatan) {
             this.kesehatan -= kesehatan;
             if (this.kesehatan < 0) {
                 this.kesehatan = 0;
@@ -279,6 +279,7 @@ public class Sim {
             uang += pekerjaan.getGaji() * (workingTime / 240);
             waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime / 240));
             JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
+            Game.getInstance().trackSimsStats(workingTime);
         }
     }
 
@@ -307,6 +308,7 @@ public class Sim {
         isSehabisMakan = false;
         isSehabisTidur = false;
         JOptionPane.showMessageDialog(null, "Olahraga selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
+        Game.getInstance().trackSimsStats(workoutTime);
     }
 
     public void interact(Furniture barang) {
