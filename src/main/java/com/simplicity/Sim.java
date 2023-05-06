@@ -268,12 +268,12 @@ public class Sim {
             Game.getInstance().mulaiAksi(workingTime);
 
             totalWorkTime += workingTime;
+            stats.kurangKekenyangan(workingTime / 30 * 10);
+            stats.kurangMood(workingTime / 30 * 10);
             if (waktuKerjaBelumDibayar > 0) {
                 workingTime += waktuKerjaBelumDibayar;
                 waktuKerjaBelumDibayar = 0;
             }
-            stats.kurangKekenyangan(workingTime / 30 * 10);
-            stats.kurangMood(workingTime / 30 * 10);
             uang += pekerjaan.getGaji() * (workingTime / 240);
             waktuKerjaBelumDibayar += (workingTime - 240 * (workingTime / 240));
             JOptionPane.showMessageDialog(null, "Kerja selesai!", "Action finished", JOptionPane.INFORMATION_MESSAGE);
