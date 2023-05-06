@@ -110,6 +110,7 @@ public class Game extends JFrame {
         JOptionPane.showMessageDialog(null, message, "Status",
                 JOptionPane.INFORMATION_MESSAGE);
 
+        Waktu.getInstance().addWaktu(sisaWaktu);
         ThreadManager.startAllThreads(sisaWaktu);
         while (sisaWaktu != 0) {
             try {
