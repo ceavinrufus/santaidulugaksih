@@ -8,10 +8,12 @@ import java.io.*;
 public class Waktu {
     private static Waktu waktuTotal;
     private int waktu;
+    private int hariKe;
 
     // Singleton, private constructor
     private Waktu() {
         waktu = 0;
+        hariKe = 0;
     }
 
     public synchronized static Waktu getInstance() {
@@ -28,6 +30,10 @@ public class Waktu {
 
     public int getWaktu() {
         return waktu;
+    }
+
+    public int getHariKe() {
+        return (int) waktu / 720;
     }
 
     public void saveWaktu(String filename) {

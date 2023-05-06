@@ -53,12 +53,7 @@ public class Jam extends Furniture {
     }
 
     private void displayWaktuPusat() {
-        Waktu waktu = Waktu.getInstance();
-        int totalWaktu = waktu.getWaktu();
-        int waktuHariIni = totalWaktu;
-        while (waktuHariIni >= 720) {
-            waktuHariIni -= 720;
-        }
+        int waktuHariIni = getWaktuHariIni();
         int sisaWaktuHariIni = (12 * 60) - waktuHariIni;
         int sisaWaktuHariIniMenit = (int) sisaWaktuHariIni / 60;
         String info = String.format("Waktu sisa hari ini: %d sekon atau %d menit", sisaWaktuHariIni,
@@ -92,6 +87,16 @@ public class Jam extends Furniture {
         JOptionPane.showOptionDialog(null, new JScrollPane(table), "Lihat Waktu",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    }
+
+    public static int getWaktuHariIni() {
+        Waktu waktu = Waktu.getInstance();
+        int totalWaktu = waktu.getWaktu();
+        int waktuHariIni = totalWaktu;
+        while (waktuHariIni >= 720) {
+            waktuHariIni -= 720;
+        }
+        return waktuHariIni;
     }
 
 }
