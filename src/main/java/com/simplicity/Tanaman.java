@@ -22,6 +22,7 @@ public class Tanaman extends Furniture {
     public void aksi(Sim sim) {
         int plantTime = 60;
 
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(plantTime);
 
         sim.getStats().tambahMood(30);

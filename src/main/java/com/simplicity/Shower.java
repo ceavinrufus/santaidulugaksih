@@ -39,7 +39,8 @@ public class Shower extends Furniture {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-
+        
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(showerTime);
 
         if (showerTime > 30) {

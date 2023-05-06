@@ -1,5 +1,6 @@
 package com.simplicity.Thread;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
@@ -20,9 +21,8 @@ public class RunnableBeliBarang implements Leaveable {
         this.barang = barang;
         this.jumlahBarang = jumlahBarang;
 
-        int lowerBound = 1;
-        int upperBound = 5;
-        int random_int = (int) (Math.random() % (upperBound - lowerBound + 1) + lowerBound);
+        Random random = new Random();
+        int random_int = random.nextInt(5) + 1;
         sisaWaktu = random_int * 30;
     }
 
@@ -42,7 +42,7 @@ public class RunnableBeliBarang implements Leaveable {
             ThreadManager.removeThread(this);
         }
         currentSim.getInventory().addBarang(barang, jumlahBarang);
-        // showCompleteMessage();
+        showCompleteMessage();
     }
 
     public Purchasable getBarang() {

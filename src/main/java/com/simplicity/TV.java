@@ -44,7 +44,8 @@ public class TV extends Furniture {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-
+        
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(menontonTime);
 
         int batasWajar = 40;

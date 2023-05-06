@@ -106,6 +106,10 @@ public class Game extends JFrame {
     }
 
     public void mulaiAksi(Integer sisaWaktu) {
+        String message = "Lagi " + currentSim.getActiveStatus() + " nihh. Tunggu ya!";
+        JOptionPane.showMessageDialog(null, message, "Status",
+                JOptionPane.INFORMATION_MESSAGE);
+
         Waktu.getInstance().addWaktu(sisaWaktu);
         ThreadManager.startAllThreads();
         while (sisaWaktu != 0) {
@@ -349,6 +353,8 @@ public class Game extends JFrame {
                             Point destPoint = petaRumah.getElementCoordinate(selectedRumah);
                             int distance = Math.round(sourcePoint.distance(destPoint));
                             JOptionPane.getRootFrame().dispose();
+                            
+                            currentSim.setActiveStatus("Jalan");
                             mulaiAksi(distance);
 
                             currentSim.setIsOnKunjungan(true);

@@ -41,6 +41,7 @@ public class ArcadeMachine extends Furniture {
 
         bermainTime += 10;
 
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(bermainTime);
 
         sim.getStats().tambahMood(bermainTime / 10 * 10);

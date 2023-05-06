@@ -39,6 +39,7 @@ public class Komputer extends Furniture {
             }
         }
 
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(nubesTime);
 
         sim.getStats().kurangMood(30);

@@ -63,6 +63,7 @@ public abstract class Food implements Storable {
             if (currentPosition.getRuang().getBarangByKoordinat(currentPosition.getLokasi()) != null) {
                 sim.getInventory().reduceBarang(this, 1);
                 sim.getStats().tambahKekenyangan(this.getKekenyangan());
+                Game.getInstance().getCurrentSim().setActiveStatus("Makan");
                 Game.getInstance().mulaiAksi(30);
                 JOptionPane.showMessageDialog(null,
                         "Yummy!",

@@ -53,6 +53,7 @@ public class Kasur extends Furniture {
             }
         }
 
+        Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
         Game.getInstance().mulaiAksi(sleepTime);
 
         sim.getStats().tambahMood(sleepTime / 180 * 30);

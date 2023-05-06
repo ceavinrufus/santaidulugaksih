@@ -14,6 +14,7 @@ public class Sim {
     private Inventory inventory = new Inventory();
     private Stats stats = new Stats();
     private SimPosition currentPosition;
+    private String activeStatus;
 
     private int totalWorkTime = 0;
     private int waktuBolehGantiKerja = 720;
@@ -147,6 +148,14 @@ public class Sim {
         return inventory;
     }
 
+    public String getActiveStatus(){
+        return activeStatus;
+    }
+
+    public void setActiveStatus(String activeStatus){
+        this.activeStatus = activeStatus;
+    }
+
     public double getUang() {
         return uang;
     }
@@ -259,6 +268,7 @@ public class Sim {
                 }
             }
 
+            Game.getInstance().getCurrentSim().setActiveStatus("Kerja");
             Game.getInstance().mulaiAksi(workingTime);
 
             totalWorkTime += workingTime;
@@ -291,6 +301,7 @@ public class Sim {
             }
         }
 
+        Game.getInstance().getCurrentSim().setActiveStatus("Olahraga");
         Game.getInstance().mulaiAksi(workoutTime);
 
         recentActionTime = workoutTime;

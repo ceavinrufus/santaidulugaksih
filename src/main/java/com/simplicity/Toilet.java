@@ -21,6 +21,7 @@ public class Toilet extends Furniture {
     @Override
     public void aksi(Sim sim) {
         if (sim.getIsSehabisMakan()) {
+            Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
             Game.getInstance().mulaiAksi(10);
 
             sim.getStats().kurangKekenyangan(20);

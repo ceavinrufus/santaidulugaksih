@@ -108,6 +108,7 @@ public class Kompor extends Furniture {
             if (isBahanAda(sim.getInventory(), masakan)) {
                 int masakTime = (int) 1.5 * masakan.getKekenyangan();
 
+                Game.getInstance().getCurrentSim().setActiveStatus(getNamaAksi());
                 Game.getInstance().mulaiAksi(masakTime);
 
                 for (String bahan : masakan.getResep()) {
@@ -125,6 +126,7 @@ public class Kompor extends Furniture {
             } else {
                 JOptionPane.showMessageDialog(null, "Maaf, Anda tidak memiliki semua bahan yang diperlukan!", "Error",
                         JOptionPane.ERROR_MESSAGE);
+                aksi(sim);
             }
         }
     }
