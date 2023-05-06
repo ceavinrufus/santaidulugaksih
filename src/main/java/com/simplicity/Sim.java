@@ -24,7 +24,6 @@ public class Sim {
     private boolean isSehabisMakan = false;
     private boolean isSehabisTidur = false;
     private boolean isOnKunjungan = false;
-    private int recentActionTime = 0;
 
     public Sim(String namaLengkap) {
         this.namaLengkap = namaLengkap;
@@ -162,14 +161,6 @@ public class Sim {
         this.stats = stats;
     }
 
-    public int getRecentActionTime() {
-        return recentActionTime;
-    }
-
-    public void setRecentActionTime(int waktu) {
-        recentActionTime = waktu;
-    }
-
     public SimPosition getCurrentPosition() {
         return currentPosition;
     }
@@ -262,7 +253,6 @@ public class Sim {
             Game.getInstance().mulaiAksi(workingTime);
 
             totalWorkTime += workingTime;
-            recentActionTime = workingTime;
             if (waktuKerjaBelumDibayar > 0) {
                 workingTime += waktuKerjaBelumDibayar;
                 waktuKerjaBelumDibayar = 0;
@@ -294,7 +284,6 @@ public class Sim {
         Game.getInstance().getCurrentSim().setActiveStatus("Olahraga");
         Game.getInstance().mulaiAksi(workoutTime);
 
-        recentActionTime = workoutTime;
         stats.tambahKesehatan(workoutTime / 20 * 5);
         stats.kurangKekenyangan(workoutTime / 20 * 5);
         stats.tambahMood(workoutTime / 20 * 10);

@@ -29,6 +29,7 @@ public class Game extends JFrame {
     private static Game instance = new Game();
     private static MainMenu mainMenu = MainMenu.getInstance();
     public Waktu totalWaktu = Waktu.getInstance();
+    private boolean canAddSim = true;
 
     // private boolean displayRumah = false;
     private HashMap<String, Sim> sims = new HashMap<String, Sim>();
@@ -105,16 +106,23 @@ public class Game extends JFrame {
         this.totalWaktu = totalWaktu;
     }
 
-    public void mulaiAksi(Integer sisaWaktu) {
+    public void mulaiAksi(Integer durasiKerja) {
         String message = "Lagi " + currentSim.getActiveStatus() + " nihh. Tunggu ya!";
         JOptionPane.showMessageDialog(null, message, "Status",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        Waktu.getInstance().addWaktu(sisaWaktu);
-        ThreadManager.startAllThreads(sisaWaktu);
-        while (sisaWaktu != 0) {
+        trackSimsStats(durasiKerja);
+        Waktu.getInstance().addWaktu(durasiKerja);
+
+        // Kalo dah ganti hari
+        if (durasiKerja > Waktu.getInstance().getWaktu() % 720) {
+            canAddSim = true;
+        }
+
+        ThreadManager.startAllThreads(durasiKerja);
+        while (durasiKerja != 0) {
             try {
-                sisaWaktu -= 1;
+                durasiKerja -= 1;
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -333,10 +341,8 @@ public class Game extends JFrame {
             button.addActionListener(e -> {
                 if (aksi.equals("Kerja")) {
                     currentSim.kerja();
-                    trackSimsStats();
                 } else if (aksi.equals("Olahraga")) {
                     currentSim.olahraga();
-                    trackSimsStats();
                 } else if (aksi.equals("Berkunjung")) {
                     if (sims.size() == 1) {
                         JOptionPane.showMessageDialog(null,
@@ -362,10 +368,8 @@ public class Game extends JFrame {
                                 currentSim.setIsOnKunjungan(true);
                             }
 
-                            currentSim.setRecentActionTime(distance);
                             currentSim.setCurrentPosition(
                                     new SimPosition(selectedRumah, selectedRumah.findRuangan("Main Room")));
-                            trackSimsStats();
                             JOptionPane.showMessageDialog(null, "Sudah sampai!", "Action finished",
                                     JOptionPane.INFORMATION_MESSAGE);
                             repaint();
@@ -653,6 +657,7 @@ public class Game extends JFrame {
                         rumah.setNamaPemilik(sim);
                         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
                         inputValid = true;
+                        canAddSim = false;
                     }
                 } else if (option == 1) {
                     return null;
@@ -670,6 +675,7 @@ public class Game extends JFrame {
                         rumah.setNamaPemilik(sim);
                         sim.setCurrentPosition(new SimPosition(rumah, ruangan));
                         inputValid = true;
+                        canAddSim = false;
                     }
                 }
             } while (!inputValid);
@@ -727,11 +733,11 @@ public class Game extends JFrame {
         }
     }
 
-    public void trackSimsStats() {
+    public void trackSimsStats(int durasiKerja) {
         sims.forEach((key, value) -> {
-            value.trackTidur(value.getRecentActionTime());
-            value.trackBuangAir(value.getRecentActionTime());
-            value.trackKunjungan(value.getRecentActionTime());
+            value.trackTidur(durasiKerja);
+            value.trackBuangAir(durasiKerja);
+            value.trackKunjungan(durasiKerja);
             if (value.getStats().getKekenyangan() == 0 || value.getStats().getKesehatan() == 0
                     || value.getStats().getMood() == 0) {
                 sims.remove(key);
